@@ -6,4 +6,5 @@ helping them on search information of their plants and automating the care of pl
 - [Prototype 1](Catalogo_copy.aia)
 
 ### Data Bases
-- [DataBases From FireBase]()
+- [Plants From FireBase](https://plantas-1-1-default-rtdb.firebaseio.com/)
+- [Users From FireBase](https://databasekodular-aa089-default-rtdb.firebaseio.com/)
