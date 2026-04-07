@@ -35,7 +35,7 @@ helping them to be aware of the stock and new discount and promotion strategies 
 - [Conexion-to-Users-DB.php]()
 - [Conexion-to-Inventories-DB.php]()
 - [Conexion-to-ForumChats-DB.hph]()
-- [Account-Verification.php]()
+- [Account-Verification.php](Account-Verification.php)
 
 ### Python
 - [Inventory-Manage.py]()
