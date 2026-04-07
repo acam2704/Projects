@@ -13,12 +13,14 @@ helping them to be aware of the stock and new discount and promotion strategies 
 - [Ironmongeries-Menu.html]()
 - [Product.html]()
 - [Forum.html]()
+- [Perfil.html]()
 
 ### CSS
 - [Menus-Style.css]()
 - [ChatBot-Style.css]()
 - [LogIn-And-SessionLog-Style.css]()
 - [Inventory-Style.css]()
+- [Perfil-Style.css]()
 
 ### DataBases
 - [Users-DB]()
