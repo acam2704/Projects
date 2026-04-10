@@ -18,12 +18,12 @@ try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'acam2708@gmail.com';
-        $mail->Password = '';
+        $mail->Username = 'acam2700@gmail.com';
+        $mail->Password = 'ylgh hoxf jsyl igwi';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('acam2708@gmail.com', 'Ingenia');
+        $mail->setFrom('acam2700@gmail.com', 'Ingenia');
         $mail->addAddress($data['email']);
 
         $mail->Subject = 'Prueba';
