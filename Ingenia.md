@@ -5,7 +5,7 @@ helping them to be aware of the stock and new discount and promotion strategies 
 ### HTML
 - [Main-Menu.html]()
 - [LogIn.html]()
-- [Session-Log.html]()
+- [Session-Log.html](Session-Log.html)
 - [Customers-Menu.html]()
 - [Managers-Menu.html]()
 - [ChatBot.html]()
@@ -18,7 +18,7 @@ helping them to be aware of the stock and new discount and promotion strategies 
 ### CSS
 - [Menus-Style.css]()
 - [ChatBot-Style.css]()
-- [LogIn-And-SessionLog-Style.css]()
+- [LogIn-And-SessionLog-Style.css](LogIn-And-SessionLog-Style.css)
 - [Inventory-Style.css]()
 - [Perfil-Style.css]()
 
@@ -29,13 +29,14 @@ helping them to be aware of the stock and new discount and promotion strategies 
 - [Training-DB]()
 
 ### Javascript
-- [Main-Javascript.js]()
+- [Main-Javascript.js](Main-Javascript.js)
 
 ### PHP
 - [Conexion-to-Users-DB.php]()
 - [Conexion-to-Inventories-DB.php]()
 - [Conexion-to-ForumChats-DB.hph]()
 - [Account-Verification.php](Account-Verification.php)
+- [Emails.php](Emails.php)
 
 ### Python
 - [Inventory-Manage.py]()
