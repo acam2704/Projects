@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="359974457768-j5n8e6eh9c2m100uee1nu0ifvr6nv5tf.apps.googleusercontent.com">
+    <title>Session Log</title>
+    <link rel="stylesheet" href="Css/LogIn-And-SessionLog-Style.css" type="text/css">
+</head>
+<body background="Imágenes/background1.jpg">
+    <div class="content_window">
+        <div class="content_inputs">
+            <p style="font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: white">Registro</p> <br>
+            <div id="account_img">
+                <p style="color: white; font-size: 20px; font-weight: bold">Foto de perfil</p> <br>
+                <img src="" alt="" id="img_Re" onclick="choosePicture()"><br><br>
+                <input type="file" id="input_file_Re" style="display: none">
+            </div>
+
+            <p id="alert_name_or_1psw" style="color: rgb(12, 7, 6); font-size: 13px"></p>
+            <input type="text" placeholder="Nombre de usuario" id="input_name_Re">
+            <input type="text" placeholder="Constraseña" id="input_1psw_Re" style="display:none" >
+            
+            <p id="alert_email_or_2psw" style="color: rgb(12, 7, 6); font-size: 13px"></p>
+            <input type="email" placeholder="Correo electrónico" id="input_email_Re">
+            <input type="text" placeholder="Contraseña" id="input_2psw_Re" style="display:none">
+            
+            <div id="g_id_onload"
+                data-client_id="359974457768-j5n8e6eh9c2m100uee1nu0ifvr6nv5tf.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse">
+            </div>
+
+            <div id="content_buttons_Re">
+                <br>
+                <button class="bttn_send">
+                    <div id="loader"></div>
+                    <p id="bttn_send_txt">Siguiente</p>
+                </button>
+                <p style="color: white; font-size: 13px; margin-top: 10px">
+                    ¿Ya tienes una cuenta? 
+                    <a href="#" style="font-size: 13px" id="Go_to_LogIn">Iniciar sesión</a>
+                </p> <br>
+                
+                <div id="Google">
+                    <div class="g_id_signin" 
+                        data-type="standard" 
+                        data-size="medium" 
+                        data-theme="filled_black" 
+                        data-shape="pill" 
+                        data-logo_alignment="left">
+                    </div>
+                </div>
+                <br>
+            </div>
+            
+        </div>
+    </div>
+    <script src="Javascript/Main-Javascript.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+</body>
+</html>
