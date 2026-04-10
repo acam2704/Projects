@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.content_window{
+    width: 400px;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 50px 0px 0px calc( ( 100% - 400px ) / 2 );
+    backdrop-filter: blur(7px);
+}
+.content_inputs{margin: 40px;}
+.content_inputs > input{
+    width: calc(100% - 30px);
+    height: 30px;
+    padding: 0px 15px 0px 15px;
+    margin: 0px 0px 20px 0px;
+    outline: none;
+    background-color: rgba(129, 67, 51, 0);
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+}
+.content_inputs > input::placeholder{color: white;}
+.content_inputs > input::placeholder.red{color: red;}
+.content_inputs input:-webkit-autofill { 
+    -webkit-box-shadow: 0 0 0 1000px rgb(0,0,0,0) inset;
+    -webkit-text-fill-color: white;
+    transition: background-color 9999s ease-in-out 0s;
+}
+.content_inputs > input::selection{background-color: rgb(100, 100, 100);}
+.content_inputs > input:focus,
+.content_inputs > input:hover{background-color: rgb(0,0,0,0.1)}
+#email_2psw_txt,
+#name_1psw_txt{font-size: 13px; margin: 0px 0px 5px 10px;}
+#account_img{width: 100%; text-align: center;display: none;}
+#img_Re{
+    border: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+#img_Re:hover{cursor: pointer;box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
+#content_buttons_Re{text-align: center}
+.g_id_signin{
+    width: 213px;
+    overflow: hidden;
+    border-radius: 20px;
+    /*margin-left: calc( ( 100% - 213px ) / 2 );*/
+}
+.bttn_send{
+    border: 1px solid white;
+    border-radius: 10px;
+    height: 30px;
+    width: 100%;
+    color: rgb(12, 7, 6);
+    background-color: white;
+    font-size: 15px;
+    text-align: center;
+}
+.bttn_send:hover{
+    background-color: rgb(0,0,0,0.1);
+    color: white;
+    cursor: pointer;
+}
+#loader{
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgb(12, 7, 6, 0.2);
+    border-top: 2px solid rgb(12, 7, 6);
+    border-radius: 50%;
+    animation: girar 1s linear infinite;
+    display: none;
+
+    margin-left: calc( ( 100% - 10px ) / 2 )
+}
+#Google_Verification:hover{
+    cursor: pointer;
+}
+
+.g_id_signin{
+    margin-left: calc((100% - 213px) / 2);
+}
+#Go_to_LogIn{color: rgb(12, 7, 6)}
+#Go_to_LogIn:hover{color: rgb(12, 7, 6, 0.7)}
+@keyframes girar {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
