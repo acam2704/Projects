@@ -6,17 +6,49 @@ let img_Re = document.getElementById("img_Re");
 let account_img = document.getElementById("account_img");
 let bttn_google =  document.getElementById("Google");
 let bttn_send_txt = document.getElementById("bttn_send_txt");
+let bttn_send = document.getElementById("bttn_send");
 let loader = document.getElementById("loader");
+let input_code_Re = document.getElementById("input_code_Re");
+let alert_email_or_2psw = document.getElementById("alert_email_or_2psw");
+let alert_name_or_1psw = document.getElementById("alert_name_or_1psw");
 
 input_name_Re.addEventListener("change", retrieveChanges_Re);
 input_email_Re.addEventListener("change", retrieveChanges_Re);
 input_1psw_Re.addEventListener("change", retrieveChanges_Re);
 input_2psw_Re.addEventListener("change", retrieveChanges_Re);
+input_code_Re.addEventListener("change", retrieveChanges_Re);
 
-bttn_send_txt.addEventListener("click", () => {
+bttn_send.addEventListener("click", async () => {
     animationLoad();
-    next();
-})
+    await delay(500);
+    if(getComputedStyle(input_name_Re).display !== "none"){
+        hideLoader();
+        next();
+    } else if(getComputedStyle(input_code_Re).display !== "none"){
+        hideLoader();
+        VerificationCodeWindow(localStorage.getItem('email'));
+    } else{
+        hideLoader();
+        verifyPasswords();
+    };
+});
+
+function hideLoader(){
+    const loader = document.getElementById("loader");
+    const bttn_send_txt = document.getElementById("bttn_send_txt");
+
+    loader.style.display = "none";
+    bttn_send_txt.style.display = "block";
+}
+
+function hideAndShow(elements_to_show, elements_to_hide){
+    elements_to_show.forEach(element => {
+        element.style.display  = "inline-block";
+    });
+    elements_to_hide.forEach(element => {
+        element.style.display = "none";
+    }); 
+}
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -47,8 +79,8 @@ async function transformData(json){
         input_email_Re.value = json.email;
         img_Re.src = json.picture;
 
-        let elements_to_show = [input_1psw_Re.id, input_2psw_Re.id];
-        let elements_to_hide = [input_name_Re.id, input_email_Re.id, account_img.id, bttn_google.id];
+        let elements_to_show = [input_1psw_Re, input_2psw_Re];
+        let elements_to_hide = [input_name_Re, input_email_Re, account_img, bttn_google];
         animationLoad();
         await delay(500);
         showPasswordsWindow(elements_to_show, elements_to_hide);
@@ -61,40 +93,22 @@ async function next(){
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
 
-        let alert_name_or_1psw = document.getElementById("alert_name_or_1psw");
+        alert_name_or_1psw.style.marginLeft = "15px";
+        alert_name_or_1psw.style.color = "white";
         alert_name_or_1psw.textContent = "Campo Obligatorio."
     } else if(input_email_Re.value.length === 0){
         input_email_Re.focus();
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
 
-        let alert_email_or_2psw = document.getElementById("alert_email_or_2psw");
-        alert_email_or_2psw.textContent = "Campo Obligatorio."
+        alert_email_or_2psw.style.marginLeft = "15px";
+        alert_email_or_2psw.style.color = "white";
+        alert_email_or_2psw.textContent = "Campo Obligatorio.";
     } else{
-        let elements_to_show = [input_1psw_Re.id, input_2psw_Re.id];
-        let elements_to_hide = [input_name_Re.id, input_email_Re.id, account_img.id, bttn_google.id];
         animationLoad();
         await delay(500);
-        sendCode(input_email_Re.value)
-        showPasswordsWindow(elements_to_show, elements_to_hide)
+        sendCode(input_email_Re.value);
     }
-}
-
-function showPasswordsWindow(elements_to_show, elements_to_hide){
-    bttn_send_txt.textContent = "Registrate";
-    bttn_send_txt.style.display = "block";
-    loader.style.display = "none";
-
-    elements_to_show.forEach(id => {
-        let element = document.getElementById(id);
-        element.style.display  = "block";
-    });
-
-    elements_to_hide.forEach(id => {
-        let element = document.getElementById(id);
-        element.style.display = "none";
-    }); 
-
 }
 
 function choosePicture(){
@@ -115,11 +129,8 @@ function animationLoad(){
 }
 
 function retrieveChanges_Re(){
-    let alert_name_or_1psw = document.getElementById("alert_name_or_1psw");
-    alert_name_or_1psw.textContent = ""
-
-    let alert_email_or_2psw = document.getElementById("alert_email_or_2psw");
-    alert_email_or_2psw.textContent = ""
+    alert_name_or_1psw.textContent = "";
+    alert_email_or_2psw.textContent = "";
 }
 
 function sendCode(email_txt){
@@ -133,6 +144,85 @@ function sendCode(email_txt){
     })
     .then(response => response.text())
     .then(data => {
-        console.log(data);
+        emailSent(JSON.parse(data))
     });
+}
+
+function emailSent(response){
+    try{
+        if(response['error'] === null){
+            if(response["status"] === "ok"){
+                console.log('Correo enviado');
+                let elements_to_show = [input_code_Re];
+                let elements_to_hide = [input_name_Re, input_email_Re, account_img, bttn_google];
+
+                hideAndShow(elements_to_show, elements_to_hide);
+                localStorage.setItem('email', response['sent_at']);
+            } else{
+                console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response['status']);
+            }
+        } else {
+            console.log(response['error']);
+            alert("Recargue la página y vuelva a intentarlo")
+        }
+    } catch(e){
+        console.log({ name: e.name, 
+            message: e.message});
+        console.log("Error");
+    };
+}
+
+async function VerificationCodeWindow(email){
+    loader.style.display = "none";
+    bttn_send.style.display = "block";
+
+    alert_email_or_2psw.style.marginLeft = "15px";
+    alert_email_or_2psw.style.color = "white";
+
+    if(!input_code_Re.value){
+        alert_email_or_2psw.textContent = "Ingresa el código que te hemos enviado";
+    } else {
+        if (input_code_Re.value.length < 6){
+            alert_email_or_2psw.textContent = "El código requiere de 6 caracteres";
+        } else {
+            codeVerification(input_code_Re.value, email);
+        };
+    };
+}
+
+function codeVerification(code, email){
+    fetch('Php/Code-Verification.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({code: code, email: email})
+    })
+    .then(response => response.text())
+    .then(data => codeVerificationResponse(JSON.parse(data)));
+}
+
+async function codeVerificationResponse(response){
+    alert_email_or_2psw.style.marginLeft = "15px";
+    alert_email_or_2psw.style.color = "white";
+    console.log(response['error']);
+    if(response['status'] === 'ok'){
+        let elements_to_show = [input_1psw_Re, input_2psw_Re];
+        let elements_to_hide = [input_code_Re];
+        hideAndShow(elements_to_show, elements_to_hide);
+        PasswordsWindow();
+    } else if(response['error'] !== 'null'){
+        alert_email_or_2psw.textContent = "Código incorrecto. Digítalo otra vez.";
+    }
+}
+
+async function PasswordsWindow(){
+    bttn_send_txt.textContent = "Registrate";
+    bttn_send_txt.style.display = "block";
+    loader.style.display = "none";
+}
+
+function verifyPasswords(){
+    loader.style.display = "none";
+    bttn_send.style.display = "block";
 }
