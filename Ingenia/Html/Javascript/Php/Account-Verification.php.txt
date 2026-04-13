@@ -11,8 +11,16 @@ $verify = file_get_contents("https://oauth2.googleapis.com/tokeninfo?id_token=" 
 $user = json_decode($verify, true);
 
 if (isset($user["email"])) {
-    echo "Login válido: " . $user["email"];
+    echo json_encode([
+        "status" => "ok",
+        "email" => $user["email"],
+        "name" => $user["name"],
+        "picture" => $user["picture"]
+    ]);
 } else {
-    echo "Token inválido";
+    echo json_encode([
+        "error" => "isset(user[email])",
+        "status" => "error"
+    ]);
 }
 ?>
