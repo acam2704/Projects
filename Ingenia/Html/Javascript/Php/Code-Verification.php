@@ -13,7 +13,11 @@ $sql_request = $conexion->prepare("SELECT * FROM verification_codes WHERE email 
 try{
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         if(!$sql_request){
-            die("Error en prepare: " . $conexion->error);
+            die(json_encode([
+                'error' => $conexion->error,
+                'status' => 'failed',
+                'msg' => 'error en prepare'
+            ]));
         };
         $sql_request->bind_param("ss", $data['email'], $now);
         if($sql_request->execute()){
