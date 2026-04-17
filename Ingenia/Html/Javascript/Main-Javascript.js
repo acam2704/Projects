@@ -226,3 +226,10 @@ function verifyPasswords(){
     loader.style.display = "none";
     bttn_send.style.display = "block";
 }
+
+function verification_microsoft_account(){
+    let Microsoft = document.getElementById("Microsoft");
+    Microsoft.addEventListener("click", ()=>{
+        window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=c3c3fd20-6fd8-4d78-9500-8ad1cb909b22&response_type=code&redirect_uri=http://localhost/Ingenia/Html/Php/Microsoft-Account-Verification.php&scope=openid profile email";
+    });
+}

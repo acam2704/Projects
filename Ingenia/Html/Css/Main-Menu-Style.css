@@ -1,0 +1,23 @@
+:root{
+    --width-Logo- : 100px;
+    --width-window- : 400px;
+    --width-content-window-items- : 300px;
+}
+*{margin: 0;padding: 0}
+.logo{width: 100%;padding: 10px 0px 10px 0px;}
+.logo  img{
+    width: var(--width-Logo-);
+    padding: 0px 0px 0px calc(( 100% - var(--width-Logo-) ) / 2);
+}
+.content_window, .content_inputs, .content_verification_code_process,
+.content_other_signups, .content_SignUp{width: 100%;}
+.window{
+    width: var(--width-window-);
+    margin: 0px 0px 0px calc(( 100% - var(--width-window-) ) / 2);
+}
+.content_window_items{
+    width: var(--width-content-window-items-);
+    margin: 0px 0px 0px calc(( 100% - var(--width-content-window-items-) ) / 2)
+}
+.normal_text{font-size: 12px;text-decoration: none; color: black}
+.title_text{font-size: 20px}
