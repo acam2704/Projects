@@ -83,7 +83,7 @@ async function transformData(json){
         let elements_to_hide = [input_name_Re, input_email_Re, account_img, bttn_google];
         animationLoad();
         await delay(500);
-        showPasswordsWindow(elements_to_show, elements_to_hide);
+        PasswordsWindow(elements_to_show, elements_to_hide);
     }
 }
 
