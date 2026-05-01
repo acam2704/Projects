@@ -17,7 +17,7 @@ try{
             $now
         ];
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
-        if(!sqlsrv_errors()){
+        if(!$stmt === false){
             $results = sqlsrv_free_stmt($stmt);
             if ($results->num_rows === 0) {
                 die(json_encode([
@@ -43,11 +43,11 @@ try{
                 ]);
             };
         } else {
-            echo json_encode([
+            die(json_encode([
                 'status' => 'failed',
                 'error' => sqlsrv_errors(),
                 'msg' => 'error en execute',
-            ]);
+            ]));
         };
     } else {
         echo json_encode([
