@@ -8,19 +8,13 @@ $data = json_decode($json_file, true);
 
 include("conexion_to_Verification_Codes_DB.php");
 $now = date("Y-m-d H:i:s");
-$sql_request = $conexion->prepare("SELECT * FROM verification_codes WHERE email = ? AND expires_at > ? ORDER BY expires_at DESC LIMIT 1");
+$sql_request = "SELECT * FROM verification_codes WHERE email = ? AND expires_at > ? ORDER BY expires_at DESC LIMIT 1";
 
 try{
     if($_SERVER["REQUEST_METHOD"] === "POST"){
-        if(!$sql_request){
-            die(json_encode([
-                'error' => $conexion->error,
-                'status' => 'failed',
-                'msg' => 'error en prepare'
-            ]));
-        };
-        $sql_request->bind_param("ss", $data['email'], $now);
-        if($sql_request->execute()){
+        $params = array($data['email'], $now);
+        $stmt = sqlsrv_query($conexion, $sql_request, $params);
+        if(!sqlsrv_errors()){
             $results = $sql_request->get_result();
             if ($results->num_rows === 0) {
                 die(json_encode([
