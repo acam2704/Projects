@@ -1,12 +1,3 @@
-body{
-background-image: url("../Imágenes/login-background.jpg");
-background-repeat: no-repeat;
-background-size: cover;
-background-position: center
-
-}
-
-
 *{
     margin: 0;
     padding: 0;
