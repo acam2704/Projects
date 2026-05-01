@@ -12,14 +12,14 @@ function base64UrlDecode($data) {
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
-        //header('Location: http://localhost/Ingenia/Html/Session-Log.html');
+        //header('Location: https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html');
         //exit;
 
         $data = [
             'client_id' => 'c3c3fd20-6fd8-4d78-9500-8ad1cb909b22',
             'client_secret' => '8TP8Q~tGszBnJ3HVYvbNeX.jz.mi-9Bgcs3K.aVw',
             'code' => $_GET['code'],
-            'redirect_uri' => 'http://localhost/Ingenia/Html/Php/Microsoft-Account-Verification.php',
+            'redirect_uri' => 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Php/Microsoft-Account-Verification.php',
             'grant_type' => 'authorization_code'
         ];
 
