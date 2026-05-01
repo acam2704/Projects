@@ -27,9 +27,10 @@ if($conexion === false){
 $codigo = bin2hex(random_bytes(3));
 $codigo_hash = password_hash($codigo, PASSWORD_DEFAULT);
 $expiration = date("Y-m-d H:i:s", time() + 600);
+$now = date("Y-m-d H:i:s", time());
 $status = 'OK';
 
-$sql_request = "INSERT INTO verification_codes (email, code, expires_at, status) VALUES (?, ?, ?, ?)";
+$sql_request = "INSERT INTO verification_codes (email, code, expires_at, status, created_at) VALUES (?, ?, ?, ?, ?)";
 
 try {
     if($_SERVER["REQUEST_METHOD"] === 'POST'){
@@ -40,7 +41,7 @@ try {
                 'msg' => 'Correo electrónico inválido'
             ]));
         };
-        $params = array($data['email'], $codigo_hash, $expiration, $status);
+        $params = array($data['email'], $codigo_hash, $expiration, $status, $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if(!sqlsrv_errors()){
             require '/home/site/wwwroot/Ingenia/PHPMailer/src/PHPMailer.php';
