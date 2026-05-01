@@ -15,7 +15,7 @@ try{
         $params = array($data['email'], $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if(!sqlsrv_errors()){
-            $results = $sql_request->get_result();
+            $results = sqlsrv_free_stmt($stmt);
             if ($results->num_rows === 0) {
                 die(json_encode([
                     'status' => 'failed',
@@ -23,7 +23,7 @@ try{
                     'msg' => 'No hubo resultados de búsqueda',
                 ]));
             }
-            $result = $results->fetch_assoc();
+            $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
             echo $result[0];
             if(password_verify($data['code'], $result[0])){
