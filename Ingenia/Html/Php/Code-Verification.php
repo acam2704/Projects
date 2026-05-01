@@ -8,7 +8,7 @@ $data = json_decode($json_file, true);
 
 include("conexion_to_Verification_Codes_DB.php");
 $now = date("Y-m-d H:i:s");
-$sql_request = "SELECT * FROM verification_codes WHERE email = ? AND expires_at > ? ORDER BY expires_at DESC LIMIT 1";
+$sql_request = "SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expires_at > ? ORDER BY expires_at DESC";
 
 try{
     if($_SERVER["REQUEST_METHOD"] === "POST"){
