@@ -43,9 +43,9 @@ try {
         $params = array($data['email'], $codigo_hash, $expiration, $status);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if(!sqlsrv_errors()){
-            require 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/PHPMailer/src/PHPMailer.php';
-            require 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/PHPMailer/src/SMTP.php';
-            require 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/PHPMailer/src/Exception.php';
+            require '/home/site/wwwroot/Ingenia/PHPMailer/src/PHPMailer.php';
+            require '/home/site/wwwroot/Ingenia/PHPMailer/src/SMTP.php';
+            require '/home/site/wwwroot/Ingenia/PHPMailer/src/Exception.php';
 
             $mail = new PHPMailer(true);
 
