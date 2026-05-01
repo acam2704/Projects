@@ -1,4 +1,7 @@
+//-------------------------------------------------------// SIGN UP & SIGN IN // --------------------------------------------------------//
+
 let input_name_Re = document.getElementById("input_name_Re");
+let input_lastname_Re = document.getElementById("input_lastname_Re");
 let input_email_Re = document.getElementById("input_email_Re");
 let input_1psw_Re = document.getElementById("input_1psw_Re");
 let input_2psw_Re = document.getElementById("input_2psw_Re");
@@ -22,16 +25,29 @@ bttn_send.addEventListener("click", async () => {
     animationLoad();
     await delay(500);
     if(getComputedStyle(input_name_Re).display !== "none"){
-        hideLoader();
         next();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
-        hideLoader();
         VerificationCodeWindow(localStorage.getItem('email'));
     } else{
-        hideLoader();
         verifyPasswords();
     };
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem('fullname').length !== '{}'){
+        const fullname = sessionStorage.getItem('fullname');
+        const email = sessionStorage.getItem('email');
+
+        const fullname_array = fullname.split(' ', 2);
+        const name = fullname_array[0];
+        const surname = fullname_array[1];
+
+        elements_to_show = [input_name_Re, input_email_Re, input_lastname_Re];
+        elements_to_hide = [];
+
+        verifyPasswords();
+    }
+})
 
 function hideLoader(){
     const loader = document.getElementById("loader");
@@ -43,11 +59,58 @@ function hideLoader(){
 
 function hideAndShow(elements_to_show, elements_to_hide){
     elements_to_show.forEach(element => {
-        element.style.display  = "inline-block";
+        element.style.display = "inline-block";
     });
     elements_to_hide.forEach(element => {
         element.style.display = "none";
     }); 
+}
+
+function generateUsername(text) {
+    let fullName = normalizeText(text);
+
+    let clean = normalizeText(fullName);
+    let parts = clean.split(" ");
+
+    let firstName = parts[0];
+    let lastName = parts[parts.length - 1];
+
+    return `${firstName}.${lastName}`;
+}
+
+function normalizeText(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z\s]/g, "")
+        .trim();
+}
+
+function almacenate(data){
+    let username = generateUsername(data['name']);
+    localStorage.setItem('user', JSON.stringify({
+        username: username,
+        names: data['names'],
+        lastnames: data['lastnames'],
+        email: data['email'],
+        picture: data['picture'],
+    }));
+    sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
+    sessionStorage.setItem("email", data['email']);
+    console.log(JSON.parse(localStorage.getItem('user')));
+}
+
+function disableInputs(inputs){
+    inputs.forEach(i => {
+        i.disabled = true;
+    });
+}
+
+function ableInputs(inputs){
+    inputs.forEach(i => { 
+        i.disabled = false;
+    });
 }
 
 function delay(ms) {
@@ -56,9 +119,7 @@ function delay(ms) {
 
 function handleCredentialResponse(response) {
     const jwt = response.credential;
-    console.log(jwt)
 
-    // Enviar al backend
     fetch('Php/Account-Verification.php', {
         method: "POST",
         headers: {
@@ -75,21 +136,36 @@ function handleCredentialResponse(response) {
 
 async function transformData(json){
     if(json["status"] === "ok"){
-        input_name_Re.value = json.name;
+        const user = json.name.split(' ');
+        input_name_Re.value = user[0];
+        input_lastname_Re.value = user[1];
         input_email_Re.value = json.email;
         img_Re.src = json.picture;
 
         let elements_to_show = [input_1psw_Re, input_2psw_Re];
-        let elements_to_hide = [input_name_Re, input_email_Re, account_img, bttn_google];
+        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, account_img, bttn_google];
+        let inputs_to_disables = [input_lastname_Re, input_name_Re, input_email_Re];
+        disableInputs(inputs_to_disables);
         animationLoad();
         await delay(500);
-        PasswordsWindow(elements_to_show, elements_to_hide);
+        hideAndShow(elements_to_show, elements_to_hide);
+        PasswordsWindow();
+    } else{
+        console.log(json['error']);
     }
 }
 
 async function next(){
     if(input_name_Re.value.length === 0){
         input_name_Re.focus();
+        bttn_send_txt.style.display = "block";
+        loader.style.display = "none";
+
+        alert_name_or_1psw.style.marginLeft = "15px";
+        alert_name_or_1psw.style.color = "white";
+        alert_name_or_1psw.textContent = "Campo Obligatorio."
+    } else if(input_lastname_Re.value.length === 0){
+        input_lastname_Re.focus();
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
 
@@ -105,10 +181,19 @@ async function next(){
         alert_email_or_2psw.style.color = "white";
         alert_email_or_2psw.textContent = "Campo Obligatorio.";
     } else{
+        let inputs_to_disabled = [input_name_Re, input_lastname_Re, input_email_Re]
+        disableInputs(inputs_to_disabled);
         animationLoad();
         await delay(500);
-        sendCode(input_email_Re.value);
+        let json_data = JSON.stringify({
+            names: input_name_Re.value,
+            lastnames: input_lastname_Re.value,
+            email: input_email_Re.value,
+            domain: 'google'
+        });
+        sendCode(json_data);
     }
+    hideLoader();
 }
 
 function choosePicture(){
@@ -133,14 +218,14 @@ function retrieveChanges_Re(){
     alert_email_or_2psw.textContent = "";
 }
 
-function sendCode(email_txt){
-    console.log(email_txt);
+function sendCode(user_data){
+    console.log(user_data);
     fetch('Php/Emails.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: email_txt})
+        body: user_data
     })
     .then(response => response.text())
     .then(data => {
@@ -154,10 +239,10 @@ function emailSent(response){
             if(response["status"] === "ok"){
                 console.log('Correo enviado');
                 let elements_to_show = [input_code_Re];
-                let elements_to_hide = [input_name_Re, input_email_Re, account_img, bttn_google];
-
+                let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, account_img, bttn_google];
+                disableInputs(elements_to_hide);
                 hideAndShow(elements_to_show, elements_to_hide);
-                localStorage.setItem('email', response['sent_at']);
+                almacenate(response);
             } else{
                 console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response['status']);
             }
@@ -181,13 +266,16 @@ async function VerificationCodeWindow(email){
 
     if(!input_code_Re.value){
         alert_email_or_2psw.textContent = "Ingresa el código que te hemos enviado";
+        input_code_Re.focus();
     } else {
         if (input_code_Re.value.length < 6){
             alert_email_or_2psw.textContent = "El código requiere de 6 caracteres";
+            input_code_Re.focus();
         } else {
             codeVerification(input_code_Re.value, email);
         };
     };
+    hideLoader();
 }
 
 function codeVerification(code, email){
@@ -205,10 +293,11 @@ function codeVerification(code, email){
 async function codeVerificationResponse(response){
     alert_email_or_2psw.style.marginLeft = "15px";
     alert_email_or_2psw.style.color = "white";
-    console.log(response['error']);
+    console.log(response);
     if(response['status'] === 'ok'){
         let elements_to_show = [input_1psw_Re, input_2psw_Re];
         let elements_to_hide = [input_code_Re];
+        disableInputs(elements_to_hide);
         hideAndShow(elements_to_show, elements_to_hide);
         PasswordsWindow();
     } else if(response['error'] !== 'null'){
@@ -225,11 +314,52 @@ async function PasswordsWindow(){
 function verifyPasswords(){
     loader.style.display = "none";
     bttn_send.style.display = "block";
+    alert_name_or_1psw.style.marginLeft = "15px";
+    alert_name_or_1psw.style.color = "white";
+    alert_email_or_2psw.style.marginLeft = "15px";
+    alert_email_or_2psw.style.color = "white";
+
+    if(input_1psw_Re.value.length < 8){
+        alert_name_or_1psw.textContent = 'Contraseña demasiado corta';
+    } else if(input_1psw_Re.value !== input_2psw_Re.value){
+        alert_email_or_2psw.textContent = 'La contraseña no coincide';
+    } else{
+        hideLoader();
+        let inputs_to_disable = [input_1psw_Re, input_2psw_Re];
+        let fullName = input_name_Re.value + ' ' + input_lastname_Re.value;
+
+        disableInputs(inputs_to_disable);
+        generateUsername(fullName);
+    };
 }
 
-function verification_microsoft_account(){
-    let Microsoft = document.getElementById("Microsoft");
-    Microsoft.addEventListener("click", ()=>{
-        window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=c3c3fd20-6fd8-4d78-9500-8ad1cb909b22&response_type=code&redirect_uri=http://localhost/Ingenia/Html/Php/Microsoft-Account-Verification.php&scope=openid profile email";
-    });
+function registerUser(){
+    fetch('Php/Register_new_user_in_DB.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: 'username',
+            name: 'name',
+            lastnames: 'lastnames',
+            email: 'email',
+            picture: 'picture'
+        })  
+    })
+    .then(response => response.text())
+    .then(data => console.log(data))
+}
+
+function verifyMicrosoftAccount(){
+    const client_id = "c3c3fd20-6fd8-4d78-9500-8ad1cb909b22";
+    const redirect_uri = encodeURIComponent("http://localhost/Ingenia/Html/Php/Microsoft-Account-Verification.php");
+
+    const url = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}&scope=openid profile email`;
+    
+    window.location.href = url;
+}
+
+function send_outlook(user_data){
+    
 }
