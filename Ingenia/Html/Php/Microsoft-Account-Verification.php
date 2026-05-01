@@ -67,5 +67,5 @@ try{
     sessionStorage.setItem("email", "<?php echo $pay_load['email']; ?>");
 
     // Redirigir al HTML
-    window.location.href = "http://localhost/Ingenia/Html/Session-Log.html";
+    window.location.href = "https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html";
 </script>
