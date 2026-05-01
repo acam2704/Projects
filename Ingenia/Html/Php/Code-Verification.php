@@ -13,7 +13,7 @@ $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expir
 try{
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         $params = [
-            [$data['email'], SQLSRV_PARAM_IN, null, SQLSRV_SQLTYPE_VARCHAR(255)],
+            $data['email'],
             $now
         ];
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
