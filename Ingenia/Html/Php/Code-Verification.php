@@ -42,7 +42,7 @@ try{
         } else {
             echo json_encode([
                 'status' => 'failed',
-                'error' => $sql_request->error,
+                'error' => sqlsrv_errors(),
                 'msg' => 'error en execute',
             ]);
         };
@@ -57,7 +57,7 @@ try{
 } catch (Error $e){
     echo json_encode([
         'SERVER' => $_SERVER->error_get_last,
-        'sql_request' => $sql_request->error,
+        'sql_request' => sqlsrv_errors(),
         'msg' => 'Revisar los errores. Verificación de código no conseguida',
         'status' => 'fatal error',
         'error' => 'conexion error',
