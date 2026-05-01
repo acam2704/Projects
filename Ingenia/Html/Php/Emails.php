@@ -10,38 +10,39 @@ $data = json_decode($json_file, true);
 
 include("conexion_to_Verification_Codes_DB.php");
 
-if($conexion->connect_error){
+if($conexion === false){
     die(json_encode([
         'status' => 'failed',
-        'error' => 'conexion nula',
+        'error' => print_r(sqlsrv_errors(), true),
         'msg' => 'error de conexión'
     ]));
 } else if(!$data['email']){
-    echo json_encode([
+    die(json_encode([
         'error' => 'no Email',
         'msg' => 'no se ha podido tomar el valor del correo electrónico',
         'status' => 'failed',
-    ]);
+    ]));
 };
 
 $codigo = bin2hex(random_bytes(3));
 $codigo_hash = password_hash($codigo, PASSWORD_DEFAULT);
 $expiration = date("Y-m-d H:i:s", time() + 600);
+$status = 'OK';
 
-$sql_request = $conexion->prepare("INSERT INTO verification_codes (email, code, expires_at) VALUES (?, ?, ?)");
+$sql_request = "INSERT INTO verification_codes (email, code, expires_at, status) VALUES (?, ?, ?)";
 
 try {
     if($_SERVER["REQUEST_METHOD"] === 'POST'){
-        if(!$sql_request){
+        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
             die(json_encode([
-                'error' => $conexion->connect_error,
                 'status' => 'failed',
-                'msg' => 'error en prepare',
+                'error' => $data['email'],
+                'msg' => 'Correo electrónico inválido'
             ]));
-        }
-
-        $sql_request->bind_param("sss", $data['email'], $codigo_hash, $expiration);
-        if($sql_request->execute()){
+        };
+        $params = array($data['email'], $codigo_hash, $expiration, $status);
+        $stmt = sqlsrv_query($conexion, $sql_request, $params);
+        if(!sqlsrv_errors()){
             require 'C:/xampp/htdocs/Ingenia/PHPMailer/src/PHPMailer.php';
             require 'C:/xampp/htdocs/Ingenia/PHPMailer/src/SMTP.php';
             require 'C:/xampp/htdocs/Ingenia/PHPMailer/src/Exception.php';
@@ -49,14 +50,21 @@ try {
             $mail = new PHPMailer(true);
 
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            if ($data['domain'] === 'microsoft'){
+                $mail->Host = 'smtp.office365.com';
+                $mail->Username = 'andre.alvarado2026@frech.superate.org';
+                $mail->Password = 'un_O....1498'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
+                $mail->setFrom('andre.alvarado2026@frech.superate.org', 'Ingenia');
+            } else {
+                $mail->Host = 'smtp.gmail.com';
+                $mail->Username = 'angeelcostaa22@gmail.com';
+                $mail->Password = 'divq jnjb iral mdel'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
+                $mail->setFrom('angeelcostaa22@gmail.com', 'Ingenia');
+            }
+            
             $mail->SMTPAuth = true;
-            $mail->Username = 'angeelcostaa22@gmail.com';
-            $mail->Password = 'divq jnjb iral mdel'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
-
-            $mail->setFrom('angeelcostaa22@gmail.com', 'Ingenia');
             $mail->addAddress($data['email']);
 
             $mail->Subject = 'Código de Verificación';
@@ -71,13 +79,14 @@ try {
                 'code' => $codigo,
                 'msg' => 'Correo enviado',
                 'sent_at' => $data['email'],
+                'sent_to' => [$data['names'], $data['lastnames']],
                 'expiration' => $expiration,
                 'error' => null,
             ]);
             
         } else {
             echo json_encode([
-                'error' => $sql_request->error,
+                'error' => sqlsrv_errors(),
                 'status' => 'failed',
                 'msg' => 'Correo no enviado',
             ]);
