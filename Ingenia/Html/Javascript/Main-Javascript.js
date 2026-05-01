@@ -219,7 +219,6 @@ function retrieveChanges_Re(){
 }
 
 function sendCode(user_data){
-    console.log(user_data);
     fetch('Php/Emails.php', {
         method: 'POST',
         headers: {

@@ -29,7 +29,7 @@ $codigo_hash = password_hash($codigo, PASSWORD_DEFAULT);
 $expiration = date("Y-m-d H:i:s", time() + 600);
 $status = 'OK';
 
-$sql_request = "INSERT INTO verification_codes (email, code, expires_at, status) VALUES (?, ?, ?)";
+$sql_request = "INSERT INTO verification_codes (email, code, expires_at, status) VALUES (?, ?, ?, ?)";
 
 try {
     if($_SERVER["REQUEST_METHOD"] === 'POST'){
