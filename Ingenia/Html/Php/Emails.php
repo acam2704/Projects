@@ -79,6 +79,9 @@ try {
         '¿Eres tú? Si es así imprime el código en la ventana que estás viendo' .
         'En caso contrario, ignora este correo. CÓDIGO: ' . $codigo;
 
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($conexion);
+
         $mail->send();
 
         echo json_encode([
@@ -90,9 +93,6 @@ try {
             'expiration' => $expiration,
             'error' => null,
         ]);
-
-        sqlsrv_free_stmt($stmt);
-        sqlsrv_close($conexion);
     } else {
         die(json_encode([
             'status' => 'failed',
