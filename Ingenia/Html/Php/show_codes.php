@@ -29,7 +29,9 @@ if($stmt === false){
 }
 $unique_result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
-echo print_r($unique_result);
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    print_r($row);
+}
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
 //        'status' => 'ok',
