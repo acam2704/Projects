@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("America/El_Salvador");
+
 $serverName = "ingenia.database.windows.net"; // update me
 $connectionOptions = array(
     "Database" => "free-sql-db-7867305", // update me
@@ -43,7 +45,7 @@ echo $code . ' - ' . '746d22' . '<br>';
 $password_verify = password_verify($code, '746d22');
 echo '=' . $password_verify . '<br>';
 
-echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created at DESC' . '<br>';
+echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC' . '<br>';
 $now = new DateTime();
 echo '$now = new DateTime()' . '<br>';
 $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC";
@@ -51,6 +53,9 @@ echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY creat
 $params = array($now);
 echo '$params = array($now)' . '<br>';
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
+if ($stmt2 === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 echo '$stmt2 = sqlsrv_query($conexion, $sql_request, $params)' . '<br>';
 
 $results_of_condition = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);
