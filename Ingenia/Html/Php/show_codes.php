@@ -30,9 +30,9 @@ if($stmt === false){
 $unique_result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-    echo $row['code'] . '<> ';
-    echo $row[0] . $row[1] . $row[2] . '<> ';
-    print_r($row . '<br>');
+    echo "<pre>";
+    print_r($row);
+    echo "</pre>";
 }
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
