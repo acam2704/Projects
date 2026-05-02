@@ -34,7 +34,7 @@ try{
             ]));
         }
         
-        if(password_verify($data['code'], $result[0])){
+        if(password_verify($data['code'], $result['code'])){
             echo json_encode([
                 'status' => 'ok',
                 'msg' => 'correo verificado',
