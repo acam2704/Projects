@@ -26,13 +26,9 @@ try{
             'status' => 'on process',
             'error' => 'There is no error',
             'option1' => print_r($result),
-            'option1.1'=> 'print_r($result) = ' . print_r($result),
-            'option1.2' => 'print_r($result, true) = ' . print_r($result, true),
-            'option1.3' => print_r($result, true),
-            'option2' => '$result = ' . $result,
-            'option2.1' => $result,
-            'option3' => '$result["code"] = ' . $result['code'],
-            'option3.1' => $result['code'],
+            'option2' => print_r($result, true),
+            'option3' => $result,
+            'option4' => $result['code']
         ]);
 
         if (!$result) {
