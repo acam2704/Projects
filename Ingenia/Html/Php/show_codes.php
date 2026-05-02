@@ -73,7 +73,7 @@ echo $result_unique['email'] . '<br>';
 echo 'PASSWORD_VERIFY ---';
 $right_password = password_verify('d0a17a', $result_unique['code']) . '<br>';
 echo $right_password;
-if($right_password === 1){
+if($right_password === '1'){
     echo json_encode([
         'status' => 'ok',
         'error' => null,
