@@ -3,6 +3,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
 
+date_default_timezone_set("America/El_Salvador");
 $json_file = file_get_contents("php://input");
 $data = json_decode($json_file, true);
 
