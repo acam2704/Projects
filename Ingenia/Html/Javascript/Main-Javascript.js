@@ -160,24 +160,18 @@ async function next(){
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
 
-        alert_name_or_1psw.style.marginLeft = "15px";
-        alert_name_or_1psw.style.color = "white";
         alert_name_or_1psw.textContent = "Campo Obligatorio."
     } else if(input_lastname_Re.value.length === 0){
         input_lastname_Re.focus();
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
 
-        alert_name_or_1psw.style.marginLeft = "15px";
-        alert_name_or_1psw.style.color = "white";
         alert_name_or_1psw.textContent = "Campo Obligatorio."
     } else if(input_email_Re.value.length === 0){
         input_email_Re.focus();
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
 
-        alert_email_or_2psw.style.marginLeft = "15px";
-        alert_email_or_2psw.style.color = "white";
         alert_email_or_2psw.textContent = "Campo Obligatorio.";
     } else{
         let inputs_to_disabled = [input_name_Re, input_lastname_Re, input_email_Re]
@@ -260,9 +254,6 @@ async function VerificationCodeWindow(email){
     loader.style.display = "none";
     bttn_send.style.display = "block";
 
-    alert_email_or_2psw.style.marginLeft = "15px";
-    alert_email_or_2psw.style.color = "white";
-
     if(!input_code_Re.value){
         alert_email_or_2psw.textContent = "Ingresa el código que te hemos enviado";
         input_code_Re.focus();
@@ -290,9 +281,6 @@ function codeVerification(code, email){
 }
 
 async function codeVerificationResponse(response){
-    alert_email_or_2psw.style.marginLeft = "15px";
-    alert_email_or_2psw.style.color = "white";
-    console.log(response);
     if(response['status'] === 'ok'){
         let elements_to_show = [input_1psw_Re, input_2psw_Re];
         let elements_to_hide = [input_code_Re];
@@ -313,10 +301,6 @@ async function PasswordsWindow(){
 function verifyPasswords(){
     loader.style.display = "none";
     bttn_send.style.display = "block";
-    alert_name_or_1psw.style.marginLeft = "15px";
-    alert_name_or_1psw.style.color = "white";
-    alert_email_or_2psw.style.marginLeft = "15px";
-    alert_email_or_2psw.style.color = "white";
 
     if(input_1psw_Re.value.length < 8){
         alert_name_or_1psw.textContent = 'Contraseña demasiado corta';
