@@ -33,7 +33,12 @@ try{
                 'msg' => 'No hubo resultados de búsqueda',
             ]));
         }
-        
+        echo json_encode([
+            'status' => 'on process',
+            'error' => null,
+            'msg' => '',
+            'data' => $result['code']
+        ]);
         if(password_verify($data['code'], $result['code'])){
             echo json_encode([
                 'status' => 'ok',
