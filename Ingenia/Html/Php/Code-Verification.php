@@ -17,38 +17,39 @@ try{
             $now
         ];
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
-        if(!$stmt === false){
-            $results = sqlsrv_free_stmt($stmt);
-            if ($results->num_rows === 0) {
-                die(json_encode([
-                    'status' => 'failed',
-                    'error' => 'no results',
-                    'msg' => 'No hubo resultados de búsqueda',
-                ]));
-            }
-            $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-
-            echo $result[0];
-            if(password_verify($data['code'], $result[0])){
-                echo json_encode([
-                    'status' => 'ok',
-                    'msg' => 'correo verificado',
-                    'error' => null,
-                ]);
-            } else{
-                echo json_encode([
-                    'status' => 'failed',
-                    'msg' => 'código incorrecto',
-                    'error' => 'result /= POST',
-                ]);
-            };
-        } else {
+        if($stmt === false){
             die(json_encode([
                 'status' => 'failed',
                 'error' => sqlsrv_errors(),
                 'msg' => 'error en execute',
             ]));
+        }
+        $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+        if (!$result) {
+            die(json_encode([
+                'status' => 'failed',
+                'error' => 'No results',
+                'msg' => 'No hubo resultados de búsqueda',
+            ]));
+        }
+        
+        if(password_verify($data['code'], $result[0])){
+            echo json_encode([
+                'status' => 'ok',
+                'msg' => 'correo verificado',
+                'error' => null,
+            ]);
+        } else{
+            echo json_encode([
+                'status' => 'failed',
+                'msg' => 'código incorrecto',
+                'error' => 'result /= POST',
+            ]);
         };
+
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($conexion);
     } else {
         echo json_encode([
                 'error' => $conexion->connect_error,
