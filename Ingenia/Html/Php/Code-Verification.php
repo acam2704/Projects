@@ -25,6 +25,7 @@ try{
         echo json_encode([
             'status' => 'on process',
             'error' => 'There is no error',
+            'email' => $data['email'],
             'option1' => print_r($result),
             'option2' => print_r($result, true),
             'option3' => $result,
