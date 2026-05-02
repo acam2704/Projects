@@ -47,20 +47,18 @@ echo '=' . $password_verify . '<br>';
 
 echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC' . '<br>';
 $now = new DateTime();
-echo '$now = new DateTime()' . '<br>';
+echo $now;
+echo print_r($now);
 $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC";
-echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC' . '<br>';
 $params = array($now);
-echo '$params = array($now)' . '<br>';
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
+echo $stmt2;
+echo print_r($stmt2);
 if ($stmt2 === false) {
     die(print_r(sqlsrv_errors(), true));
 }
-echo '$stmt2 = sqlsrv_query($conexion, $sql_request, $params)' . '<br>';
-
 $results_of_condition = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);
-echo '$results_of_condition = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);' . '<br>';
-echo 'results_of_condition["code"] = ' . $results_of_condition['code'];
+print_r($results_of_condition);
 
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
