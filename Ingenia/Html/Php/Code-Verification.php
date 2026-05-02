@@ -28,12 +28,9 @@ try{
         echo json_encode([
             'status' => 'on process',
             'error' => 'There is no error',
-            'option1' => 'print_r($result) = ' . print_r($result),
+            'option1' => 'print_r($result) = ' . '<pre>' . print_r($result) . '<pre>',
             'option2' => '$result = ' . $result,
-            'option3' => '$result["code"] = ' . $result['code'],
-            'option4' => '$print_r($stmt) = ' . print_r($stmt),
-            'option5' => '$stmt = ' . $stmt,
-            'option6' => '$stmt["code"] = ' . $stmt['code'],
+            'option3' => '$result["code"] = ' . $result['code']
         ]);
 
         if (!$result) {
