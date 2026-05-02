@@ -15,11 +15,8 @@ if ($conexion === false){
     ]));
 }
 
-$sql_request = "SELECT * FROM verification_codes";
-$params = array('*');
-
+$sql_request = "SELECT * FROM verification_codes ORDER BY created_at DESC";
 $stmt = sqlsrv_query($conexion, $sql_request);
-
 if($stmt === false){
     die(json_encode([
         'status' => 'fatal error',
