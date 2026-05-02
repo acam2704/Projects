@@ -48,12 +48,16 @@ echo '=' . $password_verify . '<br>';
 echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC' . '<br>';
 $now = date("Y-m-d H:i:s", time());
 echo $now;
+echo '<pre>';
 echo print_r($now);
+echo '<pre>';
 $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC";
 $params = array($now);
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
 echo $stmt2;
+echo '<pre>';
 echo print_r($stmt2) . '<br>';
+echo '<pre>';
 
 $result_unique = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);
 

@@ -32,8 +32,8 @@ try{
             'option2' => '$result = ' . $result,
             'option3' => '$result["code"] = ' . $result['code'],
             'option4' => '$print_r($stmt) = ' . print_r($stmt),
-            'option5' => '$stmt' . $stmt,
-            'option6' => '$stmt["code"]' . $stmt['code'],
+            'option5' => '$stmt = ' . $stmt,
+            'option6' => '$stmt["code"] = ' . $stmt['code'],
         ]);
 
         if (!$result) {
