@@ -13,7 +13,6 @@ $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expir
 
 try{
     if($_SERVER["REQUEST_METHOD"] === "POST"){
-        echo $now;
         $params = array($data['email'], $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if($stmt === false){
@@ -24,17 +23,6 @@ try{
             ]));
         }
         $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        echo json_encode([
-            'status' => 'on process',
-            'error' => 'There is no error',
-            'email' => $data['email'],
-            'code' => $data['code'],
-            'option1' => print_r($result),
-            'option2' => print_r($result, true),
-            'option3' => $result,
-            'option4' => $result['code'],
-        ]);
-
         if(!$result){
             die(json_encode([
                 'status' => 'failed',
@@ -42,18 +30,19 @@ try{
                 'msg' => 'No hubo resultados de búsqueda',
             ]));
         }
-        echo json_encode([
-            'status' => 'on process',
-            'error' => null,
-            'msg' => '',
-            'data' => $result['code']
-        ]);
+
         if(password_verify($data['code'], $result['code'])){
             echo json_encode([
                 'status' => 'ok',
                 'msg' => 'correo verificado',
                 'error' => null,
             ]);
+
+            $sql_request_mod = 'WITH code_registration_to_modify AS 
+            id (SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expires_at = ? ORDER BY created_at DESC) 
+            UPDATE code_registration_to_modify SET code = ?, status = ?';
+            $params_mod = array($data['email'], $data['expires_at'], 'u-s-ed', 'used');
+            $stmt_mod = sqlsrv_query($conexion, $sql_request_mod, $params_mod);
         } else{
             echo json_encode([
                 'status' => 'failed',
@@ -73,13 +62,13 @@ try{
     }
 
 } catch (Error $e){
-    echo json_encode([
+    die(json_encode([
         'SERVER' => $_SERVER->error_get_last,
         'sql_request' => sqlsrv_errors(),
         'msg' => 'Revisar los errores. Verificación de código no conseguida',
         'status' => 'fatal error',
         'error' => 'conexion error',
-    ]);
+    ]));
 }
 
 ?>
