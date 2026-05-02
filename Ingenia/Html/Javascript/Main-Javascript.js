@@ -27,8 +27,7 @@ bttn_send.addEventListener("click", async () => {
     if(getComputedStyle(input_name_Re).display !== "none"){
         next();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
-        let json_data = JSON.parse(localStorage.getItem('user'));
-        VerificationCodeWindow(json_data['email']);
+        VerificationCodeWindow(sessionStorage.getItem['email']);
     } else{
         verifyPasswords();
     };
@@ -98,20 +97,19 @@ function almacenate(data){
         picture: data['picture'],
     }));
     sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
-    sessionStorage.setItem("email", data['email']);
-    console.log(JSON.parse(localStorage.getItem('user')));
+    sessionStorage.setItem("email", data['email'])
 }
 
 function disableInputs(inputs){
     inputs.forEach(i => {
         i.disabled = true;
-    });
+    })
 }
 
 function ableInputs(inputs){
     inputs.forEach(i => { 
         i.disabled = false;
-    });
+    })
 }
 
 function delay(ms) {
