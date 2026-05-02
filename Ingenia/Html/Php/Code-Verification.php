@@ -27,17 +27,12 @@ try{
             'error' => 'There is no error',
             'option1' => print_r($result),
             'option1.1'=> 'print_r($result) = ' . print_r($result),
+            'option1.2' => 'print_r($result, true) = ' . print_r($result, true),
+            'option1.3' => print_r($result, true),
             'option2' => '$result = ' . $result,
             'option2.1' => $result,
             'option3' => '$result["code"] = ' . $result['code'],
             'option3.1' => $result['code'],
-            'STMT' => '$STMT',
-            'stmtOption1' => $stmt,
-            'stmtOption1.1' => '$stmt = ' . $stmt,
-            'stmtOption2' => print_r($stmt),
-            'stmtOption2.1' => print_r($stmt),
-            'stmtOption3' => $stmt['code'],
-            'stmtOption3.1' => '$stmt = ' . $stmt,
         ]);
 
         if (!$result) {
