@@ -96,8 +96,8 @@ function almacenate(data){
         lastnames: data['sent_to'][1],
         email: data['sent_at']
     }));
-    sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
-    sessionStorage.setItem("email", data['email'])
+    sessionStorage.setItem("fullname", data['sent_to'][0] + ' ' + data['sent_to'][1]);
+    sessionStorage.setItem("email", data['sent_at'])
 }
 
 function disableInputs(inputs){
