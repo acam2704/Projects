@@ -43,11 +43,11 @@ echo $code . ' - ' . '746d22' . '<br>';
 $password_verify = password_verify($code, '746d22');
 echo '=' . $password_verify . '<br>';
 
-echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > $now ORDER BY created at DESC' . '<br>';
+echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > CAST(? AS DATETIME) ORDER BY created at DESC' . '<br>';
 $now = date("Y-m-d H:i:s", time());
 echo '$now = date("Y-m-d H:i:s", time())' . '<br>';
-$sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC";
-echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC' . '<br>';
+$sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > CAST(? AS DATETIME) ORDER BY created_at DESC";
+echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > CAST(? AS DATETIME) ORDER BY created_at DESC' . '<br>';
 $params = array($now);
 echo '$params = array($now)' . '<br>';
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
