@@ -25,9 +25,7 @@ try{
             ]));
         }
         $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        echo print_r($result);
-        echo $result['code'];
-        echo $result;
+        print_r($result);
         if (!$result) {
             die(json_encode([
                 'status' => 'failed',
