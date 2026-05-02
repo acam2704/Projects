@@ -54,8 +54,12 @@ $params = array($now);
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
 echo $stmt2;
 echo print_r($stmt2);
-$results_of_condition = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);
-print_r($results_of_condition);
+echo 'LAST CODE --- ';
+echo $stmt2['code'] . '<br>';
+echo 'EXPIRES_AT --- ';
+echo $stmt2['expires_at'] . '<br>';
+echo 'PASSWORD_VERIFY ---';
+echo password_verify('f7a23e', $stmt2['code']);
 
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
