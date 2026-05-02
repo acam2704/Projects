@@ -61,17 +61,18 @@ echo ' --------- STMT2 --------- ' . '<br>';
 echo 'LAST CODE --- ';
 echo $stmt2['code'] . '<br>';
 echo 'EXPIRES_AT --- ';
-echo $stmt2['expires_at'] . '<br>';
+echo $stmt2['email'] . '<br>';
 echo 'PASSWORD_VERIFY ---';
-echo password_verify('f7a23e', $stmt2['code']);
+echo password_verify('f7a23e', $stmt2['code']) . '<br>';
 
 echo ' --------- RESULT_UNIQUE --------- ' . '<br>';
 echo 'LAST CODE --- ';
 echo $result_unique['code'] . '<br>';
-echo 'EXPIRES_AT --- ';
-echo $result_unique['expires_at'] . '<br>';
+echo 'EMAIL --- ';
+echo $result_unique['email'] . '<br>';
 echo 'PASSWORD_VERIFY ---';
-echo password_verify('f7a23e', $result_unique['code']);
+echo password_verify('f7a23e', $result_unique['code']) . '<br>';
+
 
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
