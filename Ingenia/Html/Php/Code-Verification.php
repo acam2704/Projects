@@ -20,7 +20,7 @@ try{
         if($stmt === false){
             die(json_encode([
                 'status' => 'failed',
-                'error' => sqlsrv_errors(),
+                'error' => print_r(sqlsrv_errors(), true),
                 'msg' => 'error en execute',
             ]));
         }
@@ -28,7 +28,7 @@ try{
         echo json_encode([
             'status' => 'on process',
             'error' => 'There is no error',
-            'option1' => 'print_r($result) = ' . '<pre>' . print_r($result) . '<pre>',
+            'option1' => 'print_r($result) = ' . print_r($result),
             'option2' => '$result = ' . $result,
             'option3' => '$result["code"] = ' . $result['code']
         ]);
