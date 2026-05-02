@@ -27,7 +27,8 @@ bttn_send.addEventListener("click", async () => {
     if(getComputedStyle(input_name_Re).display !== "none"){
         next();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
-        VerificationCodeWindow(sessionStorage.getItem['email']);
+        console.log(sessionStorage.getItem('email'))
+        VerificationCodeWindow(sessionStorage.getItem('email'));
     } else{
         verifyPasswords();
     };
