@@ -17,6 +17,9 @@ try{
             $now
         ];
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
+        echo '<pre>';
+        print_r($stmt);
+        echo '<pre>';
         if($stmt === false){
             die(json_encode([
                 'status' => 'failed',
@@ -25,12 +28,10 @@ try{
             ]));
         }
         $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        echo $result . ' -1-';
-        echo $result['code'] - '-2-';
+        echo '<pre>';
         print_r($result);
-        echo $stmt . '-4-';
-        echo $stmt['code'] . '-5-';
-        print_r($stmt);
+        echo '<pre>';
+
         if (!$result) {
             die(json_encode([
                 'status' => 'failed',
