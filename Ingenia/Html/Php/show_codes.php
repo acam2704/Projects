@@ -15,10 +15,10 @@ if ($conexion === false){
     ]));
 }
 
-$sql_request = "SELECT ? FROM verification_codes";
+$sql_request = "SELECT * FROM verification_codes";
 $params = array('*');
 
-$stmt = sqlsrv_query($conexion, $sql_request, $params);
+$stmt = sqlsrv_query($conexion, $sql_request);
 
 if($stmt === false){
     die(json_encode([
