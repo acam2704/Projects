@@ -54,9 +54,6 @@ $params = array($now);
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
 echo $stmt2;
 echo print_r($stmt2);
-if ($stmt2 === false) {
-    die(print_r(sqlsrv_errors(), true));
-}
 $results_of_condition = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);
 print_r($results_of_condition);
 
