@@ -28,9 +28,12 @@ try{
         echo json_encode([
             'status' => 'on process',
             'error' => 'There is no error',
-            'option1' => 'print_r($result) = ' . print_r($result),
+            'option1' => print_r($result),
+            'option1.1'=> 'print_r($result) = ' . print_r($result),
             'option2' => '$result = ' . $result,
-            'option3' => '$result["code"] = ' . $result['code']
+            'option2.1' => $result,
+            'option3' => '$result["code"] = ' . $result['code'],
+            'option3.1' => $result['code']
         ]);
 
         if (!$result) {
