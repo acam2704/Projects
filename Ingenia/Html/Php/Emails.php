@@ -103,7 +103,7 @@ try {
 } catch(Error $e){
     die(json_encode([ 
         'error' => print_r($e), 
-        'Exact_error' => ( $mail->SMTDebug = 2 ),
+        'Exact_error' => $e->getMessage(),
         'status' => 'error',
         'msg' => 'Revisar "Exact_error"',
         ]));

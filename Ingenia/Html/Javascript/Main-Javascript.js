@@ -89,13 +89,12 @@ function normalizeText(text) {
 }
 
 function almacenate(data){
-    let username = generateUsername(data['name']);
+    let username = generateUsername(data['sent_to'][0] + data['sent_to'][1]);
     localStorage.setItem('user', JSON.stringify({
         username: username,
-        names: data['names'],
-        lastnames: data['lastnames'],
-        email: data['email'],
-        picture: data['picture'],
+        names: data['sent_to'][0],
+        lastnames: data['sent_to'][1],
+        email: data['sent_at']
     }));
     sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
     sessionStorage.setItem("email", data['email'])
@@ -228,6 +227,7 @@ function sendCode(user_data){
     })
     .then(response => response.text())
     .then(data => {
+        console.log(data);
         emailSent(JSON.parse(data))
     });
 }
