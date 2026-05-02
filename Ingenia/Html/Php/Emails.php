@@ -43,70 +43,71 @@ try {
         };
         $params = array($data['email'], $codigo_hash, $expiration, $status, $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
-        if(!sqlsrv_errors()){
-            require '/home/site/wwwroot/Ingenia/PHPMailer/src/PHPMailer.php';
-            require '/home/site/wwwroot/Ingenia/PHPMailer/src/SMTP.php';
-            require '/home/site/wwwroot/Ingenia/PHPMailer/src/Exception.php';
-
-            $mail = new PHPMailer(true);
-
-            $mail->isSMTP();
-            if ($data['domain'] === 'microsoft'){
-                $mail->Host = 'smtp.office365.com';
-                $mail->Username = 'andre.alvarado2026@frech.superate.org';
-                $mail->Password = 'un_O....1498'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
-                $mail->setFrom('andre.alvarado2026@frech.superate.org', 'Ingenia');
-            } else {
-                $mail->Host = 'smtp.gmail.com';
-                $mail->Username = 'angeelcostaa22@gmail.com';
-                $mail->Password = 'divq jnjb iral mdel'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
-                $mail->setFrom('angeelcostaa22@gmail.com', 'Ingenia');
-            }
-            
-            $mail->SMTPAuth = true;
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-            $mail->addAddress($data['email']);
-
-            $mail->Subject = 'Código de Verificación';
-            $mail->Body = 'Se ha detectado un dispositivo intentando ingresar a Ingenia con tu correo.' .
-            '¿Eres tú? Si es así imprime el código en la ventana que estás viendo' .
-            'En caso contrario, ignora este correo. CÓDIGO: ' . $codigo;
-
-            $mail->send();
-
-            echo json_encode([
-                'status' => 'ok',
-                'code' => $codigo,
-                'msg' => 'Correo enviado',
-                'sent_at' => $data['email'],
-                'sent_to' => [$data['names'], $data['lastnames']],
-                'expiration' => $expiration,
-                'error' => null,
-            ]);
-            
-        } else {
-            echo json_encode([
+        if($stmt === false){
+            die(json_encode([
                 'error' => sqlsrv_errors(),
                 'status' => 'failed',
                 'msg' => 'Correo no enviado',
-            ]);
-        };
-    } else {
+            ]));
+        }
+        require '/home/site/wwwroot/Ingenia/PHPMailer/src/PHPMailer.php';
+        require '/home/site/wwwroot/Ingenia/PHPMailer/src/SMTP.php';
+        require '/home/site/wwwroot/Ingenia/PHPMailer/src/Exception.php';
+
+        $mail = new PHPMailer(true);
+
+        $mail->isSMTP();
+        if ($data['domain'] === 'microsoft'){
+            $mail->Host = 'smtp.office365.com';
+            $mail->Username = 'andre.alvarado2026@frech.superate.org';
+            $mail->Password = 'un_O....1498'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
+            $mail->setFrom('andre.alvarado2026@frech.superate.org', 'Ingenia');
+        } else {
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Username = 'angeelcostaa22@gmail.com';
+            $mail->Password = 'divq jnjb iral mdel'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
+            $mail->setFrom('angeelcostaa22@gmail.com', 'Ingenia');
+        }
+        
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->addAddress($data['email']);
+
+        $mail->Subject = 'Código de Verificación';
+        $mail->Body = 'Se ha detectado un dispositivo intentando ingresar a Ingenia con tu correo.' .
+        '¿Eres tú? Si es así imprime el código en la ventana que estás viendo' .
+        'En caso contrario, ignora este correo. CÓDIGO: ' . $codigo;
+
+        $mail->send();
+
         echo json_encode([
+            'status' => 'ok',
+            'code' => $codigo,
+            'msg' => 'Correo enviado',
+            'sent_at' => $data['email'],
+            'sent_to' => [$data['names'], $data['lastnames']],
+            'expiration' => $expiration,
+            'error' => null,
+        ]);
+
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($conexion);
+    } else {
+        die(json_encode([
             'status' => 'failed',
             'error' => 'No POST',
             'msg' => 'fetch enviado con method no POST',
-        ]);
+        ]));
     }
 } catch(Error $e){
-    echo json_encode([ 
+    die(json_encode([ 
         'error' => print_r($e), 
         'Exact_error' => ( $mail->SMTDebug = 2 ),
         'status' => 'error',
         'msg' => 'Revisar "Exact_error"',
-        ]);
-};
+        ]));
+}
 
 
 ?>
