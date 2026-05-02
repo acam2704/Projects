@@ -30,18 +30,34 @@ echo '<pre>';
 print_r($unique_result);
 echo '<pre>';
 
-echo 'CODE ---';
+echo 'CODE ---' . '<br>';
 $code = $unique_result['code'];
-echo $code;
+echo $code . '<br>';
 
-echo 'EMAIL ---';
+echo 'EMAIL ---' . '<br>';
 $email = $unique_result['email'];
-echo $email;
+echo $email . '<br>';
 
-echo 'PASSWORD_VERIFY ---';
-echo $code . ' - ' . '746d22';
+echo 'PASSWORD_VERIFY ---' . '<br>';
+echo $code . ' - ' . '746d22' . '<br>';
 $password_verify = password_verify($code, '746d22');
-echo '=' . $password_verify;
+echo '=' . $password_verify . '<br>';
+
+echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > $now ORDER BY created at DESC' . '<br>';
+$now = date("Y-m-d H:i:s", time());
+echo '$now = date("Y-m-d H:i:s", time())' . '<br>';
+$sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ?  ORDER BY created_at DESC";
+echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ?  ORDER BY created_at DESC' . '<br>';
+$params = array($now);
+echo '$params = array($now)' . '<br>';
+$stmt = sqlsrv_query($conexion, $sql_request, $params);
+echo '$stmt = sqlsrv_query($conexion, $sql_request, $params)' . '<br>';
+
+$results_of_condition = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+echo '$results_of_condition = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);' . '<br>';
+echo 'print_r($results_of_condition) = ' . print_r($results_of_condition);
+echo 'results_of_condition = ' . $results_of_condition;
+echo 'results_of_condition[0] = ' . $results_of_condition[0];
 
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([

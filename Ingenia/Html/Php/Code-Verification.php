@@ -7,7 +7,7 @@ $json_file = file_get_contents("php://input");
 $data = json_decode($json_file, true);
 
 include("conexion_to_Verification_Codes_DB.php");
-$now = date("Y-m-d H:i:s");
+$now = date("Y-m-d H:i:s", time());
 $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expires_at > ? ORDER BY created_at DESC";
 
 try{
