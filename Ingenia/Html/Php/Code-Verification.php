@@ -25,11 +25,11 @@ try{
             ]));
         }
         $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        echo $result . ' <-1-';
-        echo $result['code'] - '<-2-';
+        echo $result . ' -1-';
+        echo $result['code'] - '-2-';
         print_r($result);
-        echo $stmt . '<-4-';
-        echo $stmt['code'] . '<-5-';
+        echo $stmt . '-4-';
+        echo $stmt['code'] . '-5-';
         print_r($stmt);
         if (!$result) {
             die(json_encode([
