@@ -17,9 +17,6 @@ try{
             $now
         ];
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
-        echo '<pre>';
-        print_r($stmt);
-        echo '<pre>';
         if($stmt === false){
             die(json_encode([
                 'status' => 'failed',
@@ -28,9 +25,16 @@ try{
             ]));
         }
         $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        echo '<pre>';
-        print_r($result);
-        echo '<pre>';
+        echo json_encode([
+            'status' => 'on process',
+            'error' => 'There is no error',
+            'option1' => 'print_r($result) = ' . print_r($result),
+            'option2' => '$result = ' . $result,
+            'option3' => '$result["code"] = ' . $result['code'],
+            'option4' => '$print_r($stmt) = ' . print_r($stmt),
+            'option5' => '$stmt' . $stmt,
+            'option6' => '$stmt["code"]' . $stmt['code'],
+        ]);
 
         if (!$result) {
             die(json_encode([
