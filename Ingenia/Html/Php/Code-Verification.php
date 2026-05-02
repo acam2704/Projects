@@ -14,6 +14,8 @@ try{
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         $params = array($data['email'], $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
+        echo $stmt;
+        echo print_r($stmt);
         if($stmt === false){
             die(json_encode([
                 'status' => 'failed',
