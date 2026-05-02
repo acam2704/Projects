@@ -53,13 +53,25 @@ $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDE
 $params = array($now);
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
 echo $stmt2;
-echo print_r($stmt2);
+echo print_r($stmt2) . '<br>';
+
+$result_unique = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);
+
+echo ' --------- STMT2 --------- ' . '<br>';
 echo 'LAST CODE --- ';
 echo $stmt2['code'] . '<br>';
 echo 'EXPIRES_AT --- ';
 echo $stmt2['expires_at'] . '<br>';
 echo 'PASSWORD_VERIFY ---';
 echo password_verify('f7a23e', $stmt2['code']);
+
+echo ' --------- RESULT_UNIQUE --------- ' . '<br>';
+echo 'LAST CODE --- ';
+echo $result_unique['code'] . '<br>';
+echo 'EXPIRES_AT --- ';
+echo $result_unique['expires_at'] . '<br>';
+echo 'PASSWORD_VERIFY ---';
+echo password_verify('f7a23e', $result_unique['code']);
 
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
