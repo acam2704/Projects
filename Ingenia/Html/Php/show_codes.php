@@ -15,7 +15,7 @@ if ($conexion === false){
     ]));
 }
 
-$sql_request = "SELECT * FROM verification_codes ORDER BY created_at DESC";
+$sql_request = "SELECT TOP 1 * FROM verification_codes ORDER BY created_at DESC";
 $stmt = sqlsrv_query($conexion, $sql_request);
 if($stmt === false){
     die(json_encode([
