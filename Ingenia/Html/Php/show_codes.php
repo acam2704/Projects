@@ -55,9 +55,7 @@ echo '$stmt = sqlsrv_query($conexion, $sql_request, $params)' . '<br>';
 
 $results_of_condition = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 echo '$results_of_condition = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);' . '<br>';
-echo 'print_r($results_of_condition) = ' . print_r($results_of_condition);
-echo 'results_of_condition = ' . $results_of_condition;
-echo 'results_of_condition[0] = ' . $results_of_condition[0];
+echo 'results_of_condition["code"] = ' . $results_of_condition['code'];
 
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
