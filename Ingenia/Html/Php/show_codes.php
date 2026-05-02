@@ -50,11 +50,11 @@ $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDE
 echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC' . '<br>';
 $params = array($now);
 echo '$params = array($now)' . '<br>';
-$stmt = sqlsrv_query($conexion, $sql_request, $params);
-echo '$stmt = sqlsrv_query($conexion, $sql_request, $params)' . '<br>';
+$stmt2 = sqlsrv_query($conexion, $sql_request, $params);
+echo '$stmt2 = sqlsrv_query($conexion, $sql_request, $params)' . '<br>';
 
-$results_of_condition = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-echo '$results_of_condition = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);' . '<br>';
+$results_of_condition = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);
+echo '$results_of_condition = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC);' . '<br>';
 echo 'results_of_condition["code"] = ' . $results_of_condition['code'];
 
 //if(password_verify($data['code'], $unique_result[0])){
@@ -72,7 +72,4 @@ echo 'results_of_condition["code"] = ' . $results_of_condition['code'];
 //};
 sqlsrv_free_stmt($stmt);
 sqlsrv_close($conexion);
-
-
-
 ?>
