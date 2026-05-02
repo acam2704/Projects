@@ -31,9 +31,8 @@ try{
             'option2' => print_r($result, true),
             'option3' => $result,
             'option4' => $result['code'],
-            'option5' => $stmt,
-            'option6' => print_r($stmt),
         ]);
+        echo $stmt;
 
         if(!$result){
             die(json_encode([
