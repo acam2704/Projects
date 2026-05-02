@@ -27,7 +27,8 @@ bttn_send.addEventListener("click", async () => {
     if(getComputedStyle(input_name_Re).display !== "none"){
         next();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
-        VerificationCodeWindow(localStorage.getItem('email'));
+        let json_data = JSON.parse(localStorage.getItem('user'));
+        VerificationCodeWindow(json_data['email']);
     } else{
         verifyPasswords();
     };
