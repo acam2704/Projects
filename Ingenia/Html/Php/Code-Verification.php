@@ -39,7 +39,7 @@ try{
             ]);
 
             $sql_request_mod = 'WITH code_registration_to_modify AS 
-            id (SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expires_at = ? ORDER BY created_at DESC) 
+            (SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expires_at = ? ORDER BY created_at DESC) 
             UPDATE code_registration_to_modify SET code = ?, status = ?';
             $params_mod = array($data['email'], $data['expires_at'], 'u-s-ed', 'used');
             $stmt_mod = sqlsrv_query($conexion, $sql_request_mod, $params_mod);
