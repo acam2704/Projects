@@ -29,20 +29,20 @@ if($stmt === false){
 }
 $unique_result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
-echo $unique_result[0];
-if(password_verify($data['code'], $unique_result[0])){
-    echo json_encode([
-        'status' => 'ok',
-        'msg' => 'correo verificado',
-        'error' => null,
-    ]);
-} else{
-    echo json_encode([
-        'status' => 'failed',
-        'msg' => 'código incorrecto',
-        'error' => 'unique_result /= POST',
-    ]);
-};
+echo print_r($unique_result);
+//if(password_verify($data['code'], $unique_result[0])){
+//    echo json_encode([
+//        'status' => 'ok',
+//        'msg' => 'correo verificado',
+//        'error' => null,
+//    ]);
+//} else{
+//    echo json_encode([
+//        'status' => 'failed',
+//        'msg' => 'codigo incorrecto',
+//        'error' => 'unique_result /= POST',
+//    ]);
+//};
 sqlsrv_free_stmt($stmt);
 sqlsrv_close($conexion);
 
