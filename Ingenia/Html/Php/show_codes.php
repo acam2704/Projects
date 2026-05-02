@@ -45,12 +45,12 @@ echo $code . ' - ' . '746d22' . '<br>';
 $password_verify = password_verify($code, '746d22');
 echo '=' . $password_verify . '<br>';
 
-echo 'SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC' . '<br>';
+echo 'SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expires_at > ? ORDER BY created_at DESC' . '<br>';
 $now = date("Y-m-d H:i:s", time());
 echo $now;
 echo print_r($now);
-$sql_request = "SELECT TOP 1 * FROM verification_codes WHERE expires_at > ? ORDER BY created_at DESC";
-$params = array($now);
+$sql_request = "SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expires_at > ? ORDER BY created_at DESC";
+$params = array('acam2708@gmail.com', $now);
 $stmt2 = sqlsrv_query($conexion, $sql_request, $params);
 echo $stmt2;
 echo '<pre>';
