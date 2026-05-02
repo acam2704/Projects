@@ -26,10 +26,23 @@ if($stmt === false){
 }
 $unique_result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
+echo '<pre>';
 print_r($unique_result);
+echo '<pre>';
 
-$unique_row = $unique_result[0];
-echo $unique_row['code'];
+echo 'CODE ---';
+$code = $unique_result['code'];
+echo $code;
+
+echo 'EMAIL ---';
+$email = $unique_result['email'];
+echo $email;
+
+echo 'PASSWORD_VERIFY ---';
+echo $code . ' - ' . '746d22';
+$password_verify = password_verify($code, '746d22');
+echo '=' . $password_verify;
+
 //if(password_verify($data['code'], $unique_result[0])){
 //    echo json_encode([
 //        'status' => 'ok',
