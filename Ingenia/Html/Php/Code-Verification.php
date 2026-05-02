@@ -12,6 +12,7 @@ $sql_request = "SELECT TOP 1 * FROM verification_codes WHERE email = ? AND expir
 
 try{
     if($_SERVER["REQUEST_METHOD"] === "POST"){
+        echo $now;
         $params = array($data['email'], $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if($stmt === false){
@@ -32,7 +33,6 @@ try{
             'option3' => $result,
             'option4' => $result['code'],
         ]);
-        echo $stmt;
 
         if(!$result){
             die(json_encode([
