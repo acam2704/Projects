@@ -16,16 +16,16 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 .content_window{
     width: 400px;
     border: 2px solid white;
     border-radius: 10px;
     margin: 50px 0px 0px calc( ( 100% - 400px ) / 2 );
-    backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px)
 }
-.content_inputs{margin: 40px;}
+.content_inputs{margin: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.08)}
 .content_inputs > input{
     width: calc(100% - 30px);
     height: 30px;
@@ -36,7 +36,7 @@
     border: 1px solid white;
     border-radius: 15px;
     color: var(--text-into-input-);
-    transition: all 0.5s ease;
+    transition: all 0.2s ease
 }
 .content_inputs > input::placeholder{color: var(--placeholder-text-);}
 .content_inputs > input::placeholder.red{color: red;}
@@ -103,7 +103,7 @@
 .google-container:active{transform: scale(0.9)}
 
 .content_Microsoft{text-align: center; margin-top: 20px; height: 32px; display: flex; justify-content: center}
-.normal_text{color: #666; font-size: 14px; margin-bottom: 12px}
+.normal_text{color: var(--label-text-); font-size: 14px; margin-bottom: 12px}
 
 /* BOTÓN MICROSOFT */
 .microsoft-btn{
@@ -117,7 +117,7 @@
     border: 1px solid #d1d1d1;
     background: white;
     color: #333;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.5s ease;
@@ -129,15 +129,15 @@
 /* LOGO MICROSOFT */
 .ms-logo{
     display: grid;
-    grid-template-columns: 7px 7px;
-    grid-template-rows: 7px 7px;
+    grid-template-columns: 6px 6px;
+    grid-template-rows: 6px 6px;
     gap: 1px;
 }
 .ms-logo span:nth-child(1){ background: #f25022; }
 .ms-logo span:nth-child(2){ background: #7fba00; }
 .ms-logo span:nth-child(3){ background: #00a4ef; }
 .ms-logo span:nth-child(4){ background: #ffb900; }
-.ms-logo span{width: 7px; height: 7px; display: block}
+.ms-logo span{width: 6px; height: 6px; display: block}
 
 @keyframes girar{
     from {

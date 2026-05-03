@@ -220,11 +220,17 @@ async function transformData(json){
 
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(){
+    // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
+    let inputs_to_able = [input_name_Re, input_lastname_Re, input_email_Re];
+
     // Los campos no deben estar vacíos
     if(input_name_Re.value.length === 0){
         input_name_Re.focus();
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
+
+        // Se habilitan los inputs nuevamente
+        ableInputs(inputs_to_able);
 
         alert_name_or_1psw.textContent = "Campo Obligatorio."
     } else if(input_lastname_Re.value.length === 0){
@@ -232,11 +238,17 @@ async function next(){
         bttn_send_txt.style.display = "block";
         loader.style.display = "none"; 
 
+        // Se habilitan los inputs nuevamente
+        ableInputs(inputs_to_able);
+
         alert_name_or_1psw.textContent = "Campo Obligatorio."
     } else if(input_email_Re.value.length === 0){
         input_email_Re.focus();
         bttn_send_txt.style.display = "block";
         loader.style.display = "none";
+
+        // Se habilitan los inputs nuevamente
+        ableInputs(inputs_to_able);
 
         alert_email_or_2psw.textContent = "Campo Obligatorio.";
     } else{
