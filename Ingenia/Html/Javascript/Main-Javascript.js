@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         disable_all_inputs()
 
         let elements_to_show = [input_1psw_Re, input_2psw_Re];
-        let elements_to_hide = [input_name_Re, input_lastname_Re, input_email_Re];
+        let elements_to_hide = [input_name_Re, input_lastname_Re, input_email_Re, content_check_buttons_with];
         ableInputs(elements_to_show);
         input_name_Re.value = name;
         input_lastname_Re.value = surname;
@@ -222,11 +222,10 @@ async function transformData(json){
 
         // Se preparan los inputs a mostrar, ocultar y deshabilitar
         let elements_to_show = [input_1psw_Re, input_2psw_Re];
-        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, account_img, bttn_google];
-        let inputs_to_disables = [input_lastname_Re, input_name_Re, input_email_Re];
+        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, bttn_google, content_check_buttons_with];
 
         // Se mandan a deshabilitar los inputs
-        disableInputs(inputs_to_disables);
+        disableInputs(elements_to_hide);
         // Animación de carga en el botón
         animationLoad();
         // Se espera medio segundo
