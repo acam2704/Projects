@@ -10,7 +10,12 @@
     --button-text-: white;
     --link-text-hover-: #2563EB;
     --link-text-: #111827;
-    --background-buttons-: #2563EB;
+    --background-button-: #2563EB;
+    --background-button-hover-: #1D4ED8;
+    --border-input-: #D1D5DB;
+    --border-input-hover-: #9CA3AF;
+    --boder-secondary-button-: #D1D5DB;
+    --background-secondary-button-hover-: #F3F4F6;
 }
 
 *{
@@ -19,7 +24,7 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 body{background-image: url('/Ingenia/Html/Imágenes/Background_construction_workers.jpg'); position: relative}
-.overlay{position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4)}
+.overlay{position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); height: 100%}
 .content_window{
     position: relative;
     width: 400px;
@@ -28,7 +33,7 @@ body{background-image: url('/Ingenia/Html/Imágenes/Background_construction_work
     margin: 50px 0px 0px calc( ( 100% - 400px ) / 2 );
     backdrop-filter: blur(7px)
 }
-.content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08)}
+.content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08); background-color: white}
 .content_inputs > input{
     width: calc(100% - 30px);
     height: 30px;
@@ -36,7 +41,7 @@ body{background-image: url('/Ingenia/Html/Imágenes/Background_construction_work
     margin: 0px 0px 20px 0px;
     outline: none;
     background-color: rgba(129, 67, 51, 0);
-    border: 1px solid white;
+    border: 1px solid var(--border-input-);
     border-radius: 15px;
     color: var(--text-into-input-);
     transition: all 0.2s ease
@@ -48,9 +53,9 @@ body{background-image: url('/Ingenia/Html/Imágenes/Background_construction_work
     -webkit-text-fill-color: var(--placeholder-text-);
     transition: background-color 9999s ease-in-out 0s;
 }
-.content_inputs > input::selection{background-color: rgb(100, 100, 100);}
+.content_inputs > input::selection{background-color: rgb(100, 100, 100)}
 .content_inputs > input:focus,
-.content_inputs > input:hover{background-color: rgb(0,0,0,0.1)}
+.content_inputs > input:hover{background-color: rgb(0,0,0,0.1); border-color: var(--border-input-hover-)}
 .text_alert{color: var(--alert-text-); font-size: 15px; margin-left: 15px}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
@@ -77,14 +82,14 @@ body{background-image: url('/Ingenia/Html/Imágenes/Background_construction_work
     height: 30px;
     width: 100%;
     color: var(--button-text-);
-    background-color: white;
+    background-color: var(--background-button-);
     font-size: 15px;
     text-align: center;
     transition: all 0.5s ease
 }
 .bttn_send:hover{
-    background-color: rgb(0,0,0,0.1);
-    color: white;
+    background-color: var(--background-button-hover-);
+    color: var(--button-text-);
     cursor: pointer;
 }
 #loader{
