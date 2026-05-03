@@ -85,8 +85,7 @@ bttn_send.addEventListener("click", async () => {
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
     if(getComputedStyle(input_name_Re).display !== "none"){
         // Se validan los campos de ingreso de Información Personal
-        console.log(localStorage.getItem('user'))
-        code_already_typed()
+        code_already_typed();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
         // Se valida el código de verificación enviado al correo
         console.log(sessionStorage.getItem('email'));
@@ -100,13 +99,12 @@ bttn_send.addEventListener("click", async () => {
 function code_already_typed(){
     let json_data = localStorage.getItem('user');
     let data = JSON.parse(json_data);
-    console.log(json_data);
     console.log(data);
 
     let elements_to_show = [input_1psw_Re, input_2psw_Re];
     let elements_to_hide = [input_email_Re, input_lastname_Re, input_name_Re, content_check_buttons_with];
 
-    if(json_data !== null){
+    if(data !== null){
         if(input_email_Re.value.trim() === data['email']){
             // Se habilitan los inputs requeridos
             ableInputs(elements_to_show);
