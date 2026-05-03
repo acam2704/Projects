@@ -55,7 +55,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
 }
 .content_inputs > input::selection{background-color: rgb(100, 100, 100, 0)}
 .content_inputs > input:focus,
-.content_inputs > input:hover{background-color: rgb(0,0,0,0.1); border-color: var(--border-input-hover-)}
+.content_inputs > input:hover{border-color: var(--border-input-hover-)}
 .text_alert{color: var(--alert-text-); font-size: 15px; margin-left: 15px}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
