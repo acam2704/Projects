@@ -58,7 +58,7 @@ bttn_send.addEventListener("click", async () => {
 });
 
 // Función que 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     if (sessionStorage.getItem('fullname').length !== '{}'){
         const fullname = sessionStorage.getItem('fullname');
         const email = sessionStorage.getItem('email');
@@ -69,11 +69,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         disable_all_inputs()
 
-        let elements_to_able = [input_1psw_Re, input_2psw_Re];
-        ableInputs(elements_to_able);
+        let elements_to_show = [input_1psw_Re, input_2psw_Re];
+        let elements_to_hide = [input_name_Re, input_lastname_Re, input_email_Re];
+        ableInputs(elements_to_show);
         input_name_Re.value = name;
         input_lastname_Re.value = surname;
         input_email_Re.value = email;
+        
+        hideAndShow(elements_to_show, elements_to_hide);
 
         verifyPasswords();
     }
