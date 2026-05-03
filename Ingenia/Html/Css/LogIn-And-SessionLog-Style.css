@@ -121,7 +121,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 80%;
+    width: 100%;
     max-width: 213px;
     border-radius: 25px;
     border: 1px solid #d1d1d1;

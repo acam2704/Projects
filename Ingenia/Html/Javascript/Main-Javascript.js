@@ -399,7 +399,7 @@ function emailSent(response){
                 // Se habilita la modificación de los valores de los inputs
                 ableInputs(elements_to_hide);
             }
-        } else if(response['error'].includes('Invalid email: ')){
+        } else if(response['error'].includes('Invalid email')){
             // Se habilita la modificación de los valores de los inputs
             ableInputs(elements_to_hide);
 
