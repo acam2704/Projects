@@ -54,8 +54,8 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
 .content_inputs > input::selection{background-color: rgb(100, 100, 100, 0)}
 .content_inputs > input:focus,
 .content_inputs > input:hover{border-color: var(--border-input-hover-)}
-.normal_text{color: var(--label-text-); font-size: 14px; margin-bottom: 12px}
-.text_alert{color: var(--alert-text-); font-size: 15px; margin-left: 15px}
+.normal_text{color: var(--label-text-); font-size: 14px}
+.text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
 #email_2psw_txt,
@@ -70,6 +70,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
 }
 #img_Re:hover{cursor: pointer;box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
 #content_buttons_Re{text-align: center}
+#content_buttons_Re > p{margin-top: 10px}
 .g_id_signin{
     width: 213px;
     overflow: hidden;
@@ -106,10 +107,10 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
 
 #Go_to_LogIn{color: rgb(12, 7, 6)}
 #Go_to_LogIn:hover{color: rgb(12, 7, 6, 0.7)}
-.google-container{display: flex; justify-content: center; margin-top: 10px; transition: all 0.5s ease}
+.google-container{display: flex; justify-content: center; transition: all 0.5s ease}
 .google-container:active{transform: scale(0.9)}
 
-.content_Microsoft{text-align: center; margin-top: 20px; height: 32px; display: flex; justify-content: center}
+.content_Microsoft{text-align: center; margin-top: 10px; height: 32px; display: flex; justify-content: center}
 
 /* BOTÓN MICROSOFT */
 .microsoft-btn{
