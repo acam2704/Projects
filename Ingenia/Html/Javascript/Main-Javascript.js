@@ -69,7 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         disable_all_inputs()
 
-        elements_to_able = [input_name_Re, input_email_Re, input_lastname_Re];
+        let elements_to_able = [input_1psw_Re, input_2psw_Re];
+        ableInputs(elements_to_able);
+        input_name_Re.value = name;
+        input_lastname_Re.value = surname;
+        input_email_Re.value = email;
 
         verifyPasswords();
     }
@@ -139,7 +143,8 @@ function almacenate(data){
         email: data['sent_at']
     }));
     // Se almacena en la sesión, temporalmente, el dato 'email' del usuario
-    sessionStorage.setItem("email", data['sent_at'])
+    sessionStorage.setItem("email", data['sent_at']);
+    sessionStorage.setItem("fullname", data['sent_to'][0] + ' ' + data['sent_to'][1]);
 }
 
 // Función que permite deshabilitar inputs
