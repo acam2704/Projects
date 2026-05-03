@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         hideAndShow(elements_to_show, elements_to_hide);
 
-        verifyPasswords();
+        PasswordsWindow();
     }
 })
 
