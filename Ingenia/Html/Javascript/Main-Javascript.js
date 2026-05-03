@@ -364,9 +364,13 @@ async function VerificationCodeWindow(email){
         input_code_Re.focus();
     } else {
         // El código tiene que ser de 6 dígitos
-        if (input_code_Re.value.length === 6){
+        if (input_code_Re.value.length !== 6){
             // Se le dice al usuario que el código requiere ser de 6 carácteres
             alert_email_or_2psw.textContent = "El código requiere ser de 6 carácteres";
+
+            // Se habilita el input nuevamente
+            ableInputs([input_code_Re]);
+
             // Se devuelve el foco al input
             input_code_Re.focus();
         } else {
