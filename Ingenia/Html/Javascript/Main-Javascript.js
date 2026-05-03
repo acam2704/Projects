@@ -80,8 +80,6 @@ bttn_send.addEventListener("click", async () => {
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
     if(getComputedStyle(input_name_Re).display !== "none"){
         // Se validan los campos de ingreso de Información Personal
-        let data = JSON.parse(localStorage.getItem('user'));
-        console.log(data['email']);
         code_already_typed();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
         // Se valida el código de verificación enviado al correo
@@ -123,7 +121,7 @@ function code_already_typed(){
     let elements_to_show = [input_1psw_Re, input_2psw_Re];
     let elements_to_hide = [input_name_Re, input_lastname_Re, input_email_Re, content_check_buttons_with];
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-    if(data['email'] === input_email_Re.value){
+    if(data['email'] === input_email_Re.value.trim()){
         ableInputs(elements_to_show);
 
         hideAndShow(elements_to_show, elements_to_hide);
@@ -401,10 +399,17 @@ function emailSent(response){
                 // Se habilita la modificación de los valores de los inputs
                 ableInputs(elements_to_hide);
             }
-        } else {
-            // Si hubo un error, este se muestra en la consola
-            console.log(response['error']);
+        } else if(response['error'].includes('Invalid email: ')){
+            // Se habilita la modificación de los valores de los inputs
+            ableInputs(elements_to_hide);
 
+            // Se modifica alert_email_or_2psw
+            alert_email_or_2psw.style.display = 'block';
+            alert_email_or_2psw.textContent = 'Correo inválido';
+
+            // Se devuelve el foco a input_email_Re
+            input_email_Re.focus();
+        } else {
             // Se habilita la modificación de los valores de los inputs
             ableInputs(elements_to_hide);
 

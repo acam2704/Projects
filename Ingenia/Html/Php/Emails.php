@@ -37,7 +37,7 @@ try {
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
             die(json_encode([
                 'status' => 'failed',
-                'error' => $data['email'],
+                'error' => 'Invalid email: ' . $data['email'],
                 'msg' => 'Correo electrónico inválido'
             ]));
         };
