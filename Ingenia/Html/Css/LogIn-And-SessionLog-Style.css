@@ -48,7 +48,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
 .content_inputs > input::placeholder.red{color: red;}
 .content_inputs input:-webkit-autofill { 
     -webkit-box-shadow: 0 0 0 1000px rgb(0,0,0,0) inset;
-    -webkit-text-fill-color: var(--placeholder-text-);
+    -webkit-text-fill-color: var(--text-into-input-);
     transition: background-color 9999s ease-in-out 0s;
 }
 .content_inputs > input::selection{background-color: rgb(100, 100, 100, 0)}
