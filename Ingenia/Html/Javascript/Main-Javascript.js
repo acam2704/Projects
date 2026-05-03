@@ -26,6 +26,11 @@ input_1psw_Re.addEventListener("change", retrieveChanges_Re);
 input_2psw_Re.addEventListener("change", retrieveChanges_Re);
 input_code_Re.addEventListener("change", retrieveChanges_Re);
 
+// Función que permite simular 
+function Go_back(){
+
+}
+
 // Función que permite deshabilitar los inputs al cargar la página
 function disable_all_inputs(){
     let inputs = [input_name_Re, input_lastname_Re, input_email_Re, input_1psw_Re, input_2psw_Re, input_code_Re, input_DUI_Re];
