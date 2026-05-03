@@ -12,8 +12,6 @@ function base64UrlDecode($data) {
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
-        //header('Location: https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html');
-        //exit;
 
         $data = [
             'client_id' => 'c3c3fd20-6fd8-4d78-9500-8ad1cb909b22',

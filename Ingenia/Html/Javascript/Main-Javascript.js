@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
         disable_all_inputs()
 
         elements_to_able = [input_name_Re, input_email_Re, input_lastname_Re];
-        ableInputs(elements_to_able);
 
         verifyPasswords();
     }
