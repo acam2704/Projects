@@ -1,3 +1,18 @@
+:root{
+    --title-text-: #1F2937;
+    --label-text-: #374151;
+    --text-into-input-: #111827;
+    --placeholder-text-: #9CA3AF;
+    --error-text-: #DC2626;
+    --informative-text-: #6B7280;
+    --success-text-: #16A34A;
+    --alert-text-: #D97706;
+    --button-text-: white;
+    --link-text-hover-: #2563EB;
+    --link-text-: #111827;
+    --background-buttons-: #2563EB;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -20,29 +35,31 @@
     background-color: rgba(129, 67, 51, 0);
     border: 1px solid white;
     border-radius: 15px;
-    color: white;
+    color: var(--text-into-input-);
+    transition: all 0.5s ease;
 }
-.content_inputs > input::placeholder{color: white;}
+.content_inputs > input::placeholder{color: var(--placeholder-text-);}
 .content_inputs > input::placeholder.red{color: red;}
 .content_inputs input:-webkit-autofill { 
     -webkit-box-shadow: 0 0 0 1000px rgb(0,0,0,0) inset;
-    -webkit-text-fill-color: white;
+    -webkit-text-fill-color: var(--placeholder-text-);
     transition: background-color 9999s ease-in-out 0s;
 }
 .content_inputs > input::selection{background-color: rgb(100, 100, 100);}
 .content_inputs > input:focus,
 .content_inputs > input:hover{background-color: rgb(0,0,0,0.1)}
-.text_alert{color: white; font-size: 15px; margin-left: 15px; color: white}
-.text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: white}
-.text_section_title{color: white; font-size: 20px; font-weight: bold}
+.text_alert{color: var(--alert-text-); font-size: 15px; margin-left: 15px}
+.text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
+.text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
 #email_2psw_txt,
 #name_1psw_txt{font-size: 13px; margin: 0px 0px 5px 10px;}
-#account_img{width: 100%; text-align: center;display: none;}
+#account_img{width: 100%; text-align: center; display: none}
 #img_Re{
     border: none;
     border-radius: 50%;
     width: 100px;
     height: 100px;
+    transition: all 0.5s ease
 }
 #img_Re:hover{cursor: pointer;box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
 #content_buttons_Re{text-align: center}
@@ -50,17 +67,17 @@
     width: 213px;
     overflow: hidden;
     border-radius: 20px;
-    /*margin-left: calc( ( 100% - 213px ) / 2 );*/
 }
 .bttn_send{
     border: 1px solid white;
     border-radius: 10px;
     height: 30px;
     width: 100%;
-    color: rgb(12, 7, 6);
+    color: var(--button-text-);
     background-color: white;
     font-size: 15px;
     text-align: center;
+    transition: all 0.5s ease
 }
 .bttn_send:hover{
     background-color: rgb(0,0,0,0.1);
@@ -100,7 +117,7 @@
     border: 1px solid #d1d1d1;
     background: white;
     color: #333;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.5s ease;
@@ -112,15 +129,15 @@
 /* LOGO MICROSOFT */
 .ms-logo{
     display: grid;
-    grid-template-columns: 8px 8px;
-    grid-template-rows: 8px 8px;
+    grid-template-columns: 7px 7px;
+    grid-template-rows: 7px 7px;
     gap: 1px;
 }
 .ms-logo span:nth-child(1){ background: #f25022; }
 .ms-logo span:nth-child(2){ background: #7fba00; }
 .ms-logo span:nth-child(3){ background: #00a4ef; }
 .ms-logo span:nth-child(4){ background: #ffb900; }
-.ms-logo span{width: 8px; height: 8px; display: block}
+.ms-logo span{width: 7px; height: 7px; display: block}
 
 @keyframes girar{
     from {
