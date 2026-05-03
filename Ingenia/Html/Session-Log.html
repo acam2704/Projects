@@ -13,23 +13,26 @@
 <body background="Imágenes/background1.jpg">
     <div class="content_window">
         <div class="content_inputs">
-            <p style="font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: white">Registro</p> <br>
+            <p class="text_title">Registro</p> <br>
             <div id="account_img">
-                <p style="color: white; font-size: 20px; font-weight: bold">Foto de perfil</p> <br>
+                <p class="text_section_title">Foto de perfil</p> <br>
                 <img src="" alt="" id="img_Re" onclick="choosePicture()"><br><br>
                 <input type="file" id="input_file_Re" style="display: none">
             </div>
 
-            <p id="alert_name_or_1psw" class="text_alert" style="color: rgb(12, 7, 6); font-size: 13px"></p>
+            <p id="alert_name_or_1psw" class="text_alert"></p>
             <input type="text" placeholder="Nombres del usuario" id="input_name_Re">
             <input type="text" placeholder="Apellidos del usuario" id="input_lastname_Re">
             <input type="password" placeholder="Constraseña" id="input_1psw_Re" style="display:none" >
             
-            <p id="alert_email_or_2psw" class="text_alert" style="color: rgb(12, 7, 6); font-size: 13px"></p>
+            <p id="alert_email_or_2psw" class="text_alert"></p>
             <input type="email" placeholder="Correo electrónico" id="input_email_Re">
             <input type="password" placeholder="Contraseña" id="input_2psw_Re" style="display:none">
 
             <input type="text" placeholder="Ejemplo -> a4f9c2" id="input_code_Re" style="display: none">
+
+            <p class="text_section_title" id="legal_information_section_text"></p>
+            <input type="file" id="input_DUI_Re" style="display: none">
 
             <div id="g_id_onload"
                 data-client_id="359974457768-j5n8e6eh9c2m100uee1nu0ifvr6nv5tf.apps.googleusercontent.com"

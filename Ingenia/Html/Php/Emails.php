@@ -86,7 +86,6 @@ try {
 
         echo json_encode([
             'status' => 'ok',
-            'code' => $codigo,
             'msg' => 'Correo enviado',
             'sent_at' => $data['email'],
             'sent_to' => [$data['names'], $data['lastnames']],
