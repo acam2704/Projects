@@ -17,6 +17,7 @@ let loader = document.getElementById("loader");
 let alert_email_or_2psw = document.getElementById("alert_email_or_2psw");
 let alert_name_or_1psw = document.getElementById("alert_name_or_1psw");
 let legal_information_section_text = document.getElementById("legal_information_section_text");
+let error_text_alert = document.getElementById("error_text_alert");
 
 // Se ingresa la función retrieveChanges_Re, que quita los text_alert, cuando el valor cambia
 input_name_Re.addEventListener("change", retrieveChanges_Re);
@@ -266,8 +267,6 @@ async function next(){
         // Se envían a una función que envía un código de verificación
         sendCode(json_data);
     }
-    
-    hideLoader();
 }
 
 // Función que permite elegir la foto de perfil del usuario
@@ -350,6 +349,9 @@ function emailSent(response){
 
             // Se habilita la modificación de los valores de los inputs
             ableInputs(elements_to_hide);
+
+            // Se le dice al usuario que hubo un error y que lo vuelva a intentar
+            error_text_alert.textContent = "Por favor. Inténtalo otra vez";
         }
     } catch(e){
         // Si hubo un error se muestra en la consola
@@ -359,6 +361,7 @@ function emailSent(response){
         // Se le pide al usuario volver a intentar el Registro
         alert("Recargue la página y vuelva a intentarlo")
     }
+    hideLoader();
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
