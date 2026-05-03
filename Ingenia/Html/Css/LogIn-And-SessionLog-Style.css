@@ -85,7 +85,7 @@
 .google-container{display: flex; justify-content: center; margin-top: 10px; transition: all 0.5s ease}
 .google-container:active{transform: scale(0.9)}
 
-.content_other_signups{text-align: center; margin-top: 20px; height: 32px}
+.content_Microsoft{text-align: center; margin-top: 20px; height: 32px; display: flex; justify-content: center}
 .normal_text{color: #666; font-size: 14px; margin-bottom: 12px}
 
 /* BOTÓN MICROSOFT */
@@ -96,13 +96,11 @@
     gap: 10px;
     width: 80%;
     max-width: 213px;
-    margin: 0 0 0 10%;
-    padding: 12px;
     border-radius: 25px;
     border: 1px solid #d1d1d1;
     background: white;
     color: #333;
-    font-size: 12px;
+    font-size: 17px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.5s ease;
