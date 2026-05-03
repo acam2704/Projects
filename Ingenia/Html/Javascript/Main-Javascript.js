@@ -39,7 +39,7 @@ function Go_back(){
     // Se reestablece el marginTop de bttn_send
     bttn_send.style.marginTop = "20px";
     // Se preparan los inputs de cada campo
-    let personal_information = [input_name_Re, input_lastname_Re, input_email_Re];
+    let personal_information = [input_name_Re, input_lastname_Re, input_email_Re, content_check_buttons_with];
     let legal_information = [input_DUI_Re, /* input_phonenumber_Re, input_location_Re */];
     let security_information = [input_1psw_Re, input_2psw_Re];
     let verification_code = [input_code_Re];
@@ -81,7 +81,6 @@ bttn_send.addEventListener("click", async () => {
     if(getComputedStyle(input_name_Re).display !== "none"){
         // Se validan los campos de ingreso de Información Personal
         let data = JSON.parse(localStorage.getItem('user'));
-        console.log(' - ' + data);
         console.log(data['email']);
         next();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
@@ -119,18 +118,19 @@ document.addEventListener('DOMContentLoaded', async function() {
 })
 
 function code_already_typed(){
-    let json_data
+    let data = JSON.parse(localStorage.getItem('user'))
+
+    let elements_to_show = [input_1psw_Re, input_2psw_Re];
+    let elements_to_hide = [input_name_Re, input_lastname_Re, input_email_Re, content_check_buttons_with];
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-    if(getComputedStyle(input_name_Re).display !== "none"){
-        // Se validan los campos de ingreso de Información Personal
-        console.log(' - ' + localStorage.getItem('user'));
-        next();
-    } else if(getComputedStyle(input_code_Re).display !== "none"){
-        // Se valida el código de verificación enviado al correo
-        VerificationCodeWindow(sessionStorage.getItem('email'));
-    } else{
-        // Se validan las contraseñas digitadas por el usuario
-        verifyPasswords();
+    if(data['email'] === input_email_Re.value){
+        ableInputs(elements_to_show);
+
+        hideAndShow(elements_to_show, elements_to_hide);
+
+        PasswordsWindow();
+    } else {
+
     }
 }
 
