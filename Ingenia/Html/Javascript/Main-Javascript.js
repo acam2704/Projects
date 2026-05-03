@@ -10,6 +10,7 @@ let input_code_Re = document.getElementById("input_code_Re");
 let input_DUI_Re = document.getElementById("input_DUI_Re");
 let img_Re = document.getElementById("img_Re");
 let account_img = document.getElementById("account_img");
+let bttn_microsoft = document.getElementById("Microsoft");
 let bttn_google =  document.getElementById("Google");
 let bttn_send_txt = document.getElementById("bttn_send_txt");
 let bttn_send = document.getElementById("bttn_send");
@@ -18,6 +19,7 @@ let alert_email_or_2psw = document.getElementById("alert_email_or_2psw");
 let alert_name_or_1psw = document.getElementById("alert_name_or_1psw");
 let legal_information_section_text = document.getElementById("legal_information_section_text");
 let error_text_alert = document.getElementById("error_text_alert");
+let content_check_buttons_with = document.getElementById("content_check_buttons_with");
 
 // Se ingresa la función retrieveChanges_Re, que quita los text_alert, cuando el valor cambia
 input_name_Re.addEventListener("change", retrieveChanges_Re);
@@ -45,6 +47,8 @@ bttn_send.addEventListener("click", async () => {
 
     // Se oculta el texto de alerta, por si hubo un error anteriormente
     error_text_alert.style.display = 'none';
+    // Se reestablece el marginTop de bttn_send
+    bttn_send.style.marginTop = "20px";
 
     // Al dar click, se muestra la animación de carga en el botón
     animationLoad();
@@ -62,7 +66,7 @@ bttn_send.addEventListener("click", async () => {
     } else{
         // Se validan las contraseñas digitadas por el usuario
         verifyPasswords();
-    };
+    }
 });
 
 // Función que 
@@ -336,7 +340,7 @@ function emailSent(response){
     try{
         // Listas de inputs a modificar
         let elements_to_show = [input_code_Re];
-        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, account_img, bttn_google];
+        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, account_img, content_check_buttons_with];
         
         // No debe de haber error en la etiqueta 'error' de la respuesta
         if(response['error'] === null){
