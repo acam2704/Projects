@@ -38,18 +38,13 @@ function Go_back(){
     error_text_alert.style.display = 'none';
     // Se reestablece el marginTop de bttn_send
     bttn_send.style.marginTop = "20px";
-
-    // Al dar click, se muestra la animación de carga en el botón
-    animationLoad();
-    // Se espera medio segundo
-    await delay(500);
-
     // Se preparan los inputs de cada campo
     let personal_information = [input_name_Re, input_lastname_Re, input_email_Re];
     let legal_information = [input_DUI_Re, /* input_phonenumber_Re, input_location_Re */];
     let security_information = [input_1psw_Re, input_2psw_Re];
     let verification_code = [input_code_Re];
     let public_profile = [input_file_Re /*, input_degrees_Re, input_description_Re */];
+
     if(getComputedStyle(input_name_Re).display !== "none"){
 
     } else if(getComputedStyle(input_code_Re).display !== "none"){
@@ -94,32 +89,6 @@ bttn_send.addEventListener("click", async () => {
         verifyPasswords();
     }
 });
-
-function code_already_typed(){
-    let json_data = localStorage.getItem('user');
-    let data = JSON.parse(json_data);
-    console.log(data);
-
-    let elements_to_show = [input_1psw_Re, input_2psw_Re];
-    let elements_to_hide = [input_email_Re, input_lastname_Re, input_name_Re, content_check_buttons_with];
-
-    if(data !== null){
-        if(input_email_Re.value.trim() === data['email']){
-            // Se habilitan los inputs requeridos
-            ableInputs(elements_to_show);
-
-            // Se mandan a mostrar y ocultar los inputs requeridos
-            hideAndShow(elements_to_show, elements_to_hide);
-
-            // Se muestra la ventana para ingresar la contraseña deseada por le usuario
-            PasswordsWindow();
-        } else {
-            next();
-        }
-    } else{
-        next();
-    }
-}
 
 // Función que 
 document.addEventListener('DOMContentLoaded', async function() {
