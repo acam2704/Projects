@@ -340,7 +340,7 @@ function emailSent(response){
     try{
         // Listas de inputs a modificar
         let elements_to_show = [input_code_Re];
-        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, account_img, content_check_buttons_with];
+        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, content_check_buttons_with];
         
         // No debe de haber error en la etiqueta 'error' de la respuesta
         if(response['error'] === null){
