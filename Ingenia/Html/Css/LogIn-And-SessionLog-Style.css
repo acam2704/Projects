@@ -83,6 +83,11 @@
 .g_id_signin{margin-left: calc((100% - 213px) / 2);}
 #Go_to_LogIn{color: rgb(12, 7, 6)}
 #Go_to_LogIn:hover{color: rgb(12, 7, 6, 0.7)}
+.google-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
 
 .content_other_signups{text-align: center; margin-top: 20px}
 .normal_text{color: #666; font-size: 14px; margin-bottom: 12px}
