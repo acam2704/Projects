@@ -80,7 +80,9 @@ bttn_send.addEventListener("click", async () => {
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
     if(getComputedStyle(input_name_Re).display !== "none"){
         // Se validan los campos de ingreso de Información Personal
-        console.log(' - ' + localStorage.getItem('user'));
+        let data = JSON.parse(localStorage.getItem('user'));
+        console.log(' - ' + data);
+        console.log(data['email']);
         next();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
         // Se valida el código de verificación enviado al correo
@@ -115,6 +117,22 @@ document.addEventListener('DOMContentLoaded', async function() {
         PasswordsWindow();
     }
 })
+
+function code_already_typed(){
+    let json_data
+    // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
+    if(getComputedStyle(input_name_Re).display !== "none"){
+        // Se validan los campos de ingreso de Información Personal
+        console.log(' - ' + localStorage.getItem('user'));
+        next();
+    } else if(getComputedStyle(input_code_Re).display !== "none"){
+        // Se valida el código de verificación enviado al correo
+        VerificationCodeWindow(sessionStorage.getItem('email'));
+    } else{
+        // Se validan las contraseñas digitadas por el usuario
+        verifyPasswords();
+    }
+}
 
 // Función que oculta la animación de carga y muestra el texto del botón
 function hideLoader(){
