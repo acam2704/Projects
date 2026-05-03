@@ -93,6 +93,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
     color: var(--button-text-);
     cursor: pointer;
 }
+.bttn_send:active{transform: scale(0.97)}
 #loader{
     width: 10px;
     height: 10px;
@@ -132,7 +133,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
 }
 
 .microsoft-btn:hover{background: #F0F7FF; border-color: #93C5FD}
-.microsoft-btn:active{transform: scale(0.9)}
+.microsoft-btn:active{transform: scale(0.97)}
 
 /* LOGO MICROSOFT */
 .ms-logo{

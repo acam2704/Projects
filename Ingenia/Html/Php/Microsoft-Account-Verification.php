@@ -25,7 +25,7 @@ try{
             'http' => [
                 'header' => 'Content_type: application/x-www-urlencoded\r\n',
                 'method' => 'POST',
-                'content' => http_build_query($data),
+                'content' => http_build_query($data)
             ],
         ];
 
