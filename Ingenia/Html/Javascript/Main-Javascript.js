@@ -44,7 +44,7 @@ function Go_back(){
     let security_information = [input_1psw_Re, input_2psw_Re];
     let verification_code = [input_code_Re];
     let public_profile = [input_file_Re /*, input_degrees_Re, input_description_Re */];
-
+    
     if(getComputedStyle(input_name_Re).display !== "none"){
 
     } else if(getComputedStyle(input_code_Re).display !== "none"){
@@ -80,6 +80,7 @@ bttn_send.addEventListener("click", async () => {
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
     if(getComputedStyle(input_name_Re).display !== "none"){
         // Se validan los campos de ingreso de Información Personal
+        console.log(' - ' + localStorage.getItem('user'));
         next();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
         // Se valida el código de verificación enviado al correo
