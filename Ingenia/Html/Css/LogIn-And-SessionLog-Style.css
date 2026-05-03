@@ -25,7 +25,7 @@
     margin: 50px 0px 0px calc( ( 100% - 400px ) / 2 );
     backdrop-filter: blur(7px)
 }
-.content_inputs{margin: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.08)}
+.content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08)}
 .content_inputs > input{
     width: calc(100% - 30px);
     height: 30px;
