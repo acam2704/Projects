@@ -104,7 +104,7 @@ function code_already_typed(){
     console.log(data);
 
     let elements_to_show = [input_1psw_Re, input_2psw_Re];
-    let elements_to_hide = [input_email_Re, input_lastname_Re, input_name_Re];
+    let elements_to_hide = [input_email_Re, input_lastname_Re, input_name_Re, content_check_buttons_with];
 
     if(json_data !== null){
         if(input_email_Re.value.trim() === data['email']){
