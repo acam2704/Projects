@@ -8,6 +8,7 @@ let input_1psw_Re = document.getElementById("input_1psw_Re");
 let input_2psw_Re = document.getElementById("input_2psw_Re");
 let input_code_Re = document.getElementById("input_code_Re");
 let input_DUI_Re = document.getElementById("input_DUI_Re");
+let input_file_Re = document.getElementById("input_file_Re");
 let img_Re = document.getElementById("img_Re");
 let account_img = document.getElementById("account_img");
 let bttn_microsoft = document.getElementById("Microsoft");
@@ -28,9 +29,35 @@ input_1psw_Re.addEventListener("change", retrieveChanges_Re);
 input_2psw_Re.addEventListener("change", retrieveChanges_Re);
 input_code_Re.addEventListener("change", retrieveChanges_Re);
 
-// Función que permite simular 
+// Función que permite simular volver a los campos de ingreso anteriores
 function Go_back(){
+    // Se deshabilitan todos los inputs
+    disable_all_inputs();
 
+    // Se oculta el texto de alerta, por si hubo un error anteriormente
+    error_text_alert.style.display = 'none';
+    // Se reestablece el marginTop de bttn_send
+    bttn_send.style.marginTop = "20px";
+
+    // Al dar click, se muestra la animación de carga en el botón
+    animationLoad();
+    // Se espera medio segundo
+    await delay(500);
+
+    // Se preparan los inputs de cada campo
+    let personal_information = [input_name_Re, input_lastname_Re, input_email_Re];
+    let legal_information = [input_DUI_Re, /* input_phonenumber_Re, input_location_Re */];
+    let security_information = [input_1psw_Re, input_2psw_Re];
+    let verification_code = [input_code_Re];
+    let public_profile = [input_file_Re /*, input_degrees_Re, input_description_Re */];
+    if(getComputedStyle(input_name_Re).display !== "none"){
+
+    } else if(getComputedStyle(input_code_Re).display !== "none"){
+        // No se hace nada
+    } else{
+        ableInputs(personal_information);
+        hideAndShow(personal_information, security_information);
+    }
 }
 
 // Función que permite deshabilitar los inputs al cargar la página
@@ -58,7 +85,8 @@ bttn_send.addEventListener("click", async () => {
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
     if(getComputedStyle(input_name_Re).display !== "none"){
         // Se validan los campos de ingreso de Información Personal
-        next();
+        console.log(localStorage.getItem('user'))
+        code_already_typed()
     } else if(getComputedStyle(input_code_Re).display !== "none"){
         // Se valida el código de verificación enviado al correo
         console.log(sessionStorage.getItem('email'));
@@ -68,6 +96,33 @@ bttn_send.addEventListener("click", async () => {
         verifyPasswords();
     }
 });
+
+function code_already_typed(){
+    let json_data = localStorage.getItem('user');
+    let data = JSON.parse(json_data);
+    console.log(json_data);
+    console.log(data);
+
+    let elements_to_show = [input_1psw_Re, input_2psw_Re];
+    let elements_to_hide = [input_email_Re, input_lastname_Re, input_name_Re];
+
+    if(json_data !== null){
+        if(input_email_Re.value.trim() === data['email']){
+            // Se habilitan los inputs requeridos
+            ableInputs(elements_to_show);
+
+            // Se mandan a mostrar y ocultar los inputs requeridos
+            hideAndShow(elements_to_show, elements_to_hide);
+
+            // Se muestra la ventana para ingresar la contraseña deseada por le usuario
+            PasswordsWindow();
+        } else {
+            next();
+        }
+    } else{
+        next();
+    }
+}
 
 // Función que 
 document.addEventListener('DOMContentLoaded', async function() {
