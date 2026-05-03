@@ -43,6 +43,9 @@ bttn_send.addEventListener("click", async () => {
     // Se deshabilitan todos los inputs
     disable_all_inputs();
 
+    // Se oculta el texto de alerta, por si hubo un error anteriormente
+    error_text_alert.style.display = 'none';
+
     // Al dar click, se muestra la animación de carga en el botón
     animationLoad();
     // Se espera medio segundo
@@ -362,8 +365,13 @@ function emailSent(response){
             // Se habilita la modificación de los valores de los inputs
             ableInputs(elements_to_hide);
 
+            // Se modifica el margin-top del botón
+            bttn_send.style.marginTop = '10px';
+
             // Se le dice al usuario que hubo un error y que lo vuelva a intentar
+            error_text_alert.style.display = 'block';
             error_text_alert.textContent = "Por favor. Inténtalo otra vez";
+            
         }
     } catch(e){
         // Si hubo un error se muestra en la consola

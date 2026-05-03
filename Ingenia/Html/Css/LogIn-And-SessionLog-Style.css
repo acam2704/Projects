@@ -58,6 +58,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
 .text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
+#error_text_alert{height: 10px}
 #email_2psw_txt,
 #name_1psw_txt{font-size: 11px; margin: 0px 0px 5px 10px;}
 #account_img{width: 100%; text-align: center; display: none}
