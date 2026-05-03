@@ -82,7 +82,7 @@ bttn_send.addEventListener("click", async () => {
         // Se validan los campos de ingreso de Información Personal
         let data = JSON.parse(localStorage.getItem('user'));
         console.log(data['email']);
-        next();
+        code_already_typed();
     } else if(getComputedStyle(input_code_Re).display !== "none"){
         // Se valida el código de verificación enviado al correo
         VerificationCodeWindow(sessionStorage.getItem('email'));
@@ -130,7 +130,7 @@ function code_already_typed(){
 
         PasswordsWindow();
     } else {
-
+        next()
     }
 }
 
