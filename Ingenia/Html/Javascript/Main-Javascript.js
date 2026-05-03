@@ -361,6 +361,7 @@ function emailSent(response){
         // Se le pide al usuario volver a intentar el Registro
         alert("Recargue la página y vuelva a intentarlo")
     }
+    // Se oculta la animación de carga del botón
     hideLoader();
 }
 
@@ -399,8 +400,7 @@ async function VerificationCodeWindow(email){
             // Se envía a verificarlo
             codeVerification(json_data);
         };
-    };
-    hideLoader();
+    }
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
@@ -446,6 +446,8 @@ async function codeVerificationResponse(response){
         // Se habilita
         ableInputs(elements_to_hide);
     }
+    // Se oculta la animación de carga del botón
+    hideLoader();
 }
 
 // Función que muestra la apartado de ingreso de contraseñas
