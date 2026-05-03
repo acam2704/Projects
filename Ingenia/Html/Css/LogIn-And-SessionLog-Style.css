@@ -131,7 +131,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
     transition: all 0.5s ease;
 }
 
-.microsoft-btn:hover{background: #F0F7FF; border-color: #93C5FD; box-shadow: 0 2px 6px rgba(0,0,0,0.1)}
+.microsoft-btn:hover{background: #F0F7FF; border-color: #93C5FD}
 .microsoft-btn:active{transform: scale(0.9)}
 
 /* LOGO MICROSOFT */
