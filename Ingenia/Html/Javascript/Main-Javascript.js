@@ -1,26 +1,47 @@
 //-------------------------------------------------------// SIGN UP & SIGN IN // --------------------------------------------------------//
 
 // Definición de las variables de todos los elementos de html que se usarán en cada rincón de este Javascript
-let input_name_Re = document.getElementById("input_name_Re");
-let input_lastname_Re = document.getElementById("input_lastname_Re");
-let input_email_Re = document.getElementById("input_email_Re");
-let input_1psw_Re = document.getElementById("input_1psw_Re");
-let input_2psw_Re = document.getElementById("input_2psw_Re");
-let input_code_Re = document.getElementById("input_code_Re");
-let input_DUI_Re = document.getElementById("input_DUI_Re");
-let input_file_Re = document.getElementById("input_file_Re");
-let img_Re = document.getElementById("img_Re");
-let account_img = document.getElementById("account_img");
-let bttn_microsoft = document.getElementById("Microsoft");
-let bttn_google =  document.getElementById("Google");
-let bttn_send_txt = document.getElementById("bttn_send_txt");
-let bttn_send = document.getElementById("bttn_send");
-let loader = document.getElementById("loader");
-let alert_email_or_2psw = document.getElementById("alert_email_or_2psw");
-let alert_name_or_1psw = document.getElementById("alert_name_or_1psw");
-let legal_information_section_text = document.getElementById("legal_information_section_text");
-let error_text_alert = document.getElementById("error_text_alert");
-let content_check_buttons_with = document.getElementById("content_check_buttons_with");
+
+//----- ELEMENTOS DE VENTANA: INFORMACIÓN PERSONAL -----//
+const input_name_Re = document.getElementById("input_name_Re");
+const input_lastname_Re = document.getElementById("input_lastname_Re");
+const input_email_Re = document.getElementById("input_email_Re");
+const personal_information_container = document.getElementById("personal_information_container");
+
+//----- ELEMENTOS DE VENTANA: VERIFICACIÓN DE CÓDIGO -----//
+const input_code_Re = document.getElementById("input_code_Re");
+const verification_code_container = document.getElementById("verification_code_container");
+
+//----- ELEMENTOS DE VENTANA: INFORMACIÓN DE SEGURIDAD -----//
+const input_1psw_Re = document.getElementById("input_1psw_Re");
+const input_2psw_Re = document.getElementById("input_2psw_Re");
+const security_information_container = document.getElementById("security_information_container");
+
+//----- ELEMENTOS DE VENTANA: INFORMACIÓN DE IDENTIDAD -----//
+const input_DUI_Re = document.getElementById("input_DUI_Re");
+const input_phonenumber_Re = document.getElementById("input_phonenumber_Re");
+const select_departament = document.getElementById("select_departament");
+const select_municipality = document.getElementById("select_municipality");
+const select_district = document.getElementById("select_district");
+const identity_information_container = document.getElementById("identity_information_container");
+const legal_information_section_text = document.getElementById("legal_information_section_text");
+
+//----- ELEMENTOS DE VENTANA: INFORMACIÓN PÚBLICA DEL PERFIL -----//
+const input_file_Re = document.getElementById("input_file_Re");
+const img_Re = document.getElementById("img_Re");
+const public_profile_information_container = document.getElementById('public_profile_information_container');
+
+//----- ELEMENTOS GUÍAS DE CADA VENTANA -----//
+// Elementos de verificación 
+const bttn_microsoft = document.getElementById("Microsoft");
+const bttn_google =  document.getElementById("Google");
+const content_check_buttons_with = document.getElementById("content_check_buttons_with");
+// Otros elementos
+const error_text_alert = document.getElementById("error_text_alert");
+const bttn_send_txt = document.getElementById("bttn_send_txt");
+const bttn_send = document.getElementById("bttn_send");
+const loader = document.getElementById("loader");
+
 
 // Se ingresa la función retrieveChanges_Re, que quita los text_alert, cuando el valor cambia
 input_name_Re.addEventListener("change", retrieveChanges_Re);
@@ -29,36 +50,149 @@ input_1psw_Re.addEventListener("change", retrieveChanges_Re);
 input_2psw_Re.addEventListener("change", retrieveChanges_Re);
 input_code_Re.addEventListener("change", retrieveChanges_Re);
 
+// 
+const map = {
+    ahuachapan: ['Ahuachapán', {
+        norte: ['Atiquizaya', 'El Refugio', 'San Lorenzo', 'Turín'],
+        centro: ['Ahuachapán', 'Apaneca', 'Concepción de Ataco', 'Tacuba'],
+        sur: ['Guaymango', 'Jujutla', 'San Francisco Menendez', 'San Pedro Puxtla'],
+    }],
+    san_salvador: ['San Salvador', {
+        norte: ['Aguilares', 'El Paisnal', 'Guazapa'],
+        oeste: ['Apopa', 'Nejapa'],
+        este: ['llopango', 'San Martín', 'Soyapango', 'Tonacatepeque'],
+        centro: ['Ayutuxtepeque', 'Mejicanos', 'San Salvador', 'Cuscatancingo', 'Ciudad Delgado'],
+        sur: ['Panchimalco', 'Rosario de Mora', 'San Marcos', 'Santo Tomás', 'Santiago Texacuangos']
+    }],
+    la_libertad: ['La Libertad', {
+        norte: ['Quezaltepeque', 'San Matías', 'San Pablo Tacachico'],
+        centro: ['San Juan Opico', 'Ciudad Arce'],
+        oeste: ['Colón', 'Jayaque', 'Sacacoyo', 'Tepecoyo', 'Talnique'],
+        este: ['Antiguo Cuscatlán', 'Huizucar', 'Nuevo Cuscatlán', 'San José Villanueva', 'Zaragoza'],
+        costa: ['Chiltuipán', 'Jicalapa', 'La Libertad', 'Tamanique', 'Teotepeque'],
+        sur: ['Comasagua', 'Santa Tecla']
+    }],
+    chalatenango: ['Chalatenango', {
+        norte: ['La Palma', 'Citalá', 'San Ignacio'],
+        centro: ['Nueva Concepción', 'Tejutla', 'La Reina', 'Agua Caliente', 'Dulce Nombre de María', 'El Paraíso', 
+            'San Francisco Morazán', 'San Rafael', 'Santa Rita', 'San Fernando'
+        ],
+        sur: ['Chalatenango', 'Arcatao', 'Azacualpa', 'Comalapa', 'Concepción Quezaltepeque', 'El Carrizal', 'La Laguna',
+            'Las Vueltas', 'Nombre de Jesús', 'Nueva Trinidad', 'Ojos de Agua', 'Potonico', 'San Antonio de La Cruz', 
+            'San Antonio Los Ranchos', 'San Francisco Lempa', 'San Isidro Labrador', 'San José Cancasque', 'San Miguel de Mercedes',
+            'San José Las Flores', 'San Luis del Carmen'
+        ]
+    }],
+    cuscatlan: ['Cuscatlán', {
+        norte: ['Suchitoto', 'San José Guayabal', 'Oratorio de Concepción', 'San Bartolomé Perulapán', 'San Pedro Perulapán'],
+        sur: ['Cojutepeque', 'San Rafael Cedros', 'Candelaria', 'Monte San Juan', 'El Carmen', 'San Cristóbal', 'Santa Cruz Michapa',
+            'San Ramón', 'El Rosario', 'Santa Cruz Analquito', 'Tenancingo'
+        ]
+    }],
+    cabanas: ['Cabañas', {
+        este: ['Sensuntepeque', 'Victoria', 'Dolores', 'Guacotecti', 'San Isidro'],
+        oeste: ['llobasco', 'Tejutepeque', 'Jutiapa', 'Cinquera']
+    }],
+    la_paz: ['La Paz', {
+        oeste: ['Cuyultitán', 'Olocuilta', 'San Juan Talpa', 'San Luis Talpa', 'San Pedro Masahuat', 'Tapalhuaca',
+            'San Francisco Chinameca'
+        ],
+        centro: ['El Rosario', 'Jerusalén', 'Mercedes La Ceiba', 'Paraíso de Osorio', 'San Antonio Masahuat', 'San Emigdio',
+            'San Juan Tepezontes', 'San Luis La Herradura', 'San Miguel Tepezontes', 'San Pedro Nonualco', 'Santa María Ostuma',
+            'Santiago Nonualco'
+        ],
+        este: ['San Juan Nonualco', 'San Rafael Obrajuelo', 'Zacatecoluca']
+    }],
+    la_union: ['La Unión', {
+        norte: ['Anamorós', 'Bolivar', 'Concepción de Oriente', 'El Sauce', 'Lislique', 'Nueva Esparta', 'Pasaquina', 
+            'Polorós', 'San José La Fuente', 'Santa Rosa de Lima'
+        ],
+        sur: ['Conchagua', 'El Carmen', 'lntipucá', 'La Unión', 'Meanguera del Golfo', 'San Alejo', 'Yayantique', 
+            'Yucuaiquín'
+        ]
+    }],
+    usulutan: ['Usulután', {
+        norte: ['Santiago de María', 'Alegría', 'Berlín', 'Mercedes Umana', 'Jucuapa', 'El Triunfo', 'Estanzuelas', 
+            'San Buenaventura', 'Nueva Granada'
+        ],
+        este: ['Usulután', 'Jucuarán', 'San Dionisio', 'Concepción Batres', 'Santa María', 'Ozatlán', 'Tecapán',
+            'Santa Elena', 'California', 'Ereguayquín'
+        ],
+        oeste: ['Jiquilisco', 'Puerto El Triunfo', 'San Agustín', 'San Francisco Javier']
+    }],
+    sonsonate: ['Sonsonate', {
+        norte: ['Juayúa', 'Nahuizalco', 'Salcoatitán', 'Santa Catarina Masahuat'],
+        centro: ['Sonsonate', 'Sonzacate', 'Nahulingo', 'San Antonio del Monte', 'Santo Domingo de Guzmán'],
+        este: ['lzalco', 'Armenia', 'Caluco', 'San Julián', 'Cuisnahuat', 'Santa Isabel lshuatán'],
+        oeste: ['Acajutla']
+    }],
+    santa_ana: ['Santa Ana', {
+        norte: ['Masahuat', 'Metapán', 'Santa Rosa Guachipilín', 'Texistepeque'],
+        centro: ['Santa Ana'],
+        este: ['Coatepeque', 'El Congo'],
+        oeste: ['Candelaria de la Frontera', 'Chalchuapa', 'El Porvenir', 'San Antonio Pajonal', 'San Sebastián Salitrillo',
+            'Santiago de La Frontera'
+        ]
+    }],
+    san_vicente: ['San Vicente', {
+        norte: ['Apastepeque', 'Santa Clara', 'San Ildefonso', 'San Esteban Catarina', 'San Sebastián', 'San Lorenzo',
+            'Santo Domingo'
+        ],
+        sur: ['San Vicente', 'Guadalupe', 'Verapaz', 'Tepetitán', 'Tecoluca', 'San Cayetano lstepeque']
+    }],
+    san_miguel: ['San Miguel', {
+        norte: ['Ciudad Barrios', 'Sesori', 'Nuevo Edén de San Juan', 'San Gerardo', 'San Luis de La Reina', 
+            'Carolina', 'San Antonio del Mosco', 'Chapeltique'],
+        centro: ['San Miguel', 'Comacarán', 'Uluazapa', 'Moncagua', 'Quelepa', 'Chirilagua'],
+        oeste: ['Chinameca', 'Nueva Guadalupe', 'Lolotique', 'San Jorge', 'San Rafael Oriente', 'El Tránsito']
+    }],
+    morazan: ['Morazán', {
+        norte: ['Arambala', 'Cacaopera', 'Corinto', 'El Rosario', 'Joateca', 'Jocoaitique', 'Meanguera', 'Perquín', 
+            'San Fernando', 'San Isidro', 'Torola'
+        ],
+        sur: ['Chilanga', 'Delicias de Concepción', 'El Divisadero', 'Gualococti', 'Guatajiagua', 'Jocoro', 'Lolotiquillo',
+            'Osicala', 'San Carlos', 'San Francisco Gotera', 'San Simón', 'Sensembra', 'Sociedad', 'Yamabal', 'Yoloaiquín'
+        ]
+    }]
+}
+
 // Función que permite simular volver a los campos de ingreso anteriores
 function Go_back(){
     // Se deshabilitan todos los inputs
     disable_all_inputs();
+    hide_all_text_alerts();
 
     // Se oculta el texto de alerta, por si hubo un error anteriormente
     error_text_alert.style.display = 'none';
     // Se reestablece el marginTop de bttn_send
     bttn_send.style.marginTop = "20px";
-    // Se preparan los inputs de cada campo
-    let personal_information = [input_name_Re, input_lastname_Re, input_email_Re, content_check_buttons_with];
-    let legal_information = [input_DUI_Re, /* input_phonenumber_Re, input_location_Re */];
-    let security_information = [input_1psw_Re, input_2psw_Re];
-    let verification_code = [input_code_Re];
-    let public_profile = [input_file_Re /*, input_degrees_Re, input_description_Re */];
     
     if(getComputedStyle(input_name_Re).display !== "none"){
 
     } else if(getComputedStyle(input_code_Re).display !== "none"){
         // No se hace nada
     } else{
-        ableInputs(personal_information);
-        hideAndShow(personal_information, security_information);
+        able_inputs(personal_information);
+        hide_and_show(personal_information_container, security_information);
     }
 }
 
 // Función que permite deshabilitar los inputs al cargar la página
 function disable_all_inputs(){
-    let inputs = [input_name_Re, input_lastname_Re, input_email_Re, input_1psw_Re, input_2psw_Re, input_code_Re, input_DUI_Re];
-    disableInputs(inputs);
+    const containers = [personal_information_container, verification_code_container, security_information_container, 
+        identity_information_container, public_profile_information_container];
+    disable_inputs(containers);
+}
+
+function hide_all_text_alerts(){
+    const containers = [personal_information_container, verification_code_container, security_information_container, 
+        identity_information_container, public_profile_information_container];
+
+    containers.forEach(container => {
+        container.querySelectorAll(':scope > span').forEach(span => {
+            span.style.display = 'none';
+        })
+    })
 }
 
 // Se ingresa, en el evento "click" de el botón de Registrarse condiciones que ejecutan funciones
@@ -78,20 +212,48 @@ bttn_send.addEventListener("click", async () => {
     await delay(500);
 
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-    if(getComputedStyle(input_name_Re).display !== "none"){
+    if(getComputedStyle(input_name_Re).display !== 'none'){
         // Se validan los campos de ingreso de Información Personal
         code_already_typed();
-    } else if(getComputedStyle(input_code_Re).display !== "none"){
+    } else if(getComputedStyle(input_code_Re).display !== 'none'){
         // Se valida el código de verificación enviado al correo
-        VerificationCodeWindow(sessionStorage.getItem('email'));
-    } else{
+        verification_code_window(sessionStorage.getItem('email'));
+    } else if(getComputedStyle(input_DUI_Re).display !== 'none'){
         // Se validan las contraseñas digitadas por el usuario
+        verify_identity_information()
+    } else if(getComputedStyle(input_1psw_Re).display !== 'none'){
         verifyPasswords();
     }
 });
 
+select_departament.addEventListener('change', () => {
+    const departament = select_departament.value;
+
+    document.querySelectorAll('.option_municipality').forEach(el => el.remove());
+    document.querySelectorAll('.option_district').forEach(el => el.remove());
+
+    if(departament.trim().length !== 0){
+        const normalized_departament = normalizeSelect(departament);
+        place_municipality(normalized_departament, departament);
+    }
+});
+
+select_municipality.addEventListener('change', () => {
+    const municipality_array = select_municipality.value.split(' ');
+    const municipality = municipality_array[municipality_array.length - 1];
+    const departament = select_departament.value;
+
+    document.querySelectorAll('.option_district').forEach(el => el.remove());
+
+    if(municipality.trim().length !== 0){
+        const normalized_municipality = normalizeSelect(municipality);
+        const normalized_departament = normalizeSelect(departament);
+        place_district(normalized_municipality, municipality, normalized_departament);
+    }
+});
+
 // Función que 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', function() {
     if (sessionStorage.getItem('fullname').length !== '{}'){
         const fullname = sessionStorage.getItem('fullname');
         const email = sessionStorage.getItem('email');
@@ -100,16 +262,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         const name = fullname_array[0];
         const surname = fullname_array[1];
 
-        disable_all_inputs()
+        disable_all_inputs();
+        hide_all_text_alerts();
 
-        let elements_to_show = [input_1psw_Re, input_2psw_Re];
-        let elements_to_hide = [input_name_Re, input_lastname_Re, input_email_Re, content_check_buttons_with];
-        ableInputs(elements_to_show);
+        const elements_to_show = [security_information_container];
+        const elements_to_hide = [personal_information_container, content_check_buttons_with];
+        able_inputs(elements_to_show);
         input_name_Re.value = name;
         input_lastname_Re.value = surname;
         input_email_Re.value = email;
         
-        hideAndShow(elements_to_show, elements_to_hide);
+        hide_and_show(elements_to_show, elements_to_hide);
 
         PasswordsWindow();
     }
@@ -117,19 +280,30 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 function code_already_typed(){
     let data = JSON.parse(localStorage.getItem('user'))
-
-    let elements_to_show = [input_1psw_Re, input_2psw_Re];
-    let elements_to_hide = [input_name_Re, input_lastname_Re, input_email_Re, content_check_buttons_with];
-    // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-    if(data['email'] === input_email_Re.value.trim()){
-        ableInputs(elements_to_show);
-
-        hideAndShow(elements_to_show, elements_to_hide);
-
-        PasswordsWindow();
+    const condition = data['email'] === input_email_Re.value.trim();
+    if(condition){
+        next(condition);
     } else {
-        next()
+        next(condition);
     }
+}
+
+function show_text_alert(text){
+    text[0].forEach(ta => {
+        const span = document.getElementById(ta);
+        span.style.display = 'block';
+        span.textContent = text[1];
+    })
+}
+
+function normalizeSelect(select){
+    return select
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ñ/g, 'n')
+        .replace(/\s+/g, '_')
+        .replace(/[^a-z0-9_]/g, '');
 }
 
 // Función que oculta la animación de carga y muestra el texto del botón
@@ -141,18 +315,8 @@ function hideLoader(){
     bttn_send_txt.style.display = "block";
 }
 
-// Función que permite ocultar y mostrar inputs
-function hideAndShow(inputs_to_show, inputs_to_hide){
-    inputs_to_show.forEach(input => {
-        input.style.display = "inline-block";
-    });
-    inputs_to_hide.forEach(input => {
-        input.style.display = "none";
-    }); 
-}
-
-// Función que permite ocultar y mostrar elementos html
-function hide_and_show_elements(elements_to_show, elements_to_hide){
+// Función que permite ocultar y mostrar elementos
+function hide_and_show(elements_to_show, elements_to_hide){
     elements_to_show.forEach(element => {
         element.style.display = "block";
     });
@@ -201,21 +365,25 @@ function almacenate(data){
 }
 
 // Función que permite deshabilitar inputs
-function disableInputs(inputs){
+function disable_inputs(containers){
     // A cada input enviado dentro de la lista 'inputs' se cambia a TRUE la propiedad 'disabled' 
-    // Esto impide la modificación de los valores imprimidos anteriormente en el input. 
-    inputs.forEach(i => {
-        i.disabled = true;
-    })
+    // Esto impide la modificación de los valores imprimidos anteriormente en el input.
+    containers.forEach(container => 
+        container.querySelectorAll(':scope > input').forEach(i => {
+            i.disabled = true;
+        })
+    );
 }
 
 // Función que permite habilitar inputs
-function ableInputs(inputs){
+function able_inputs(containers){
     // A cada input enviado dentro de la lista 'inputs' se cambia a FALSE la propiedad 'disabled' 
     // Esto permite el ingreso de valores dentro de cada input 
-    inputs.forEach(i => { 
-        i.disabled = false;
-    })
+    containers.forEach(container => 
+        container.querySelectorAll(':scope > input').forEach(i => { 
+            i.disabled = false;
+        })
+    );
 }
 
 // Función que permite una espera, dada en milisegundos, dentro de la ejecución de código
@@ -276,52 +444,59 @@ async function transformData(json){
 }
 
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
-async function next(){
+async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
-    let inputs_to_able = [input_name_Re, input_lastname_Re, input_email_Re];
+    const inputs_to_able = [personal_information_container];
+    const elements_to_show = [security_information_container];
+    const elements_to_hide = [personal_information_container];
 
     // Los campos no deben estar vacíos
     if(input_name_Re.value.length === 0){
         input_name_Re.focus();
-        bttn_send_txt.style.display = "block";
-        loader.style.display = "none";
+        hideLoader();
 
         // Se habilitan los inputs nuevamente
-        ableInputs(inputs_to_able);
+        able_inputs(inputs_to_able);
 
-        alert_name_or_1psw.textContent = "Campo Obligatorio."
+        show_text_alert([['text_PI1'], 'Campo obligatorio']);
     } else if(input_lastname_Re.value.length === 0){
         input_lastname_Re.focus();
-        bttn_send_txt.style.display = "block";
-        loader.style.display = "none"; 
+        hideLoader(); 
 
         // Se habilitan los inputs nuevamente
-        ableInputs(inputs_to_able);
+        able_inputs(inputs_to_able);
 
-        alert_name_or_1psw.textContent = "Campo Obligatorio."
+        show_text_alert([['text_PI2'], 'Campo obligatorio']);
     } else if(input_email_Re.value.length === 0){
         input_email_Re.focus();
-        bttn_send_txt.style.display = "block";
-        loader.style.display = "none";
+        hideLoader();
 
         // Se habilitan los inputs nuevamente
-        ableInputs(inputs_to_able);
+        able_inputs(inputs_to_able);
 
-        alert_email_or_2psw.textContent = "Campo Obligatorio.";
+        show_text_alert([['text_PI3'], 'Campo obligatorio']);
     } else{
-        // Se activa una animación de carga en el botón
-        animationLoad();
-        // Se hace esperar a la función medio segundo para ejecutar lo que sigue de código
-        await delay(500);
-        // Se crea un json con la Información Personal del usuario
-        let json_data = JSON.stringify({
-            names: input_name_Re.value,
-            lastnames: input_lastname_Re.value,
-            email: input_email_Re.value,
-            domain: 'google'
-        });
-        // Se envían a una función que envía un código de verificación
-        sendCode(json_data);
+        if (code_typed_before) {
+            able_inputs(elements_to_show);
+
+            hide_and_show(elements_to_show, elements_to_hide);
+
+            legal_information_Window();
+        } else{
+            // Se activa una animación de carga en el botón
+            animationLoad();
+            // Se hace esperar a la función medio segundo para ejecutar lo que sigue de código
+            await delay(500);
+            // Se crea un json con la Información Personal del usuario
+            const json_data = JSON.stringify({
+                names: input_name_Re.value,
+                lastnames: input_lastname_Re.value,
+                email: input_email_Re.value,
+                domain: 'google'
+            });
+            // Se envían a una función que envía un código de verificación
+            sendCode(json_data);
+        }
     }
 }
 
@@ -376,18 +551,18 @@ function emailSent(response){
     // Se trata de ejecutar el siguiente código
     try{
         // Listas de inputs a modificar
-        let elements_to_show = [input_code_Re];
-        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, content_check_buttons_with];
+        const elements_to_show = [verification_code_container];
+        const elements_to_hide = [personal_information_container, content_check_buttons_with];
         
         // No debe de haber error en la etiqueta 'error' de la respuesta
         if(response['error'] === null){
             // El status de la respueta debe ser 'ok'
             if(response["status"] === "ok"){
                 // Habilitar la modificación de los valores en los inputs
-                ableInputs(elements_to_show);
+                able_inputs(elements_to_show);
 
                 // Llamada a función que oculta y muestra los campos requeridos
-                hideAndShow(elements_to_show, elements_to_hide);
+                hide_and_show(elements_to_show, elements_to_hide);
 
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
                 // Datos importantes: sent_at y sent_to
@@ -395,37 +570,34 @@ function emailSent(response){
             } else{
                 // De otro modo, se imprime en la consola el status
                 console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response['status']);
-
+                // Se le dice al usuario que hubo un error
+                show_text_alert([['error_text_alert'], 'Hubo un error. Inténtalo de nuevo']);
                 // Se habilita la modificación de los valores de los inputs
-                ableInputs(elements_to_hide);
+                able_inputs(elements_to_hide);
             }
         } else if(response['error'].includes('Invalid email')){
             // Se habilita la modificación de los valores de los inputs
-            ableInputs(elements_to_hide);
+            able_inputs(elements_to_hide);
 
-            // Se modifica alert_email_or_2psw
-            alert_email_or_2psw.style.display = 'block';
-            alert_email_or_2psw.textContent = 'Correo inválido';
+            // Se le dice al usuario que el correo es inválido
+            show_text_alert([['text_VC1'], 'Correo inválido']);
 
             // Se devuelve el foco a input_email_Re
             input_email_Re.focus();
         } else {
             // Se habilita la modificación de los valores de los inputs
-            ableInputs(elements_to_hide);
+            able_inputs(elements_to_hide);
 
             // Se modifica el margin-top del botón
             bttn_send.style.marginTop = '10px';
 
             // Se le dice al usuario que hubo un error y que lo vuelva a intentar
-            error_text_alert.style.display = 'block';
-            error_text_alert.textContent = "Por favor. Inténtalo otra vez";
-            
+            show_text_alert([['error_text_alert'], 'Hubo un error. Inténtalo otra vez']);
         }
     } catch(e){
         // Si hubo un error se muestra en la consola
         console.log({ name: e.name, 
             message: e.message});
-
         // Se le pide al usuario volver a intentar el Registro
         alert("Recargue la página y vuelva a intentarlo")
     }
@@ -435,25 +607,26 @@ function emailSent(response){
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
 // Desde: después de enviar el correo 
-async function VerificationCodeWindow(email){
+async function verification_code_window(email){
+    const text = document.getElementById('text_VC1');
     // Se mantiene el texto mostrado
     loader.style.display = "none";
     bttn_send.style.display = "block";
 
     // El código debe de haberse ingresado
-    if(!input_code_Re.value){
-        // Se le dice al usuario que se ingrese el código enviado
-        alert_email_or_2psw.textContent = "Ingresa el código que te hemos enviado";
+    if(input_code_Re.value.trim().length === 0){
+        // Se modifica text_VC1
+        show_text_alert([text, 'Campo obligatorio']);
         // Se devuelve el foco al input
         input_code_Re.focus();
     } else {
         // El código tiene que ser de 6 dígitos
-        if (input_code_Re.value.length !== 6){
+        if (input_code_Re.value.trim().length !== 6){
             // Se le dice al usuario que el código requiere ser de 6 carácteres
-            alert_email_or_2psw.textContent = "El código requiere ser de 6 carácteres";
+            show_text_alert([text, 'El código requiere ser de 6 carácteres']);
 
             // Se habilita el input nuevamente
-            ableInputs([input_code_Re]);
+            able_inputs(verification_code_container);
 
             // Se devuelve el foco al input
             input_code_Re.focus();
@@ -461,7 +634,7 @@ async function VerificationCodeWindow(email){
             // Si el código no está vacío y cumple con 6 carácteres de longitud
 
             // Se prepara un json con el código ingresado por el usuario y su correo electrónico
-            let json_data = JSON.stringify({
+            const json_data = JSON.stringify({
                 code: input_code_Re.value,
                 email: email
             });
@@ -494,28 +667,73 @@ function codeVerification(json_data){
 // Función que procesa la respuesta de verificación de código
 // Desde: codeVerification -> codeVerificationResponse
 async function codeVerificationResponse(response){
+    const text = document.getElementById('text_VC1');
     // Se preparan los inputs a ocultar y mostrar
-    let elements_to_show = [input_1psw_Re, input_2psw_Re];
-    let elements_to_hide = [input_code_Re];
+    const elements_to_show = [security_information_container];
+    const elements_to_hide = [verification_code_container];
     
     // El status de la respuesta debe de ser 'ok'
     if(response['status'] === 'ok'){
         // Se habilitan los inputs requeridos
-        ableInputs(elements_to_show);
+        able_inputs(elements_to_show);
 
         // Se mandan a mostrar y ocultar los inputs requeridos
-        hideAndShow(elements_to_show, elements_to_hide);
+        hide_and_show(elements_to_show, elements_to_hide);
 
         // Se muestra la ventana para ingresar la contraseña deseada por le usuario
-        PasswordsWindow();
+        show_identity_information_window();
     } else{
         // Si el status es diferente a 'ok'
-        alert_email_or_2psw.textContent = "Código incorrecto. Digítalo otra vez.";
-        // Se habilita
-        ableInputs(elements_to_hide);
+        show_text_alert([text, 'Ingresa el código enviado']);
+        // Se habilitan los inputs requeridos
+        able_inputs(elements_to_hide);
     }
     // Se oculta la animación de carga del botón
     hideLoader();
+}
+
+//
+function place_departaments(){
+    const select = document.getElementById("select_departament");
+
+    Object.values(map).forEach(value => {
+        const option = document.createElement('option');
+        option.classList = 'option_departament';
+        option.value = value[0];
+        option.textContent = value[0];
+
+        select.appendChild(option)
+    });
+}
+
+function place_municipality(normalized_departament, departament){
+    const select = document.getElementById('select_municipality');
+    const municipalities = map[normalized_departament][1];
+    
+    console.log(Object.keys(municipalities));
+    Object.keys(municipalities).forEach(mun => {
+        const option = document.createElement("option");
+        option.classList = 'option_municipality';
+        option.value = departament + ' ' + mun;
+        option.textContent = departament + ' ' + mun;
+
+        select.appendChild(option);
+    });
+}
+
+function place_district(normalized_municipality, municipality, normalized_departament){
+    const select = document.getElementById('select_district');
+    const municipalities = map[normalized_departament][1];
+    const districts = municipalities[normalized_municipality];
+
+    districts.forEach(dis => {
+        const option = document.createElement('option');
+        option.classList = 'option_district';
+        option.value = dis;
+        option.textContent = dis;
+
+        select.appendChild(option);
+    });
 }
 
 // Función que muestra la apartado de ingreso de contraseñas
@@ -527,50 +745,64 @@ function PasswordsWindow(){
 
 // Función que verifica las contraseñas ingresadas por le usuario
 function verifyPasswords(){
-    loader.style.display = "none";
-    bttn_send.style.display = "block";
+    hideLoader();
 
     // Se preparan los inputs a mostrar, ocultar, habilitar y deshabilitar
-    let inputs_to_hide = [input_1psw_Re, input_2psw_Re];
-    let inputs_to_show = [input_DUI_Re];
+    const inputs_to_hide = [security_information_container];
+    const inputs_to_show = [identity_information_container];
 
     // La contraseña no puede ser menor a 8 carácteres
-    if(input_1psw_Re.value.length < 8 & input_2psw_Re.value.length < 8){
-        alert_name_or_1psw.textContent = 'Contraseña demasiado corta';
+    if(input_1psw_Re.value.trim().length < 8){
+        show_text_alert([['text_SI1'], 'La contraseña no puede ser menor a 8 carácteres']);
         
         // Se habilitan los campos nuevamente
-        ableInputs(inputs_to_hide);
+        able_inputs(inputs_to_hide);
         
     // Las dos contraseñas deben ser iguales
-    } else if(input_1psw_Re.value !== input_2psw_Re.value){
-        alert_email_or_2psw.textContent = 'La contraseña no coincide';
-
+    } else if(input_1psw_Re.value.trim() !== input_2psw_Re.value.trim()){
+        show_text_alert([['text_SI1', 'text_SI2'], 'Las contraseñas no coinciden']);
         // Se habilitan los campos nuevamente
-        ableInputs(inputs_to_hide);
-
+        able_inputs(inputs_to_hide);
     } else{
         // Se prepara el nombre completo del usuario
-        let fullName = input_name_Re.value + ' ' + input_lastname_Re.value;
+        const fullName = input_name_Re.value.trim() + ' ' + input_lastname_Re.value.trim();
 
         // Se habilitan los campos nuevamente
-        ableInputs(inputs_to_show);
+        able_inputs(inputs_to_show);
         // Se muestran y ocultan los inputs requeridos
-        hideAndShow(inputs_to_hide, inputs_to_show)
+        hide_and_show(inputs_to_hide, inputs_to_show)
 
         // Se crea el username del usuario
-        let username = generateUsername(fullName);
+        const username = generateUsername(fullName);
 
         // Se muestra los campos para ingresar el DUI 
-        show_field_DUI()
+        show_public_information_window()
     };
     // Se oculta la animación de carga del botón
     hideLoader();
 }
 
 // Función que muestra el campo de ingreso del DUI del usuario
-function show_field_DUI(){
-    legal_information_section_text.style.display = 'block';
-    legal_information_section_text.value = 'Ingresa una foto de tu DUI'
+function show_identity_information_window(){
+    show_text_alert([['legal_information_section_text'], 'Información del usuario']);
+}
+
+function verify_identity_information(){
+    if(input_DUI_Re.files.length === 0){
+        show_text_alert([['text_II1'], 'Campo obligatorio']);
+    } else if(input_phonenumber_Re.value.trim().length === 0){
+        show_text_alert([['text_II2'], 'Campo obligatorio']);
+    } else if(select_departament.value.trim().length === 0){
+        show_text_alert([['text_II3'], 'Campo obligatorio'])
+    } else if(select_municipality.value.trim().length === 0){
+        show_text_alert([['text_II4'], 'Campo obligatorio'])
+    } else if(select_district.value.trim().length === 0){
+        show_text_alert([['text_II5'], 'Campo obligatorio'])
+    } else{
+        const containers_to_show = [verification_code_container];
+        const containers_to_hide = [identity_information_container];
+        show_identity_information_window();
+    }
 }
 
 function registerUser(){

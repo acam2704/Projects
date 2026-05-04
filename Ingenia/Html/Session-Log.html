@@ -16,25 +16,63 @@
         <div class="content_inputs">
             <button onclick="Go_back()"><</button>
             <p class="text_title">Registro</p> <br>
-            <div id="account_img">
-                <p class="text_section_title">Foto de perfil</p> <br>
-                <img src="" alt="" id="img_Re" onclick="choosePicture()"><br><br>
-                <input type="file" id="input_file_Re" style="display: none">
+
+            <div id="personal_information_conteiner">
+                <span id="text_PI1" class="text_alert"></span>
+                <input type="text" placeholder="Nombres del usuario" id="input_name_Re">
+                <span id="text_PI2" class="text_alert"></span>
+                <input type="text" placeholder="Apellidos del usuario" id="input_lastname_Re">
+                <span id="text_PI3" class="text_alert"></span>
+                <input type="email" placeholder="Correo electrónico" id="input_email_Re">
             </div>
 
-            <p id="alert_name_or_1psw" class="text_alert"></p>
-            <input type="text" placeholder="Nombres del usuario" id="input_name_Re">
-            <input type="text" placeholder="Apellidos del usuario" id="input_lastname_Re">
-            <input type="password" placeholder="Constraseña" id="input_1psw_Re" style="display:none" >
-            
-            <p id="alert_email_or_2psw" class="text_alert"></p>
-            <input type="email" placeholder="Correo electrónico" id="input_email_Re">
-            <input type="password" placeholder="Contraseña" id="input_2psw_Re" style="display:none">
+            <div id="verification_code_container">
+                <span id="text_VC1" class="text_alert"></span>
+                <input type="text" placeholder="Ejemplo -> a4f9c2" id="input_code_Re">
+            </div>
 
-            <input type="text" placeholder="Ejemplo -> a4f9c2" id="input_code_Re" style="display: none">
+            <div id="identity_information_container">
+                <p class="text_section_title" id="legal_information_section_text"></p>
+                <span id="text_II1" class="text_alert"></span>
+                <input type="file" id="input_DUI_Re">
+                <span id="text_II2" class="text_alert"></span>
+                <input type="number" id="input_phonenumber_Re">
 
-            <p class="text_section_title" id="legal_information_section_text"></p>
-            <input type="file" id="input_DUI_Re" style="display: none">
+                <label for="departamento">Departamento de </label>
+                <span id="text_II3" class="text_alert"></span>
+                <select id="select_departament" name="departamento" required>
+                    <option value="">Seleccione un departamento</option>
+                </select><br>
+
+                <label for="departamento">Municipio de </label>
+                <span id="text_II4" class="text_alert"></span>
+                <select id="select_municipality" name="municipio" required>
+                    <option value="">Seleccione un municipio</option>
+                </select><br>
+
+                <label for="departamento">Distrito de </label>
+                <span id="text_II5" class="text_alert"></span>
+                <select id="select_district" name="distrito" required>
+                    <option value="">Seleccione un distrito</option>
+                </select>
+            </div>
+
+            <div id="security_information_container">
+                <span id="text_SI1" class="text_alert"></span>
+                <input type="password" placeholder="Constraseña" id="input_1psw_Re">
+                <span id="text_SI2" class="text_alert"></span>
+                <input type="password" placeholder="Contraseña" id="input_2psw_Re">
+            </div>
+
+            <div id="public_profile_information_container">
+                <p class="text_section_title">Foto de perfil</p> <br>
+                <img src="" alt="" id="img_Re" onclick="choosePicture()"><br><br>
+                <input type="file" id="input_file_Re">
+                <span></span>
+                <input type="file" id="input_degrees_Re">
+                <span></span>
+                <input type="text">
+            </div>
 
             <div id="g_id_onload"
                 data-client_id="359974457768-j5n8e6eh9c2m100uee1nu0ifvr6nv5tf.apps.googleusercontent.com"
