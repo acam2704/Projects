@@ -804,7 +804,7 @@ function verifyPasswords(){
 
 // Función que muestra el campo de ingreso del DUI del usuario
 function show_identity_information_window(){
-    show_text_alert([['legal_information_section_text'], 'Información del usuario']);
+    show_text_alert([['IIC_title'], 'Información del usuario']);
 }
 
 function verify_identity_information(){
