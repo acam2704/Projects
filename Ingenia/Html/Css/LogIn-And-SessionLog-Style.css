@@ -32,7 +32,7 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
     backdrop-filter: blur(7px)
 }
 .content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08); background-color: white}
-.content_inputs > input{
+.input{
     width: calc(100% - 30px);
     height: 30px;
     padding: 0px 15px 0px 15px;
@@ -44,16 +44,16 @@ body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_
     color: var(--text-into-input-);
     transition: all 0.2s ease
 }
-.content_inputs > input::placeholder{color: var(--placeholder-text-);}
-.content_inputs > input::placeholder.red{color: red;}
-.content_inputs input:-webkit-autofill { 
+.input::placeholder{color: var(--placeholder-text-);}
+.input::placeholder.red{color: red;}
+.input:-webkit-autofill { 
     -webkit-box-shadow: 0 0 0 1000px rgb(0,0,0,0) inset;
     -webkit-text-fill-color: var(--text-into-input-);
     transition: background-color 9999s ease-in-out 0s;
 }
-.content_inputs > input::selection{background-color: rgb(100, 100, 100, 0)}
-.content_inputs > input:focus,
-.content_inputs > input:hover{border-color: var(--border-input-hover-)}
+.input::selection{background-color: rgb(100, 100, 100, 0)}
+.input:focus,
+.input:hover{border-color: var(--border-input-hover-)}
 .normal_text{color: var(--label-text-); font-size: 14px}
 .text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}

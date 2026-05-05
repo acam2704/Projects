@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hide_all_text_alerts();
 
         const elements_to_show = [security_information_container];
-        const elements_to_hide = [personal_information_container, content_check_buttons_with];
+        const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, identity_information_container, public_profile_information_container];
         able_inputs(elements_to_show);
         input_name_Re.value = name;
         input_lastname_Re.value = surname;
@@ -275,6 +275,13 @@ document.addEventListener('DOMContentLoaded', function() {
         hide_and_show(elements_to_show, elements_to_hide);
 
         PasswordsWindow();
+    } else{
+        const elements_to_show = [personal_information_container];
+        const elements_to_hide = [security_information_container, content_check_buttons_with, verification_code_container, identity_information_container, public_profile_information_container];
+        able_inputs(elements_to_show);
+        disable_inputs(elements_to_hide);
+        
+        hide_and_show(elements_to_show, elements_to_hide);
     }
 })
 
