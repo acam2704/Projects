@@ -828,6 +828,7 @@ function verify_identity_information(){
         const containers_to_hide = [identity_information_container];
         console.log('pasas a la ventana de información de seguridad');
     }
+    hideLoader();
 }
 
 function registerUser(){
