@@ -257,7 +257,7 @@ select_municipality.addEventListener('change', () => {
 
 // Función que 
 document.addEventListener('DOMContentLoaded', function() {
-    if (sessionStorage.getItem('fullname') !== '{}'){
+    if (sessionStorage.getItem('fullname') !== null){
         const fullname = sessionStorage.getItem('fullname');
         const email = sessionStorage.getItem('email');
 
