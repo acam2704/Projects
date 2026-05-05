@@ -182,8 +182,10 @@ function go_back(){
                 previous_container = previous_container.previousElementSibling;
             }
             const filtered_containers = containers.filter(container => container !== previous_container); // Array
-            enable_inputs([previous_container]);
-            hide_and_show([previous_container], filtered_containers);
+            const containers_to_show = [previous_container];
+            if (previous_container.id === 'personal_information_container'){containers_to_show.push(content_check_buttons_with)}
+            enable_inputs(containers_to_show);
+            hide_and_show(containers_to_show, filtered_containers);
             return;
         }
     }
@@ -265,6 +267,7 @@ select_municipality.addEventListener('change', () => {
 // Función que 
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = localStorage.getItem('user');
+    let elements_to_hide = Array.from(document.getElementById('inputs_content').querySelectorAll('.signup_section'));
     if (data_user !== null){
         try{
             data_user = JSON.parse(data_user);
@@ -276,8 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
             disable_all_inputs();
 
             const elements_to_show = [identity_information_container];
-            const elements_to_hide = [personal_information_container, content_check_buttons_with, 
-                verification_code_container, security_information_container, public_profile_information_container];
+            elements_to_hide = elements_to_hide.filter(div => div.id !== 'identity_information_container')
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
             input_email_Re.value = email;
