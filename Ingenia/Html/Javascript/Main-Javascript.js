@@ -41,6 +41,7 @@ const error_text_alert = document.getElementById("error_text_alert");
 const bttn_send_txt = document.getElementById("bttn_send_txt");
 const bttn_send = document.getElementById("bttn_send");
 const loader = document.getElementById("loader");
+const back_bttn = document.getElementById('back_bttn');
 
 
 // Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia
@@ -276,8 +277,9 @@ document.addEventListener('DOMContentLoaded', function() {
             disable_all_inputs();
 
             const elements_to_show = [identity_information_container];
-            const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, security_information_container, public_profile_information_container];
+            const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, security_information_container, public_profile_information_container, back_bttn];
             able_inputs(elements_to_show);
+            show_text_alert([['back_bttn'], '← Volver']);
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
             input_email_Re.value = email;
@@ -290,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } else{
         const elements_to_show = [personal_information_container];
-        const elements_to_hide = [security_information_container, verification_code_container, identity_information_container, public_profile_information_container];
+        const elements_to_hide = [security_information_container, verification_code_container, identity_information_container, public_profile_information_container, back_bttn];
         able_inputs(elements_to_show);
         disable_inputs(elements_to_hide);
         
@@ -468,7 +470,7 @@ async function transformData(json){
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
     const inputs_to_able = [personal_information_container];
-    const elements_to_show = [identity_information_container];
+    const elements_to_show = [identity_information_container, back_bttn];
     const elements_to_hide = [personal_information_container];
 
     // Los campos no deben estar vacíos
@@ -496,6 +498,7 @@ async function next(code_typed_before){
             hide_and_show(elements_to_show, elements_to_hide);
             hideLoader();
             place_departaments();
+            show_text_alert([['back_bttn'], '← Volver']);
             show_identity_information_window();
         } else{
             // Se activa una animación de carga en el botón
@@ -570,7 +573,7 @@ function emailSent(response){
     // Se trata de ejecutar el siguiente código
     try{
         // Listas de inputs a modificar
-        const elements_to_show = [verification_code_container];
+        const elements_to_show = [verification_code_container, back_bttn];
         const elements_to_hide = [personal_information_container, content_check_buttons_with];
         
         // No debe de haber error en la etiqueta 'error' de la respuesta
@@ -582,6 +585,8 @@ function emailSent(response){
 
                 // Llamada a función que oculta y muestra los campos requeridos
                 hide_and_show(elements_to_show, elements_to_hide);
+                
+                show_text_alert([['back_bttn'], '← Volver']);
 
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
                 // Datos importantes: sent_at y sent_to

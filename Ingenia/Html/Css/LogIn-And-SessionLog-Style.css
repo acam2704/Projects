@@ -48,7 +48,6 @@ select {
   cursor: pointer;
   transition: all 0.2s ease;
 }
-
 .back_bttn:hover {color: #2563EB; transform: translateX(-2px)}
 .input{
     width: calc(100% - 30px);
