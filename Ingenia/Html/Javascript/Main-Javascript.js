@@ -472,23 +472,23 @@ async function next(code_typed_before){
     const elements_to_show = [identity_information_container, back_bttn];
     const elements_to_hide = [personal_information_container];
 
-    elements_to_hide.forEach(div => {
-            div.querySelectorAll(':scope > input').forEach(input =>{
-            if(input.value.trim().length === 0){
+    for (const container of elements_to_hide){
+        const inputs = container.querySelectorAll(':scope > input');
+        inputs.forEach(input => {
+            if(input.value.trim() === ''){
                 const alert = input.previousElementSibling;
 
                 input.focus();
                 hideLoader();
-                able_inputs(inputs_to_enable);
-                
+                able_inputs(elements_to_hide);
+
                 if(alert && alert.classList.contains('text_alert')){
-                    show_text_alert([[alert.id], 'Campo Obligatorio'])
+                    show_text_alert([[alert.id], 'Campo obligatorio']);
                 }
-                console.log('Hubo un campo vacío');
                 return;
             }
-        })
-    })
+        });
+    }
     
 
     // Los campos no deben estar vacíos
