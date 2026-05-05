@@ -214,16 +214,16 @@ bttn_send.addEventListener("click", async () => {
     await delay(500);
 
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-    if(getComputedStyle(input_name_Re).display !== 'none'){
+    if(getComputedStyle(personal_information_container).display !== 'none'){
         // Se validan los campos de ingreso de Información Personal
         code_already_typed();
-    } else if(getComputedStyle(input_code_Re).display !== 'none'){
+    } else if(getComputedStyle(verification_code_container).display !== 'none'){
         // Se valida el código de verificación enviado al correo
         verification_code_window(sessionStorage.getItem('email'));
-    } else if(getComputedStyle(input_DUI_Re).display !== 'none'){
+    } else if(getComputedStyle(identity_information_container).display !== 'none'){
         // Se validan las contraseñas digitadas por el usuario
         verify_identity_information()
-    } else if(getComputedStyle(input_1psw_Re).display !== 'none'){
+    } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords();
     }
 });
@@ -267,8 +267,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             disable_all_inputs();
 
-            const elements_to_show = [security_information_container];
-            const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, identity_information_container, public_profile_information_container];
+            const elements_to_show = [identity_information_container];
+            const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, security_information_container, public_profile_information_container];
             able_inputs(elements_to_show);
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
