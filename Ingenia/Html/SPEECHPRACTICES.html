@@ -11,11 +11,11 @@
     <br>
     <br>
     <input type="text" id="input_2">
-    <button id="bttn_start">Iniciar</button>
-    <button id="bttn_stop">Detener</button>
+    <button id="bttn_speech">Hablar</button>
     <script>
         const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
         const key = "1YnTlrdYAe9hxElKuQSOw4wKyXwaGSSfT2nMkXaz8T6ntThznofGJQQJ99CEACYeBjFXJ3w3AAAYACOGS6rp";
+        const button = document.getElementById('bttn_speech');
 
         async function textToSpeech(texto) {
             if (texto.trim().length !== 0 && texto.trim().length > 10){
