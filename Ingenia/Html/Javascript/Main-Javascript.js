@@ -222,7 +222,8 @@ bttn_send.addEventListener("click", async () => {
         verification_code_window(sessionStorage.getItem('email'));
     } else if(getComputedStyle(identity_information_container).display !== 'none'){
         // Se validan las contraseñas digitadas por el usuario
-        verify_identity_information()
+        verify_identity_information();
+        place_departaments();
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords();
     }
@@ -372,7 +373,7 @@ function almacenate(data){
         lastnames: data['sent_to'][1],
         email: data['sent_at']
     }));
-    // Se almacena en la sesión, temporalmente, el dato 'email' del usuario
+    // Se almacena en la sesión, temporalmente, el dato 'email' y 'fullName' del usuario
     sessionStorage.setItem("email", data['sent_at']);
     sessionStorage.setItem("fullname", data['sent_to'][0] + ' ' + data['sent_to'][1]);
 }
