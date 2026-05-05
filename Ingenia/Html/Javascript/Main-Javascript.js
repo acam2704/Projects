@@ -45,7 +45,7 @@ const loader = document.getElementById("loader");
 
 // Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia
 function addEventListener_to_retrieve_alerts(){
-    const input_container = document.getElementById('content_inputs');
+    const input_container = document.getElementById('inputs_container');
     input_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > input').forEach(input =>
             input.addEventListener('change', retrieve_alert_changes)
@@ -160,7 +160,7 @@ const map = {
 }
 
 // Función que permite simular volver a los campos de ingreso anteriores
-function Go_back(){
+function go_back(){
     // Se deshabilitan todos los inputs
     disable_all_inputs();
     hide_all_text_alerts();
@@ -168,7 +168,7 @@ function Go_back(){
     // Se oculta el texto de alerta, por si hubo un error anteriormente
     error_text_alert.style.display = 'none';
     // Se reestablece el marginTop de bttn_send
-    bttn_send.style.marginTop = "20px";
+    bttn_send.style.marginTop = '20px';
     
     if(getComputedStyle(verification_code_container).display !== "none"){
         able_inputs([personal_information_container]);
@@ -193,7 +193,7 @@ function disable_all_inputs(){
 }
 
 function hide_all_text_alerts(){
-    const inputs_container = document.getElementById('content_inputs');
+    const inputs_container = document.getElementById('inputs_container');
 
     inputs_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > span').forEach(span => {
@@ -532,7 +532,7 @@ function animationLoad(){
 
 // Función que que quita valores a los text_alert
 function retrieve_alert_changes(){
-    const input_container = document.getElementById('content_inputs');
+    const input_container = document.getElementById('inputs_container');
     input_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > span').forEach(span => {
             span.textContent = '';
