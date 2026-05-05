@@ -24,46 +24,6 @@
                 <input type="text" placeholder="Apellidos del usuario" id="input_lastname_Re" class="input">
                 <span id="text_PI3" class="text_alert"></span>
                 <input type="email" placeholder="Correo electrónico" id="input_email_Re" class="input">
-
-                <div id="content_buttons_Re">
-                    <div id="g_id_onload"
-                    data-client_id="359974457768-j5n8e6eh9c2m100uee1nu0ifvr6nv5tf.apps.googleusercontent.com"
-                    data-callback="handleCredentialResponse">
-                    </div>
-                    <p class="text_alert" id="error_text_alert"></p>
-                    <button class="bttn_send" id="bttn_send">
-                        <div id="loader"></div>
-                        <p id="bttn_send_txt">Siguiente</p>
-                    </button>
-                    <p class="normal_text">
-                        ¿Ya tienes una cuenta? 
-                        <a href="#" class="normal_text" id="Go_to_LogIn">Iniciar sesión</a>
-                    </p> <br>
-                    
-                    <div id="content_check_buttons_with">
-                        <div id="Google" class="google-container">
-                            <div class="g_id_signin" 
-                                data-type="standard" 
-                                data-size="medium" 
-                                data-theme="filled_white" 
-                                data-shape="pill" 
-                                data-logo_alignment="left">
-                            </div>
-                        </div>
-                        
-                        <p class="normal_text">or continue with</p>
-
-                        <div class="content_Microsoft">
-                            <button id="Microsoft" class="microsoft-btn" onclick="verifyMicrosoftAccount()">
-                                <span class="ms-logo">
-                                    <span></span><span></span><span></span><span></span>
-                                </span>
-                                <span>Sign in with Microsoft</span>
-                            </button>
-                        </div>
-                        <br>
-                    </div>
-                </div>
             </div>
 
             <div id="verification_code_container" class="signup_section">
@@ -116,6 +76,46 @@
                 <input type="file" id="input_degrees_Re">
                 <span id="PPIC_3"></span>
                 <input type="text" class="input">
+            </div>
+
+            <div id="content_buttons_Re">
+                <div id="g_id_onload"
+                data-client_id="359974457768-j5n8e6eh9c2m100uee1nu0ifvr6nv5tf.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse">
+                </div>
+                <p class="text_alert" id="error_text_alert"></p>
+                <button class="bttn_send" id="bttn_send">
+                    <div id="loader"></div>
+                    <p id="bttn_send_txt">Siguiente</p>
+                </button>
+                <p class="normal_text">
+                    ¿Ya tienes una cuenta? 
+                    <a href="#" class="normal_text" id="Go_to_LogIn">Iniciar sesión</a>
+                </p> <br>
+                
+                <div id="content_check_buttons_with">
+                    <div id="Google" class="google-container">
+                        <div class="g_id_signin" 
+                            data-type="standard" 
+                            data-size="medium" 
+                            data-theme="filled_white" 
+                            data-shape="pill" 
+                            data-logo_alignment="left">
+                        </div>
+                    </div>
+                    
+                    <p class="normal_text">or continue with</p>
+
+                    <div class="content_Microsoft">
+                        <button id="Microsoft" class="microsoft-btn" onclick="verifyMicrosoftAccount()">
+                            <span class="ms-logo">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                            <span>Sign in with Microsoft</span>
+                        </button>
+                    </div>
+                    <br>
+                </div>
             </div>
             
         </div>

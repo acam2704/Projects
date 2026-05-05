@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
             disable_all_inputs();
 
             const elements_to_show = [identity_information_container];
-            const elements_to_hide = [personal_information_container, verification_code_container, security_information_container, public_profile_information_container];
+            const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, security_information_container, public_profile_information_container];
             enable_inputs(elements_to_show);
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             hide_and_show(elements_to_show, elements_to_hide);
 
-            show_identity_information_window([]);
+            PasswordsWindow();
         } catch(Error){
             localStorage.removeItem('user');
             console.log('user eliminado del localstorage');
@@ -451,7 +451,7 @@ async function transformData(json){
 
         // Se preparan los inputs a mostrar, ocultar y deshabilitar
         let elements_to_show = [security_information_container];
-        let elements_to_hide = [personal_information_container];
+        let elements_to_hide = [personal_information_container, content_check_buttons_with];
 
         // Se mandan a deshabilitar los inputs
         disableInputs(elements_to_hide);
@@ -469,7 +469,7 @@ async function transformData(json){
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
-    const elements_to_hide = [personal_information_container];
+    const elements_to_hide = [personal_information_container, content_check_buttons_with];
 
     for (const container of elements_to_hide){
         const inputs = container.querySelectorAll(':scope > input');
@@ -565,7 +565,7 @@ function emailSent(response){
     try{
         // Listas de inputs a modificar
         const elements_to_show = [verification_code_container, back_bttn];
-        const elements_to_hide = [personal_information_container];
+        const elements_to_hide = [personal_information_container, content_check_buttons_with];
         
         // No debe de haber error en la etiqueta 'error' de la respuesta
         if(response['error'] === null){
