@@ -180,7 +180,7 @@ function go_back(){
             const previous_container = container.previousElementSibling;
             const filtered_containers = containers.filter(container => container !== previous_container);
             enable_inputs([previous_container]);
-            hide_and_show([previous_container], [filtered_containers]);
+            hide_and_show([previous_container], filtered_containers);
             return;
         }
     }
