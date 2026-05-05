@@ -265,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const surname = fullname_array[1];
 
         disable_all_inputs();
-        hide_all_text_alerts();
 
         const elements_to_show = [security_information_container];
         const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, identity_information_container, public_profile_information_container];
@@ -285,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         hide_and_show(elements_to_show, elements_to_hide);
     }
+    hide_all_text_alerts();
 })
 
 function code_already_typed(){
