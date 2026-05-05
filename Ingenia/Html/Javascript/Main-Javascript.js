@@ -456,41 +456,33 @@ async function transformData(json){
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
     const inputs_to_able = [personal_information_container];
-    const elements_to_show = [security_information_container];
+    const elements_to_show = [identity_information_container];
     const elements_to_hide = [personal_information_container];
 
     // Los campos no deben estar vacíos
     if(input_name_Re.value.length === 0){
         input_name_Re.focus();
         hideLoader();
-
         // Se habilitan los inputs nuevamente
         able_inputs(inputs_to_able);
-
         show_text_alert([['text_PI1'], 'Campo obligatorio']);
     } else if(input_lastname_Re.value.length === 0){
         input_lastname_Re.focus();
         hideLoader(); 
-
         // Se habilitan los inputs nuevamente
         able_inputs(inputs_to_able);
-
         show_text_alert([['text_PI2'], 'Campo obligatorio']);
     } else if(input_email_Re.value.length === 0){
         input_email_Re.focus();
         hideLoader();
-
         // Se habilitan los inputs nuevamente
         able_inputs(inputs_to_able);
-
         show_text_alert([['text_PI3'], 'Campo obligatorio']);
     } else{
         if (code_typed_before) {
             able_inputs(elements_to_show);
-
             hide_and_show(elements_to_show, elements_to_hide);
-
-            legal_information_Window();
+            show_identity_information_window();
         } else{
             // Se activa una animación de carga en el botón
             animationLoad();
