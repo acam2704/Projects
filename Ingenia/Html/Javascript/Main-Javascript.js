@@ -178,7 +178,10 @@ function go_back(){
     for(const container of containers){
         if (getComputedStyle(container).display !== 'none' && container.id !== 'personal_information_container'){
             const previous_container = container.previousElementSibling;
-            const filtered_containers = containers.filter(container => container !== previous_container);
+            if (previous_container.id === 'verification_code_container'){
+                previous_container = previous_container.previousElementSibling;
+            }
+            const filtered_containers = containers.filter(container => container !== previous_container); // Array
             enable_inputs([previous_container]);
             hide_and_show([previous_container], filtered_containers);
             return;
