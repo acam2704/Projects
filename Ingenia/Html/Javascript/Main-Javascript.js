@@ -279,7 +279,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const elements_to_show = [identity_information_container];
             const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, security_information_container, public_profile_information_container, back_bttn];
             able_inputs(elements_to_show);
-            show_text_alert([['back_bttn'], '← Volver']);
+            back_bttn.style.display = 'block';
+            back_bttn.textContent = '← Volver';
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
             input_email_Re.value = email;
@@ -499,7 +500,8 @@ async function next(code_typed_before){
             hide_and_show(elements_to_show, elements_to_hide);
             hideLoader();
             place_departaments();
-            show_text_alert([['back_bttn'], '← Volver']);
+            back_bttn.style.display = 'block';
+            back_bttn.textContent = '← Volver';
             show_identity_information_window();
         } else{
             // Se activa una animación de carga en el botón
@@ -587,7 +589,8 @@ function emailSent(response){
                 // Llamada a función que oculta y muestra los campos requeridos
                 hide_and_show(elements_to_show, elements_to_hide);
                 
-                show_text_alert([['back_bttn'], '← Volver']);
+                back_bttn.style.display = 'block';
+                back_bttn.textContent = '← Volver';
 
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
                 // Datos importantes: sent_at y sent_to
