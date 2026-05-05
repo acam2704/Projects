@@ -171,17 +171,17 @@ function Go_back(){
     bttn_send.style.marginTop = "20px";
     
     if(getComputedStyle(verification_code_container).display !== "none"){
-        able_inputs(personal_information_container);
-        hide_and_show(personal_information_container, verification_code_container);
+        able_inputs([personal_information_container]);
+        hide_and_show([personal_information_container], [verification_code_container]);
     } else if(getComputedStyle(identity_information_container).display !== "none"){
-        able_inputs(personal_information_container);
-        hide_and_show(personal_information_container, identity_information_container);
+        able_inputs([personal_information_container]);
+        hide_and_show([personal_information_container], [identity_information_container]);
     } else if(getComputedStyle(security_information_container).display !== "none"){
-        able_inputs(identity_information_container);
-        hide_and_show(identity_information_container, security_information_container);
+        able_inputs([identity_information_container]);
+        hide_and_show([identity_information_container], [security_information_container]);
     } else if(getComputedStyle(public_profile_information_container).display !== "none"){
-        able_inputs(security_information_container);
-        hide_and_show(security_information_container, public_profile_information_container);
+        able_inputs([security_information_container]);
+        hide_and_show([security_information_container], [public_profile_information_container]);
     }
 }
 
