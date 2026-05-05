@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             hide_and_show(elements_to_show, elements_to_hide);
 
-            PasswordsWindow();
+            show_identity_information_window([]);
         } catch(Error){
             localStorage.removeItem('user');
             console.log('user eliminado del localstorage');
