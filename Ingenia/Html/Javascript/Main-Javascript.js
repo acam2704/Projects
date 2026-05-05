@@ -289,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             PasswordsWindow();
         } catch(Error){
             localStorage.removeItem('user');
+            console.log('user eliminado del localstorage');
         }
     } else{
         const elements_to_show = [personal_information_container];
