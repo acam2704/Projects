@@ -188,7 +188,7 @@ function disable_all_inputs(){
 }
 
 function hide_all_text_alerts(){
-    const inputs_container = document.getElementById('content_input');
+    const inputs_container = document.getElementById('content_inputs');
 
     inputs_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > span').forEach(span => {
