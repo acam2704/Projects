@@ -190,7 +190,7 @@ function disable_all_inputs(){
 function hide_all_text_alerts(){
     const inputs_container = document.getElementById('content_input');
 
-    inputs_container.querySelector(':scope > div').forEach(div => {
+    inputs_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > span').forEach(span => {
             span.style.display = 'none';
         })
