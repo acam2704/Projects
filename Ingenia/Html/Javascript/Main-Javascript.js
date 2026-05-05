@@ -182,8 +182,11 @@ function go_back(){
                 previous_container = previous_container.previousElementSibling;
             }
             const filtered_containers = containers.filter(container => container !== previous_container); // Array
-            enable_inputs([previous_container]);
-            hide_and_show([previous_container], filtered_containers);
+            const containers_to_show = [previous_container];
+            if (previous_container.id = 'personal_information_container') 
+                {containers_to_show.push(content_check_buttons_with)}
+            enable_inputs(containers_to_show);
+            hide_and_show(containers_to_show, filtered_containers);
             return;
         }
     }
