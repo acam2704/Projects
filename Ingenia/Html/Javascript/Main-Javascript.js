@@ -228,7 +228,6 @@ bttn_send.addEventListener("click", async () => {
     } else if(getComputedStyle(identity_information_container).display !== 'none'){
         // Se validan las contraseñas digitadas por el usuario
         verify_identity_information();
-        place_departaments();
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords();
     }
@@ -492,6 +491,7 @@ async function next(code_typed_before){
         if (code_typed_before) {
             able_inputs(elements_to_show);
             hide_and_show(elements_to_show, elements_to_hide);
+            place_departaments();
             show_identity_information_window();
         } else{
             // Se activa una animación de carga en el botón
@@ -695,7 +695,8 @@ async function codeVerificationResponse(response){
         // Se mandan a mostrar y ocultar los inputs requeridos
         hide_and_show(elements_to_show, elements_to_hide);
 
-        // Se muestra la ventana para ingresar la contraseña deseada por le usuario
+        // Se muestra la ventana de ingreso de información más delicada del usuario
+        place_departaments();
         show_identity_information_window();
     } else{
         // Si el status es diferente a 'ok'
