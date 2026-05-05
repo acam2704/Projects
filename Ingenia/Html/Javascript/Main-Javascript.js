@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
             disable_all_inputs();
 
             const elements_to_show = [identity_information_container];
-            elements_to_hide = elements_to_hide.filter(div => div.id !== 'identity_information_container')
+            elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container)
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
             input_email_Re.value = email;
