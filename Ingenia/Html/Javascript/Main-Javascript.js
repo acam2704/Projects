@@ -43,12 +43,15 @@ const bttn_send = document.getElementById("bttn_send");
 const loader = document.getElementById("loader");
 
 
-// Se ingresa la función retrieveChanges_Re, que quita los text_alert, cuando el valor cambia
-input_name_Re.addEventListener("change", retrieveChanges_Re);
-input_email_Re.addEventListener("change", retrieveChanges_Re);
-input_1psw_Re.addEventListener("change", retrieveChanges_Re);
-input_2psw_Re.addEventListener("change", retrieveChanges_Re);
-input_code_Re.addEventListener("change", retrieveChanges_Re);
+// Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia
+function addEventListener_to_retrieve_alerts(){
+    const input_container = document.getElementById('content_inputs');
+    input_container.querySelectorAll(':scope > div').forEach(div => {
+        div.querySelectorAll(':scope > input').forEach(input =>
+            input.addEventListener('change', retrieve_alert_changes)
+        )
+    })
+}
 
 // 
 const map = {
@@ -254,7 +257,7 @@ select_municipality.addEventListener('change', () => {
 
 // Función que 
 document.addEventListener('DOMContentLoaded', function() {
-    if (sessionStorage.getItem('fullname').length !== '{}'){
+    if (sessionStorage.getItem('fullname') !== '{}'){
         const fullname = sessionStorage.getItem('fullname');
         const email = sessionStorage.getItem('email');
 
@@ -527,9 +530,13 @@ function animationLoad(){
 }
 
 // Función que que quita valores a los text_alert
-function retrieveChanges_Re(){
-    alert_name_or_1psw.textContent = "";
-    alert_email_or_2psw.textContent = "";
+function retrieve_alert_changes(){
+    const input_container = document.getElementById('content_inputs');
+    input_container.querySelectorAll(':scope > div').forEach(div => {
+        div.querySelectorAll(':scope > span').forEach(span => {
+            span.textContent = '';
+        })
+    })
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
