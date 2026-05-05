@@ -8,6 +8,9 @@
 <body>
     <input type="text" id="input_1">
     <button onclick="textToSpeech(document.getElementById('input_1').value)"></button>
+    <br>
+    <br>
+    <input type="text" id="input_2">
     <script>
         const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
         const key = "1YnTlrdYAe9hxElKuQSOw4wKyXwaGSSfT2nMkXaz8T6ntThznofGJQQJ99CEACYeBjFXJ3w3AAAYACOGS6rp";
@@ -38,6 +41,26 @@
                 console.log('Ingrese algo en el input');
             }
         }
+        async function speechToText() {
+            const token = await fetch("/Php/Speech_to_text.php").then(r => r.text());
+
+            const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, "eastus");
+            speechConfig.speechRecognitionLanguage = "es-ES";
+
+            const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+
+            const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+
+            recognizer.recognizeOnceAsync(result => {
+                const input_2 = document.getElementById('input_2');
+                if (result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
+                    input_2.value = 'Resultado: ' + result.text;
+                } else {
+                    input_2.value = 'Error: ' + result;
+                }
+            });
+        }
     </script>
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
 </body>
 </html>

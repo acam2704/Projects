@@ -730,7 +730,6 @@ function place_municipality(normalized_departament, departament){
     const select = document.getElementById('select_municipality');
     const municipalities = map[normalized_departament][1];
     
-    console.log(Object.keys(municipalities));
     Object.keys(municipalities).forEach(mun => {
         const option = document.createElement("option");
         option.classList = 'option_municipality';
