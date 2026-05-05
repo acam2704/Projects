@@ -50,7 +50,7 @@ function addEventListener_to_retrieve_alerts(){
         div.querySelectorAll(':scope > input').forEach(input =>
             input.addEventListener('change', retrieve_alert_changes)
         )
-    })
+    });
 }
 
 // 
