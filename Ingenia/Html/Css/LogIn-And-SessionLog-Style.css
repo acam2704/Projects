@@ -22,6 +22,12 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 body{ /* background-image: url('/Ingenia/Html/Imágenes/Background_construction_workers.jpg'); */ position: relative}
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+}
 /* .overlay{position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); height: 100%} */
 .content_window{
     position: relative;

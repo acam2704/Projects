@@ -326,12 +326,12 @@ function hideLoader(){
 }
 
 // Función que permite ocultar y mostrar elementos
-function hide_and_show(elements_to_show, elements_to_hide){
-    elements_to_show.forEach(element => {
-        element.style.display = "block";
+function hide_and_show(containers_to_show, containers_to_hide){
+    containers_to_show.forEach(container => {
+        container.style.display = "block";
     });
-    elements_to_hide.forEach(element => {
-        element.style.display = "none";
+    containers_to_hide.forEach(container => {
+        container.style.display = "none";
     }); 
 }
 
