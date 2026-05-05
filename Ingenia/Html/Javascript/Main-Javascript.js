@@ -188,11 +188,10 @@ function disable_all_inputs(){
 }
 
 function hide_all_text_alerts(){
-    const containers = [personal_information_container, verification_code_container, security_information_container, 
-        identity_information_container, public_profile_information_container];
+    const inputs_container = document.getElementById('content_input');
 
-    containers.forEach(container => {
-        container.querySelectorAll(':scope > span').forEach(span => {
+    inputs_container.querySelector(':scope > div').forEach(div => {
+        div.querySelectorAll(':scope > span').forEach(span => {
             span.style.display = 'none';
         })
     })
@@ -280,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
         PasswordsWindow();
     } else{
         const elements_to_show = [personal_information_container];
-        const elements_to_hide = [security_information_container, content_check_buttons_with, verification_code_container, identity_information_container, public_profile_information_container];
+        const elements_to_hide = [security_information_container, verification_code_container, identity_information_container, public_profile_information_container];
         able_inputs(elements_to_show);
         disable_inputs(elements_to_hide);
         
