@@ -474,7 +474,7 @@ async function next(code_typed_before){
 
     elements_to_hide.forEach(div => {
             div.querySelectorAll(':scope > input').forEach(input =>{
-            if(input.value.trim() === ''){
+            if(input.value.trim().length === 0){
                 const alert = input.previousElementSibling;
 
                 input.focus();
@@ -484,6 +484,7 @@ async function next(code_typed_before){
                 if(alert && alert.classList.contains('text_alert')){
                     show_text_alert([[alert.id], 'Campo Obligatorio'])
                 }
+                console.log('Hubo un campo vacío');
                 return;
             }
         })
