@@ -81,7 +81,7 @@ select {
 #account_img{width: 100%; text-align: center; display: none}
 #img_Re{
     border: none;
-    border-radius: 50%;
+    border-radius: 50px;
     width: 100px;
     height: 100px;
     transition: all 0.5s ease
