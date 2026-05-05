@@ -182,13 +182,8 @@ function go_back(){
                 previous_container = previous_container.previousElementSibling;
             }
             const filtered_containers = containers.filter(container => container !== previous_container); // Array
-            const containers_to_show = [previous_container];
-            if (previous_container.id = 'personal_information_container') {
-                containers_to_show.push(content_check_buttons_with); 
-                filtered_containers.push(back_bttn)
-            }
-            enable_inputs(containers_to_show);
-            hide_and_show(containers_to_show, filtered_containers);
+            enable_inputs([previous_container]);
+            hide_and_show([previous_container], filtered_containers);
             return;
         }
     }
@@ -281,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
             disable_all_inputs();
 
             const elements_to_show = [identity_information_container];
-            const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, security_information_container, public_profile_information_container];
+            const elements_to_hide = [personal_information_container, verification_code_container, security_information_container, public_profile_information_container];
             enable_inputs(elements_to_show);
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
@@ -455,8 +450,8 @@ async function transformData(json){
         img_Re.src = json.picture;
 
         // Se preparan los inputs a mostrar, ocultar y deshabilitar
-        let elements_to_show = [input_1psw_Re, input_2psw_Re];
-        let elements_to_hide = [input_lastname_Re, input_name_Re, input_email_Re, bttn_google, content_check_buttons_with];
+        let elements_to_show = [security_information_container];
+        let elements_to_hide = [personal_information_container];
 
         // Se mandan a deshabilitar los inputs
         disableInputs(elements_to_hide);
@@ -474,7 +469,7 @@ async function transformData(json){
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
-    const elements_to_hide = [personal_information_container, content_check_buttons_with];
+    const elements_to_hide = [personal_information_container];
 
     for (const container of elements_to_hide){
         const inputs = container.querySelectorAll(':scope > input');
@@ -570,7 +565,7 @@ function emailSent(response){
     try{
         // Listas de inputs a modificar
         const elements_to_show = [verification_code_container, back_bttn];
-        const elements_to_hide = [personal_information_container, content_check_buttons_with];
+        const elements_to_hide = [personal_information_container];
         
         // No debe de haber error en la etiqueta 'error' de la respuesta
         if(response['error'] === null){
@@ -759,6 +754,7 @@ function PasswordsWindow(){
     const container_to_show = [security_information_container];
     const container_to_hide = [identity_information_container];
 
+    enable_inputs(container_to_show);
     hide_and_show(container_to_show, container_to_hide);
 
     bttn_send_txt.textContent = "Registrate";
