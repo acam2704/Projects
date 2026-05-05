@@ -177,7 +177,7 @@ function go_back(){
     const containers = Array.from(inputs_container.querySelectorAll('.signup_section'));
     for(const container of containers){
         if (getComputedStyle(container).display !== 'none' && container.id !== 'personal_information_container'){
-            const previous_container = container.previousElementSibling;
+            let previous_container = container.previousElementSibling;
             if (previous_container.id === 'verification_code_container'){
                 previous_container = previous_container.previousElementSibling;
             }
