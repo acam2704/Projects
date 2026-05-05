@@ -474,23 +474,21 @@ async function next(code_typed_before){
 
     for (const container of elements_to_hide){
         const inputs = container.querySelectorAll(':scope > input');
-        inputs.forEach(input => {
+        for(const input of inputs){
             if(input.value.trim() === ''){
                 const alert = input.previousElementSibling;
 
-                input.focus();
+                input.focus()
                 hideLoader();
                 able_inputs(elements_to_hide);
-
                 if(alert && alert.classList.contains('text_alert')){
-                    show_text_alert([[alert.id], 'Campo obligatorio']);
+                    show_text_alert([[alert.id], 'Campo obligatorio'])
                 }
                 return;
             }
-        });
+        }
     }
     
-
     // Los campos no deben estar vacíos
     /*if(input_name_Re.value.length === 0){
         input_name_Re.focus();
