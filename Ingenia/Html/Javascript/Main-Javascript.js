@@ -183,8 +183,10 @@ function go_back(){
             }
             const filtered_containers = containers.filter(container => container !== previous_container); // Array
             const containers_to_show = [previous_container];
-            if (previous_container.id = 'personal_information_container') 
-                {containers_to_show.push(content_check_buttons_with); filtered_containers.push(back_bttn)}
+            if (previous_container.id = 'personal_information_container') {
+                containers_to_show.push(content_check_buttons_with); 
+                filtered_containers.push(back_bttn)
+            }
             enable_inputs(containers_to_show);
             hide_and_show(containers_to_show, filtered_containers);
             return;
