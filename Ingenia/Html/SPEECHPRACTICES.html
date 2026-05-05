@@ -43,6 +43,8 @@
                 console.log('Ingrese algo en el input');
             }
         }
+        let recognizer;
+        
         async function speechToText() {
             const input_2 = document.getElementById('input_2');
             const token = await fetch("/Php/Speech_to_text.php").then(r => r.text());
