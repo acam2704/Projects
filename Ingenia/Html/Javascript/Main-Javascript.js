@@ -49,6 +49,9 @@ function addEventListener_to_retrieve_alerts(){
     input_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > input').forEach(input =>
             input.addEventListener('change', retrieve_alert_changes)
+        );
+        div.querySelectorAll(':scope > select').forEach(select =>
+            select.addEventListener('change', retrieve_alert_changes)
         )
     });
 }
