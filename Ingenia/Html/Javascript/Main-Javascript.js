@@ -267,7 +267,7 @@ select_municipality.addEventListener('change', () => {
 // Función que 
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = localStorage.getItem('user');
-    let elements_to_hide = Array.from(document.getElementById('inputs_content').querySelectorAll('.signup_section'));
+    let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
     if (data_user !== null){
         try{
             data_user = JSON.parse(data_user);
