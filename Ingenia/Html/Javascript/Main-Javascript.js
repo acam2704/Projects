@@ -176,10 +176,10 @@ function go_back(){
     
     if(getComputedStyle(verification_code_container).display !== "none"){
         able_inputs([personal_information_container]);
-        hide_and_show([personal_information_container, content_check_buttons_with], [verification_code_container]);
+        hide_and_show([personal_information_container, content_check_buttons_with, back_bttn], [verification_code_container]);
     } else if(getComputedStyle(identity_information_container).display !== "none"){
         able_inputs([personal_information_container]);
-        hide_and_show([personal_information_container, content_check_buttons_with], [identity_information_container]);
+        hide_and_show([personal_information_container, content_check_buttons_with, back_bttn], [identity_information_container]);
     } else if(getComputedStyle(security_information_container).display !== "none"){
         able_inputs([identity_information_container]);
         hide_and_show([identity_information_container], [security_information_container]);

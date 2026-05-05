@@ -34,7 +34,7 @@ select {
     position: relative;
     width: 400px;
     border: 2px solid white;
-    border-radius: 10px;
+    border-radius: 20px;
     margin: 50px 0px 0px calc( ( 100% - 400px ) / 2 );
     backdrop-filter: blur(7px)
 }
