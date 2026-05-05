@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data_user = JSON.parse(data_user);
             const email = data_user.email;
 
-            const name = data_user.name;
+            const name = data_user.names;
             const surname = data_user.lastnames;
 
             disable_all_inputs();
@@ -491,6 +491,7 @@ async function next(code_typed_before){
         if (code_typed_before) {
             able_inputs(elements_to_show);
             hide_and_show(elements_to_show, elements_to_hide);
+            hideLoader();
             place_departaments();
             show_identity_information_window();
         } else{
@@ -806,18 +807,23 @@ function show_identity_information_window(){
 function verify_identity_information(){
     if(input_DUI_Re.files.length === 0){
         show_text_alert([['text_II1'], 'Campo obligatorio']);
+        able_inputs([identity_information_container]);
     } else if(input_phonenumber_Re.value.trim().length === 0){
         show_text_alert([['text_II2'], 'Campo obligatorio']);
+        able_inputs([identity_information_container]);
     } else if(select_departament.value.trim().length === 0){
         show_text_alert([['text_II3'], 'Campo obligatorio'])
+        able_inputs([identity_information_container]);
     } else if(select_municipality.value.trim().length === 0){
         show_text_alert([['text_II4'], 'Campo obligatorio'])
+        able_inputs([identity_information_container]);
     } else if(select_district.value.trim().length === 0){
         show_text_alert([['text_II5'], 'Campo obligatorio'])
+        able_inputs([identity_information_container]);
     } else{
         const containers_to_show = [verification_code_container];
         const containers_to_hide = [identity_information_container];
-        show_identity_information_window();
+        console.log('pasas a la ventana de información de seguridad');
     }
 }
 
