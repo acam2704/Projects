@@ -173,19 +173,16 @@ function go_back(){
     error_text_alert.style.display = 'none';
     // Se reestablece el marginTop de bttn_send
     bttn_send.style.marginTop = '20px';
-    
-    if(getComputedStyle(verification_code_container).display !== "none"){
-        able_inputs([personal_information_container]);
-        hide_and_show([personal_information_container, content_check_buttons_with], [verification_code_container, back_bttn]);
-    } else if(getComputedStyle(identity_information_container).display !== "none"){
-        able_inputs([personal_information_container]);
-        hide_and_show([personal_information_container, content_check_buttons_with], [identity_information_container, back_bttn]);
-    } else if(getComputedStyle(security_information_container).display !== "none"){
-        able_inputs([identity_information_container]);
-        hide_and_show([identity_information_container], [security_information_container]);
-    } else if(getComputedStyle(public_profile_information_container).display !== "none"){
-        able_inputs([security_information_container]);
-        hide_and_show([security_information_container], [public_profile_information_container]);
+    const inputs_container = document.getElementById('inputs_container');
+    const containers = Array.from(inputs_container.querySelectorAll('.signup_section'));
+    for(const container of containers){
+        if (getComputedStyle(container).display !== 'none' && container.id !== 'personal_information_container'){
+            const previous_container = container.previousElementSibling;
+            const filtered_containers = containers.filter(container => container !== previous_container);
+            enable_inputs([previous_container]);
+            hide_and_show([previous_container], [filtered_containers]);
+            return;
+        }
     }
 }
 
@@ -277,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const elements_to_show = [identity_information_container];
             const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, security_information_container, public_profile_information_container];
-            able_inputs(elements_to_show);
+            enable_inputs(elements_to_show);
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
             input_email_Re.value = email;
@@ -292,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else{
         const elements_to_show = [personal_information_container];
         const elements_to_hide = [security_information_container, verification_code_container, identity_information_container, public_profile_information_container, back_bttn];
-        able_inputs(elements_to_show);
+        enable_inputs(elements_to_show);
         disable_inputs(elements_to_hide);
         
         hide_and_show(elements_to_show, elements_to_hide);
@@ -340,12 +337,12 @@ function hideLoader(){
 
 // Función que permite ocultar y mostrar elementos
 function hide_and_show(containers_to_show, containers_to_hide){
-    containers_to_show.forEach(container => {
-        container.style.display = "block";
-    });
     containers_to_hide.forEach(container => {
         container.style.display = "none";
     }); 
+    containers_to_show.forEach(container => {
+        container.style.display = "block";
+    });
 }
 
 // Función que permite generar un username
@@ -399,7 +396,7 @@ function disable_inputs(containers){
 }
 
 // Función que permite habilitar inputs
-function able_inputs(containers){
+function enable_inputs(containers){
     // A cada input enviado dentro de la lista 'inputs' se cambia a FALSE la propiedad 'disabled' 
     // Esto permite el ingreso de valores dentro de cada input 
     containers.forEach(container => 
@@ -469,9 +466,7 @@ async function transformData(json){
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
-    const inputs_to_enable = [personal_information_container];
-    const elements_to_show = [identity_information_container, back_bttn];
-    const elements_to_hide = [personal_information_container];
+    const elements_to_hide = [personal_information_container, content_check_buttons_with];
 
     for (const container of elements_to_hide){
         const inputs = container.querySelectorAll(':scope > input');
@@ -481,7 +476,7 @@ async function next(code_typed_before){
 
                 input.focus()
                 hideLoader();
-                able_inputs(elements_to_hide);
+                enable_inputs(elements_to_hide);
                 if(alert && alert.classList.contains('text_alert')){
                     show_text_alert([[alert.id], 'Campo obligatorio'])
                 }
@@ -489,49 +484,24 @@ async function next(code_typed_before){
             }
         }
     }
-    
-    // Los campos no deben estar vacíos
-    /*if(input_name_Re.value.length === 0){
-        input_name_Re.focus();
-        hideLoader();
-        // Se habilitan los inputs nuevamente
-        able_inputs(inputs_to_enable);
-        show_text_alert([['text_PI1'], 'Campo obligatorio']);
-    } else if(input_lastname_Re.value.length === 0){
-        input_lastname_Re.focus();
-        hideLoader(); 
-        // Se habilitan los inputs nuevamente
-        able_inputs(inputs_to_enable);
-        show_text_alert([['text_PI2'], 'Campo obligatorio']);
-    } else if(input_email_Re.value.length === 0){
-        input_email_Re.focus();
-        hideLoader();
-        // Se habilitan los inputs nuevamente
-        able_inputs(inputs_to_enable);
-        show_text_alert([['text_PI3'], 'Campo obligatorio']);
-    } else{*/
-        if (code_typed_before) {
-            able_inputs(elements_to_show);
-            hide_and_show(elements_to_show, elements_to_hide);
-            hideLoader();
-            place_departaments();
-            show_identity_information_window();
-        } else{
-            // Se activa una animación de carga en el botón
-            animationLoad();
-            // Se hace esperar a la función medio segundo para ejecutar lo que sigue de código
-            await delay(500);
-            // Se crea un json con la Información Personal del usuario
-            const json_data = JSON.stringify({
-                names: input_name_Re.value,
-                lastnames: input_lastname_Re.value,
-                email: input_email_Re.value,
-                domain: 'google'
-            });
-            // Se envían a una función que envía un código de verificación
-            sendCode(json_data);
-        }
-    /*}*/
+
+    if (code_typed_before) {
+        show_identity_information_window(elements_to_hide);
+    } else{
+        // Se activa una animación de carga en el botón
+        animationLoad();
+        // Se hace esperar a la función medio segundo para ejecutar lo que sigue de código
+        await delay(500);
+        // Se crea un json con la Información Personal del usuario
+        const json_data = JSON.stringify({
+            names: input_name_Re.value,
+            lastnames: input_lastname_Re.value,
+            email: input_email_Re.value,
+            domain: 'google'
+        });
+        // Se envían a una función que envía un código de verificación
+        sendCode(json_data);
+    }
 }
 
 // Función que permite elegir la foto de perfil del usuario
@@ -599,7 +569,7 @@ function emailSent(response){
             // El status de la respueta debe ser 'ok'
             if(response["status"] === "ok"){
                 // Habilitar la modificación de los valores en los inputs
-                able_inputs(elements_to_show);
+                enable_inputs(elements_to_show);
 
                 // Llamada a función que oculta y muestra los campos requeridos
                 hide_and_show(elements_to_show, elements_to_hide);
@@ -613,11 +583,11 @@ function emailSent(response){
                 // Se le dice al usuario que hubo un error
                 show_text_alert([['error_text_alert'], 'Hubo un error. Inténtalo de nuevo']);
                 // Se habilita la modificación de los valores de los inputs
-                able_inputs(elements_to_hide);
+                enable_inputs(elements_to_hide);
             }
         } else if(response['error'].includes('Invalid email')){
             // Se habilita la modificación de los valores de los inputs
-            able_inputs(elements_to_hide);
+            enable_inputs(elements_to_hide);
 
             // Se le dice al usuario que el correo es inválido
             show_text_alert([['text_VC1'], 'Correo inválido']);
@@ -626,7 +596,7 @@ function emailSent(response){
             input_email_Re.focus();
         } else {
             // Se habilita la modificación de los valores de los inputs
-            able_inputs(elements_to_hide);
+            enable_inputs(elements_to_hide);
 
             // Se modifica el margin-top del botón
             bttn_send.style.marginTop = '10px';
@@ -666,7 +636,7 @@ async function verification_code_window(email){
             show_text_alert([text, 'El código requiere ser de 6 carácteres']);
 
             // Se habilita el input nuevamente
-            able_inputs(verification_code_container);
+            enable_inputs(verification_code_container);
 
             // Se devuelve el foco al input
             input_code_Re.focus();
@@ -715,7 +685,7 @@ async function codeVerificationResponse(response){
     // El status de la respuesta debe de ser 'ok'
     if(response['status'] === 'ok'){
         // Se habilitan los inputs requeridos
-        able_inputs(elements_to_show);
+        enable_inputs(elements_to_show);
 
         // Se mandan a mostrar y ocultar los inputs requeridos
         hide_and_show(elements_to_show, elements_to_hide);
@@ -727,7 +697,7 @@ async function codeVerificationResponse(response){
         // Si el status es diferente a 'ok'
         show_text_alert([text, 'Ingresa el código enviado']);
         // Se habilitan los inputs requeridos
-        able_inputs(elements_to_hide);
+        enable_inputs(elements_to_hide);
     }
     // Se oculta la animación de carga del botón
     hideLoader();
@@ -801,19 +771,19 @@ function verifyPasswords(){
         show_text_alert([['text_SI1'], 'La contraseña no puede ser menor a 8 carácteres']);
         
         // Se habilitan los campos nuevamente
-        able_inputs(inputs_to_hide);
+        enable_inputs(inputs_to_hide);
         
     // Las dos contraseñas deben ser iguales
     } else if(input_1psw_Re.value.trim() !== input_2psw_Re.value.trim()){
         show_text_alert([['text_SI1', 'text_SI2'], 'Las contraseñas no coinciden']);
         // Se habilitan los campos nuevamente
-        able_inputs(inputs_to_hide);
+        enable_inputs(inputs_to_hide);
     } else{
         // Se prepara el nombre completo del usuario
         const fullName = input_name_Re.value.trim() + ' ' + input_lastname_Re.value.trim();
 
         // Se habilitan los campos nuevamente
-        able_inputs(inputs_to_show);
+        enable_inputs(inputs_to_show);
         // Se muestran y ocultan los inputs requeridos
         hide_and_show(inputs_to_hide, inputs_to_show)
 
@@ -828,30 +798,31 @@ function verifyPasswords(){
 }
 
 // Función que muestra el campo de ingreso del DUI del usuario
-function show_identity_information_window(){
+function show_identity_information_window(containers_to_hide){
+    const containers_to_show = [identity_information_container];
+    
+    hide_and_show(containers_to_show, containers_to_hide);
+    place_departaments();
+    hideLoader();
 }
 
 function verify_identity_information(){
-    if(input_DUI_Re.files.length === 0){
-        show_text_alert([['text_II1'], 'Campo obligatorio']);
-        able_inputs([identity_information_container]);
-    } else if(input_phonenumber_Re.value.trim().length === 0){
-        show_text_alert([['text_II2'], 'Campo obligatorio']);
-        able_inputs([identity_information_container]);
-    } else if(select_departament.value.trim().length === 0){
-        show_text_alert([['text_II3'], 'Campo obligatorio'])
-        able_inputs([identity_information_container]);
-    } else if(select_municipality.value.trim().length === 0){
-        show_text_alert([['text_II4'], 'Campo obligatorio'])
-        able_inputs([identity_information_container]);
-    } else if(select_district.value.trim().length === 0){
-        show_text_alert([['text_II5'], 'Campo obligatorio'])
-        able_inputs([identity_information_container]);
-    } else{
-        const containers_to_show = [verification_code_container];
-        const containers_to_hide = [identity_information_container];
-        PasswordsWindow();
+    const elements = identity_information_container.querySelectorAll(':scope > input, :scope > select');
+    for (const element of elements){
+        if (element.value.trim() === ''){
+            
+            element.focus();
+            enable_inputs([identity_information_container]);
+            const alert = element.previousElementSibling;
+            if (alert && alert.classList.contains('text_alert')){
+                show_text_alert([[alert.id], 'Campo obligatorio'])
+            }
+            return;
+        }
     }
+    
+    PasswordsWindow();
+
     hideLoader();
 }
 
