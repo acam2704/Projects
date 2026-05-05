@@ -39,6 +39,17 @@ select {
     backdrop-filter: blur(7px)
 }
 .content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08); background-color: white}
+.back_bttn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #6B7280;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back_bttn:hover {color: #2563EB; transform: translateX(-2px)}
 .input{
     width: calc(100% - 30px);
     height: 30px;
