@@ -471,21 +471,22 @@ async function next(code_typed_before){
     const inputs_to_enable = [personal_information_container];
     const elements_to_show = [identity_information_container, back_bttn];
     const elements_to_hide = [personal_information_container];
-    let fields = [];
 
-    elements_to_hide.querySelectorAll(':scope > input').forEach(input =>{
-        if(input.value.trim() === ''){
-            const alert = input.previousElementSibling;
+    elements_to_hide.forEach(div => {
+            div.querySelectorAll(':scope > input').forEach(input =>{
+            if(input.value.trim() === ''){
+                const alert = input.previousElementSibling;
 
-            input.focus();
-            hideLoader();
-            able_inputs(inputs_to_enable);
-            
-            if(alert && alert.classList.contains('text_alert')){
-                show_text_alert([[alert.id], 'Campo Obligatorio'])
+                input.focus();
+                hideLoader();
+                able_inputs(inputs_to_enable);
+                
+                if(alert && alert.classList.contains('text_alert')){
+                    show_text_alert([[alert.id], 'Campo Obligatorio'])
+                }
+                return;
             }
-            return;
-        }
+        })
     })
     
 
