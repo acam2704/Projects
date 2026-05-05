@@ -313,8 +313,7 @@ function code_already_typed(){
 }
 
 function show_text_alert(text){
-    text[0].forEach(ta => {
-        const span = document.getElementById(ta);
+    text[0].forEach(span => {
         span.style.display = 'block';
         span.textContent = text[1];
     })
@@ -482,7 +481,7 @@ async function next(code_typed_before){
                 hideLoader();
                 enable_inputs(elements_to_hide);
                 if(alert && alert.classList.contains('text_alert')){
-                    show_text_alert([[alert.id], 'Campo obligatorio'])
+                    show_text_alert([[alert], 'Campo obligatorio'])
                 }
                 return;
             }
@@ -585,16 +584,17 @@ function emailSent(response){
                 // De otro modo, se imprime en la consola el status
                 console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response['status']);
                 // Se le dice al usuario que hubo un error
-                show_text_alert([['error_text_alert'], 'Hubo un error. Inténtalo de nuevo']);
+                show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo de nuevo']);
                 // Se habilita la modificación de los valores de los inputs
                 enable_inputs(elements_to_hide);
             }
         } else if(response['error'].includes('Invalid email')){
             // Se habilita la modificación de los valores de los inputs
             enable_inputs(elements_to_hide);
+            const text_VC1 = document.getElementById('text_VC1');
 
             // Se le dice al usuario que el correo es inválido
-            show_text_alert([['text_VC1'], 'Correo inválido']);
+            show_text_alert([[text_VC1], 'Correo inválido']);
 
             // Se devuelve el foco a input_email_Re
             input_email_Re.focus();
@@ -606,7 +606,7 @@ function emailSent(response){
             bttn_send.style.marginTop = '10px';
 
             // Se le dice al usuario que hubo un error y que lo vuelva a intentar
-            show_text_alert([['error_text_alert'], 'Hubo un error. Inténtalo otra vez']);
+            show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo otra vez']);
         }
     } catch(e){
         // Si hubo un error se muestra en la consola
@@ -630,14 +630,14 @@ async function verification_code_window(email){
     // El código debe de haberse ingresado
     if(input_code_Re.value.trim().length === 0){
         // Se modifica text_VC1
-        show_text_alert([text, 'Campo obligatorio']);
+        show_text_alert([[text], 'Campo obligatorio']);
         // Se devuelve el foco al input
         input_code_Re.focus();
     } else {
         // El código tiene que ser de 6 dígitos
         if (input_code_Re.value.trim().length !== 6){
             // Se le dice al usuario que el código requiere ser de 6 carácteres
-            show_text_alert([text, 'El código requiere ser de 6 carácteres']);
+            show_text_alert([[text], 'El código requiere ser de 6 carácteres']);
 
             // Se habilita el input nuevamente
             enable_inputs(verification_code_container);
@@ -773,14 +773,17 @@ function verifyPasswords(){
 
     // La contraseña no puede ser menor a 8 carácteres
     if(input_1psw_Re.value.trim().length < 8){
-        show_text_alert([['text_SI1'], 'La contraseña no puede ser menor a 8 carácteres']);
+        const text_SI1 = document.getElementById('text_SI1');
+        show_text_alert([[text_SI1], 'La contraseña no puede ser menor a 8 carácteres']);
         
         // Se habilitan los campos nuevamente
         enable_inputs(inputs_to_hide);
         
     // Las dos contraseñas deben ser iguales
     } else if(input_1psw_Re.value.trim() !== input_2psw_Re.value.trim()){
-        show_text_alert([['text_SI1', 'text_SI2'], 'Las contraseñas no coinciden']);
+        const text_SI1 = document.getElementById('text_SI1');
+        const text_SI2 = document.getElementById('text_SI2')
+        show_text_alert([[text_SI1, text_SI2], 'Las contraseñas no coinciden']);
         // Se habilitan los campos nuevamente
         enable_inputs(inputs_to_hide);
     } else{
@@ -821,7 +824,7 @@ function verify_identity_information(){
             enable_inputs([identity_information_container]);
             const alert = element.previousElementSibling;
             if (alert && alert.classList.contains('text_alert')){
-                show_text_alert([[alert.id], 'Campo obligatorio'])
+                show_text_alert([[alert], 'Campo obligatorio'])
             }
             return;
         }
