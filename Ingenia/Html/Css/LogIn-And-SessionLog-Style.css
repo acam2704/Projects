@@ -50,7 +50,7 @@ select {
   background-color: rgb(0, 0, 0, 0);
   border: none;
 }
-.back_bttn{color: #1D4ED8;text-decoration: underline;}
+.back_bttn:hover{color: #1D4ED8; text-decoration: underline; transform: translateX(-2px)}
 .back_bttn:active {color: #1D4ED8; transform: translateX(-2px)}
 .input{
     width: calc(100% - 30px);
