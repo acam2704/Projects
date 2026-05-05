@@ -805,6 +805,7 @@ function show_identity_information_window(containers_to_hide){
     const containers_to_show = [identity_information_container];
     
     hide_and_show(containers_to_show, containers_to_hide);
+    enable_inputs(containers_to_show);
     place_departaments();
     hideLoader();
 }
