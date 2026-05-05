@@ -46,8 +46,8 @@ const back_bttn = document.getElementById('back_bttn');
 
 // Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia
 function addEventListener_to_retrieve_alerts(){
-    const input_container = document.getElementById('inputs_container');
-    input_container.querySelectorAll(':scope > div').forEach(div => {
+    const inputs_container = document.getElementById('inputs_container');
+    inputs_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > input').forEach(input =>
             input.addEventListener('change', retrieve_alert_changes)
         );
@@ -297,6 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         hide_and_show(elements_to_show, elements_to_hide);
     }
+    addEventListener_to_retrieve_alerts();
     hide_all_text_alerts();
 })
 
@@ -557,7 +558,9 @@ function retrieve_alert_changes(){
     const input_container = document.getElementById('inputs_container');
     input_container.querySelectorAll(':scope > div').forEach(div => {
         div.querySelectorAll(':scope > span').forEach(span => {
-            span.textContent = '';
+            if(span && span.classList.contains('text_alert')){
+                span.textContent = '';
+            }
         })
     })
 }
