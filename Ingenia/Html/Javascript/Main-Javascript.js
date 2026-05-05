@@ -57,7 +57,7 @@ function addEventListener_to_retrieve_alerts(){
     });
 }
 
-// 
+// Mapeo de los departamentos, municipios y distritos para los select
 const map = {
     ahuachapan: ['Ahuachapán', {
         norte: ['Atiquizaya', 'El Refugio', 'San Lorenzo', 'Turín'],
@@ -209,14 +209,13 @@ function hide_all_text_alerts(){
 // Se ingresa, en el evento "click" de el botón de Registrarse condiciones que ejecutan funciones
 // dependiendo del campo en el que el usuario se encuentra
 bttn_send.addEventListener("click", async () => {
+
     // Se deshabilitan todos los inputs
     disable_all_inputs();
-
     // Se oculta el texto de alerta, por si hubo un error anteriormente
     error_text_alert.style.display = 'none';
     // Se reestablece el marginTop de bttn_send
     bttn_send.style.marginTop = "20px";
-
     // Al dar click, se muestra la animación de carga en el botón
     animationLoad();
     // Se espera medio segundo
@@ -469,30 +468,47 @@ async function transformData(json){
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
-    const inputs_to_able = [personal_information_container];
+    const inputs_to_enable = [personal_information_container];
     const elements_to_show = [identity_information_container, back_bttn];
     const elements_to_hide = [personal_information_container];
+    let fields = [];
+
+    elements_to_hide.querySelectorAll(':scope > input').forEach(input =>{
+        if(input.value.trim() === ''){
+            const alert = input.previousElementSibling;
+
+            input.focus();
+            hideLoader();
+            able_inputs(inputs_to_enable);
+            
+            if(alert && alert.classList.contains('text_alert')){
+                show_text_alert([[alert.id], 'Campo Obligatorio'])
+            }
+            return;
+        }
+    })
+    
 
     // Los campos no deben estar vacíos
-    if(input_name_Re.value.length === 0){
+    /*if(input_name_Re.value.length === 0){
         input_name_Re.focus();
         hideLoader();
         // Se habilitan los inputs nuevamente
-        able_inputs(inputs_to_able);
+        able_inputs(inputs_to_enable);
         show_text_alert([['text_PI1'], 'Campo obligatorio']);
     } else if(input_lastname_Re.value.length === 0){
         input_lastname_Re.focus();
         hideLoader(); 
         // Se habilitan los inputs nuevamente
-        able_inputs(inputs_to_able);
+        able_inputs(inputs_to_enable);
         show_text_alert([['text_PI2'], 'Campo obligatorio']);
     } else if(input_email_Re.value.length === 0){
         input_email_Re.focus();
         hideLoader();
         // Se habilitan los inputs nuevamente
-        able_inputs(inputs_to_able);
+        able_inputs(inputs_to_enable);
         show_text_alert([['text_PI3'], 'Campo obligatorio']);
-    } else{
+    } else{*/
         if (code_typed_before) {
             able_inputs(elements_to_show);
             hide_and_show(elements_to_show, elements_to_hide);
@@ -514,7 +530,7 @@ async function next(code_typed_before){
             // Se envían a una función que envía un código de verificación
             sendCode(json_data);
         }
-    }
+    /*}*/
 }
 
 // Función que permite elegir la foto de perfil del usuario
@@ -759,6 +775,11 @@ function place_district(normalized_municipality, municipality, normalized_depart
 
 // Función que muestra la apartado de ingreso de contraseñas
 function PasswordsWindow(){
+    const container_to_show = [security_information_container];
+    const container_to_hide = [identity_information_container];
+
+    hide_and_show(container_to_show, container_to_hide);
+
     bttn_send_txt.textContent = "Registrate";
     bttn_send_txt.style.display = "block";
     loader.style.display = "none";
@@ -805,7 +826,6 @@ function verifyPasswords(){
 
 // Función que muestra el campo de ingreso del DUI del usuario
 function show_identity_information_window(){
-    show_text_alert([['IIC_title'], 'Información del usuario']);
 }
 
 function verify_identity_information(){
@@ -827,7 +847,7 @@ function verify_identity_information(){
     } else{
         const containers_to_show = [verification_code_container];
         const containers_to_hide = [identity_information_container];
-        console.log('pasas a la ventana de información de seguridad');
+        PasswordsWindow();
     }
     hideLoader();
 }
