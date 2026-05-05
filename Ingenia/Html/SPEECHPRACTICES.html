@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech practices</title>
+</head>
+<body>
+    <input type="text" id="input_1">
+    <button onclick="textToSpeech(document.getElementById('input_1').value)"></button>
+    <script>
+        const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
+        const key = "TU_API_KEY";
+
+        async function textToSpeech(texto) {
+            if (texto.trim().length !== 0 && texto.trim().length > 10){
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers: {
+                        "Ocp-Apim-Subscription-Key": key,
+                        "Content-Type": "application/ssml+xml",
+                        "X-Microsoft-OutputFormat": "audio-16khz-32kbitrate-mono-mp3"
+                    },
+                    body: `
+                    <speak version='1.0' xml:lang='es-ES'>
+                        <voice xml:lang='es-ES' name='es-ES-AlvaroNeural'>
+                            ${texto}
+                        </voice>
+                    </speak>`
+                });
+
+                const audioBlob = await response.blob();
+                const url = URL.createObjectURL(audioBlob);
+
+                const audio = new Audio(url);
+                audio.play();
+            } else {
+                console.log('Ingrese algo en el input');
+            }
+        }
+    </script>
+</body>
+</html>
