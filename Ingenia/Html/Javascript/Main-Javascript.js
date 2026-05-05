@@ -256,26 +256,30 @@ select_municipality.addEventListener('change', () => {
 
 // Función que 
 document.addEventListener('DOMContentLoaded', function() {
-    if (sessionStorage.getItem('fullname') !== null){
-        const fullname = sessionStorage.getItem('fullname');
-        const email = sessionStorage.getItem('email');
+    let data_user = localStorage.getItem('user');
+    if (data_user !== null){
+        try{
+            data_user = JSON.parse(data_user);
+            const email = data_user.email;
 
-        const fullname_array = fullname.split(' ', 2);
-        const name = fullname_array[0];
-        const surname = fullname_array[1];
+            const name = data_user.name;
+            const surname = data_user.lastnames;
 
-        disable_all_inputs();
+            disable_all_inputs();
 
-        const elements_to_show = [security_information_container];
-        const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, identity_information_container, public_profile_information_container];
-        able_inputs(elements_to_show);
-        input_name_Re.value = name;
-        input_lastname_Re.value = surname;
-        input_email_Re.value = email;
-        
-        hide_and_show(elements_to_show, elements_to_hide);
+            const elements_to_show = [security_information_container];
+            const elements_to_hide = [personal_information_container, content_check_buttons_with, verification_code_container, identity_information_container, public_profile_information_container];
+            able_inputs(elements_to_show);
+            input_name_Re.value = name;
+            input_lastname_Re.value = surname;
+            input_email_Re.value = email;
+            
+            hide_and_show(elements_to_show, elements_to_hide);
 
-        PasswordsWindow();
+            PasswordsWindow();
+        } catch(Error){
+            localStorage.removeItem('user');
+        }
     } else{
         const elements_to_show = [personal_information_container];
         const elements_to_hide = [security_information_container, verification_code_container, identity_information_container, public_profile_information_container];
