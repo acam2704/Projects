@@ -498,8 +498,6 @@ async function next(code_typed_before){
             hide_and_show(elements_to_show, elements_to_hide);
             hideLoader();
             place_departaments();
-            back_bttn.style.display = 'block';
-            back_bttn.textContent = '← Volver';
             show_identity_information_window();
         } else{
             // Se activa una animación de carga en el botón
@@ -586,9 +584,6 @@ function emailSent(response){
 
                 // Llamada a función que oculta y muestra los campos requeridos
                 hide_and_show(elements_to_show, elements_to_hide);
-                
-                back_bttn.style.display = 'block';
-                back_bttn.textContent = '← Volver';
 
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
                 // Datos importantes: sent_at y sent_to
