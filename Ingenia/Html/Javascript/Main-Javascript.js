@@ -276,13 +276,13 @@ function enable_inputs(containers){
 function almacenate(data){
     // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
     localStorage.setItem('user', JSON.stringify({
-        names: data['sent_to'][0],
-        lastnames: data['sent_to'][1],
-        email: data['sent_at']
+        names: data['names'],
+        lastnames: data['lastnames'],
+        email: data['email']
     }));
     // Se almacena en la sesión, temporalmente, el dato 'email' y 'fullName' del usuario
-    sessionStorage.setItem("email", data['sent_at']);
-    sessionStorage.setItem("fullname", data['sent_to'][0] + ' ' + data['sent_to'][1]);
+    sessionStorage.setItem("email", data['email']);
+    sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
 }
 // Función que permite una espera, dada en milisegundos, dentro de la ejecución de código en una función ASYNC.
 function delay(ms) {
@@ -408,6 +408,7 @@ async function transformData(json){
         input_lastname_Re.value = json.lastnames;
         input_email_Re.value = json.email;
         img_Re.src = json.picture;
+        almacenate();
 
         // Se preparan los inputs a mostrar, ocultar y deshabilitar
         let elements_to_hide = [personal_information_container, content_check_buttons_with];

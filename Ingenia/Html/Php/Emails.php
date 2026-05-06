@@ -87,8 +87,9 @@ try {
         echo json_encode([
             'status' => 'ok',
             'msg' => 'Correo enviado',
-            'sent_at' => $data['email'],
-            'sent_to' => [$data['names'], $data['lastnames']],
+            'email' => $data['email'],
+            'names' => [$data['names'],
+            'lastnames' => $data['lastnames']],
             'expiration' => $expiration,
             'error' => null,
         ]);
