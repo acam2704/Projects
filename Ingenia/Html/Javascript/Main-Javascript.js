@@ -409,17 +409,13 @@ async function transformData(json){
         img_Re.src = json.picture;
 
         // Se preparan los inputs a mostrar, ocultar y deshabilitar
-        let elements_to_show = [security_information_container];
         let elements_to_hide = [personal_information_container, content_check_buttons_with];
 
-        
         disable_inputs(elements_to_hide); // Se mandan a deshabilitar los inputs
-        
         animationLoad(); // Animación de carga en el botón
-        
         await delay(500); // Se espera medio segundo
         
-        show_identity_information_window(); // Se muestran demás elementos de la ventana de contraseñas
+        show_identity_information_window(elements_to_hide); // Se muestran demás elementos de la ventana de contraseñas
     }
 }
 
