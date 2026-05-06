@@ -27,9 +27,9 @@ select {
     padding: 12px 40px 12px 16px;
     border-radius: 20px;
     border: 1px solid #D1D5DB;
-    height: 50px;
+    height: 32px;
     appearance: none;
-    font-size: 12px;
+    font-size: 13px;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
