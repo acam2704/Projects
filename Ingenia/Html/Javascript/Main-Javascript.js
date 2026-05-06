@@ -317,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
             disable_all_inputs();
 
             elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
+            elements_to_hide.push(content_check_buttons_with);
             const elements_to_show = [identity_information_container];
 
             input_name_Re.value = name;
