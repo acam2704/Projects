@@ -412,7 +412,7 @@ async function transformData(json){
         let elements_to_hide = [personal_information_container, content_check_buttons_with];
 
         
-        disableInputs(elements_to_hide); // Se mandan a deshabilitar los inputs
+        disable_inputs(elements_to_hide); // Se mandan a deshabilitar los inputs
         
         animationLoad(); // Animación de carga en el botón
         
