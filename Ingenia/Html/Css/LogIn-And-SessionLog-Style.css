@@ -42,6 +42,7 @@ select {
     margin: 50px 0px 0px calc( ( 100% - 400px ) / 2 );
 }
 .content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08); background-color: white}
+.signup_section{transition: all 0.5s ease}
 .back_bttn {
     display: inline-flex;
     align-items: center;
