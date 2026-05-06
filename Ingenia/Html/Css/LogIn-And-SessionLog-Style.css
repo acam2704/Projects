@@ -33,6 +33,7 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+span{display: none}
 /* .overlay{position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); height: 100%} */
 .content_window{
     position: relative;

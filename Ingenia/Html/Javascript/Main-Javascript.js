@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try{
             if (data[0] !== null){
                 data[0] = JSON.parse(data[0]);
-                const email = data.email;
+                const email = data[0].email;
 
                 const name = data[0].names;
                 const surname = data[0].lastnames;
