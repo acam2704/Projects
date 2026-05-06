@@ -406,8 +406,8 @@ async function transformData(json){
         const user = json.name.split(' ');
 
         // Se ingresa el supuesto nombre y el apellido del usuario
-        input_name_Re.value = user[0];
-        input_lastname_Re.value = user[1];
+        input_name_Re.value = json.names;
+        input_lastname_Re.value = json.lastnames;
         input_email_Re.value = json.email;
         img_Re.src = json.picture;
 
@@ -415,9 +415,7 @@ async function transformData(json){
         let elements_to_hide = [personal_information_container, content_check_buttons_with];
 
         disable_inputs(elements_to_hide); // Se mandan a deshabilitar los inputs
-        animationLoad(); // Animación de carga en el botón
-        await delay(500); // Se espera medio segundo
-        
+
         show_identity_information_window(elements_to_hide); // Se muestran demás elementos de la ventana de contraseñas
     }
 }
