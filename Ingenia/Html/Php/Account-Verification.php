@@ -11,12 +11,13 @@ $verify = file_get_contents("https://oauth2.googleapis.com/tokeninfo?id_token=" 
 $user = json_decode($verify, true);
 
 if (isset($user["email"])) {
-    echo json_encode([
+    $respond = json_encode([
         "status" => "ok",
         "email" => $user["email"],
-        "name" => $user["name"],
-        "picture" => $user["picture"]
+        "names" => explode(' ', $user["name"])[0],
+        "lastnames" => explode(' ', $user["name"])[1]
     ]);
+    echo $respond;
 } else {
     echo json_encode([
         "error" => "isset(user[email])",
@@ -24,3 +25,20 @@ if (isset($user["email"])) {
     ]);
 }
 ?>
+
+<script>
+    // Guardar datos en el navegador
+    $_SESSION['user'] = $respond;
+    sessionStorage.setItem('user', '<?php echo $respond; ?>');
+    localStorage.setItem('user', <?php echo $respond ?>);
+
+    // Redirigir al HTML
+    window.location.href = "https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html";
+</script>
+
+<style>
+    *{
+        background-color: white;
+        color: white;
+    }
+</style>

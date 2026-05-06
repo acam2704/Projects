@@ -66,8 +66,16 @@ try{
 
 <script>
     // Guardar datos en el navegador
+    $_SESSION['user'] = $respond;
     sessionStorage.setItem('user', '<?php echo $respond; ?>');
 
     // Redirigir al HTML
     window.location.href = "https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html";
 </script>
+
+<style>
+    *{
+        background-color: white;
+        color: white;
+    }
+</style>

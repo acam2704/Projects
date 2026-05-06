@@ -311,6 +311,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     for (let data of array_to_travel){
         try{
+            if(isSecureContext())
             if (data[0] !== null){
                 data[0] = JSON.parse(data[0]);
                 const email = data[0].email;
