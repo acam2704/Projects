@@ -384,7 +384,7 @@ async function next(code_typed_before){
 
 function code_already_typed(){
     let data = JSON.parse(localStorage.getItem('user'))
-    const condition = data['email'] === input_email_Re.value.trim();
+    const condition = ( data['email'] === input_email_Re.value.trim() );
     if(condition){
         next(condition);
     } else {
