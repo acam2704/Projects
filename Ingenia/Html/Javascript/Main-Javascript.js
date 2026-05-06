@@ -304,7 +304,6 @@ function retrieve_alert_changes(){
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = localStorage.getItem('user');
     let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
-    elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
     elements_to_hide.push(loader);
     elements_to_hide.push(back_bttn);
     if (data_user !== null){
@@ -317,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             disable_all_inputs();
 
-            
+            elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
             const elements_to_show = [identity_information_container];
 
             input_name_Re.value = name;
