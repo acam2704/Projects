@@ -43,8 +43,8 @@ try{
         $pay_load = json_decode(base64UrlDecode($parts[1]), true);
         $respond = json_encode([
             'email' => $pay_load['email'],
-            'names' => explode(' ', $pay_load['fullname'])[0],
-            'lastnames' => explode(' ', $pay_load['fullname'])[1]
+            'names' => explode(' ', $pay_load['name'])[0],
+            'lastnames' => explode(' ', $pay_load['name'])[1]
         ]);
     } else {
         echo json_encode([
