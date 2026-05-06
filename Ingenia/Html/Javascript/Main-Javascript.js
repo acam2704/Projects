@@ -335,7 +335,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } else{
         const elements_to_show = [personal_information_container];
-        let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
         for(const element of elements_to_show)
             {elements_to_hide = elements_to_hide.filter(c => c !== element)}
         enable_inputs(elements_to_show);
