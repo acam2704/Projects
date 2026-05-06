@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 show_identity_information_window(elements_to_hide);
             } else {throw new Error(null);}
         } catch(e){
-            if (e){
+            if (!e){
                 localStorage.removeItem('user');
                 console.log(e);
                 console.log('user eliminado del localstorage');
