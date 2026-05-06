@@ -688,6 +688,7 @@ function verify_identity_information(){
     const elements = identity_information_container.querySelectorAll(':scope > input, :scope > select'); // inputs y selects
     for (const element of elements){ // Se recorre cada input y select
         if (element.value.trim() === ''){ // Si el campo está vacío
+            console.log(element.value);
             executor_from_VII(element, 'Campo obligatorio');
             return; // Se fuerza el final de la función
         }
