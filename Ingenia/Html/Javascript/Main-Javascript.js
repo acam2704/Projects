@@ -303,45 +303,43 @@ function retrieve_alert_changes(){
 /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = localStorage.getItem('user');
+    let session_data = sessionStorage.getItem('user');
     let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
     elements_to_hide.push(loader);
     disable_all_inputs();
-    if (data_user !== null){
+
+    for (const data of [session_data, data_user]){
         try{
-            data_user = JSON.parse(data_user);
-            const email = data_user.email;
+            if (data !== null){
+                data = JSON.parse(data);
+                const email = data.email;
 
-            const name = data_user.names;
-            const surname = data_user.lastnames;
+                const name = data.names;
+                const surname = data.lastnames;
 
-            elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
-            elements_to_hide.push(content_check_buttons_with);
-            const elements_to_show = [identity_information_container];
+                elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
+                elements_to_hide.push(content_check_buttons_with);
+                const elements_to_show = [identity_information_container];
 
-            input_name_Re.value = name;
-            input_lastname_Re.value = surname;
-            input_email_Re.value = email;
+                input_name_Re.value = name;
+                input_lastname_Re.value = surname;
+                input_email_Re.value = email;
 
-            show_identity_information_window(elements_to_hide);
-        } catch(Error){
+                show_identity_information_window(elements_to_hide);
+            } else {throw new Error(null);}
+        } catch(e){
+            if (e){
+                localStorage.removeItem('user');
+                console.log(e);
+                console.log('user eliminado del localstorage');
+            }
             elements_to_hide.push(back_bttn);
             const elements_to_show = [personal_information_container];
             for(const element of elements_to_show)
                 {elements_to_hide = elements_to_hide.filter(c => c !== element)}
             enable_inputs(elements_to_show);
             hide_and_show(elements_to_show, elements_to_hide);
-
-            localStorage.removeItem('user');
-            console.log(Error);
-            console.log('user eliminado del localstorage');
         }
-    } else{
-        elements_to_hide.push(back_bttn);
-        const elements_to_show = [personal_information_container];
-        for(const element of elements_to_show)
-            {elements_to_hide = elements_to_hide.filter(c => c !== element)}
-        enable_inputs(elements_to_show);
-        hide_and_show(elements_to_show, elements_to_hide);
     }
     addEventListener_to_retrieve_alerts();
     hide_all_text_alerts();

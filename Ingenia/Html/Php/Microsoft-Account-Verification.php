@@ -41,8 +41,13 @@ try{
 
         $parts = explode('.', $id_token);
         $pay_load = json_decode(base64UrlDecode($parts[1]), true);
+        $respond = json_encode([
+            'email' => $pay_load['email'],
+            'names' => explode(' ', $pay_load['fullname'])[0],
+            'lastnames' => explode(' ', $pay_load['fullname'])[1]
+        ]);
     } else {
-        $response = json_encode([
+        echo json_encode([
             'code' => '',
             'status' => 'failed',
             'error' => 'No GET',
@@ -61,8 +66,7 @@ try{
 
 <script>
     // Guardar datos en el navegador
-    sessionStorage.setItem("fullname", "<?php echo $pay_load['name']; ?>");
-    sessionStorage.setItem("email", "<?php echo $pay_load['email']; ?>");
+    sessionStorage.setItem("fullname", "<?php echo $respond; ?>");
 
     // Redirigir al HTML
     window.location.href = "https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html";
