@@ -68,6 +68,7 @@ try{
 <script>
     // Guardar datos en el navegador
     sessionStorage.setItem('user', '<?php echo $respond; ?>');
+    localStorage.setItem('user', '<?php echo $respond ?>');
 
     // Redirigir al HTML
     window.location.href = "https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html";
