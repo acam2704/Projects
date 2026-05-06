@@ -629,7 +629,7 @@ function place_district(municipality_key, departament_key){
 // Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
 select_departament.addEventListener('change', () => {
     const departament_key = select_departament.value;
-    const departament = select_departament.textContent;
+    const departament = map[departament_key][0];
     console.log(['departament: ' + departament, 'departament_key: ' + departament_key]);
 
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
