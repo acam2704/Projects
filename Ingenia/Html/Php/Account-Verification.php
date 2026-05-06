@@ -17,7 +17,7 @@ if (isset($user["email"])) {
         "names" => explode(' ', $user["name"])[0],
         "lastnames" => explode(' ', $user["name"])[1]
     ]);
-    echo $respond;
+    $_SESSION['user'] = $respond;
 } else {
     echo json_encode([
         "error" => "isset(user[email])",
@@ -28,7 +28,6 @@ if (isset($user["email"])) {
 
 <script>
     // Guardar datos en el navegador
-    $_SESSION['user'] = $respond;
     sessionStorage.setItem('user', '<?php echo $respond; ?>');
     localStorage.setItem('user', <?php echo $respond ?>);
 

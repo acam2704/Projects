@@ -580,7 +580,6 @@ async function codeVerificationResponse(response){
 function place_departaments(){
     const select = document.getElementById("select_departament"); // Se toma el select de departamentos
 
-    console.log(Object.keys(map));
     Object.keys(map).forEach(key => { // Se recorre cada key -departamentos-
         const option = document.createElement('option'); // Se crea un elemento option
         option.classList = 'option_departament'; // Se le agrega la clase
@@ -596,7 +595,6 @@ function place_municipality(departament, departament_key){
     const select = document.getElementById('select_municipality'); // Se toma el select de municipios
     const municipalities = map[departament_key][1]; // Se toman los municipios del departamento seleccionado
     
-    console.log(Object.keys(municipalities));
     Object.keys(municipalities).forEach(mun => { // Se recorren cada clave -municipio-
         const option = document.createElement("option"); // Se crea un elemento option
         option.classList = 'option_municipality'; // Se le agrega la clase
@@ -614,7 +612,6 @@ function place_district(municipality_key, departament_key){
     const municipalities = map[departament_key][1]; // Se toma 
     const districts = municipalities[municipality_key];
 
-    console.log(districts);
     districts.forEach(dis => {
         const option = document.createElement('option');
         option.classList = 'option_district';
@@ -629,7 +626,6 @@ function place_district(municipality_key, departament_key){
 select_departament.addEventListener('change', () => {
     const departament_key = select_departament.value;
     const departament = map[departament_key][0];
-    console.log(['departament: ' + departament, 'departament_key: ' + departament_key]);
 
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
     document.querySelectorAll('.option_district').forEach(el => el.remove());
@@ -643,7 +639,6 @@ select_departament.addEventListener('change', () => {
 select_municipality.addEventListener('change', () => {
     const municipality = select_municipality.value;
     const departament = select_departament.value;
-    console.log(['municipality: ' + municipality, 'departament: ' + departament]);
 
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 

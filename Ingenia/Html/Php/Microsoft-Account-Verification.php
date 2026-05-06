@@ -46,6 +46,7 @@ try{
             'names' => explode(' ', $pay_load['name'])[0],
             'lastnames' => explode(' ', $pay_load['name'])[1]
         ]);
+        $_SESSION['user'] = $respond;
     } else {
         echo json_encode([
             'code' => '',
@@ -66,7 +67,6 @@ try{
 
 <script>
     // Guardar datos en el navegador
-    $_SESSION['user'] = $respond;
     sessionStorage.setItem('user', '<?php echo $respond; ?>');
 
     // Redirigir al HTML
