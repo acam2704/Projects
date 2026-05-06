@@ -610,8 +610,8 @@ function place_municipality(departament, departament_key){
 // Función que agrega los distritos en el select requerido
 function place_district(municipality_key, departament_key){
     const select = document.getElementById('select_district'); // Se toma el select de distritos
-    const municipalities = map[municipality_key][1]; // Se toma 
-    const districts = municipalities[departament_key];
+    const municipalities = map[departament_key][1]; // Se toma 
+    const districts = municipalities[municipality_key];
 
     console.log(districts);
     districts.forEach(dis => {
