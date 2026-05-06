@@ -88,8 +88,8 @@ try {
             'status' => 'ok',
             'msg' => 'Correo enviado',
             'email' => $data['email'],
-            'names' => [$data['names'],
-            'lastnames' => $data['lastnames']],
+            'names' => $data['names'],
+            'lastnames' => $data['lastnames'],
             'expiration' => $expiration,
             'error' => null,
         ]);
