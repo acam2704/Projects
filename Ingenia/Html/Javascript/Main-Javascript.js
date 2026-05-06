@@ -303,8 +303,8 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 input_DUI_Re.addEventListener('input', () => {
-    let start = input.selectionStart;
-    const before = input.value;
+    let start = input_DUI_Re.selectionStart;
+    const before = input_DUI_Re.value;
 
     const cleaned = before.replace(/\s/g, "");
 
