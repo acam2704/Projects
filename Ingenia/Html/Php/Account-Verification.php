@@ -2,6 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Cross-Origin-Opener-Policy: same-origin-allow-popups");
 
 $data = json_decode(file_get_contents("php://input"), true);
 $token = $data["token"];
@@ -17,7 +18,10 @@ if (isset($user["email"])) {
         "names" => explode(' ', $user["name"])[0],
         "lastnames" => explode(' ', $user["name"])[1]
     ]);
+    echo $respond;
     $_SESSION['user'] = $respond;
+    sessionStorage.setItem('user', $respond);
+    localStorage.setItem('user', $respond);
 } else {
     echo json_encode([
         "error" => "isset(user[email])",
@@ -25,19 +29,3 @@ if (isset($user["email"])) {
     ]);
 }
 ?>
-
-<script>
-    // Guardar datos en el navegador
-    sessionStorage.setItem('user', '<?php echo $respond; ?>');
-    localStorage.setItem('user', '<?php echo $respond ?>');
-
-    // Redirigir al HTML
-    window.location.href = "https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html";
-</script>
-
-<style>
-    *{
-        background-color: white;
-        color: white;
-    }
-</style>
