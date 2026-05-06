@@ -326,9 +326,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_email_Re.value = email;
 
                 show_identity_information_window(elements_to_hide);
-            } else {throw new Error(null);}
+                return;
+            } else {throw null;}
         } catch(e){
-            if (!e){
+            if (e){
                 localStorage.removeItem('user');
                 console.log(e);
                 console.log('user eliminado del localstorage');
