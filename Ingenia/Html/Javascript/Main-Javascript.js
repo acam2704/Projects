@@ -1,22 +1,18 @@
 //-------------------------------------------------------// SIGN UP & SIGN IN // --------------------------------------------------------//
 
 // Definición de las variables de todos los elementos de html que se usarán en cada rincón de este Javascript
-
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN PERSONAL -----//
 const input_name_Re = document.getElementById("input_name_Re");
 const input_lastname_Re = document.getElementById("input_lastname_Re");
 const input_email_Re = document.getElementById("input_email_Re");
 const personal_information_container = document.getElementById("personal_information_container");
-
 //----- ELEMENTOS DE VENTANA: VERIFICACIÓN DE CÓDIGO -----//
 const input_code_Re = document.getElementById("input_code_Re");
 const verification_code_container = document.getElementById("verification_code_container");
-
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN DE SEGURIDAD -----//
 const input_1psw_Re = document.getElementById("input_1psw_Re");
 const input_2psw_Re = document.getElementById("input_2psw_Re");
 const security_information_container = document.getElementById("security_information_container");
-
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN DE IDENTIDAD -----//
 const input_DUI_Re = document.getElementById("input_DUI_Re");
 const input_phonenumber_Re = document.getElementById("input_phonenumber_Re");
@@ -25,12 +21,10 @@ const select_municipality = document.getElementById("select_municipality");
 const select_district = document.getElementById("select_district");
 const identity_information_container = document.getElementById("identity_information_container");
 const legal_information_section_text = document.getElementById("legal_information_section_text");
-
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN PÚBLICA DEL PERFIL -----//
 const input_file_Re = document.getElementById("input_file_Re");
 const img_Re = document.getElementById("img_Re");
 const public_profile_information_container = document.getElementById('public_profile_information_container');
-
 //----- ELEMENTOS GUÍAS DE CADA VENTANA -----//
 // Elementos de verificación 
 const bttn_microsoft = document.getElementById("Microsoft");
@@ -43,8 +37,7 @@ const bttn_send = document.getElementById("bttn_send");
 const loader = document.getElementById("loader");
 const back_bttn = document.getElementById('back_bttn');
 
-
-// Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia
+// Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia en inputs y selects
 function addEventListener_to_retrieve_alerts(){
     const inputs_container = document.getElementById('inputs_container');
     inputs_container.querySelectorAll(':scope > div').forEach(div => {
@@ -56,7 +49,6 @@ function addEventListener_to_retrieve_alerts(){
         )
     });
 }
-
 // Mapeo de los departamentos, municipios y distritos para los select
 const map = {
     ahuachapan: ['Ahuachapán', {
@@ -162,7 +154,6 @@ const map = {
         ]
     }]
 }
-
 // Función que permite simular volver a los campos de ingreso anteriores
 function go_back(){
     // Se deshabilitan todos los inputs
@@ -190,14 +181,13 @@ function go_back(){
         }
     }
 }
-
 // Función que permite deshabilitar los inputs al cargar la página
 function disable_all_inputs(){
     const containers = [personal_information_container, verification_code_container, security_information_container, 
         identity_information_container, public_profile_information_container];
     disable_inputs(containers);
 }
-
+// Función que permite ocultar todas las alertas de cada sección
 function hide_all_text_alerts(){
     const inputs_container = document.getElementById('inputs_container');
 
@@ -207,64 +197,113 @@ function hide_all_text_alerts(){
         })
     })
 }
+// Función que permite mostrar las alertas
+function show_text_alert(text){
+    text[0].forEach(span => {
+        span.style.display = 'block';
+        span.textContent = text[1];
+    })
+}
+// Función que normaliza textos (usado en los selects)
+function normalizeSelect(select){
+    return select
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ñ/g, 'n')
+        .replace(/\s+/g, '_')
+        .replace(/[^a-z0-9_]/g, '');
+}
+// Función que oculta la animación de carga y muestra el texto del botón
+function hideLoader(){
+    const loader = document.getElementById("loader");
+    const bttn_send_txt = document.getElementById("bttn_send_txt");
 
-// Se ingresa, en el evento "click" de el botón de Registrarse condiciones que ejecutan funciones
-// dependiendo del campo en el que el usuario se encuentra
-bttn_send.addEventListener("click", async () => {
+    loader.style.display = "none";
+    bttn_send_txt.style.display = "block";
+}
+// Función que permite ocultar y mostrar elementos
+function hide_and_show(containers_to_show, containers_to_hide){
+    containers_to_hide.forEach(container => {
+        container.style.display = "none";
+    }); 
+    containers_to_show.forEach(container => {
+        container.style.display = "block";
+    });
+}
+// Función que permite generar un username
+function generateUsername(text) {
+    // Se normaliza el texto y se almacena en una variable 'fullName'
+    let fullName = normalizeText(text);
+    // El nombre se parte entre espacios
+    let parts = fullName.split(" ");
+    
+    // Se almacena en una variable el nombre del usuario
+    let firstName = parts[0];
+    // Del supuesto apellido se toma todo menos su último caracter
+    let lastName = parts[parts.length - 1];
 
-    // Se deshabilitan todos los inputs
-    disable_all_inputs();
-    // Se oculta el texto de alerta, por si hubo un error anteriormente
-    error_text_alert.style.display = 'none';
-    // Se reestablece el marginTop de bttn_send
-    bttn_send.style.marginTop = "20px";
-    // Al dar click, se muestra la animación de carga en el botón
-    animationLoad();
-    // Se espera medio segundo
-    await delay(500);
-
-    // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-    if(getComputedStyle(personal_information_container).display !== 'none'){
-        // Se validan los campos de ingreso de Información Personal
-        code_already_typed();
-    } else if(getComputedStyle(verification_code_container).display !== 'none'){
-        // Se valida el código de verificación enviado al correo
-        verification_code_window(sessionStorage.getItem('email'));
-    } else if(getComputedStyle(identity_information_container).display !== 'none'){
-        // Se validan las contraseñas digitadas por el usuario
-        verify_identity_information();
-    } else if(getComputedStyle(security_information_container).display !== 'none'){
-        verifyPasswords();
-    }
-});
-
-select_departament.addEventListener('change', () => {
-    const departament = select_departament.value;
-
-    document.querySelectorAll('.option_municipality').forEach(el => el.remove());
-    document.querySelectorAll('.option_district').forEach(el => el.remove());
-
-    if(departament.trim().length !== 0){
-        const normalized_departament = normalizeSelect(departament);
-        place_municipality(normalized_departament, departament);
-    }
-});
-
-select_municipality.addEventListener('change', () => {
-    const municipality_array = select_municipality.value.split(' ');
-    const municipality = municipality_array[municipality_array.length - 1];
-    const departament = select_departament.value;
-
-    document.querySelectorAll('.option_district').forEach(el => el.remove());
-
-    if(municipality.trim().length !== 0){
-        const normalized_municipality = normalizeSelect(municipality);
-        const normalized_departament = normalizeSelect(departament);
-        place_district(normalized_municipality, municipality, normalized_departament);
-    }
-});
-
-// Función que 
+    // Se devuelve los dos strings
+    return `${firstName}.${lastName}`;
+}
+// Función que permite eliminar caracteres extraños del nombre del usuario
+function normalizeText(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z\s]/g, "")
+        .trim();
+}
+// Función que permite deshabilitar inputs
+function disable_inputs(containers){
+    // A cada input enviado dentro de la lista 'inputs' se cambia a TRUE la propiedad 'disabled' 
+    // Esto impide la modificación de los valores imprimidos anteriormente en el input.
+    containers.forEach(container => 
+        container.querySelectorAll(':scope > input').forEach(i => {
+            i.disabled = true;
+        })
+    );
+}
+// Función que permite habilitar inputs
+function enable_inputs(containers){
+    // A cada input enviado dentro de la lista 'inputs' se cambia a FALSE la propiedad 'disabled' 
+    // Esto permite el ingreso de valores dentro de cada input 
+    containers.forEach(container => 
+        container.querySelectorAll(':scope > input').forEach(i => { 
+            i.disabled = false;
+        })
+    );
+}
+// Función que almacena datos dentro de localStorage y sessionStorage
+function almacenate(data){
+    // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
+    localStorage.setItem('user', JSON.stringify({
+        names: data['sent_to'][0],
+        lastnames: data['sent_to'][1],
+        email: data['sent_at']
+    }));
+    // Se almacena en la sesión, temporalmente, el dato 'email' y 'fullName' del usuario
+    sessionStorage.setItem("email", data['sent_at']);
+    sessionStorage.setItem("fullname", data['sent_to'][0] + ' ' + data['sent_to'][1]);
+}
+// Función que permite una espera, dada en milisegundos, dentro de la ejecución de código en una función ASYNC.
+function delay(ms) {
+    // Se crea una promesa
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+// Función que que quita valores a los text_alert
+function retrieve_alert_changes(){
+    const input_container = document.getElementById('inputs_container');
+    input_container.querySelectorAll(':scope > div').forEach(div => {
+        div.querySelectorAll(':scope > span').forEach(span => {
+            if(span && span.classList.contains('text_alert')){
+                span.textContent = '';
+            }
+        })
+    })
+}
+/* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = localStorage.getItem('user');
     let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
@@ -291,8 +330,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } else{
         const elements_to_show = [personal_information_container];
-        const elements_to_hide = [security_information_container, verification_code_container, 
-            identity_information_container, public_profile_information_container, back_bttn];
+        let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
+        for(const element of elements_to_show)
+            {let elements_to_hide = elements_to_hide.filter(c => c !== element)}
         enable_inputs(elements_to_show);
         disable_inputs(elements_to_hide);
         
@@ -301,170 +341,6 @@ document.addEventListener('DOMContentLoaded', function() {
     addEventListener_to_retrieve_alerts();
     hide_all_text_alerts();
 })
-
-function code_already_typed(){
-    let data = JSON.parse(localStorage.getItem('user'))
-    const condition = data['email'] === input_email_Re.value.trim();
-    if(condition){
-        next(condition);
-    } else {
-        next(condition);
-    }
-}
-
-function show_text_alert(text){
-    text[0].forEach(span => {
-        span.style.display = 'block';
-        span.textContent = text[1];
-    })
-}
-
-function normalizeSelect(select){
-    return select
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/ñ/g, 'n')
-        .replace(/\s+/g, '_')
-        .replace(/[^a-z0-9_]/g, '');
-}
-
-// Función que oculta la animación de carga y muestra el texto del botón
-function hideLoader(){
-    const loader = document.getElementById("loader");
-    const bttn_send_txt = document.getElementById("bttn_send_txt");
-
-    loader.style.display = "none";
-    bttn_send_txt.style.display = "block";
-}
-
-// Función que permite ocultar y mostrar elementos
-function hide_and_show(containers_to_show, containers_to_hide){
-    containers_to_hide.forEach(container => {
-        container.style.display = "none";
-    }); 
-    containers_to_show.forEach(container => {
-        container.style.display = "block";
-    });
-}
-
-// Función que permite generar un username
-function generateUsername(text) {
-    // Se normaliza el texto y se almacena en una variable 'fullName'
-    let fullName = normalizeText(text);
-    // El nombre se parte entre espacios
-    let parts = fullName.split(" ");
-    
-    // Se almacena en una variable el nombre del usuario
-    let firstName = parts[0];
-    // Del supuesto apellido se toma todo menos su último caracter
-    let lastName = parts[parts.length - 1];
-
-    // Se devuelve los dos strings
-    return `${firstName}.${lastName}`;
-}
-
-// Función que permite eliminar caracteres extraños del nombre del usuario
-function normalizeText(text) {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z\s]/g, "")
-        .trim();
-}
-
-// Función que almacena datos dentro de localStorage y sessionStorage
-function almacenate(data){
-    // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
-    localStorage.setItem('user', JSON.stringify({
-        names: data['sent_to'][0],
-        lastnames: data['sent_to'][1],
-        email: data['sent_at']
-    }));
-    // Se almacena en la sesión, temporalmente, el dato 'email' y 'fullName' del usuario
-    sessionStorage.setItem("email", data['sent_at']);
-    sessionStorage.setItem("fullname", data['sent_to'][0] + ' ' + data['sent_to'][1]);
-}
-
-// Función que permite deshabilitar inputs
-function disable_inputs(containers){
-    // A cada input enviado dentro de la lista 'inputs' se cambia a TRUE la propiedad 'disabled' 
-    // Esto impide la modificación de los valores imprimidos anteriormente en el input.
-    containers.forEach(container => 
-        container.querySelectorAll(':scope > input').forEach(i => {
-            i.disabled = true;
-        })
-    );
-}
-
-// Función que permite habilitar inputs
-function enable_inputs(containers){
-    // A cada input enviado dentro de la lista 'inputs' se cambia a FALSE la propiedad 'disabled' 
-    // Esto permite el ingreso de valores dentro de cada input 
-    containers.forEach(container => 
-        container.querySelectorAll(':scope > input').forEach(i => { 
-            i.disabled = false;
-        })
-    );
-}
-
-// Función que permite una espera, dada en milisegundos, dentro de la ejecución de código
-// en una función ASYNC.
-function delay(ms) {
-    // Se crea una promesa
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// Función que se usa al verificar la cuenta con Google (data-callback="handleCredentialResponse")
-function handleCredentialResponse(response) {
-    // Se toman las credenciales devueltas por la API
-    const jwt = response.credential;
-
-    // Se mandan las credenciales a "Account-Verification.php" para verificar que éstas son verídicas
-    fetch('Php/Account-Verification.php', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ token: jwt })
-    })
-    .then(response => response.text())
-    .then(data => {
-        // El mensaje devuelto se procesa en la función "transformData"
-        transformData(JSON.parse(data));
-    });
-}
-
-// Función que se usa al verificar la cuenta con Google (handleCredentialResponse -> transformData)
-async function transformData(json){
-    // El status de la respuesta a la verificación de las credenciales debe de ser 'ok'
-    if(json["status"] === "ok"){
-        // El nombre del usuario tomado de sus credenciales es dividida por sus espacios
-        const user = json.name.split(' ');
-
-        // Se ingresa el supuesto nombre y el apellido del usuario
-        input_name_Re.value = user[0];
-        input_lastname_Re.value = user[1];
-        input_email_Re.value = json.email;
-        img_Re.src = json.picture;
-
-        // Se preparan los inputs a mostrar, ocultar y deshabilitar
-        let elements_to_show = [security_information_container];
-        let elements_to_hide = [personal_information_container, content_check_buttons_with];
-
-        // Se mandan a deshabilitar los inputs
-        disableInputs(elements_to_hide);
-        // Animación de carga en el botón
-        animationLoad();
-        // Se espera medio segundo
-        await delay(500);
-        // Se ocultan y muestran los inputs requeridos
-        hideAndShow(elements_to_show, elements_to_hide);
-        // Se muestran demás elementos de la ventana de contraseñas
-        PasswordsWindow();
-    }
-}
 
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
@@ -507,37 +383,67 @@ async function next(code_typed_before){
     }
 }
 
-// Función que permite elegir la foto de perfil del usuario
-function choosePicture(){
-    const img_LogIn = document.getElementById("img_Re");
-    const input_picture = document.getElementById("input_file_Re");
+function code_already_typed(){
+    let data = JSON.parse(localStorage.getItem('user'))
+    const condition = data['email'] === input_email_Re.value.trim();
+    if(condition){
+        next(condition);
+    } else {
+        next(condition);
+    }
+}
 
-    img_LogIn.addEventListener("click", () => {
-        input_picture.click();
+
+
+// Función que se usa al verificar la cuenta con Google (handleCredentialResponse -> transformData)
+async function transformData(json){
+    // El status de la respuesta a la verificación de las credenciales debe de ser 'ok'
+    if(json["status"] === "ok"){
+        // El nombre del usuario tomado de sus credenciales es dividida por sus espacios
+        const user = json.name.split(' ');
+
+        // Se ingresa el supuesto nombre y el apellido del usuario
+        input_name_Re.value = user[0];
+        input_lastname_Re.value = user[1];
+        input_email_Re.value = json.email;
+        img_Re.src = json.picture;
+
+        // Se preparan los inputs a mostrar, ocultar y deshabilitar
+        let elements_to_show = [security_information_container];
+        let elements_to_hide = [personal_information_container, content_check_buttons_with];
+
+        
+        disableInputs(elements_to_hide); // Se mandan a deshabilitar los inputs
+        
+        animationLoad(); // Animación de carga en el botón
+        
+        await delay(500); // Se espera medio segundo
+        
+        show_identity_information_window(); // Se muestran demás elementos de la ventana de contraseñas
+    }
+}
+
+// Función que se usa al verificar la cuenta con Google (data-callback="handleCredentialResponse")
+function handleCredentialResponse(response) {
+    // Se toman las credenciales devueltas por la API
+    const jwt = response.credential;
+
+    // Se mandan las credenciales a "Account-Verification.php" para verificar que éstas son verídicas
+    fetch('Php/Account-Verification.php', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token: jwt })
+    })
+    .then(response => response.text())
+    .then(data => {
+        // El mensaje devuelto se procesa en la función "transformData"
+        transformData(JSON.parse(data));
     });
 }
 
-// Función que muestra la animación de carga en el botón
-function animationLoad(){
-    const loader = document.getElementById("loader");
-    const bttn_send_txt = document.getElementById("bttn_send_txt");
-
-    bttn_send_txt.style.display = "none";
-    loader.style.display = "block";
-}
-
-// Función que que quita valores a los text_alert
-function retrieve_alert_changes(){
-    const input_container = document.getElementById('inputs_container');
-    input_container.querySelectorAll(':scope > div').forEach(div => {
-        div.querySelectorAll(':scope > span').forEach(span => {
-            if(span && span.classList.contains('text_alert')){
-                span.textContent = '';
-            }
-        })
-    })
-}
-
+/* VENTAN DE VERIFICACIÓN DE CORREO CON CÓDIGO --------------------------------------------------------------------*/
 // Función que se usa al ingresar manualmente la Información Personal del usuario
 // Función que envía un código de verificación al correo electrónico del usuario
 // Desde: next -> sendCode
@@ -683,31 +589,22 @@ function codeVerification(json_data){
 async function codeVerificationResponse(response){
     const text = document.getElementById('text_VC1');
     // Se preparan los inputs a ocultar y mostrar
-    const elements_to_show = [security_information_container];
     const elements_to_hide = [verification_code_container];
     
     // El status de la respuesta debe de ser 'ok'
     if(response['status'] === 'ok'){
-        // Se habilitan los inputs requeridos
-        enable_inputs(elements_to_show);
-
-        // Se mandan a mostrar y ocultar los inputs requeridos
-        hide_and_show(elements_to_show, elements_to_hide);
-
         // Se muestra la ventana de ingreso de información más delicada del usuario
-        place_departaments();
-        show_identity_information_window();
-    } else{
-        // Si el status es diferente a 'ok'
-        show_text_alert([text, 'Ingresa el código enviado']);
-        // Se habilitan los inputs requeridos
-        enable_inputs(elements_to_hide);
+        show_identity_information_window(elements_to_hide);
+    } else{ // Si el status es diferente a 'ok'
+        show_text_alert([text, 'Ingresa el código enviado']); // Se muestra la alerta
+        enable_inputs(elements_to_hide); // Se habilitan los inputs requeridos
     }
     // Se oculta la animación de carga del botón
     hideLoader();
 }
 
-//
+/* VENTANA DE INFORMACIÓN DE INFORMACIÓN PRIVADA DEL USUARIO --------------------------------------------------------------------*/
+// Función que agrega los departamentos en el select requerido
 function place_departaments(){
     const select = document.getElementById("select_departament");
 
@@ -721,6 +618,7 @@ function place_departaments(){
     });
 }
 
+// Función que agrega los municipios en el select requerido
 function place_municipality(normalized_departament, departament){
     const select = document.getElementById('select_municipality');
     const municipalities = map[normalized_departament][1];
@@ -735,6 +633,7 @@ function place_municipality(normalized_departament, departament){
     });
 }
 
+// Función que agrega los distritos en el select requerido
 function place_district(normalized_municipality, municipality, normalized_departament){
     const select = document.getElementById('select_district');
     const municipalities = map[normalized_departament][1];
@@ -750,87 +649,77 @@ function place_district(normalized_municipality, municipality, normalized_depart
     });
 }
 
-// Función que muestra la apartado de ingreso de contraseñas
-function PasswordsWindow(){
-    const container_to_show = [security_information_container];
-    const container_to_hide = [identity_information_container];
+// Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
+select_departament.addEventListener('change', () => {
+    const departament = select_departament.value;
 
-    enable_inputs(container_to_show);
-    hide_and_show(container_to_show, container_to_hide);
+    document.querySelectorAll('.option_municipality').forEach(el => el.remove());
+    document.querySelectorAll('.option_district').forEach(el => el.remove());
 
-    bttn_send_txt.textContent = "Registrate";
-    bttn_send_txt.style.display = "block";
-    loader.style.display = "none";
+    if(departament.trim().length !== 0){
+        const normalized_departament = normalizeSelect(departament);
+        place_municipality(normalized_departament, departament);
+    }
+});
+
+// Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
+select_municipality.addEventListener('change', () => {
+    const municipality_array = select_municipality.value.split(' ');
+    const municipality = municipality_array[municipality_array.length - 1];
+    const departament = select_departament.value;
+
+    document.querySelectorAll('.option_district').forEach(el => el.remove());
+
+    if(municipality.trim().length !== 0){
+        const normalized_municipality = normalizeSelect(municipality);
+        const normalized_departament = normalizeSelect(departament);
+        place_district(normalized_municipality, municipality, normalized_departament);
+    }
+});
+
+// Función que ejecuta un código repetitivo de la función verify_identity_information
+function executor_from_VII(element, text){
+    enable_inputs([identity_information_container]); // Se vuelven a habilitar los inputs
+    element.focus(); // Se devuelve el enfoque 
+    const alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
+    show_text_alert([[alert], text]); // Se muestra la alerta
 }
 
-// Función que verifica las contraseñas ingresadas por le usuario
-function verifyPasswords(){
-    hideLoader();
-
-    // Se preparan los inputs a mostrar, ocultar, habilitar y deshabilitar
-    const inputs_to_hide = [security_information_container];
-    const inputs_to_show = [identity_information_container];
-
-    // La contraseña no puede ser menor a 8 carácteres
-    if(input_1psw_Re.value.trim().length < 8){
-        const text_SI1 = document.getElementById('text_SI1');
-        show_text_alert([[text_SI1], 'La contraseña no puede ser menor a 8 carácteres']);
-        
-        // Se habilitan los campos nuevamente
-        enable_inputs(inputs_to_hide);
-        
-    // Las dos contraseñas deben ser iguales
-    } else if(input_1psw_Re.value.trim() !== input_2psw_Re.value.trim()){
-        const text_SI1 = document.getElementById('text_SI1');
-        const text_SI2 = document.getElementById('text_SI2')
-        show_text_alert([[text_SI1, text_SI2], 'Las contraseñas no coinciden']);
-        // Se habilitan los campos nuevamente
-        enable_inputs(inputs_to_hide);
-    } else{
-        // Se prepara el nombre completo del usuario
-        const fullName = input_name_Re.value.trim() + ' ' + input_lastname_Re.value.trim();
-
-        // Se habilitan los campos nuevamente
-        enable_inputs(inputs_to_show);
-        // Se muestran y ocultan los inputs requeridos
-        hide_and_show(inputs_to_hide, inputs_to_show)
-
-        // Se crea el username del usuario
-        const username = generateUsername(fullName);
-
-        // Se muestra los campos para ingresar el DUI 
-        show_public_information_window()
-    };
-    // Se oculta la animación de carga del botón
-    hideLoader();
+// Función que verifica los datos del usuairo de los campos ingresados
+function verify_identity_information(){
+    const elements = identity_information_container.querySelectorAll(':scope > input, :scope > select'); // inputs y selects
+    for (const element of elements){ // Se recorre cada input y select
+        if (element.value.trim() === ''){ // Si el campo está vacío
+            executor_from_VII(element, 'Campo obligatorio');
+            return; // Se fuerza el final de la función
+        }
+        if ( element.value.includes('.') && element.value.includes('-') > 1 ){ // Si el elemento contiene puntos o más de un guión
+            executor_from_VII(element, 'Inválido')
+            return; // Se fuerza el final de la función
+        }  // El valor es inválido
+        else if( element.classList.contains('input') ){ // Si el elemento es uno clase .input
+            for (let i = 0; i < element.length; i++) { 
+                const cha = element[i]; // Se recorre cada caracter del valor en .input
+                if ( (cha === '-' && i < 8) || (cha === '-' && i > 8)){ // Si el caracter es un guión en dos intervalos
+                    executor_from_VII(element, 'Inválido') 
+                    return; // Se fuerza el final de la función
+                }
+            }
+        }
+    }
+    PasswordsWindow(); // Si no hubo ningún campo inválido, se muestra la sección de información de seguridad
 }
 
 // Función que muestra el campo de ingreso del DUI del usuario
 function show_identity_information_window(containers_to_hide){
-    const containers_to_show = [identity_information_container];
+    const containers_to_show = [identity_information_container]; // Sección a mostrar
     
-    hide_and_show(containers_to_show, containers_to_hide);
-    enable_inputs(containers_to_show);
-    place_departaments();
-    hideLoader();
+    hide_and_show(containers_to_show, containers_to_hide); // Se ocultan y muestran las secciones requeridas
+    enable_inputs(containers_to_show); // Se habilitan los inputs de la sección
+    place_departaments(); // Se ingresan los departamentos en el select
 }
 
-function verify_identity_information(){
-    const elements = identity_information_container.querySelectorAll(':scope > input, :scope > select');
-    for (const element of elements){
-        if (element.value.trim() === ''){
-            element.focus();
-            enable_inputs([identity_information_container]);
-            const alert = element.previousElementSibling;
-            const condition = alert && alert.classList.contains('text_alert');
-            if ( condition && element.id.includes('input') ){show_text_alert([[alert], 'Inválido']);} 
-            else if( condition ){show_text_alert([[alert], 'Campo obligatorio']);}
-            return;
-        }
-    }
-    PasswordsWindow();
-    hideLoader();
-}
+/* CIERRE DE VENTANA DE INFORMACIÓN PRIVADA DEL USUARIO --------------------------------------------------------------------*/
 
 function registerUser(){
     fetch('Php/Register_new_user_in_DB.php', {
@@ -859,3 +748,95 @@ function verifyMicrosoftAccount(){
     
     window.location.href = url;
 }
+
+/* VENTANA DE INFORMACIÓN DE SEGURIDAD DEL USUARIO --------------------------------------------------------------------*/
+// Función que muestra la apartado de ingreso de contraseñas
+function PasswordsWindow(){
+    const containers_to_show = [security_information_container];
+    const containers_to_hide = [identity_information_container, loader];
+
+    bttn_send_txt.style.display = "block";
+    enable_inputs(containers_to_show);
+    hide_and_show(containers_to_show, containers_to_hide);
+
+    show_text_alert([[bttn_send_txt], 'Registrate'])
+}
+
+// Función que verifica las contraseñas ingresadas por le usuario
+function verifyPasswords(){
+    hideLoader();
+
+    // Se preparan los inputs a mostrar, ocultar, habilitar y deshabilitar
+    const inputs_to_hide = [security_information_container];
+    
+    const text_SI1 = document.getElementById('text_SI1');
+    const text_SI2 = document.getElementById('text_SI2');
+
+    // La contraseña no puede ser menor a 8 carácteres
+    if(input_1psw_Re.value.trim().length < 8){ // Si la contraseña es muy corta
+        show_text_alert([[text_SI1], 'La contraseña no puede ser menor a 8 carácteres']); // Se muestra la alerta
+        // Se habilitan los campos nuevamente
+        enable_inputs(inputs_to_hide);
+        return;
+    }
+    if(input_1psw_Re.value.trim() !== input_2psw_Re.value.trim()){ // Si las contraseñas no son euivalentes
+        show_text_alert([[text_SI1, text_SI2], 'Las contraseñas no coinciden']); // Se muestra la alerta
+        // Se habilitan los campos nuevamente
+        enable_inputs(inputs_to_hide);
+        return;
+    }
+    // Se muestra los campos para ingresar el DUI 
+    show_public_information_window(inputs_to_hide)
+    // Se oculta la animación de carga del botón
+    hideLoader();
+}
+/* CIERRE DE VENTANA DE INFORMACIÓN DE SEGURIDAD DEL USUARIO --------------------------------------------------------------------*/
+
+/* VENTANA DE INFORMACIÓN PÚBLICA DEL USUARIO --------------------------------------------------------------------*/
+function show_public_information_window(containers_to_hide){
+    const containers_to_show = [public_profile_information_container];
+    const containers_to_hide = [containers_to_hide, loader];
+
+    enable_inputs(containers_to_show);
+    hide_and_show(containers_to_show, containers_to_hide);
+
+    show_text_alert([[bttn_send_txt], 'Registrate'])
+}
+// Función que permite elegir la foto de perfil del usuario
+function choosePicture(){
+    const img_LogIn = document.getElementById("img_Re");
+    const input_picture = document.getElementById("input_file_Re");
+
+    img_LogIn.addEventListener("click", () => {
+        input_picture.click();
+    });
+}
+
+/* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
+// Función que muestra la animación de carga en el botón
+function animationLoad(){
+    const loader = document.getElementById("loader");
+    const bttn_send_txt = document.getElementById("bttn_send_txt");
+
+    bttn_send_txt.style.display = "none";
+    loader.style.display = "block";
+}
+// Al presionar o dar click al botón, se valida en la sección actual activa para mover al usuario a la siguiente 
+bttn_send.addEventListener("click", async () => {
+    disable_all_inputs(); // Se deshabilitan todos los inputs
+    error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si hubo un error anteriormente
+    bttn_send.style.marginTop = "20px"; // Se reestablece el marginTop de bttn_send
+    animationLoad(); // Al dar click, se muestra la animación de carga en el botón
+    await delay(500); // Se espera medio segundo
+
+    // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
+    if(getComputedStyle(personal_information_container).display !== 'none'){
+        code_already_typed(); // Validación de la información
+    } else if(getComputedStyle(verification_code_container).display !== 'none'){
+        verification_code_window(sessionStorage.getItem('email')); // Validación de código
+    } else if(getComputedStyle(identity_information_container).display !== 'none'){
+        verify_identity_information(); // Validación de información
+    } else if(getComputedStyle(security_information_container).display !== 'none'){
+        verifyPasswords(); // Validación de contraseñas
+    }
+});

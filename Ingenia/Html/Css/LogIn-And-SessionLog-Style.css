@@ -77,6 +77,14 @@ select {
 .input::selection{background-color: rgb(100, 100, 100, 0)}
 .input:focus,
 .input:hover{border-color: var(--border-input-hover-)}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 .normal_text{color: var(--label-text-); font-size: 14px}
 .text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
