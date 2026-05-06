@@ -579,15 +579,16 @@ async function codeVerificationResponse(response){
 /* VENTANA DE INFORMACIÓN DE INFORMACIÓN PRIVADA DEL USUARIO --------------------------------------------------------------------*/
 // Función que agrega los departamentos en el select requerido
 function place_departaments(){
-    const select = document.getElementById("select_departament");
+    const select = document.getElementById("select_departament"); // Se toma el select de departamentos
 
-    Object.keys(map).forEach(key => {
-        const option = document.createElement('option');
-        option.classList = 'option_departament';
-        option.value = key;
-        option.textContent = map[key][0];
+    console.log(Object.keys(map));
+    Object.keys(map).forEach(key => { // Se recorre cada key -departamentos-
+        const option = document.createElement('option'); // Se crea un elemento option
+        option.classList = 'option_departament'; // Se le agrega la clase
+        option.value = key; // Se pone su value
+        option.textContent = map[key][0]; // Se pone su contenido
 
-        select.appendChild(option)
+        select.appendChild(option) // Se agrega al select
     });
 }
 
@@ -596,12 +597,13 @@ function place_municipality(normalized_departament, departament){
     const select = document.getElementById('select_municipality'); // Se toma el select de municipios
     const municipalities = map[normalized_departament][1]; // Se toman los municipios del departamento seleccionado
     
+    console.log(Object.keys(municipalities));
     Object.keys(municipalities).forEach(mun => { // Se recorren cada clave -municipio-
         const option = document.createElement("option"); // Se crea un elemento option
         option.classList = 'option_municipality'; // Se le agrega la clase
         option.value = mun; // En su valor se le imprime el departamento y el municipio
         // En su contenido se le imprimer el departamento y el municipio
-        option.textContent = departament + ' ' + mun.charAt(0).toUpperCase() + text.slice(1); 
+        option.textContent = departament + ' ' + mun.charAt(0).toUpperCase() + mun.slice(1); 
 
         select.appendChild(option); // Se agrega el elemento dentro de el select
     });
@@ -613,6 +615,7 @@ function place_district(municipality, departament){
     const municipalities = map[departament][1]; // Se toma 
     const districts = municipalities[municipality];
 
+    console.log(districts);
     districts.forEach(dis => {
         const option = document.createElement('option');
         option.classList = 'option_district';
