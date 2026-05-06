@@ -33,7 +33,6 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-span{display: none}
 /* .overlay{position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); height: 100%} */
 .content_window{
     position: relative;
@@ -85,7 +84,7 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 .normal_text{color: var(--label-text-); font-size: 14px}
-.text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px}
+.text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px; display: none}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
 #error_text_alert{height: 10px}
