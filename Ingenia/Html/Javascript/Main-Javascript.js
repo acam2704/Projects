@@ -668,17 +668,12 @@ function verify_identity_information(){
             executor_from_VII(element, 'Campo obligatorio');
             return; // Se fuerza el final de la función
         }
-        if ( element.value.includes('.') && element.value.includes('-') > 1 ){ // Si el elemento contiene puntos o más de un guión
-            executor_from_VII(element, 'Inválido')
-            return; // Se fuerza el final de la función
-        }  // El valor es inválido
-        else if( element.classList.contains('input') ){ // Si el elemento es uno clase .input
-            for (let i = 0; i < element.length; i++) { 
-                const cha = element[i]; // Se recorre cada caracter del valor en .input
-                if ( (cha === '-' && i < 8) || (cha === '-' && i > 8)){ // Si el caracter es un guión en dos intervalos
-                    executor_from_VII(element, 'Inválido') 
-                    return; // Se fuerza el final de la función
-                }
+        if( element.classList.contains('input') ){ // Si el elemento es uno clase .input
+            if(element.id === 'input_DUI_Re'){
+                let DUI = element.value.replace('-', '');
+                if(!isNaN(DUI)){executor_from_VII(element, 'DUI Inválido')}
+            } else {
+                if(element.value.length !== 8){executor_from_VII(element, 'Número inválido')}
             }
         }
     }
