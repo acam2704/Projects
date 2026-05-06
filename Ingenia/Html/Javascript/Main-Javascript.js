@@ -302,20 +302,21 @@ function retrieve_alert_changes(){
 }
 /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function() {
-    let data_user = localStorage.getItem('user');
-    let session_data = sessionStorage.getItem('user');
+    let data_user = [localStorage.getItem('user'), 'localStorage'];
+    let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
+    const array_to_travel = [data_user, session_data];
     let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
     elements_to_hide.push(loader);
     disable_all_inputs();
 
-    for (const data of [session_data, data_user]){
+    for (let data of array_to_travel){
         try{
-            if (data !== null){
-                data = JSON.parse(data);
+            if (data[0] !== null){
+                data[0] = JSON.parse(data[0]);
                 const email = data.email;
 
-                const name = data.names;
-                const surname = data.lastnames;
+                const name = data[0].names;
+                const surname = data[0].lastnames;
 
                 elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
                 elements_to_hide.push(content_check_buttons_with);
@@ -329,17 +330,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             } else {throw null;}
         } catch(e){
-            if (e){
-                localStorage.removeItem('user');
-                console.log(e);
-                console.log('user eliminado del localstorage');
+            if (data[1] === array_to_travel[array_to_travel.length - 1]){
+                elements_to_hide.push(back_bttn);
+                const elements_to_show = [personal_information_container];
+                for(const element of elements_to_show)
+                    {elements_to_hide = elements_to_hide.filter(c => c !== element)}
+                enable_inputs(elements_to_show);
+                hide_and_show(elements_to_show, elements_to_hide);
+                if (e){
+                    if (data[1] === 'localStorage'){localStorage.removeItem('user');} 
+                    else if(data[1] === 'sessionStorage'){sessionStorage.removeItem('user');}
+                    console.log(e);
+                }
             }
-            elements_to_hide.push(back_bttn);
-            const elements_to_show = [personal_information_container];
-            for(const element of elements_to_show)
-                {elements_to_hide = elements_to_hide.filter(c => c !== element)}
-            enable_inputs(elements_to_show);
-            hide_and_show(elements_to_show, elements_to_hide);
         }
     }
     addEventListener_to_retrieve_alerts();
