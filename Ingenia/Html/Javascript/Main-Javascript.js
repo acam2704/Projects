@@ -819,19 +819,16 @@ function verify_identity_information(){
     const elements = identity_information_container.querySelectorAll(':scope > input, :scope > select');
     for (const element of elements){
         if (element.value.trim() === ''){
-            
             element.focus();
             enable_inputs([identity_information_container]);
             const alert = element.previousElementSibling;
-            if (alert && alert.classList.contains('text_alert')){
-                show_text_alert([[alert], 'Campo obligatorio'])
-            }
+            const condition = alert && alert.classList.contains('text_alert');
+            if ( condition && element.id.includes('input') ){show_text_alert([[alert], 'Inválido']);} 
+            else if( condition ){show_text_alert([[alert], 'Campo obligatorio']);}
             return;
         }
     }
-    
     PasswordsWindow();
-
     hideLoader();
 }
 
