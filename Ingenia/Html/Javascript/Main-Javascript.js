@@ -216,9 +216,6 @@ function normalizeSelect(select){
 }
 // Función que oculta la animación de carga y muestra el texto del botón
 function hideLoader(){
-    const loader = document.getElementById("loader");
-    const bttn_send_txt = document.getElementById("bttn_send_txt");
-
     loader.style.display = "none";
     bttn_send_txt.style.display = "block";
 }
@@ -319,6 +316,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const elements_to_show = [identity_information_container];
             elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container)
+            elements_to_hide = elements_to_hide.push(loader);
+
             input_name_Re.value = name;
             input_lastname_Re.value = surname;
             input_email_Re.value = email;
@@ -345,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
-    const elements_to_hide = [personal_information_container, content_check_buttons_with];
+    const elements_to_hide = [personal_information_container, content_check_buttons_with, loader];
 
     for (const container of elements_to_hide){
         const inputs = container.querySelectorAll(':scope > input');
