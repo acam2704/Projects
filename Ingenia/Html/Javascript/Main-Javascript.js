@@ -593,23 +593,24 @@ function place_departaments(){
 
 // Función que agrega los municipios en el select requerido
 function place_municipality(normalized_departament, departament){
-    const select = document.getElementById('select_municipality');
-    const municipalities = map[normalized_departament][1];
+    const select = document.getElementById('select_municipality'); // Se toma el select de municipios
+    const municipalities = map[normalized_departament][1]; // Se toman los municipios del departamento seleccionado
     
-    Object.keys(municipalities).forEach(mun => {
-        const option = document.createElement("option");
-        option.classList = 'option_municipality';
-        option.value = departament + ' ' + mun;
-        option.textContent = departament + ' ' + mun;
+    Object.keys(municipalities).forEach(mun => { // Se recorren cada clave -municipio-
+        const option = document.createElement("option"); // Se crea un elemento option
+        option.classList = 'option_municipality'; // Se le agrega la clase
+        option.value = mun; // En su valor se le imprime el departamento y el municipio
+        // En su contenido se le imprimer el departamento y el municipio
+        option.textContent = departament + ' ' + mun.charAt(0).toUpperCase() + text.slice(1); 
 
-        select.appendChild(option);
+        select.appendChild(option); // Se agrega el elemento dentro de el select
     });
 }
 
 // Función que agrega los distritos en el select requerido
 function place_district(normalized_municipality, municipality, normalized_departament){
-    const select = document.getElementById('select_district');
-    const municipalities = map[normalized_departament][1];
+    const select = document.getElementById('select_district'); // Se toma el select de distritos
+    const municipalities = map[normalized_departament][1]; // Se toma 
     const districts = municipalities[normalized_municipality];
 
     districts.forEach(dis => {
@@ -637,9 +638,9 @@ select_departament.addEventListener('change', () => {
 
 // Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
 select_municipality.addEventListener('change', () => {
-    const municipality_array = select_municipality.value.split(' ');
-    const municipality = municipality_array[municipality_array.length - 1];
+    const municipality = select_municipality.value;
     const departament = select_departament.value;
+    console.log(municipality);
 
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
