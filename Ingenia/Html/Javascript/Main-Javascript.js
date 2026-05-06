@@ -302,18 +302,6 @@ document.addEventListener('DOMContentLoaded', function() {
     hide_all_text_alerts();
 })
 
-input_DUI_Re.addEventListener('input', () => {
-    let start = input_DUI_Re.selectionStart;
-    const before = input_DUI_Re.value;
-
-    const cleaned = before.replace(/\s/g, "");
-
-    const diff = before.length - cleaned.length;
-
-    input_DUI_Re.value = cleaned;
-    input_DUI_Re.setSelectionRange(start - diff, start - diff);
-});
-
 function code_already_typed(){
     let data = JSON.parse(localStorage.getItem('user'))
     const condition = data['email'] === input_email_Re.value.trim();
