@@ -402,8 +402,6 @@ function code_already_typed(){
 async function transformData(json){
     // El status de la respuesta a la verificación de las credenciales debe de ser 'ok'
     if(json["status"] === "ok"){
-        // El nombre del usuario tomado de sus credenciales es dividida por sus espacios
-        const user = json.name.split(' ');
 
         // Se ingresa el supuesto nombre y el apellido del usuario
         input_name_Re.value = json.names;
