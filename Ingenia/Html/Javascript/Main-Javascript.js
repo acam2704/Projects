@@ -795,7 +795,7 @@ function verifyPasswords(){
 /* VENTANA DE INFORMACIÓN PÚBLICA DEL USUARIO --------------------------------------------------------------------*/
 function show_public_information_window(containers_to_hide){
     const containers_to_show = [public_profile_information_container];
-    const containers_to_hide = [containers_to_hide, loader];
+    containers_to_hide = containers_to_hide.push(loader);
 
     enable_inputs(containers_to_show);
     hide_and_show(containers_to_show, containers_to_hide);
