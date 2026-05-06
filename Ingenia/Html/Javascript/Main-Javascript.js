@@ -349,33 +349,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
-    // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
+    // Se preparan los inputs a ocultar y que, en caso de fallar su validación, se vuelven a habilitar
     const elements_to_hide = [personal_information_container, content_check_buttons_with];
 
-    for (const container of elements_to_hide){
-        const inputs = container.querySelectorAll(':scope > input');
-        for(const input of inputs){
-            if(input.value.trim() === ''){
-                const alert = input.previousElementSibling;
+    /* Se valida si hay campos vacíos */
+    for (const container of elements_to_hide){ // Se recorre cada elemento
+        const inputs = container.querySelectorAll(':scope > input'); // Del elemento se toman los inputs
+        for(const input of inputs){ // Por cada input
+            if(input.value.trim() === ''){ // Se valida si no está vacío
+                const alert = input.previousElementSibling; // Se toma el span de arriba
 
-                input.focus()
-                hideLoader();
-                enable_inputs(elements_to_hide);
-                if(alert && alert.classList.contains('text_alert')){
-                    show_text_alert([[alert], 'Campo obligatorio'])
+                input.focus(); // Se devuelve el foco
+                hideLoader(); // Se esconde la animación de carga
+                enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
+                if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
+                    show_text_alert([[alert], 'Campo obligatorio']) // Se muestra la alerta
                 }
-                return;
+                return; // Se fuerza el final de la función
             }
         }
     }
-
     if (code_typed_before) {
         show_identity_information_window(elements_to_hide);
     } else{
-        // Se activa una animación de carga en el botón
-        animationLoad();
-        // Se hace esperar a la función medio segundo para ejecutar lo que sigue de código
-        await delay(500);
         // Se crea un json con la Información Personal del usuario
         const json_data = JSON.stringify({
             names: input_name_Re.value,
@@ -388,6 +384,7 @@ async function next(code_typed_before){
     }
 }
 
+// Función que valida si el código fue ingresado anteriormente al momento de registrarse
 function code_already_typed(){
     let data = localStorage.getItem('user')
     if (!data){next(false); return;}
@@ -691,6 +688,7 @@ function verify_identity_information(){
 function show_identity_information_window(containers_to_hide){
     const containers_to_show = [identity_information_container, bttn_send_txt]; // Sección a mostrar
     
+    hideLoader();
     hide_and_show(containers_to_show, containers_to_hide); // Se ocultan y muestran las secciones requeridas
     enable_inputs(containers_to_show); // Se habilitan los inputs de la sección
     place_departaments(); // Se ingresan los departamentos en el select
