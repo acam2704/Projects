@@ -630,6 +630,7 @@ function place_district(municipality_key, departament_key){
 select_departament.addEventListener('change', () => {
     const departament_key = select_departament.value;
     const departament = select_departament.textContent;
+    console.log(['departament: ' + departament, 'departament_key: ' + departament_key]);
 
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
     document.querySelectorAll('.option_district').forEach(el => el.remove());
@@ -643,6 +644,7 @@ select_departament.addEventListener('change', () => {
 select_municipality.addEventListener('change', () => {
     const municipality = select_municipality.value;
     const departament = select_departament.value;
+    console.log(['municipality: ' + municipality, 'departament: ' + departament]);
 
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
