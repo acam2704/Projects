@@ -593,9 +593,9 @@ function place_departaments(){
 }
 
 // Función que agrega los municipios en el select requerido
-function place_municipality(normalized_departament, departament){
+function place_municipality(departament, departament_key){
     const select = document.getElementById('select_municipality'); // Se toma el select de municipios
-    const municipalities = map[normalized_departament][1]; // Se toman los municipios del departamento seleccionado
+    const municipalities = map[departament_key][1]; // Se toman los municipios del departamento seleccionado
     
     console.log(Object.keys(municipalities));
     Object.keys(municipalities).forEach(mun => { // Se recorren cada clave -municipio-
@@ -610,10 +610,10 @@ function place_municipality(normalized_departament, departament){
 }
 
 // Función que agrega los distritos en el select requerido
-function place_district(municipality, departament){
+function place_district(municipality_key, departament_key){
     const select = document.getElementById('select_district'); // Se toma el select de distritos
-    const municipalities = map[departament][1]; // Se toma 
-    const districts = municipalities[municipality];
+    const municipalities = map[municipality_key][1]; // Se toma 
+    const districts = municipalities[departament_key];
 
     console.log(districts);
     districts.forEach(dis => {
@@ -628,14 +628,14 @@ function place_district(municipality, departament){
 
 // Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
 select_departament.addEventListener('change', () => {
-    const departament = select_departament.value;
+    const departament_key = select_departament.value;
+    const departament = select_departament.textContent;
 
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
-    if(departament.trim().length !== 0){
-        const normalized_departament = normalizeSelect(departament);
-        place_municipality(normalized_departament, departament);
+    if(departament_key.trim().length !== 0){
+        place_municipality(departament, departament_key);
     }
 });
 
@@ -643,14 +643,11 @@ select_departament.addEventListener('change', () => {
 select_municipality.addEventListener('change', () => {
     const municipality = select_municipality.value;
     const departament = select_departament.value;
-    console.log(municipality);
 
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
     if(municipality.trim().length !== 0){
-        const normalized_municipality = normalizeSelect(municipality);
-        const normalized_departament = normalizeSelect(departament);
-        place_district(municipality, normalized_departament);
+        place_district(municipality, departament);
     }
 });
 
