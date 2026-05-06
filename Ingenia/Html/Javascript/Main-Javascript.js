@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
     // Se preparan los inputs que, en caso de fallar su validación, se vuelven a habilitar
-    const elements_to_hide = [personal_information_container, content_check_buttons_with, loader];
+    const elements_to_hide = [personal_information_container, content_check_buttons_with];
 
     for (const container of elements_to_hide){
         const inputs = container.querySelectorAll(':scope > input');
@@ -479,12 +479,8 @@ function emailSent(response){
         if(response['error'] === null){
             // El status de la respueta debe ser 'ok'
             if(response["status"] === "ok"){
-                // Habilitar la modificación de los valores en los inputs
-                enable_inputs(elements_to_show);
-
-                // Llamada a función que oculta y muestra los campos requeridos
-                hide_and_show(elements_to_show, elements_to_hide);
-
+                enable_inputs(elements_to_show); // Habilitar la modificación de los valores en los inputs
+                hide_and_show(elements_to_show, elements_to_hide); // Llamada a función que oculta y muestra los campos requeridos
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
                 // Datos importantes: sent_at y sent_to
                 almacenate(response);
@@ -497,34 +493,22 @@ function emailSent(response){
                 enable_inputs(elements_to_hide);
             }
         } else if(response['error'].includes('Invalid email')){
-            // Se habilita la modificación de los valores de los inputs
-            enable_inputs(elements_to_hide);
+            enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
             const text_VC1 = document.getElementById('text_VC1');
-
-            // Se le dice al usuario que el correo es inválido
-            show_text_alert([[text_VC1], 'Correo inválido']);
-
-            // Se devuelve el foco a input_email_Re
-            input_email_Re.focus();
+            show_text_alert([[text_VC1], 'Correo inválido']); // Se le dice al usuario que el correo es inválido
+            input_email_Re.focus(); // Se devuelve el foco a input_email_Re
         } else {
-            // Se habilita la modificación de los valores de los inputs
-            enable_inputs(elements_to_hide);
-
-            // Se modifica el margin-top del botón
-            bttn_send.style.marginTop = '10px';
-
+            enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
+            bttn_send.style.marginTop = '10px'; // Se modifica el margin-top del botón
             // Se le dice al usuario que hubo un error y que lo vuelva a intentar
             show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo otra vez']);
         }
     } catch(e){
-        // Si hubo un error se muestra en la consola
         console.log({ name: e.name, 
-            message: e.message});
-        // Se le pide al usuario volver a intentar el Registro
-        alert("Recargue la página y vuelva a intentarlo")
+            message: e.message}); // Si hubo un error se muestra en la consola
+        alert("Recargue la página y vuelva a intentarlo"); // Se le pide al usuario volver a intentar el Registro
     }
-    // Se oculta la animación de carga del botón
-    hideLoader();
+    hideLoader(); // Se oculta la animación de carga del botón
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
@@ -532,38 +516,27 @@ function emailSent(response){
 async function verification_code_window(email){
     const text = document.getElementById('text_VC1');
     // Se mantiene el texto mostrado
-    loader.style.display = "none";
-    bttn_send.style.display = "block";
-
-    // El código debe de haberse ingresado
-    if(input_code_Re.value.trim().length === 0){
-        // Se modifica text_VC1
-        show_text_alert([[text], 'Campo obligatorio']);
-        // Se devuelve el foco al input
-        input_code_Re.focus();
+    hideLoader();
+    
+    if(input_code_Re.value.trim().length === 0){ // El código debe de haberse ingresado
+        show_text_alert([[text], 'Campo obligatorio']); // Se modifica text_VC1
+        input_code_Re.focus(); // Se devuelve el foco al input
     } else {
-        // El código tiene que ser de 6 dígitos
-        if (input_code_Re.value.trim().length !== 6){
+        if (input_code_Re.value.trim().length !== 6){ // El código tiene que ser de 6 dígitos
             // Se le dice al usuario que el código requiere ser de 6 carácteres
             show_text_alert([[text], 'El código requiere ser de 6 carácteres']);
-
-            // Se habilita el input nuevamente
-            enable_inputs(verification_code_container);
-
-            // Se devuelve el foco al input
-            input_code_Re.focus();
+            enable_inputs(verification_code_container); // Se habilita el input nuevamente
+            input_code_Re.focus(); // Se devuelve el foco al input
         } else {
-            // Si el código no está vacío y cumple con 6 carácteres de longitud
-
             // Se prepara un json con el código ingresado por el usuario y su correo electrónico
             const json_data = JSON.stringify({
                 code: input_code_Re.value,
                 email: email
             });
-            // Se envía a verificarlo
-            codeVerification(json_data);
+            codeVerification(json_data); // Se envía a verificarlo
         };
     }
+    hideLoader(); // Se oculta la animación de carga del botón
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
@@ -601,8 +574,7 @@ async function codeVerificationResponse(response){
         show_text_alert([text, 'Ingresa el código enviado']); // Se muestra la alerta
         enable_inputs(elements_to_hide); // Se habilitan los inputs requeridos
     }
-    // Se oculta la animación de carga del botón
-    hideLoader();
+    hideLoader(); // Se oculta la animación de carga del botón
 }
 
 /* VENTANA DE INFORMACIÓN DE INFORMACIÓN PRIVADA DEL USUARIO --------------------------------------------------------------------*/
@@ -715,7 +687,7 @@ function verify_identity_information(){
 
 // Función que muestra el campo de ingreso del DUI del usuario
 function show_identity_information_window(containers_to_hide){
-    const containers_to_show = [identity_information_container]; // Sección a mostrar
+    const containers_to_show = [identity_information_container, bttn_send_txt]; // Sección a mostrar
     
     hide_and_show(containers_to_show, containers_to_hide); // Se ocultan y muestran las secciones requeridas
     enable_inputs(containers_to_show); // Se habilitan los inputs de la sección
