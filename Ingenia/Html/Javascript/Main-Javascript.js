@@ -408,7 +408,7 @@ async function transformData(json){
         input_lastname_Re.value = json.lastnames;
         input_email_Re.value = json.email;
         img_Re.src = json.picture;
-        almacenate();
+        almacenate(json);
 
         // Se preparan los inputs a mostrar, ocultar y deshabilitar
         let elements_to_hide = [personal_information_container, content_check_buttons_with];
