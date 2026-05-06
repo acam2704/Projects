@@ -306,6 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
     elements_to_hide.push(loader);
     elements_to_hide.push(back_bttn);
+    disable_all_inputs();
     if (data_user !== null){
         try{
             data_user = JSON.parse(data_user);
@@ -313,8 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const name = data_user.names;
             const surname = data_user.lastnames;
-
-            disable_all_inputs();
 
             elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
             elements_to_hide.push(content_check_buttons_with);
@@ -327,8 +326,11 @@ document.addEventListener('DOMContentLoaded', function() {
             show_identity_information_window(elements_to_hide);
         } catch(Error){
             const elements_to_show = [personal_information_container];
-            hide_and_show(elements_to_show, elements_to_hide);
+            for(const element of elements_to_show)
+                {elements_to_hide = elements_to_hide.filter(c => c !== element)}
             enable_inputs(elements_to_show);
+            hide_and_show(elements_to_show, elements_to_hide);
+
             localStorage.removeItem('user');
             console.log(Error);
             console.log('user eliminado del localstorage');
@@ -338,8 +340,6 @@ document.addEventListener('DOMContentLoaded', function() {
         for(const element of elements_to_show)
             {elements_to_hide = elements_to_hide.filter(c => c !== element)}
         enable_inputs(elements_to_show);
-        disable_inputs(elements_to_hide);
-        
         hide_and_show(elements_to_show, elements_to_hide);
     }
     addEventListener_to_retrieve_alerts();
