@@ -305,7 +305,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let data_user = localStorage.getItem('user');
     let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
     elements_to_hide.push(loader);
-    elements_to_hide.push(back_bttn);
     disable_all_inputs();
     if (data_user !== null){
         try{
@@ -325,6 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             show_identity_information_window(elements_to_hide);
         } catch(Error){
+            elements_to_hide.push(back_bttn);
             const elements_to_show = [personal_information_container];
             for(const element of elements_to_show)
                 {elements_to_hide = elements_to_hide.filter(c => c !== element)}
@@ -336,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('user eliminado del localstorage');
         }
     } else{
+        elements_to_hide.push(back_bttn);
         const elements_to_show = [personal_information_container];
         for(const element of elements_to_show)
             {elements_to_hide = elements_to_hide.filter(c => c !== element)}
