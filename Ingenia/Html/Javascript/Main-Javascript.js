@@ -390,9 +390,9 @@ async function next(code_typed_before){
 // Función que valida si el código fue ingresado anteriormente al momento de registrarse
 function code_already_typed(){
     let data = localStorage.getItem('user')
-    console.log(data);
-    if (!data){next(false); return;}
     data = JSON.parse(data);
+    
+    console.log(data);
     if(data['email'] === input_email_Re.value.trim() && data){
         console.log('true');
         next(true);
