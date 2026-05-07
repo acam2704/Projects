@@ -393,10 +393,10 @@ function code_already_typed(){
     if (!data){next(false); return;}
     data = JSON.parse(data);
     if(data['email'] === input_email_Re.value.trim() && data){
-        localStorage.removeItem('user');
-        sessionStorage.removeItem('user');
         next(true);
     } else {
+        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
         next(false);
     }
 }
