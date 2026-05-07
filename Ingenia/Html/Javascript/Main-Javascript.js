@@ -623,6 +623,10 @@ select_departament.addEventListener('change', () => {
     const departament_key = select_departament.value;
     const departament = map[departament_key][0];
 
+    identity_information_container.querySelectorAll(':scope > span').forEach(span => {
+        span.style.display = 'none';
+    })
+
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
@@ -636,11 +640,21 @@ select_municipality.addEventListener('change', () => {
     const municipality = select_municipality.value;
     const departament = select_departament.value;
 
+    identity_information_container.querySelectorAll(':scope > span').forEach(span => {
+        span.style.display = 'none';
+    })
+
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
     if(municipality.trim().length !== 0){
         place_district(municipality, departament);
     }
+});
+
+select_district.addEventListener('change', () => {
+    identity_information_container.querySelectorAll(':scope > span').forEach(span => {
+        span.style.display = 'none';
+    })
 });
 
 // Función que ejecuta un código repetitivo de la función verify_identity_information
