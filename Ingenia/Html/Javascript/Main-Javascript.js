@@ -392,6 +392,7 @@ function code_already_typed(){
     let data = localStorage.getItem('user')
     data = JSON.parse(data);
     
+    if(!data){next(false); return}
     console.log(data);
     if(data['email'] === input_email_Re.value.trim() && data){
         console.log('true');
