@@ -393,12 +393,9 @@ function code_already_typed(){
     data = JSON.parse(data);
     
     if(!data){next(false); return}
-    console.log(data);
     if(data['email'] === input_email_Re.value.trim() && data){
-        console.log('true');
         next(true);
     } else {
-        console.log('false');
         localStorage.removeItem('user');
         sessionStorage.removeItem('user');
         next(false);
