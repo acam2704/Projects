@@ -1,6 +1,15 @@
+<style>
+    *{
+        color: white;
+        background-color: white;
+    }
+</style>
+
 <?php
+session_start();
+
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 function base64UrlDecode($data) {
     $remainder = strlen($data) % 4;
@@ -23,7 +32,7 @@ try{
 
         $options = [
             'http' => [
-                'header' => 'Content_type: application/x-www-urlencoded\r\n',
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
                 'method' => 'POST',
                 'content' => http_build_query($data)
             ],
@@ -41,42 +50,35 @@ try{
 
         $parts = explode('.', $id_token);
         $pay_load = json_decode(base64UrlDecode($parts[1]), true);
-        $respond = json_encode([
+        $respond = [
             'email' => $pay_load['email'],
             'names' => explode(' ', $pay_load['name'])[0],
             'lastnames' => explode(' ', $pay_load['name'])[1]
-        ]);
-        $_SESSION['user'] = $respond;
+        ];
+        $_SESSION['user'] = $respond;  
     } else {
-        echo json_encode([
+        error_log(json_encode([
             'code' => '',
             'status' => 'failed',
             'error' => 'No GET',
             'msg' => 'GET fallido'
-        ]);
+        ]));
     }
-} catch(Error $e){
-    echo json_encode([
+} catch(Throwable $e){
+    error_log(json_encode([
         'status' => 'failed',
-        'error' => $e,
+        'error' => $e->getMessage(),
         'msg' => 'Error durante la ejecución de código',
-    ]);
+    ]));
 }
-
 ?>
 
 <script>
     // Guardar datos en el navegador
-    sessionStorage.setItem('user', '<?php echo $respond; ?>');
-    localStorage.setItem('user', '<?php echo $respond ?>');
+    const user = <?php echo json_encode($respond)?>
+    sessionStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
 
     // Redirigir al HTML
     window.location.href = "https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Session-Log.html";
 </script>
-
-<style>
-    *{
-        color: white;
-        background-color: white;
-    }
-</style>

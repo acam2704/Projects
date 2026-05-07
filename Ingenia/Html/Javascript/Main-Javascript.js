@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             } else {throw null;}
         } catch(e){
-            if (data[1] === array_to_travel[array_to_travel.length - 1]){
+            if (data[1] === array_to_travel[array_to_travel.length - 1][1]){
                 elements_to_hide.push(back_bttn);
                 const elements_to_show = [personal_information_container];
                 for(const element of elements_to_show)
@@ -708,8 +708,6 @@ function verifyMicrosoftAccount(){
     const redirect_uri = encodeURIComponent("https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Php/Microsoft-Account-Verification.php");
 
     const url = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}&scope=openid profile email`;
-    
-    window.location.href = url;
 }
 
 /* VENTANA DE INFORMACIÓN DE SEGURIDAD DEL USUARIO --------------------------------------------------------------------*/
