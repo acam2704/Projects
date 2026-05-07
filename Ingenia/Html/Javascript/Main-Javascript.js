@@ -467,18 +467,16 @@ function emailSent(response){
     // Se trata de ejecutar el siguiente código
     try{
         // Listas de inputs a modificar
-        const elements_to_show = [verification_code_container, back_bttn];
         const elements_to_hide = [personal_information_container, content_check_buttons_with];
         
         // No debe de haber error en la etiqueta 'error' de la respuesta
         if(response['error'] === null){
             // El status de la respueta debe ser 'ok'
             if(response["status"] === "ok"){
-                enable_inputs(elements_to_show); // Habilitar la modificación de los valores en los inputs
-                hide_and_show(elements_to_show, elements_to_hide); // Llamada a función que oculta y muestra los campos requeridos
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
-                // Datos importantes: sent_at y sent_to
-                almacenate(response);
+                almacenate(response); // Datos importantes: sent_at y sent_to
+
+                show_verification_code_window(elements_to_hide);
             } else{
                 // De otro modo, se imprime en la consola el status
                 console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response['status']);
@@ -504,6 +502,15 @@ function emailSent(response){
         alert("Recargue la página y vuelva a intentarlo"); // Se le pide al usuario volver a intentar el Registro
     }
     hideLoader(); // Se oculta la animación de carga del botón
+}
+
+function show_verification_code_window(containers_to_hide){
+    const containers_to_show = [identity_information_container, back_bttn];
+
+    enable_inputs(containers_to_show);
+    disable_inputs(containers_to_hide);
+
+    hide_and_show(containers_to_show, containers_to_hide);
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
@@ -692,7 +699,7 @@ function verify_identity_information(){
 
 // Función que muestra el campo de ingreso del DUI del usuario
 function show_identity_information_window(containers_to_hide){
-    const containers_to_show = [identity_information_container, bttn_send_txt]; // Sección a mostrar
+    const containers_to_show = [identity_information_container, bttn_send_txt, back_bttn]; // Sección a mostrar
     
     hideLoader();
     hide_and_show(containers_to_show, containers_to_hide); // Se ocultan y muestran las secciones requeridas
