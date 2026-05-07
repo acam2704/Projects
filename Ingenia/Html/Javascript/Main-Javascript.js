@@ -656,16 +656,18 @@ function verify_identity_information(){
     const elements = identity_information_container.querySelectorAll(':scope > input, :scope > select'); // inputs y selects
     for (const element of elements){ // Se recorre cada input y select
         if (element.value.trim() === ''){ // Si el campo está vacío
-            console.log(element.value);
             executor_from_VII(element, 'Campo obligatorio');
             return; // Se fuerza el final de la función
         }
         if( element.classList.contains('input') ){ // Si el elemento es uno clase .input
+            console.log('input clase');
             if(element.id === 'input_DUI_Re'){
-                let DUI = element.value.replace('-', '');
-                if(!isNaN(DUI)){executor_from_VII(element, 'DUI Inválido')}
+                console.log('input_DUI_Re');
+                const DUI = element.value.replace('-', '');
+                if(!isNaN(DUI) && DUI.length !== 9){executor_from_VII(element, 'DUI Inválido'); return}
             } else {
-                if(element.value.length !== 8){executor_from_VII(element, 'Número inválido')}
+                console.log('input_phonenumber_Re');
+                if(element.value.length !== 8){executor_from_VII(element, 'Número inválido'); return}
             }
         }
     }
