@@ -657,6 +657,7 @@ function verify_identity_information(){
     for (const element of elements){ // Se recorre cada input y select
         if (element.value.trim() === ''){ // Si el campo está vacío
             executor_from_VII(element, 'Campo obligatorio');
+            hideLoader();
             return; // Se fuerza el final de la función
         }
         if( element.classList.contains('input') ){ // Si el elemento es uno clase .input
@@ -664,10 +665,10 @@ function verify_identity_information(){
             if(element.id === 'input_DUI_Re'){
                 console.log('input_DUI_Re');
                 const DUI = element.value.replace('-', '');
-                if(!isNaN(DUI) && DUI.length !== 9){executor_from_VII(element, 'DUI Inválido'); return}
+                if(!isNaN(DUI) && DUI.length !== 9){executor_from_VII(element, 'DUI Inválido'); hideLoader(); return}
             } else {
                 console.log('input_phonenumber_Re');
-                if(element.value.length !== 8){executor_from_VII(element, 'Número inválido'); return}
+                if(element.value.length !== 8){executor_from_VII(element, 'Número inválido'); hideLoader(); return}
             }
         }
     }
