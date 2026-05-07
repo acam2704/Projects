@@ -510,7 +510,7 @@ function emailSent(response){
 }
 
 function show_verification_code_window(containers_to_hide){
-    const containers_to_show = [identity_information_container, back_bttn];
+    const containers_to_show = [verification_code_container, back_bttn];
 
     enable_inputs(containers_to_show);
     disable_inputs(containers_to_hide);
