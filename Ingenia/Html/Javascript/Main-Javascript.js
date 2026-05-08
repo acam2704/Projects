@@ -1,15 +1,15 @@
 //-------------------------------------------------------// SIGN UP & SIGN IN // --------------------------------------------------------//
 
 // Definición de las variables de todos los elementos de html que se usarán en cada rincón de este Javascript
-//----- ELEMENTOS DE VENTANA: INFORMACIÓN PERSONAL -----//
+//----- VENTANA: INFORMACIÓN PERSONAL -----//
 const personal_information_container = document.getElementById("personal_information_container");
-//----- ELEMENTOS DE VENTANA: VERIFICACIÓN DE CÓDIGO -----//
+//----- VENTANA: VERIFICACIÓN DE CÓDIGO -----//
 const verification_code_container = document.getElementById("verification_code_container");
-//----- ELEMENTOS DE VENTANA: INFORMACIÓN DE SEGURIDAD -----//
+//----- VENTANA: INFORMACIÓN DE SEGURIDAD -----//
 const security_information_container = document.getElementById("security_information_container");
-//----- ELEMENTOS DE VENTANA: INFORMACIÓN DE IDENTIDAD -----//
+//----- VENTANA: INFORMACIÓN DE IDENTIDAD -----//
 const identity_information_container = document.getElementById("identity_information_container");
-//----- ELEMENTOS DE VENTANA: INFORMACIÓN PÚBLICA DEL PERFIL -----//
+//----- VENTANA: INFORMACIÓN PÚBLICA DEL PERFIL -----//
 const public_profile_information_container = document.getElementById('public_profile_information_container');
 //----- ELEMENTOS GUÍAS DE CADA VENTANA -----//
 const content_check_buttons_with = document.getElementById("content_check_buttons_with");
