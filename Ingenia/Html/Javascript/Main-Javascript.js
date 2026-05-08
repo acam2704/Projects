@@ -2,40 +2,17 @@
 
 // Definición de las variables de todos los elementos de html que se usarán en cada rincón de este Javascript
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN PERSONAL -----//
-const input_name_Re = document.getElementById("input_name_Re");
-const input_lastname_Re = document.getElementById("input_lastname_Re");
-const input_email_Re = document.getElementById("input_email_Re");
 const personal_information_container = document.getElementById("personal_information_container");
 //----- ELEMENTOS DE VENTANA: VERIFICACIÓN DE CÓDIGO -----//
-const input_code_Re = document.getElementById("input_code_Re");
 const verification_code_container = document.getElementById("verification_code_container");
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN DE SEGURIDAD -----//
-const input_1psw_Re = document.getElementById("input_1psw_Re");
-const input_2psw_Re = document.getElementById("input_2psw_Re");
 const security_information_container = document.getElementById("security_information_container");
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN DE IDENTIDAD -----//
-const input_DUI_Re = document.getElementById("input_DUI_Re");
-const input_phonenumber_Re = document.getElementById("input_phonenumber_Re");
-const select_departament = document.getElementById("select_departament");
-const select_municipality = document.getElementById("select_municipality");
-const select_district = document.getElementById("select_district");
 const identity_information_container = document.getElementById("identity_information_container");
-const legal_information_section_text = document.getElementById("legal_information_section_text");
 //----- ELEMENTOS DE VENTANA: INFORMACIÓN PÚBLICA DEL PERFIL -----//
-const input_file_Re = document.getElementById("input_file_Re");
-const img_Re = document.getElementById("img_Re");
 const public_profile_information_container = document.getElementById('public_profile_information_container');
 //----- ELEMENTOS GUÍAS DE CADA VENTANA -----//
-// Elementos de verificación 
-const bttn_microsoft = document.getElementById("Microsoft");
-const bttn_google =  document.getElementById("Google");
 const content_check_buttons_with = document.getElementById("content_check_buttons_with");
-// Otros elementos
-const error_text_alert = document.getElementById("error_text_alert");
-const bttn_send_txt = document.getElementById("bttn_send_txt");
-const bttn_send = document.getElementById("bttn_send");
-const loader = document.getElementById("loader");
-const back_bttn = document.getElementById('back_bttn');
 
 // Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia en inputs y selects
 function addEventListener_to_retrieve_alerts(){
@@ -160,9 +137,12 @@ function go_back(){
     disable_all_inputs();
     hide_all_text_alerts();
 
+    const error_text_alert = document.getElementById('error_text_alert');
+
     // Se oculta el texto de alerta, por si hubo un error anteriormente
     error_text_alert.style.display = 'none';
     // Se reestablece el marginTop de bttn_send
+    const bttn_send = document.getElementById('bttn_send');
     bttn_send.style.marginTop = '20px';
     const inputs_container = document.getElementById('inputs_container');
     const containers = Array.from(inputs_container.querySelectorAll('.signup_section'));
@@ -175,7 +155,9 @@ function go_back(){
             const filtered_containers = containers.filter(container => container !== previous_container); // Array
             const containers_to_show = [previous_container];
             if (previous_container.id === 'personal_information_container')
-                {containers_to_show.push(content_check_buttons_with); filtered_containers.push(back_bttn)}
+                {containers_to_show.push(content_check_buttons_with); 
+                const back_bttn = document.getElementById('back_bttn'); 
+                filtered_containers.push(back_bttn)}
             enable_inputs(containers_to_show);
             hide_and_show(containers_to_show, filtered_containers);
             return;
@@ -217,6 +199,8 @@ function normalizeSelect(select){
 }
 // Función que oculta la animación de carga y muestra el texto del botón
 function hideLoader(){
+    const bttn_send_txt = document.getElementById('bttn_send_txt');
+    const loader = document.getElementById('loader');
     loader.style.display = "none";
     bttn_send_txt.style.display = "block";
 }
@@ -307,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
     const array_to_travel = [data_user, session_data];
     let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
+    const loader = document.getElementById('loader');
     elements_to_hide.push(loader);
     disable_all_inputs();
 
@@ -323,6 +308,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 elements_to_hide.push(content_check_buttons_with);
                 const elements_to_show = [identity_information_container];
 
+                const input_name_Re = document.getElementById('input_name_Re');
+                const input_lastname_Re = document.getElementById('input_lastname_Re');
+                const input_email_Re = document.getElementById('input_email_Re');
+
                 input_name_Re.value = name;
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
@@ -332,6 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {throw null;}
         } catch(e){
             if (data[1] === array_to_travel[array_to_travel.length - 1][1]){
+                const back_bttn = document.getElementById('back_bttn');
                 elements_to_hide.push(back_bttn);
                 const elements_to_show = [personal_information_container];
                 for(const element of elements_to_show)
@@ -376,6 +366,10 @@ async function next(code_typed_before){
         show_identity_information_window(elements_to_hide);
     } else{
         // Se crea un json con la Información Personal del usuario
+        const input_name_Re = document.getElementById('input_name_Re');
+        const input_lastname_Re = document.getElementById('input_lastname_Re');
+        const input_email_Re = document.getElementById('input_email_Re');
+
         const json_data = JSON.stringify({
             names: input_name_Re.value,
             lastnames: input_lastname_Re.value,
@@ -391,6 +385,7 @@ async function next(code_typed_before){
 function code_already_typed(){
     let data = localStorage.getItem('user')
     data = JSON.parse(data);
+    const input_email_Re = document.getElementById('input_email_Re');
     
     if(!data){next(false); return}
     if(data['email'] === input_email_Re.value.trim() && data){
@@ -404,6 +399,10 @@ function code_already_typed(){
 
 // Función que se usa al verificar la cuenta con Google (handleCredentialResponse -> transformData)
 async function transformData(json){
+    const input_name_Re = document.getElementById('input_name_Re');
+    const input_lastname_Re = document.getElementById('input_lastname_Re');
+    const input_email_Re = document.getElementById('input_email_Re');
+    const img_Re = document.getElementById('img_Re');
     // El status de la respuesta a la verificación de las credenciales debe de ser 'ok'
     if(json["status"] === "ok"){
 
@@ -471,7 +470,7 @@ function emailSent(response){
     try{
         // Listas de inputs a modificar
         const elements_to_hide = [personal_information_container, content_check_buttons_with];
-        
+        const error_text_alert = document.getElementById('error_text_alert');
         // No debe de haber error en la etiqueta 'error' de la respuesta
         if(response['error'] === null){
             // El status de la respueta debe ser 'ok'
@@ -491,10 +490,12 @@ function emailSent(response){
         } else if(response['error'].includes('Invalid email')){
             enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
             const text_VC1 = document.getElementById('text_VC1');
+            const input_email_Re = document.getElementById('input_email_Re');
             show_text_alert([[text_VC1], 'Correo inválido']); // Se le dice al usuario que el correo es inválido
             input_email_Re.focus(); // Se devuelve el foco a input_email_Re
         } else {
             enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
+            const bttn_send = document.getElementById('bttn_send');
             bttn_send.style.marginTop = '10px'; // Se modifica el margin-top del botón
             // Se le dice al usuario que hubo un error y que lo vuelva a intentar
             show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo otra vez']);
@@ -508,6 +509,7 @@ function emailSent(response){
 }
 
 function show_verification_code_window(containers_to_hide){
+    const back_bttn = document.getElementById('back_bttn');
     const containers_to_show = [verification_code_container, back_bttn];
 
     enable_inputs(containers_to_show);
@@ -520,6 +522,7 @@ function show_verification_code_window(containers_to_hide){
 // Desde: después de enviar el correo 
 async function verification_code_window(email){
     const text = document.getElementById('text_VC1');
+    const input_code_Re = document.getElementById('input_code_Re');
     // Se mantiene el texto mostrado
     hideLoader();
     
@@ -630,8 +633,8 @@ function place_district(municipality_key, departament_key){
 }
 
 // Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
-select_departament.addEventListener('change', () => {
-    const departament_key = select_departament.value;
+document.getElementById('select_departament').addEventListener('change', () => {
+    const departament_key = document.getElementById('select_departament').value;
     const departament = map[departament_key][0];
 
     identity_information_container.querySelectorAll(':scope > span').forEach(span => {
@@ -647,9 +650,9 @@ select_departament.addEventListener('change', () => {
 });
 
 // Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
-select_municipality.addEventListener('change', () => {
-    const municipality = select_municipality.value;
-    const departament = select_departament.value;
+document.getElementById('select_municipality').addEventListener('change', () => {
+    const municipality = document.getElementById('select_municipality').value;
+    const departament = document.getElementById('select_departament').value;
 
     identity_information_container.querySelectorAll(':scope > span').forEach(span => {
         span.style.display = 'none';
@@ -662,7 +665,7 @@ select_municipality.addEventListener('change', () => {
     }
 });
 
-select_district.addEventListener('change', () => {
+document.getElementById("select_district").addEventListener('change', () => {
     identity_information_container.querySelectorAll(':scope > span').forEach(span => {
         span.style.display = 'none';
     })
@@ -702,6 +705,8 @@ function verify_identity_information(){
 
 // Función que muestra el campo de ingreso del DUI del usuario
 function show_identity_information_window(containers_to_hide){
+    const bttn_send_txt = document.getElementById('bttn_send_txt');
+    const back_bttn = document.getElementById('back_bttn');
     const containers_to_show = [identity_information_container, bttn_send_txt, back_bttn]; // Sección a mostrar
     
     hideLoader();
@@ -743,7 +748,9 @@ function verifyMicrosoftAccount(){
 // Función que muestra la apartado de ingreso de contraseñas
 function PasswordsWindow(){
     const containers_to_show = [security_information_container];
+    const loader = document.getElementById('loader');
     const containers_to_hide = [identity_information_container, loader];
+    const bttn_send_txt = document.getElementById('bttn_send_txt');
 
     bttn_send_txt.style.display = "block";
     enable_inputs(containers_to_show);
@@ -761,6 +768,9 @@ function verifyPasswords(){
     
     const text_SI1 = document.getElementById('text_SI1');
     const text_SI2 = document.getElementById('text_SI2');
+
+    const input_1psw_Re = document.getElementById('input_1psw_Re');
+    const input_2psw_Re = document.getElementById('input_2psw_Re');
 
     // La contraseña no puede ser menor a 8 carácteres
     if(input_1psw_Re.value.trim().length < 8){ // Si la contraseña es muy corta
@@ -785,6 +795,8 @@ function verifyPasswords(){
 /* VENTANA DE INFORMACIÓN PÚBLICA DEL USUARIO --------------------------------------------------------------------*/
 function show_public_information_window(containers_to_hide){
     const containers_to_show = [public_profile_information_container];
+    const bttn_send_txt = document.getElementById('bttn_send_txt');
+    const loader = document.getElementById('loader');
     containers_to_hide.push(loader);
 
     enable_inputs(containers_to_show);
@@ -805,10 +817,11 @@ function place_picture(input){
     const picture = input.files[0];
     const preview = input.nextElementSibling;
 
-    if(picture){
-        preview.src = URL.createObjectURL(picture);
-    }
+    if(picture)
+        {preview.src = URL.createObjectURL(picture)}
 }
+
+personal_information_container.querySelectorAll(':scope > input, :scope > img')
 
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
 // Función que muestra la animación de carga en el botón
@@ -820,10 +833,11 @@ function animationLoad(){
     loader.style.display = "block";
 }
 // Al presionar o dar click al botón, se valida en la sección actual activa para mover al usuario a la siguiente 
-bttn_send.addEventListener("click", async () => {
+document.getElementById('bttn_send').addEventListener("click", async () => {
     disable_all_inputs(); // Se deshabilitan todos los inputs
+    const error_text_alert = document.getElementById('error_text_alert');
     error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si hubo un error anteriormente
-    bttn_send.style.marginTop = "20px"; // Se reestablece el marginTop de bttn_send
+    document.getElementById('bttn_send').style.marginTop = "20px"; // Se reestablece el marginTop de bttn_send
     animationLoad(); // Al dar click, se muestra la animación de carga en el botón
     await delay(500); // Se espera medio segundo
 

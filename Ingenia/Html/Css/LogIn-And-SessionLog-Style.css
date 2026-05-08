@@ -83,7 +83,8 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.input_file{display: none}
+#input_picture_Re, 
+#input_degrees_Re{display: none}
 .normal_text{color: var(--label-text-); font-size: 14px}
 .text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px; display: none}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
