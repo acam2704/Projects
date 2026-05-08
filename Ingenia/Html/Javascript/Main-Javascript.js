@@ -803,6 +803,7 @@ function choose_picture(img){
 
 function place_picture(input){
     const picture = input.files[0];
+    const preview = input.nextElementSibling;
 
     if(picture){
         preview.src = URL.createObjectURL(picture);
