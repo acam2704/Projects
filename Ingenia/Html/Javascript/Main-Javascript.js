@@ -815,6 +815,7 @@ function choose_picture(img){
 
 function place_picture(input){
     const picture = input.files[0];
+    console.log(picture);
     const preview = input.nextElementSibling;
 
     if(picture)
