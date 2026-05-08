@@ -4,13 +4,15 @@ header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $picture = $_FILES['picture'];
-    echo $_FILES;
-    $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
+    echo $picture;
+    $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
+    echo $extension;
 
     $safeName = uniqid() . '.' . $extension;
+    echo $safeName;
     $ruta = 'https://ingeniastorage.blob.core.windows.net/profile-pictures/' . $safeName;
     move_uploaded_file(
-        $archivo['tmp_name'],
+        $picture['tmp_name'],
         $ruta
     );
 
