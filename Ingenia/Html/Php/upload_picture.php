@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
 
     $safeName = uniqid() . '.' . $extension;
-    $ruta = 'uploads/' . $safeName;
+    $ruta = 'https://ingeniastorage.blob.core.windows.net/profile-pictures/' . $safeName;
     move_uploaded_file(
         $archivo['tmp_name'],
         $ruta
