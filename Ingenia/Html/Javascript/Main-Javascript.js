@@ -818,8 +818,15 @@ function place_picture(input){
     console.log(picture);
     const preview = input.nextElementSibling;
 
-    if(picture)
-        {preview.src = URL.createObjectURL(picture)}
+    if(picture){
+        preview.src = URL.createObjectURL(picture);
+        const formData = new FormData();
+        formData.append('picture', picture);
+        fetch('Php/upload_picture.php', {
+            method: 'POST',
+            body: formData
+        })
+    }
 }
 
 personal_information_container.querySelectorAll(':scope > input, :scope > img')
