@@ -83,6 +83,7 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.input_file{display: none}
 .normal_text{color: var(--label-text-); font-size: 14px}
 .text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px; display: none}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
@@ -99,6 +100,14 @@ input[type="number"]::-webkit-inner-spin-button {
     transition: all 0.5s ease
 }
 #img_Re:hover{cursor: pointer;box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
+#degrees_Re{
+    border: none;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+    transition: all 0.5s ease
+}
+#degrees_Re{cursor: pointer;box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
 #content_buttons_Re{text-align: center}
 #content_buttons_Re > p{margin-top: 10px}
 .g_id_signin{

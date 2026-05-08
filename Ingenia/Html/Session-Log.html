@@ -69,10 +69,11 @@
             <article id="public_profile_information_container" class="signup_section">
                 <br><p class="text_section_title">Información pública</p> <br>
                 <span id="PPIC_1"></span>
-                <img src="Imágenes/predeterminated_profile_photo.png" alt="" id="img_Re" onclick="choosePicture()"><br><br>
-                <input type="file" id="input_file_Re">
+                <input type="file" id="input_file_Re" class="input_file" onchange="place_picture(this)">
+                <img src="Imágenes/predeterminated_profile_photo.png" alt="" id="img_Re" onclick="choose_picture(this)"><br><br>
                 <span id="PPIC_2"></span>
-                <input type="file" id="input_degrees_Re">
+                <input type="file" id="input_degrees_Re" class="input_file" onchange="place_picture(this)">
+                <img src="Imágenes/predeterminated_profile_photo.png" alt="" id="degrees_Re" onclick="choose_picture(this)">
                 <span id="PPIC_3"></span>
                 <input type="text" class="input" id="" placeholder="Descripción del usuario">
             </article>
@@ -92,29 +93,29 @@
                     <a href="#" class="normal_text" id="Go_to_LogIn">Iniciar sesión</a>
                 </p> <br>
                 
-                <div id="content_check_buttons_with">
-                    <div id="Google" class="google-container">
-                        <div class="g_id_signin" 
+                <section id="content_check_buttons_with">
+                    <article id="Google" class="google-container">
+                        <article class="g_id_signin" 
                             data-type="standard" 
                             data-size="medium" 
                             data-theme="filled_white" 
                             data-shape="pill" 
                             data-logo_alignment="left">
-                        </div>
-                    </div>
+                        </article>
+                    </article>
                     
                     <p class="normal_text">or continue with</p>
 
-                    <div class="content_Microsoft">
+                    <article class="content_Microsoft">
                         <button id="Microsoft" class="microsoft-btn" onclick="verifyMicrosoftAccount()">
                             <span class="ms-logo">
                                 <span></span><span></span><span></span><span></span>
                             </span>
                             <span>Sign in with Microsoft</span>
                         </button>
-                    </div>
+                    </article>
                     <br>
-                </div>
+                </section>
             </section>
             
         </section>

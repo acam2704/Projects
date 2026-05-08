@@ -792,14 +792,21 @@ function show_public_information_window(containers_to_hide){
 
     show_text_alert([[bttn_send_txt], 'Registrate'])
 }
-// Función que permite elegir la foto de perfil del usuario
-function choosePicture(){
-    const img_LogIn = document.getElementById("img_Re");
-    const input_picture = document.getElementById("input_file_Re");
+// Función que permite elegir la imagen
+function choose_picture(img){
+    const input = img.previousElementSibling;
 
-    img_LogIn.addEventListener("click", () => {
-        input_picture.click();
+    img.addEventListener("click", () => {
+        input.click();
     });
+}
+
+function place_picture(input){
+    const picture = input.files[0];
+
+    if(picture){
+        preview.src = URL.createObjectURL(picture);
+    }
 }
 
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
