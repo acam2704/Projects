@@ -826,6 +826,8 @@ function place_picture(input){
             method: 'POST',
             body: formData
         })
+        .then(response => response.text())
+        .then(data => console.log(data));
     }
 }
 
