@@ -822,6 +822,9 @@ function place_picture(input){
         preview.src = URL.createObjectURL(picture);
         const formData = new FormData();
         formData.append('picture', picture);
+        console.log(picture);
+        console.log(preview);
+        console.log(formData);
         fetch('Php/upload_picture.php', {
             method: 'POST',
             body: formData
