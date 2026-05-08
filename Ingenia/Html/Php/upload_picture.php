@@ -4,6 +4,7 @@ header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $picture = $_FILES['picture'];
+    echo $_FILES;
     $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
 
     $safeName = uniqid() . '.' . $extension;
