@@ -98,7 +98,6 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 50px;
     width: 100px;
     height: 100px;
-    margin-left: calc( (100% - 100px) / 2 );
     transition: all 0.5s ease
 }
 #img_Re:hover{cursor: pointer;box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
