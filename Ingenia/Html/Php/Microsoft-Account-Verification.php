@@ -21,8 +21,8 @@ function base64UrlDecode($data) {
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
-        $cliend_id = getenv('c3c3fd20-6fd8-4d78-9500-8ad1cb909b22');
-        $client_secret = getenv('8TP8Q~tGszBnJ3HVYvbNeX.jz.mi-9Bgcs3K.aVw');
+        $cliend_id = getenv('client_id');
+        $client_secret = getenv('client_secret');
         $data = [
             'client_id' => $cliend_id,
             'client_secret' => $client_secret,
