@@ -815,20 +815,23 @@ function choose_picture(img){
 
 function place_picture(input){
     const picture = input.files[0];
-    console.log(picture);
     const preview = input.nextElementSibling;
 
     if(picture){
-        preview.src = URL.createObjectURL(picture);
         const formData = new FormData();
         formData.append('picture', picture);
+
         console.log(formData);
         fetch('Php/upload_picture.php', {
             method: 'POST',
             body: formData
         })
         .then(response => response.text())
-        .then(data => console.log(data));
+        .then(data => {
+            if(JSON.parse(data).status === 'ok'){
+                preview.src = JSON.parse(data).url;
+            }
+        });
     }
 }
 
