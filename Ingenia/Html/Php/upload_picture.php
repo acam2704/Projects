@@ -10,24 +10,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     try {
         if(!isset($_FILES['picture'])){throw new Error('No se envió ningún archivo');}
 
-        $file = $_FILES['picture'];
-        if($file['error'] !== 0){throw new Error('Error al subir el archivo');}
-        if ($file['size'] > 5 * 1024 * 1024) {throw new Exception('La imagen supera los 5MB');}
+        $received_file = $_FILES['picture'];
+        if($received_file['error'] !== 0){throw new Error('Error al subir el archivo');}
+        if ($received_file['size'] > 5 * 1024 * 1024) {throw new Exception('La imagen supera los 5MB');}
         
         $allowedTypes = [
             'image/jpeg' => 'jpg',
             'image/png' => 'png',
             'image/webp' => 'webp'
         ];
-        if(!isset($allowedTypes[$file['type']])){throw new Error('Tipo de imagen inválido');}
+        if(!isset($allowedTypes[$received_file['type']])){throw new Error('Tipo de imagen inválido');}
 
-        $extention = $allowedTypes[$file['type']];
+        $extention = $allowedTypes[$received_file['type']];
         $fileName = bin2hex(random_bytes(16)) . '.' . $extention;
         $connectionString = getenv('blobStorage_connectionString_1');
         $containerName = getenv('container1');
         $blobClient = BlobServiceClient::createFromConnectionString($connectionString);
         $containerClient = $blobClient->getBlobContainerClient($containerName);
-        $content = file_get_contents($file['tmp_name']);
+        $content = file_get_contents($received_file['tmp_name']);
 
         $containerClient->uploadBlob(
             $fileName,
