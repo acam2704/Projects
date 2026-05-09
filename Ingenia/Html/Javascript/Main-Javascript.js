@@ -822,7 +822,7 @@ function place_picture(input){
         formData.append('picture', picture);
 
         console.log(formData);
-        fetch('Php/upload_picture.php', {
+        fetch('upload_picture.php', {
             method: 'POST',
             body: formData
         })
