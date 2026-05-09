@@ -845,7 +845,7 @@ function add_degree(){
     let container = document.getElementById('img_cards_container');
     let img = document.createElement('img');
     img.className = 'card_img';
-    
+
     container.appendChild(img);
 }
 
