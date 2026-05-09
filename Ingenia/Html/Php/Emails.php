@@ -55,18 +55,22 @@ try {
         require '/home/site/wwwroot/Ingenia/PHPMailer/src/Exception.php';
 
         $mail = new PHPMailer(true);
-
         $mail->isSMTP();
+
         if ($data['domain'] === 'microsoft'){
+            $admin_email = getenv('andre.alvarado2026@frech.superate.org');
+            $password = getenv('un_O....1498');
             $mail->Host = 'smtp.office365.com';
-            $mail->Username = 'andre.alvarado2026@frech.superate.org';
-            $mail->Password = 'un_O....1498'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
-            $mail->setFrom('andre.alvarado2026@frech.superate.org', 'Ingenia');
+            $mail->Username = $admin_email;
+            $mail->Password = $password;
+            $mail->setFrom($admin_email, 'Ingenia');
         } else {
+            $admin_email = getenv('angeelcostaa22@gmail.com');
+            $password = getenv('divq jnjb iral mdel');
             $mail->Host = 'smtp.gmail.com';
-            $mail->Username = 'angeelcostaa22@gmail.com';
-            $mail->Password = 'divq jnjb iral mdel'; /*Mi cuenta acam2700@gmail.com'ylgh hoxf jsyl igwi';*/
-            $mail->setFrom('angeelcostaa22@gmail.com', 'Ingenia');
+            $mail->Username = $admin_email;
+            $mail->Password = $password;
+            $mail->setFrom($admin_email, 'Ingenia');
         }
         
         $mail->SMTPAuth = true;

@@ -7,7 +7,7 @@ header("Cross-Origin-Opener-Policy: same-origin-allow-popups");
 session_start();
 
 $data = json_decode(file_get_contents("php://input"), true);
-$token = $data["token"];
+$token = getenv($data["token"]);
 
 // Verificar con Google
 $verify = file_get_contents("https://oauth2.googleapis.com/tokeninfo?id_token=" . $token);

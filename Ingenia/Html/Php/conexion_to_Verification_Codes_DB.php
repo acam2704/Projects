@@ -1,9 +1,12 @@
 <?php
-$serverName = "ingenia.database.windows.net"; // update me
+$serverName = "ingenia.database.windows.net";
+$password = getenv('1ngeniaAyuda4Albañiles');
+$db = getenv('free-sql-db-7867305');
+
 $connectionOptions = array(
-    "Database" => "free-sql-db-7867305", // update me
-    "Uid" => "ingenia_admin", // update me
-    "PWD" => "1ngeniaAyuda4Albañiles" // update me
+    "Database" => $db,
+    "Uid" => "ingenia_admin",
+    "PWD" => $password
 );
 
 $conexion = sqlsrv_connect($serverName, $connectionOptions);

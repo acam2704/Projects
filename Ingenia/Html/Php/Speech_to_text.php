@@ -1,5 +1,5 @@
 <?php
-    $key = "1YnTlrdYAe9hxElKuQSOw4wKyXwaGSSfT2nMkXaz8T6ntThznofGJQQJ99CEACYeBjFXJ3w3AAAYACOGS6rp";
+    $key = getenv("1YnTlrdYAe9hxElKuQSOw4wKyXwaGSSfT2nMkXaz8T6ntThznofGJQQJ99CEACYeBjFXJ3w3AAAYACOGS6rp");
     $region = "eastus";
 
     $url = "https://$region.api.cognitive.microsoft.com/sts/v1.0/issuetoken";
