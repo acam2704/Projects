@@ -835,7 +835,7 @@ function place_picture(input){
                 }
             } catch(e){
                 console.log(data);
-                preview.src = 'Imágenes/without-picture.jpg';
+                preview.src = 'https://ingeniastorage.blob.core.windows.net/profile-pictures/without-picture.jpg';
             }
         });
     }
