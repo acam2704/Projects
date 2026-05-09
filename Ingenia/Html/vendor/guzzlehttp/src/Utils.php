@@ -2,260 +2,476 @@
 
 declare(strict_types=1);
 
-namespace GuzzleHttp\Promise;
+namespace GuzzleHttp\Psr7;
+
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 final class Utils
 {
     /**
-     * Get the global task queue used for promise resolution.
+     * Remove the items given by the keys, case insensitively from the data.
      *
-     * This task queue MUST be run in an event loop in order for promises to be
-     * settled asynchronously. It will be automatically run when synchronously
-     * waiting on a promise.
-     *
-     * <code>
-     * while ($eventLoop->isRunning()) {
-     *     GuzzleHttp\Promise\Utils::queue()->run();
-     * }
-     * </code>
-     *
-     * @param TaskQueueInterface|null $assign Optionally specify a new queue instance.
+     * @param (string|int)[] $keys
      */
-    public static function queue(?TaskQueueInterface $assign = null): TaskQueueInterface
+    public static function caselessRemove(array $keys, array $data): array
     {
-        static $queue;
+        $result = [];
 
-        if ($assign) {
-            $queue = $assign;
-        } elseif (!$queue) {
-            $queue = new TaskQueue();
+        foreach ($keys as &$key) {
+            $key = strtolower((string) $key);
         }
 
-        return $queue;
-    }
-
-    /**
-     * Adds a function to run in the task queue when it is next `run()` and
-     * returns a promise that is fulfilled or rejected with the result.
-     *
-     * @param callable $task Task function to run.
-     */
-    public static function task(callable $task): PromiseInterface
-    {
-        $queue = self::queue();
-        $promise = new Promise([$queue, 'run']);
-        $queue->add(function () use ($task, $promise): void {
-            try {
-                if (Is::pending($promise)) {
-                    $promise->resolve($task());
-                }
-            } catch (\Throwable $e) {
-                $promise->reject($e);
+        foreach ($data as $k => $v) {
+            if (!in_array(strtolower((string) $k), $keys)) {
+                $result[$k] = $v;
             }
-        });
-
-        return $promise;
-    }
-
-    /**
-     * Synchronously waits on a promise to resolve and returns an inspection
-     * state array.
-     *
-     * Returns a state associative array containing a "state" key mapping to a
-     * valid promise state. If the state of the promise is "fulfilled", the
-     * array will contain a "value" key mapping to the fulfilled value of the
-     * promise. If the promise is rejected, the array will contain a "reason"
-     * key mapping to the rejection reason of the promise.
-     *
-     * @param PromiseInterface $promise Promise or value.
-     */
-    public static function inspect(PromiseInterface $promise): array
-    {
-        try {
-            return [
-                'state' => PromiseInterface::FULFILLED,
-                'value' => $promise->wait(),
-            ];
-        } catch (RejectionException $e) {
-            return ['state' => PromiseInterface::REJECTED, 'reason' => $e->getReason()];
-        } catch (\Throwable $e) {
-            return ['state' => PromiseInterface::REJECTED, 'reason' => $e];
-        }
-    }
-
-    /**
-     * Waits on all of the provided promises, but does not unwrap rejected
-     * promises as thrown exception.
-     *
-     * Returns an array of inspection state arrays.
-     *
-     * @see inspect for the inspection state array format.
-     *
-     * @param PromiseInterface[] $promises Traversable of promises to wait upon.
-     */
-    public static function inspectAll($promises): array
-    {
-        $results = [];
-        foreach ($promises as $key => $promise) {
-            $results[$key] = self::inspect($promise);
         }
 
-        return $results;
+        return $result;
     }
 
     /**
-     * Waits on all of the provided promises and returns the fulfilled values.
+     * Copy the contents of a stream into another stream until the given number
+     * of bytes have been read.
      *
-     * Returns an array that contains the value of each promise (in the same
-     * order the promises were provided). An exception is thrown if any of the
-     * promises are rejected.
+     * @param StreamInterface $source Stream to read from
+     * @param StreamInterface $dest   Stream to write to
+     * @param int             $maxLen Maximum number of bytes to read. Pass -1
+     *                                to read the entire stream.
      *
-     * @param iterable<PromiseInterface> $promises Iterable of PromiseInterface objects to wait on.
-     *
-     * @throws \Throwable on error
+     * @throws \RuntimeException on error.
      */
-    public static function unwrap($promises): array
+    public static function copyToStream(StreamInterface $source, StreamInterface $dest, int $maxLen = -1): void
     {
-        $results = [];
-        foreach ($promises as $key => $promise) {
-            $results[$key] = $promise->wait();
-        }
+        $bufferSize = 8192;
 
-        return $results;
-    }
-
-    /**
-     * Given an array of promises, return a promise that is fulfilled when all
-     * the items in the array are fulfilled.
-     *
-     * The promise's fulfillment value is an array with fulfillment values at
-     * respective positions to the original array. If any promise in the array
-     * rejects, the returned promise is rejected with the rejection reason.
-     *
-     * @param mixed $promises  Promises or values.
-     * @param bool  $recursive If true, resolves new promises that might have been added to the stack during its own resolution.
-     */
-    public static function all($promises, bool $recursive = false): PromiseInterface
-    {
-        $results = [];
-        $promise = Each::of(
-            $promises,
-            function ($value, $idx) use (&$results): void {
-                $results[$idx] = $value;
-            },
-            function ($reason, $idx, Promise $aggregate): void {
-                if (Is::pending($aggregate)) {
-                    $aggregate->reject($reason);
+        if ($maxLen === -1) {
+            while (!$source->eof()) {
+                if (!$dest->write($source->read($bufferSize))) {
+                    break;
                 }
             }
-        )->then(function () use (&$results) {
-            ksort($results);
+        } else {
+            $remaining = $maxLen;
+            while ($remaining > 0 && !$source->eof()) {
+                $buf = $source->read(min($bufferSize, $remaining));
+                $len = strlen($buf);
+                if (!$len) {
+                    break;
+                }
+                $remaining -= $len;
+                $dest->write($buf);
+            }
+        }
+    }
 
-            return $results;
-        });
+    /**
+     * Copy the contents of a stream into a string until the given number of
+     * bytes have been read.
+     *
+     * @param StreamInterface $stream Stream to read
+     * @param int             $maxLen Maximum number of bytes to read. Pass -1
+     *                                to read the entire stream.
+     *
+     * @throws \RuntimeException on error.
+     */
+    public static function copyToString(StreamInterface $stream, int $maxLen = -1): string
+    {
+        $buffer = '';
 
-        if (true === $recursive) {
-            $promise = $promise->then(function ($results) use ($recursive, &$promises) {
-                foreach ($promises as $promise) {
-                    if (Is::pending($promise)) {
-                        return self::all($promises, $recursive);
+        if ($maxLen === -1) {
+            while (!$stream->eof()) {
+                $buf = $stream->read(1048576);
+                if ($buf === '') {
+                    break;
+                }
+                $buffer .= $buf;
+            }
+
+            return $buffer;
+        }
+
+        $len = 0;
+        while (!$stream->eof() && $len < $maxLen) {
+            $buf = $stream->read($maxLen - $len);
+            if ($buf === '') {
+                break;
+            }
+            $buffer .= $buf;
+            $len = strlen($buffer);
+        }
+
+        return $buffer;
+    }
+
+    /**
+     * Calculate a hash of a stream.
+     *
+     * This method reads the entire stream to calculate a rolling hash, based
+     * on PHP's `hash_init` functions.
+     *
+     * @param StreamInterface $stream    Stream to calculate the hash for
+     * @param string          $algo      Hash algorithm (e.g. md5, crc32, etc)
+     * @param bool            $rawOutput Whether or not to use raw output
+     *
+     * @throws \RuntimeException on error.
+     */
+    public static function hash(StreamInterface $stream, string $algo, bool $rawOutput = false): string
+    {
+        $pos = $stream->tell();
+
+        if ($pos > 0) {
+            $stream->rewind();
+        }
+
+        $ctx = hash_init($algo);
+        while (!$stream->eof()) {
+            hash_update($ctx, $stream->read(1048576));
+        }
+
+        $out = hash_final($ctx, $rawOutput);
+        $stream->seek($pos);
+
+        return $out;
+    }
+
+    /**
+     * Clone and modify a request with the given changes.
+     *
+     * This method is useful for reducing the number of clones needed to mutate
+     * a message.
+     *
+     * The changes can be one of:
+     * - method: (string) Changes the HTTP method.
+     * - set_headers: (array) Sets the given headers.
+     * - remove_headers: (array) Remove the given headers.
+     * - body: (mixed) Sets the given body.
+     * - uri: (UriInterface) Set the URI.
+     * - query: (string) Set the query string value of the URI.
+     * - version: (string) Set the protocol version.
+     *
+     * @param RequestInterface $request Request to clone and modify.
+     * @param array            $changes Changes to apply.
+     */
+    public static function modifyRequest(RequestInterface $request, array $changes): RequestInterface
+    {
+        if (!$changes) {
+            return $request;
+        }
+
+        $headers = $request->getHeaders();
+
+        if (!isset($changes['uri'])) {
+            $uri = $request->getUri();
+        } else {
+            // Remove the host header if one is on the URI
+            if ($host = $changes['uri']->getHost()) {
+                $changes['set_headers']['Host'] = $host;
+
+                if ($port = $changes['uri']->getPort()) {
+                    $standardPorts = ['http' => 80, 'https' => 443];
+                    $scheme = $changes['uri']->getScheme();
+                    if (isset($standardPorts[$scheme]) && $port != $standardPorts[$scheme]) {
+                        $changes['set_headers']['Host'] .= ':'.$port;
                     }
                 }
-
-                return $results;
-            });
+            }
+            $uri = $changes['uri'];
         }
 
-        return $promise;
-    }
+        if (!empty($changes['remove_headers'])) {
+            $headers = self::caselessRemove($changes['remove_headers'], $headers);
+        }
 
-    /**
-     * Initiate a competitive race between multiple promises or values (values
-     * will become immediately fulfilled promises).
-     *
-     * When count amount of promises have been fulfilled, the returned promise
-     * is fulfilled with an array that contains the fulfillment values of the
-     * winners in order of resolution.
-     *
-     * This promise is rejected with a {@see AggregateException} if the number
-     * of fulfilled promises is less than the desired $count.
-     *
-     * @param int   $count    Total number of promises.
-     * @param mixed $promises Promises or values.
-     */
-    public static function some(int $count, $promises): PromiseInterface
-    {
-        $results = [];
-        $rejections = [];
+        if (!empty($changes['set_headers'])) {
+            $headers = self::caselessRemove(array_keys($changes['set_headers']), $headers);
+            $headers = $changes['set_headers'] + $headers;
+        }
 
-        return Each::of(
-            $promises,
-            function ($value, $idx, PromiseInterface $p) use (&$results, $count): void {
-                if (Is::settled($p)) {
-                    return;
-                }
-                $results[$idx] = $value;
-                if (count($results) >= $count) {
-                    $p->resolve(null);
-                }
-            },
-            function ($reason) use (&$rejections): void {
-                $rejections[] = $reason;
+        if (isset($changes['query'])) {
+            $uri = $uri->withQuery($changes['query']);
+        }
+
+        if ($request instanceof ServerRequestInterface) {
+            $new = (new ServerRequest(
+                $changes['method'] ?? $request->getMethod(),
+                $uri,
+                $headers,
+                $changes['body'] ?? $request->getBody(),
+                $changes['version'] ?? $request->getProtocolVersion(),
+                $request->getServerParams()
+            ))
+            ->withParsedBody($request->getParsedBody())
+            ->withQueryParams($request->getQueryParams())
+            ->withCookieParams($request->getCookieParams())
+            ->withUploadedFiles($request->getUploadedFiles());
+
+            foreach ($request->getAttributes() as $key => $value) {
+                $new = $new->withAttribute($key, $value);
             }
-        )->then(
-            function () use (&$results, &$rejections, $count) {
-                if (count($results) !== $count) {
-                    throw new AggregateException(
-                        'Not enough promises to fulfill count',
-                        $rejections
-                    );
-                }
-                ksort($results);
 
-                return array_values($results);
-            }
+            return $new;
+        }
+
+        return new Request(
+            $changes['method'] ?? $request->getMethod(),
+            $uri,
+            $headers,
+            $changes['body'] ?? $request->getBody(),
+            $changes['version'] ?? $request->getProtocolVersion()
         );
     }
 
     /**
-     * Like some(), with 1 as count. However, if the promise fulfills, the
-     * fulfillment value is not an array of 1 but the value directly.
+     * Read a line from the stream up to the maximum allowed buffer length.
      *
-     * @param mixed $promises Promises or values.
+     * @param StreamInterface $stream    Stream to read from
+     * @param int|null        $maxLength Maximum buffer length
      */
-    public static function any($promises): PromiseInterface
+    public static function readLine(StreamInterface $stream, ?int $maxLength = null): string
     {
-        return self::some(1, $promises)->then(function ($values) {
-            return $values[0];
-        });
+        $buffer = '';
+        $size = 0;
+
+        while (!$stream->eof()) {
+            if ('' === ($byte = $stream->read(1))) {
+                return $buffer;
+            }
+            $buffer .= $byte;
+            // Break when a new line is found or the max length - 1 is reached
+            if ($byte === "\n" || ++$size === $maxLength - 1) {
+                break;
+            }
+        }
+
+        return $buffer;
     }
 
     /**
-     * Returns a promise that is fulfilled when all of the provided promises have
-     * been fulfilled or rejected.
-     *
-     * The returned promise is fulfilled with an array of inspection state arrays.
-     *
-     * @see inspect for the inspection state array format.
-     *
-     * @param mixed $promises Promises or values.
+     * Redact the password in the user info part of a URI.
      */
-    public static function settle($promises): PromiseInterface
+    public static function redactUserInfo(UriInterface $uri): UriInterface
     {
-        $results = [];
+        $userInfo = $uri->getUserInfo();
 
-        return Each::of(
-            $promises,
-            function ($value, $idx) use (&$results): void {
-                $results[$idx] = ['state' => PromiseInterface::FULFILLED, 'value' => $value];
-            },
-            function ($reason, $idx) use (&$results): void {
-                $results[$idx] = ['state' => PromiseInterface::REJECTED, 'reason' => $reason];
+        if (false !== ($pos = \strpos($userInfo, ':'))) {
+            return $uri->withUserInfo(\substr($userInfo, 0, $pos), '***');
+        }
+
+        return $uri;
+    }
+
+    /**
+     * Create a new stream based on the input type.
+     *
+     * Options is an associative array that can contain the following keys:
+     * - metadata: Array of custom metadata.
+     * - size: Size of the stream.
+     *
+     * This method accepts the following `$resource` types:
+     * - `Psr\Http\Message\StreamInterface`: Returns the value as-is.
+     * - `string`: Creates a stream object that uses the given string as the contents.
+     * - `resource`: Creates a stream object that wraps the given PHP stream resource.
+     * - `Iterator`: If the provided value implements `Iterator`, then a read-only
+     *   stream object will be created that wraps the given iterable. Each time the
+     *   stream is read from, data from the iterator will fill a buffer and will be
+     *   continuously called until the buffer is equal to the requested read size.
+     *   Subsequent read calls will first read from the buffer and then call `next`
+     *   on the underlying iterator until it is exhausted.
+     * - `object` with `__toString()`: If the object has the `__toString()` method,
+     *   the object will be cast to a string and then a stream will be returned that
+     *   uses the string value.
+     * - `NULL`: When `null` is passed, an empty stream object is returned.
+     * - `callable` When a callable is passed, a read-only stream object will be
+     *   created that invokes the given callable. The callable is invoked with the
+     *   number of suggested bytes to read. The callable can return any number of
+     *   bytes, but MUST return `false` when there is no more data to return. The
+     *   stream object that wraps the callable will invoke the callable until the
+     *   number of requested bytes are available. Any additional bytes will be
+     *   buffered and used in subsequent reads.
+     *
+     * @param resource|string|int|float|bool|StreamInterface|callable|\Iterator|null $resource Entity body data
+     * @param array{size?: int, metadata?: array}                                    $options  Additional options
+     *
+     * @throws \InvalidArgumentException if the $resource arg is not valid.
+     */
+    public static function streamFor($resource = '', array $options = []): StreamInterface
+    {
+        if (is_scalar($resource)) {
+            $stream = self::tryFopen('php://temp', 'r+');
+            if ($resource !== '') {
+                fwrite($stream, (string) $resource);
+                fseek($stream, 0);
             }
-        )->then(function () use (&$results) {
-            ksort($results);
 
-            return $results;
+            return new Stream($stream, $options);
+        }
+
+        switch (gettype($resource)) {
+            case 'resource':
+                /*
+                 * The 'php://input' is a special stream with quirks and inconsistencies.
+                 * We avoid using that stream by reading it into php://temp
+                 */
+
+                /** @var resource $resource */
+                if ((\stream_get_meta_data($resource)['uri'] ?? '') === 'php://input') {
+                    $stream = self::tryFopen('php://temp', 'w+');
+                    stream_copy_to_stream($resource, $stream);
+                    fseek($stream, 0);
+                    $resource = $stream;
+                }
+
+                return new Stream($resource, $options);
+            case 'object':
+                /** @var object $resource */
+                if ($resource instanceof StreamInterface) {
+                    return $resource;
+                } elseif ($resource instanceof \Iterator) {
+                    return new PumpStream(function () use ($resource) {
+                        if (!$resource->valid()) {
+                            return false;
+                        }
+                        $result = $resource->current();
+                        $resource->next();
+
+                        return $result;
+                    }, $options);
+                } elseif (method_exists($resource, '__toString')) {
+                    return self::streamFor((string) $resource, $options);
+                }
+                break;
+            case 'NULL':
+                return new Stream(self::tryFopen('php://temp', 'r+'), $options);
+        }
+
+        if (is_callable($resource)) {
+            return new PumpStream($resource, $options);
+        }
+
+        throw new \InvalidArgumentException('Invalid resource type: '.gettype($resource));
+    }
+
+    /**
+     * Safely opens a PHP stream resource using a filename.
+     *
+     * When fopen fails, PHP normally raises a warning. This function adds an
+     * error handler that checks for errors and throws an exception instead.
+     *
+     * @param string $filename File to open
+     * @param string $mode     Mode used to open the file
+     *
+     * @return resource
+     *
+     * @throws \RuntimeException if the file cannot be opened
+     */
+    public static function tryFopen(string $filename, string $mode)
+    {
+        $ex = null;
+        set_error_handler(static function (int $errno, string $errstr) use ($filename, $mode, &$ex): bool {
+            $ex = new \RuntimeException(sprintf(
+                'Unable to open "%s" using mode "%s": %s',
+                $filename,
+                $mode,
+                $errstr
+            ));
+
+            return true;
         });
+
+        try {
+            /** @var resource $handle */
+            $handle = fopen($filename, $mode);
+        } catch (\Throwable $e) {
+            $ex = new \RuntimeException(sprintf(
+                'Unable to open "%s" using mode "%s": %s',
+                $filename,
+                $mode,
+                $e->getMessage()
+            ), 0, $e);
+        }
+
+        restore_error_handler();
+
+        if ($ex) {
+            /** @var \RuntimeException $ex */
+            throw $ex;
+        }
+
+        return $handle;
+    }
+
+    /**
+     * Safely gets the contents of a given stream.
+     *
+     * When stream_get_contents fails, PHP normally raises a warning. This
+     * function adds an error handler that checks for errors and throws an
+     * exception instead.
+     *
+     * @param resource $stream
+     *
+     * @throws \RuntimeException if the stream cannot be read
+     */
+    public static function tryGetContents($stream): string
+    {
+        $ex = null;
+        set_error_handler(static function (int $errno, string $errstr) use (&$ex): bool {
+            $ex = new \RuntimeException(sprintf(
+                'Unable to read stream contents: %s',
+                $errstr
+            ));
+
+            return true;
+        });
+
+        try {
+            /** @var string|false $contents */
+            $contents = stream_get_contents($stream);
+
+            if ($contents === false) {
+                $ex = new \RuntimeException('Unable to read stream contents');
+            }
+        } catch (\Throwable $e) {
+            $ex = new \RuntimeException(sprintf(
+                'Unable to read stream contents: %s',
+                $e->getMessage()
+            ), 0, $e);
+        }
+
+        restore_error_handler();
+
+        if ($ex) {
+            /** @var \RuntimeException $ex */
+            throw $ex;
+        }
+
+        return $contents;
+    }
+
+    /**
+     * Returns a UriInterface for the given value.
+     *
+     * This function accepts a string or UriInterface and returns a
+     * UriInterface for the given value. If the value is already a
+     * UriInterface, it is returned as-is.
+     *
+     * @param string|UriInterface $uri
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function uriFor($uri): UriInterface
+    {
+        if ($uri instanceof UriInterface) {
+            return $uri;
+        }
+
+        if (is_string($uri)) {
+            return new Uri($uri);
+        }
+
+        throw new \InvalidArgumentException('URI must be a string or UriInterface');
     }
 }
