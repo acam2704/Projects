@@ -841,7 +841,12 @@ function place_picture(input){
     }
 }
 
-personal_information_container.querySelectorAll(':scope > input, :scope > img')
+function add_degree(){
+    const container = document.getElementById('img_cards_container');
+    const img = document.createElement('img');
+
+    container.appendChild(img);
+}
 
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
 // Función que muestra la animación de carga en el botón
