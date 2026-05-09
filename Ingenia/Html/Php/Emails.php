@@ -4,6 +4,9 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET, OPTIONS, POST");
 use PHPMailer\PHPMailer\PHPMailer;
 
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
+
 date_default_timezone_set("America/El_Salvador");
 $json_file = file_get_contents("php://input");
 $data = json_decode($json_file, true);

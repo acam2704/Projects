@@ -1,7 +1,7 @@
 <?php
 $serverName = "ingenia.database.windows.net";
-$password = getenv('1ngeniaAyuda4Albañiles');
-$db = getenv('free-sql-db-7867305');
+$password = getenv('DataBase_password');
+$db = getenv('DataBase');
 
 $connectionOptions = array(
     "Database" => $db,

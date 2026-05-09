@@ -3,6 +3,9 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
+
 session_start();
 
 $data = json_decode(file_get_contents("php://input"), true);

@@ -1,6 +1,10 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
+header('Access-Control-Allow-Headers: Content-Type');
+
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
 require_once 'vendor/autoload.php';
 
@@ -9,7 +13,7 @@ use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     try {
-        if(!isset($_FILES['pictue'])){throw new Error('No se envió ningún archivo');}
+        if(!isset($_FILES['picture'])){throw new Error('No se envió ningún archivo');}
 
         $file = $_FILES['picture'];
         if($file['error'] !== 0){throw new Error('Error al subir el archivo');}
@@ -24,8 +28,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $extention = $allowedTypes[$file['type']];
         $fileName = bin2hex(random_bytes(16)) . '.' . $extention;
-        $connectionString = getenv('DefaultEndpointsProtocol=https;AccountName=ingeniastorage;AccountKey=roriagfGtj0yhp+RryMvh5aE178kjNUMBlelsf0feMDCgPceOTsCKCoyRElLSM0Jdj6ej/+xZpAm+AStOTQE9g==;EndpointSuffix=core.windows.net');
-        $containerName = 'profile-pictures';
+        $connectionString = getenv('blobStorage_connectionString_1');
+        $containerName = getenv('container_1');
         $blobClient = BlobRestProxy::createBlobService($connectionString);
         $content = fopen($file['tmp_name'], 'r');
 
@@ -35,7 +39,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $content
         );
 
-        $url = "https://ingeniastorage.blob.core.windows.net/" . $containerName . "/" . $fileName;
+        $blobStorage_path = getenv('blobStorage_path');
+        $url = $blobStorage_path . $containerName . "/" . $fileName;
 
         echo json_encode([
             'status' => 'ok',
