@@ -103,7 +103,7 @@ article > label.normal_text{text-align: left}
     transition: all 0.5s ease
 }
 #img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset}
-#img_cards_container{display: flex; padding-top: 10px; overflow-x: auto; overflow-y: hidden; white-space: nowrap; height: 110px}
+#img_cards_container{display: flex; padding-top: 10px; overflow-x: auto; overflow-y: hidden; white-space: nowrap; height: 120px}
 .card_img{border: 1px solid #ccc; border-radius: 10px; width: 140px; height: 100px; min-width: 140px; margin-bottom: 20px}
 .card_img:hover{box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: box-shadow 0.3s ease-in-out}
 .card_img:active{transform: scale(0.99); transition: transform 0.5s ease-in-out}

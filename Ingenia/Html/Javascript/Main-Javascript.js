@@ -813,9 +813,14 @@ function choose_picture(img){
     });
 }
 
-function place_picture(input){
+function place_picture(input, boolean){
     const picture = input.files[0];
-    const preview = input.nextElementSibling;
+    if(boolean){const preview = input.nextElementSibling}
+    else{
+        const container = document.getElementById('img_cards_container');
+        const array_img = container.querySelectorAll(':scope > img');
+        const preview = array_img[array_img.length - 1]
+    }
 
     if(picture){
         const formData = new FormData();
@@ -844,9 +849,11 @@ function place_picture(input){
 function add_degree(){
     let container = document.getElementById('img_cards_container');
     let img = document.createElement('img');
+    const input = document.getElementById('input_degrees_Re');
     img.className = 'card_img';
-
     container.appendChild(img);
+
+    input.click();
 }
 
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
