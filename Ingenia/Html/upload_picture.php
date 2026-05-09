@@ -1,10 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
-header('Access-Control-Allow-Headers: Content-Type');
-
-ini_set('display_errors', 0);
-error_reporting(E_ALL);
 
 require_once 'vendor/autoload.php';
 

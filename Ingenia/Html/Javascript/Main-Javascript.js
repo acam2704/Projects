@@ -833,7 +833,7 @@ function place_picture(input){
                     preview.src = JSON.parse(data).url;
                 }
             } catch(e){
-                preview.src = 'Imágenes/without_picture.jpg';
+                preview.src = 'Imágenes/without-picture.jpg';
             }
         });
     }
