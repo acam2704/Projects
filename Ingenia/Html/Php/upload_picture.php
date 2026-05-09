@@ -26,11 +26,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $extention = $allowedTypes[$received_file['type']];
         $fileName = bin2hex(random_bytes(16)) . '.' . $extention;
-        echo json_encode([
-            'status' => 'failed',
-            'error' => null, 
-            'data' => $fileName
-        ]);
         $connectionString = getenv('blobStorage_connectionString_1');
         $containerName = getenv('container1');
         $blobClient = BlobRestProxy::createBlobService($connectionString);
