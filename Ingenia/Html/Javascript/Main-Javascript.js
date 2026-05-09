@@ -828,8 +828,12 @@ function place_picture(input){
         })
         .then(response => response.text())
         .then(data => {
-            if(JSON.parse(data).status === 'ok'){
-                preview.src = JSON.parse(data).url;
+            try{
+                if(JSON.parse(data).status === 'ok'){
+                    preview.src = JSON.parse(data).url;
+                }
+            } catch(e){
+                preview.src = url('Imágenes/without_picture.jpg');
             }
         });
     }
