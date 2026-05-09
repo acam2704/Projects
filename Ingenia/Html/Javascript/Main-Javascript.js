@@ -842,9 +842,10 @@ function place_picture(input){
 }
 
 function add_degree(){
-    const container = document.getElementById('img_cards_container');
-    const img = document.createElement('img');
-
+    let container = document.getElementById('img_cards_container');
+    let img = document.createElement('img');
+    img.className = 'card_img';
+    
     container.appendChild(img);
 }
 
