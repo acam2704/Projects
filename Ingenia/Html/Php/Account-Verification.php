@@ -6,7 +6,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 session_start();
 
 $data = json_decode(file_get_contents("php://input"), true);
-$token = getenv($data["token"]);
+$token = $data["token"];
 
 // Verificar con Google
 $verify = file_get_contents("https://oauth2.googleapis.com/tokeninfo?id_token=" . $token);
