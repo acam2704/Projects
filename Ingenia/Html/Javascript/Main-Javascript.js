@@ -210,7 +210,8 @@ function hide_and_show(containers_to_show, containers_to_hide){
         container.style.display = "none";
     }); 
     containers_to_show.forEach(container => {
-        container.style.display = "block";
+        if(container.id = 'public_profile_information_container'){container.style.display = "flex";}
+        else{container.style.display = "block";}
     });
 }
 // Función que permite generar un username
@@ -870,5 +871,7 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
         verify_identity_information(); // Validación de información
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords(); // Validación de contraseñas
+    } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
+        console.log('Se crea el usuario en la base de datos');
     }
 });
