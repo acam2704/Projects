@@ -8,6 +8,9 @@ use MicrosoftAzure\Storage\Blob\BlobServiceClient;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     try {
+        file_put_contents("/home/site/wwwroot/Ingenia/Html/DEBUG_ACTIVE.log",
+        "NEW VERSION RUNNING " . date('c') . "\n",
+        FILE_APPEND);
         if(!isset($_FILES['picture'])){throw new Error('No se envió ningún archivo');}
 
         $received_file = $_FILES['picture'];
