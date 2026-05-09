@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $file = $_FILES['picture'];
         if($file['error'] !== 0){throw new Error('Error al subir el archivo');}
-        if ($archivo['size'] > 5 * 1024 * 1024) {throw new Exception('La imagen supera los 5MB');}
+        if ($file['size'] > 5 * 1024 * 1024) {throw new Exception('La imagen supera los 5MB');}
         
         $allowedTypes = [
             'image/jpeg' => 'jpg',
