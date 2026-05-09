@@ -210,8 +210,7 @@ function hide_and_show(containers_to_show, containers_to_hide){
         container.style.display = "none";
     }); 
     containers_to_show.forEach(container => {
-        if(container.id === 'public_profile_information_container'){container.style.display = "flex";}
-        else{container.style.display = "block";}
+        container.style.display = "block";
     });
 }
 // Función que permite generar un username
