@@ -708,7 +708,9 @@ function show_identity_information_window(containers_to_hide){
     const bttn_send_txt = document.getElementById('bttn_send_txt');
     const back_bttn = document.getElementById('back_bttn');
     const containers_to_show = [identity_information_container, bttn_send_txt, back_bttn]; // Sección a mostrar
-    
+    const main_title = document.getElementById('main_title');
+    main_title.textContent = 'Contacto e Identidad';
+
     hideLoader();
     hide_and_show(containers_to_show, containers_to_hide); // Se ocultan y muestran las secciones requeridas
     enable_inputs(containers_to_show); // Se habilitan los inputs de la sección
@@ -751,6 +753,8 @@ function PasswordsWindow(){
     const loader = document.getElementById('loader');
     const containers_to_hide = [identity_information_container, loader];
     const bttn_send_txt = document.getElementById('bttn_send_txt');
+    const main_title = document.getElementById('main_title');
+    main_title.textContent = 'Seguridad';
 
     bttn_send_txt.style.display = "block";
     enable_inputs(containers_to_show);
@@ -797,6 +801,8 @@ function show_public_information_window(containers_to_hide){
     const containers_to_show = [public_profile_information_container];
     const bttn_send_txt = document.getElementById('bttn_send_txt');
     const loader = document.getElementById('loader');
+    const main_title = document.getElementById('main_title');
+    main_title.textContent = 'Información Pública';
     containers_to_hide.push(loader);
 
     enable_inputs(containers_to_show);
