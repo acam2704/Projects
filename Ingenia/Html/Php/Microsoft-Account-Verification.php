@@ -76,7 +76,7 @@ try{
 
 <script>
     // Guardar datos en el navegador
-    const user = <?php echo json_encode($respond)?>
+    const user = '<?php echo json_encode($respond)?>';
     sessionStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('user', JSON.stringify(user));
 
