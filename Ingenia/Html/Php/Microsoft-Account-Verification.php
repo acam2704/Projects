@@ -56,7 +56,7 @@ try{
             'names' => explode(' ', $pay_load['name'])[0],
             'lastnames' => explode(' ', $pay_load['name'])[1]
         ];
-        $_SESSION['user'] = $respond;  
+        $_SESSION['user'] = $respond;
     } else {
         error_log(json_encode([
             'code' => '',

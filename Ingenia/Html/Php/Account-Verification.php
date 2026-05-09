@@ -28,8 +28,3 @@ if (isset($user["email"])) {
     ]);
 }
 ?>
-
-<script>
-    sessionStorage.setItem('user', $respond);
-    localStorage.setItem('user', $respond);
-</script>
