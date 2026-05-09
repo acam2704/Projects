@@ -4,7 +4,7 @@ header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
 
 require_once '/home/site/wwwroot/Ingenia/Html/vendor/autoload.php';
 
-use MicrosoftAzure\Storage\Blob\BlobServiceClient;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     try {
@@ -33,11 +33,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         ]);
         $connectionString = getenv('blobStorage_connectionString_1');
         $containerName = getenv('container1');
-        $blobClient = BlobServiceClient::createFromConnectionString($connectionString);
-        $containerClient = $blobClient->getBlobContainerClient($containerName);
+        $blobClient = BlobRestProxy::createBlobService($connectionString);
         $content = file_get_contents($received_file['tmp_name']);
-
-        $containerClient->uploadBlob(
+        $blobClient->createBlockBlob(
+            $containerName,
             $fileName,
             $content
         );
