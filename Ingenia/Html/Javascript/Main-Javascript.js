@@ -829,12 +829,14 @@ function place_picture(input){
         .then(response => response.text())
         .then(data => {
             try{
-                console.log(data);
+                console.log(data.url);
                 if(JSON.parse(data).status === 'ok'){
                     preview.src = JSON.parse(data).url;
+                } else{
+                    throw new Error('Error al guardar la imagen');
                 }
             } catch(e){
-                console.log(data);
+                console.log(e);
                 preview.src = 'https://ingeniastorage.blob.core.windows.net/profile-pictures/without-picture.jpg';
             }
         });

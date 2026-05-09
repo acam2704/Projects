@@ -5,12 +5,6 @@ header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
 require_once '/home/site/wwwroot/Ingenia/Html/vendor/autoload.php';
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
-echo json_encode([
-    'status' => 'on process',
-    'error' => null,
-    'data' => null
-]);
-
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     try {
         if(!isset($_FILES['picture'])){throw new Error('No se envió ningún archivo');}
@@ -30,12 +24,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $fileName = bin2hex(random_bytes(16)) . '.' . $extention;
         $connectionString = getenv('blobStorage_connectionString_1');
         $containerName = 'profile-pictures';
-        echo json_encode([
-            'status' => 'on process',
-            'extention' => $extention,
-            'fileName' => $fileName,
-            'error' => null
-        ]);
         $blobClient = BlobRestProxy::createBlobService($connectionString);
         $content = file_get_contents($received_file['tmp_name']);
         $blobClient->createBlockBlob(
