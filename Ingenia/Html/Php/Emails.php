@@ -58,15 +58,15 @@ try {
         $mail->isSMTP();
 
         if ($data['domain'] === 'microsoft'){
-            $admin_email = getenv('andre.alvarado2026@frech.superate.org');
-            $password = getenv('un_O....1498');
+            $admin_email = getenv('microsoft_email');
+            $password = getenv('microsoft_email_password');
             $mail->Host = 'smtp.office365.com';
             $mail->Username = $admin_email;
             $mail->Password = $password;
             $mail->setFrom($admin_email, 'Ingenia');
         } else {
-            $admin_email = getenv('angeelcostaa22@gmail.com');
-            $password = getenv('divq jnjb iral mdel');
+            $admin_email = getenv('google_email');
+            $password = getenv('google_email_password');
             $mail->Host = 'smtp.gmail.com';
             $mail->Username = $admin_email;
             $mail->Password = $password;
