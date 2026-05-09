@@ -21,8 +21,6 @@ if (isset($user["email"])) {
     ]);
     echo $respond;
     $_SESSION['user'] = $respond;
-    sessionStorage.setItem('user', $respond);
-    localStorage.setItem('user', $respond);
 } else {
     echo json_encode([
         "error" => "isset(user[email])",
@@ -30,3 +28,8 @@ if (isset($user["email"])) {
     ]);
 }
 ?>
+
+<script>
+    sessionStorage.setItem('user', $respond);
+    localStorage.setItem('user', $respond);
+</script>
