@@ -756,7 +756,7 @@ function PasswordsWindow(){
     enable_inputs(containers_to_show);
     hide_and_show(containers_to_show, containers_to_hide);
 
-    show_text_alert([[bttn_send_txt], 'Registrate'])
+    show_text_alert([[bttn_send_txt], 'Siguiente'])
 }
 
 // Función que verifica las contraseñas ingresadas por le usuario
@@ -802,7 +802,7 @@ function show_public_information_window(containers_to_hide){
     enable_inputs(containers_to_show);
     hide_and_show(containers_to_show, containers_to_hide);
 
-    show_text_alert([[bttn_send_txt], 'Registrate'])
+    show_text_alert([[bttn_send_txt], 'Siguiente'])
 }
 // Función que permite elegir la imagen
 function choose_picture(img){
