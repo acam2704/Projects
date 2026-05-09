@@ -1,0 +1,53 @@
+*{margin: 0; padding: 0}
+
+.ribbon{width: 100%; display: flex; box-shadow: 0 2px 4px rgba(0,0,0,0.1); background-color: #fff}
+.content_logo,
+.content_menu_options{width: 50%; display: flex; align-items: center; padding: 20px 30px 20px 20px}
+.content_menu_options{justify-content: flex-end}
+.content_logo{justify-content: flex-start}
+.ingenia_logo{width: 50px; height: 50px; margin-right: 10px}
+.ingenia_name{font-size: 20px; font-weight: bold}
+.menu_option{margin-left: 20px; font-size: 16px; cursor: pointer; color: #333; text-decoration: none}
+.menu_option:hover{color: #007BFF}
+
+.content_profiles_cards{display: flex; flex-wrap: wrap; gap: 20px; padding: 20px}
+.content_profiles{padding: 20px; width: 100%}
+.card_profile{border: 1px solid #ccc; border-radius: 5px; padding: 20px; margin-bottom: 20px; width: 20%}
+.card_profile h2{font-size: 18px; margin-bottom: 10px}
+.profile_image{width: 100%; height: auto; border-radius: 5px; margin-bottom: 10px}
+
+.profile_qualifications,
+.profile_description,
+.profile_name,
+.profile_role{font-size: 14px; color: #666; margin-bottom: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis}
+
+/*Animación al hacer clic en la tarjeta*/
+.card_profile:active{transform: scale(0.99); transition: transform 0.1s ease-in-out}
+
+/*Animación al pasar el mouse por encima de la tarjeta*/
+.card_profile:hover{box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: box-shadow 0.3s ease-in-out}
+
+/*Evita que la pantalla tenga scroll horizontal*/
+body{overflow-x: hidden}
+
+/*Hacer una barra horizontal cuando haga más elementos de lo que el width permite */
+.profiles_section{
+    width: 100%; 
+    gap: 20px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    border-top: 1px solid #ccc; 
+    padding-top: 20px
+}
+.card_profile.more_profiles{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: #f0f0f0; 
+    color: #333; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer
+}
+.card_profile.more_profiles > p{font-size: 30px; font-weight: bold}
+.text_hover:hover{transition: box-shadow 0.3s ease-in-out}

@@ -67,6 +67,7 @@
             </article>
 
             <article id="public_profile_information_container" class="signup_section">
+                <br>
                 <p class="normal_text">Foto de perfil</p>
                 <span id="PPIC_1"></span>
                 <input type="file" id="input_picture_Re" onchange="place_picture(this)">
@@ -75,8 +76,12 @@
                 <p class="normal_text">Títulos de estudios técnicos</p>
                 <span id="PPIC_2"></span>
                 <input type="file" id="input_degrees_Re" onchange="place_picture(this)">
-                <img src="Imágenes/without-file.jpg" alt="" id="degrees_Re" onclick="choose_picture(this)">
+                <img src="Imágenes/without-file.jpg" alt="" id="degrees_Re" onclick="choose_picture(this)" class="card_img">
+                <div class="card_img more_img" onclick="View_More_Profiles()">
+                    <p>+</p>
+                </div>
                 
+                <br>
                 <span id="PPIC_3"></span>
                 <input type="text" class="input" id="" placeholder="Descripción del usuario">
             </article>

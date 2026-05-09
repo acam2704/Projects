@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input_reseña">
+    <input type="submit" onClick="Validación_Reseña()">
+
+    <script>
+        function Validación_Reseña(){
+            const input_reseña = document.getElementById/('input_reseña');
+            fetch('php/conexion_learning_machine.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    reseña: input_reseña.value
+                })
+            })
+            .then(response => response.text())
+            .then(data => console.log(data));
+        }
+    </script>
+</body>
+</html>
