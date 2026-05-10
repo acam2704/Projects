@@ -904,7 +904,7 @@ function register_user(){
 
         const profile_picture = document.getElementById('file_img_Re');
         const degree_images = document.getElementById('img_cards_container').querySelectorAll(':scope > img');
-        let images;
+        let images = [];
         degree_images.forEach(img => {
             if(img){images.push(img.src)}
         });
