@@ -91,7 +91,7 @@ article > label.normal_text{text-align: left}
     transition: all 0.5s ease
 }
 select{
-    width: 50%;
+    width: 60%;
     padding: 12px 40px 12px 16px;
     border-radius: 20px;
     border: 1px solid #D1D5DB;
@@ -109,7 +109,6 @@ label{
     min-width: 140px;
     min-height: 40px;
     margin: 5px 0 5px 0;
-    padding-left: 20px;
     float: left;
     align-items: center;
 }

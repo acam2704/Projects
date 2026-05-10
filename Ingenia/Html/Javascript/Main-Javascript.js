@@ -14,18 +14,6 @@ const public_profile_information_container = document.getElementById('public_pro
 //----- ELEMENTOS GUÍAS DE CADA VENTANA -----//
 const content_check_buttons_with = document.getElementById("content_check_buttons_with");
 
-// Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia en inputs y selects
-function addEventListener_to_retrieve_alerts(){
-    const inputs_container = document.getElementById('inputs_container');
-    inputs_container.querySelectorAll(':scope > article').forEach(article => {
-        article.querySelectorAll(':scope > input').forEach(input =>
-            input.addEventListener('change', retrieve_alert_changes)
-        );
-        article.querySelectorAll(':scope > select').forEach(select =>
-            select.addEventListener('change', retrieve_alert_changes)
-        )
-    });
-}
 // Mapeo de los departamentos, municipios y distritos para los select
 const map = {
     ahuachapan: ['Ahuachapán', {
@@ -137,13 +125,14 @@ function go_back(){
     disable_all_inputs();
     hide_all_text_alerts();
 
-    const error_text_alert = document.getElementById('error_text_alert');
-
     // Se oculta el texto de alerta, por si hubo un error anteriormente
+    const error_text_alert = document.getElementById('error_text_alert');
     error_text_alert.style.display = 'none';
+
     // Se reestablece el marginTop de bttn_send
     const bttn_send = document.getElementById('bttn_send');
     bttn_send.style.marginTop = '20px';
+
     const inputs_container = document.getElementById('inputs_container');
     const containers = Array.from(inputs_container.querySelectorAll('.signup_section'));
     for(const container of containers){
@@ -338,9 +327,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    addEventListener_to_retrieve_alerts();
     hide_all_text_alerts();
 })
+
+document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
+    article.querySelectorAll(':scope > input, :scope > select').forEach(element => {
+        const span = element.previousElementSibling;
+        element.addEventListener('change', () => {
+            span.style.display = 'none';
+        })
+    })
+});
 
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
 async function next(code_typed_before){
@@ -637,13 +634,12 @@ function place_district(municipality_key, departament_key){
 }
 
 // Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
-document.getElementById('select_departament').addEventListener('change', () => {
+document.getElementById('select_departament').addEventListener('change', function() {
     const departament_key = document.getElementById('select_departament').value;
     const departament = map[departament_key][0];
 
-    identity_information_container.querySelectorAll(':scope > span').forEach(span => {
-        span.style.display = 'none';
-    })
+    const span = this.previousElementSibling;
+    span.style.display = 'none';
 
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
     document.querySelectorAll('.option_district').forEach(el => el.remove());
@@ -654,13 +650,12 @@ document.getElementById('select_departament').addEventListener('change', () => {
 });
 
 // Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
-document.getElementById('select_municipality').addEventListener('change', () => {
+document.getElementById('select_municipality').addEventListener('change', function() {
     const municipality = document.getElementById('select_municipality').value;
     const departament = document.getElementById('select_departament').value;
 
-    identity_information_container.querySelectorAll(':scope > span').forEach(span => {
-        span.style.display = 'none';
-    })
+    const span = this.previousElementSibling;
+    span.style.display = 'none';
 
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
@@ -669,10 +664,9 @@ document.getElementById('select_municipality').addEventListener('change', () => 
     }
 });
 
-document.getElementById("select_district").addEventListener('change', () => {
-    identity_information_container.querySelectorAll(':scope > span').forEach(span => {
-        span.style.display = 'none';
-    })
+document.getElementById("select_district").addEventListener('change', function() {
+    const span = this.previousElementSibling;
+    span.style.display = 'none';
 });
 
 // Función que ejecuta un código repetitivo de la función verify_identity_information
@@ -898,7 +892,19 @@ document.getElementById('delete_degree').addEventListener('click', () => {
     }
 });
 
-function register_user(){
+function validate_data(user_data){
+    const keys = Object.keys(user_data);
+    const error_text_alert = document.getElementById('error_text_alert');
+    for(const key of keys){
+        const value = user_data[key];
+        if(!value){
+            show_text_alert([[error_text_alert], 'Ningún campo debe de estar vacío']);
+            return;
+        }
+    }
+}
+
+function collect_user_data(){
     const user_data = {};
     document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
         let splitted_id;
@@ -927,7 +933,7 @@ function register_user(){
         if(images){user_data['degrees'] = images}
     })
     
-    console.log(user_data);
+    validate_data(user_data);
 }
 
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
@@ -959,6 +965,6 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords(); // Validación de contraseñas
     } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
-        register_user();
+        collect_user_data();
     }
 });
