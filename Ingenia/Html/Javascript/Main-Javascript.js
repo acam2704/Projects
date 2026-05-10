@@ -942,6 +942,6 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords(); // Validación de contraseñas
     } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
-        
+        register_user()
     }
 });
