@@ -86,7 +86,7 @@ input[type="number"]::-webkit-inner-spin-button {
 #input_picture_Re, 
 #input_degrees_Re{display: none}
 .normal_text{color: var(--label-text-); font-size: 14px}
-.text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px; display: none}
+.text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px; display: none; width: 100%}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
 article > label.normal_text{text-align: left}
