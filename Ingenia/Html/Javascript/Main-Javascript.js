@@ -17,11 +17,11 @@ const content_check_buttons_with = document.getElementById("content_check_button
 // Se ingresa la función retrieve_alert_changes, que quita los text_alert, cuando el valor cambia en inputs y selects
 function addEventListener_to_retrieve_alerts(){
     const inputs_container = document.getElementById('inputs_container');
-    inputs_container.querySelectorAll(':scope > div').forEach(div => {
-        div.querySelectorAll(':scope > input').forEach(input =>
+    inputs_container.querySelectorAll(':scope > article').forEach(article => {
+        article.querySelectorAll(':scope > input').forEach(input =>
             input.addEventListener('change', retrieve_alert_changes)
         );
-        div.querySelectorAll(':scope > select').forEach(select =>
+        article.querySelectorAll(':scope > select').forEach(select =>
             select.addEventListener('change', retrieve_alert_changes)
         )
     });
@@ -174,8 +174,8 @@ function disable_all_inputs(){
 function hide_all_text_alerts(){
     const inputs_container = document.getElementById('inputs_container');
 
-    inputs_container.querySelectorAll(':scope > div').forEach(div => {
-        div.querySelectorAll(':scope > span').forEach(span => {
+    inputs_container.querySelectorAll(':scope > article').forEach(article => {
+        article.querySelectorAll(':scope > span').forEach(span => {
             span.style.display = 'none';
         })
     })
@@ -276,9 +276,9 @@ function delay(ms) {
 }
 // Función que que quita valores a los text_alert
 function retrieve_alert_changes(){
-    const input_container = document.getElementById('inputs_container');
-    input_container.querySelectorAll(':scope > div').forEach(div => {
-        div.querySelectorAll(':scope > span').forEach(span => {
+    const inputs_container = document.getElementById('inputs_container');
+    inputs_container.querySelectorAll(':scope > article').forEach(article => {
+        article.querySelectorAll(':scope > span').forEach(span => {
             if(span && span.classList.contains('text_alert')){
                 span.textContent = '';
             }
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const name = data[0].names;
                 const surname = data[0].lastnames;
 
-                elements_to_hide = elements_to_hide.filter(div => div !== identity_information_container);
+                elements_to_hide = elements_to_hide.filter(article => article !== identity_information_container);
                 elements_to_hide.push(content_check_buttons_with);
                 const elements_to_show = [identity_information_container];
 
@@ -689,13 +689,10 @@ function verify_identity_information(){
             return; // Se fuerza el final de la función
         }
         if( element.classList.contains('input') ){ // Si el elemento es uno clase .input
-            console.log('input clase');
             if(element.id === 'input_DUI_Re'){
-                console.log('input_DUI_Re');
                 const DUI = element.value.replace('-', '');
                 if(!isNaN(DUI) && DUI.length !== 9){executor_from_VII(element, 'DUI Inválido'); hideLoader(); return}
             } else {
-                console.log('input_phonenumber_Re');
                 if(element.value.length !== 8){executor_from_VII(element, 'Número inválido'); hideLoader(); return}
             }
         }
@@ -885,6 +882,38 @@ document.getElementById('delete_degree').addEventListener('click', () => {
     }
 });
 
+function register_user(){
+    const user_data = {};
+    document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
+        let splitted_id;
+        let key_name;
+        article.querySelector(':scope > input').forEach(input => {
+            splitted_id = input.id.split('_');
+            key_name = splitted_id[1];
+            user_data[key_name] = input.value;
+        })
+
+        if(article.id === 'identity_information_container'){
+            article.querySelectorAll(':scope > select').forEach(select => {
+                splitted_id = select.id.split('_');
+                key_name = splitted_id[1];
+                user_data[key_name] = select.value;
+            })
+        }
+
+        const profile_picture = document.getElementById('file_img_Re');
+        const degree_images = document.getElementById('img_cards_container').querySelectorAll(':scope > img');
+        let images;
+        degree_images.forEach(img => {
+            if(img){images.push(img.src)}
+        });
+        if(profile_picture.src){user_data['picture'] = profile_picture.src}
+        if(images){user_data['degrees'] = images}
+    })
+    
+    console.log(user_data);
+}
+
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
 // Función que muestra la animación de carga en el botón
 function animationLoad(){
@@ -913,6 +942,6 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords(); // Validación de contraseñas
     } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
-        console.log('Se crea el usuario en la base de datos');
+        
     }
 });

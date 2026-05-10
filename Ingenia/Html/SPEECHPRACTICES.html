@@ -27,12 +27,12 @@
                         "X-Microsoft-OutputFormat": "audio-16khz-32kbitrate-mono-mp3"
                     },
                     body: `
-                    <speak version='1.0' xml:lang='es-ES'>
-                        <voice xml:lang='es-ES' name='es-ES-AlvaroNeural'>
-                            ${texto}
-                        </voice>
-                    </speak>`
-                });
+                        <speak version='1.0' xml:lang='es-ES'>
+                            <voice xml:lang='es-ES' name='es-ES-AlvaroNeural'>
+                                ${texto}
+                            </voice>
+                        </speak>`
+                    });
 
                 const audioBlob = await response.blob();
                 const url = URL.createObjectURL(audioBlob);
