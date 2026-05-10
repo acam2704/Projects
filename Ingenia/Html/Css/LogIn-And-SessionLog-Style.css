@@ -68,14 +68,9 @@ body{position: relative}
 .input:focus,
 .input:hover{border-color: var(--border-input-hover-)}
 input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+input[type="number"]::-webkit-inner-spin-button{-webkit-appearance: none; margin: 0}
 #input_DUI_Re,
-#input_phonenumber_Re{
-    max-width: 50%;
-}
+#input_phonenumber_Re{max-width: 60%}
 #input_picture_Re, 
 #input_degrees_Re{display: none}
 .normal_text{color: var(--label-text-); font-size: 14px}
@@ -85,9 +80,6 @@ input[type="number"]::-webkit-inner-spin-button {
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
 article > label.normal_text{text-align: left}
 #error_text_alert{height: 10px}
-#email_2psw_txt,
-#name_1psw_txt{font-size: 11px; margin: 0px 0px 5px 10px;}
-#account_img{width: 100%; text-align: center; display: none}
 #file_img_Re{
     border: none;
     border-radius: 50px;

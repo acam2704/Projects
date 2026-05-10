@@ -167,7 +167,7 @@ function hide_all_text_alerts(){
 
     inputs_container.querySelectorAll(':scope > article').forEach(article => {
         article.querySelectorAll(':scope > span').forEach(span => {
-            span.style.display = 'none';
+            if(span.className = 'text_alert'){span.style.display = 'none';}
         })
     })
 }
@@ -949,7 +949,6 @@ function animationLoad(){
 document.getElementById('bttn_send').addEventListener("click", async () => {
     disable_all_inputs(); // Se deshabilitan todos los inputs
     const error_text_alert = document.getElementById('error_text_alert');
-    console.log(error_text_alert);
     error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si h  ubo un error anteriormente
     document.getElementById('bttn_send').style.marginTop = "20px"; // Se reestablece el marginTop de bttn_send
     animationLoad(); // Al dar click, se muestra la animación de carga en el botón
