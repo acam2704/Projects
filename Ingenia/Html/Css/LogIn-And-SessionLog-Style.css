@@ -71,6 +71,10 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+#input_DUI_Re,
+#input_phonenumber_Re{
+    max-width: 50%;
+}
 #input_picture_Re, 
 #input_degrees_Re{display: none}
 .normal_text{color: var(--label-text-); font-size: 14px}
