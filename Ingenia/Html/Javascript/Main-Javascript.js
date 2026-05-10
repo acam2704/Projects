@@ -830,23 +830,23 @@ async function place_picture(input, boolean){
     if(picture){
         const formData = new FormData();
         formData.append('picture', picture);
+        try{
+            const json_response = await fetch('Php/upload_picture.php', {
+                method: 'POST',
+                body: formData
+            })
+            const data = await json_response.json();
 
-        await fetch('Php/upload_picture.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            try{
-                if(JSON.parse(data).status === 'ok'){
-                    preview.src = JSON.parse(data).url;
-                } else{
-                    throw new Error('Error al guardar la imagen');
-                }
-            } catch(e){
-                preview.remove();
+            if(data.status !== 'ok'){
+                throw new Error('La imagen no se logró subir');
             }
-        });
+            preview.src = data.url;
+        } catch(e){
+            const PPIC_2 = document.getElementById('PPIC_2');
+            show_text_alert([[PPIC_2], 'La imagen no se logró subir']);
+            preview.remove();
+            return;
+        }
     }
 }
 
