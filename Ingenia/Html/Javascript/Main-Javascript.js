@@ -334,7 +334,8 @@ document.getElementById('inputs_container').querySelectorAll(':scope > article')
     article.querySelectorAll(':scope > input, :scope > select').forEach(element => {
         let span = element.previousElementSibling;
         while(!(span instanceof HTMLSpanElement)){
-            span = span.previousElementSibling
+            if(span){span = span.previousElementSibling}
+            else{break}
         }
         element.addEventListener('change', function() {
             span.style.display = 'none';
