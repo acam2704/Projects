@@ -333,8 +333,8 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
     article.querySelectorAll(':scope > input, :scope > select').forEach(element => {
         let span = element.previousElementSibling;
-        if(span.className !== 'text_alert'){span = span.previousElementSibling}
-        element.addEventListener('change', () => {
+        if(element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement)){span = span.previousElementSibling}
+        element.addEventListener('change', function() {
             span.style.display = 'none';
         })
     })
