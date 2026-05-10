@@ -79,7 +79,7 @@ input[type="number"]::-webkit-inner-spin-button {
 #input_picture_Re, 
 #input_degrees_Re{display: none}
 .normal_text{color: var(--label-text-); font-size: 14px}
-span.normal_text{text-align: right;}
+.informative_text{text-align: right; font-size: 10px; color: var(--informative-text-)}
 .text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px; display: none}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-)}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold}
