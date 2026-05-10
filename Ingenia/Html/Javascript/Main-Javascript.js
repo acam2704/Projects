@@ -813,7 +813,9 @@ function choose_picture(img){
     });
 }
 
-function place_picture(input, boolean){
+let current_img;
+
+async function place_picture(input, boolean){
     const picture = input.files[0];
     let preview;
     if(boolean){
@@ -829,7 +831,7 @@ function place_picture(input, boolean){
         const formData = new FormData();
         formData.append('picture', picture);
 
-        fetch('Php/upload_picture.php', {
+        await fetch('Php/upload_picture.php', {
             method: 'POST',
             body: formData
         })
@@ -842,7 +844,7 @@ function place_picture(input, boolean){
                     throw new Error('Error al guardar la imagen');
                 }
             } catch(e){
-                preview.src = 'https://ingeniastorage.blob.core.windows.net/profile-pictures/without-picture.jpg';
+                preview.remove();
             }
         });
     }
@@ -857,13 +859,9 @@ function add_degree(){
     img.alt = '';
     container.appendChild(img);
 
-    img.addEventListener('click', () => {
+    img.addEventListener('click', function () {
         const img_viewer = document.getElementById('img_viewer');
-        const closer = document.getElementById('close_img_viewer');
-
-        closer.addEventListener('click', () => {
-            img_viewer.style.display = 'none';
-        });
+        current_img = img;
 
         img_viewer.style.backgroundImage = `url(${img.src})`;
         img_viewer.style.display = 'flex';
@@ -871,6 +869,21 @@ function add_degree(){
 
     input.click();
 }
+
+document.getElementById('close_img_viewer').addEventListener('click', () => {
+    const img_viewer = document.getElementById('img_viewer');
+    img_viewer.style.display = 'none';
+});
+
+document.getElementById('delete_degree').addEventListener('click', () => {
+    if(current_img){
+        const img_viewer = document.getElementById('img_viewer');
+        current_img.remove();
+        img_viewer.style.display = 'none';
+
+        current_img = null;
+    }
+});
 
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
 // Función que muestra la animación de carga en el botón
