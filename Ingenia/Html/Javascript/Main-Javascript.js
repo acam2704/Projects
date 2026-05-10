@@ -676,7 +676,8 @@ document.getElementById("select_district").addEventListener('change', function()
 function executor_from_VII(element, text){
     enable_inputs([identity_information_container]); // Se vuelven a habilitar los inputs
     element.focus(); // Se devuelve el enfoque 
-    const alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
+    let alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
+    while(alert && !(alert instanceof HTMLSpanElement)){alert = element.previousElementSibling;} // Si no es un span se toma el de arriba
     show_text_alert([[alert], text]); // Se muestra la alerta
 }
 
