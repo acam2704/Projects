@@ -829,7 +829,6 @@ function place_picture(input, boolean){
         const formData = new FormData();
         formData.append('picture', picture);
 
-        console.log(formData);
         fetch('Php/upload_picture.php', {
             method: 'POST',
             body: formData
@@ -857,6 +856,18 @@ function add_degree(){
     img.src = '';
     img.alt = '';
     container.appendChild(img);
+
+    img.addEventListener('click', () => {
+        const viewer = document.getElementById('img_viewer');
+        const closer = document.getElementById('close_img_viewer');
+
+        closer.addEventListener('click', () => {
+            viewer.style.display = 'none';
+        });
+
+        viewer.style.backgroundImage = `url(${img.src})`;
+        viewer.style.display = 'flex';
+    });
 
     input.click();
 }

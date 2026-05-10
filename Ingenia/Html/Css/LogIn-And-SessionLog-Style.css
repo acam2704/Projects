@@ -118,6 +118,26 @@ article > label.normal_text{text-align: left}
     cursor: pointer
 }
 .card_img.more_img > p{font-size: 15px; font-weight: bold}
+#img_viewer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(8px);
+    background-image: url("Imágenes/Background_construction_workers.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0.8);
+
+    z-index: 999999;
+}
 #content_buttons_Re{text-align: center}
 #content_buttons_Re > p{margin-top: 10px}
 .g_id_signin{
