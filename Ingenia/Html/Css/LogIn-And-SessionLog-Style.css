@@ -109,7 +109,7 @@ select{
 }
 label{
     margin-left: auto;
-    width: 50%;
+    min-width: 50%;
 }
 #file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset}
 #img_cards_container{display: flex; padding-top: 10px; overflow-x: auto; overflow-y: hidden; white-space: nowrap; height: 120px}
