@@ -122,8 +122,9 @@ article > label.normal_text{text-align: left}
     position: fixed;
     top: 0;
     left: 0;
-    width: 80vw;
-    height: 80vh;
+    width: 100vw;
+    height: 100vh;
+    gap: 10px;
 
     display: none;
     justify-content: center;
@@ -134,10 +135,11 @@ article > label.normal_text{text-align: left}
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgb(0,0,0,0.3);
+    background-color: rgb(0,0,0,0.2);
 
     z-index: 999999;
 }
+#img_viewer > article > p{color: white; font-weight: bold; margin-left: 50px}
 #content_buttons_Re{text-align: center}
 #content_buttons_Re > p{margin-top: 10px}
 .g_id_signin{
