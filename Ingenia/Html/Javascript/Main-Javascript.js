@@ -858,15 +858,15 @@ function add_degree(){
     container.appendChild(img);
 
     img.addEventListener('click', () => {
-        const viewer = document.getElementById('img_viewer');
+        const img_container = document.getElementById('img_container');
         const closer = document.getElementById('close_img_viewer');
 
         closer.addEventListener('click', () => {
-            viewer.style.display = 'none';
+            img_container.style.display = 'none';
         });
 
-        viewer.style.backgroundImage = `url(${img.src})`;
-        viewer.style.display = 'flex';
+        img_container.style.backgroundImage = `url(${img.src})`;
+        img_container.style.display = 'flex';
     });
 
     input.click();
