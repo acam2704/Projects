@@ -897,7 +897,7 @@ function register_user(){
             article.querySelectorAll(':scope > select').forEach(select => {
                 splitted_id = select.id.split('_');
                 key_name = splitted_id[1];
-                user_data[key_name] = select.value;
+                user_data[key_name] = select.value.toLowerCase();
             })
         }
 
