@@ -904,11 +904,14 @@ document.getElementById('message_description_Re').addEventListener('input', func
 function validate_data(user_data){
     const keys = Object.keys(user_data);
     const error_text_alert = document.getElementById('error_text_alert');
+    const non_mandatory_fields = ['picture', 'degrees', 'description'];
     for(const key of keys){
-        const value = user_data[key];
-        if(!value){
-            show_text_alert([[error_text_alert], 'Ningún campo debe de estar vacío']);
-            return;
+        if(!non_mandatory_fields.includes(key)){
+            const value = user_data[key];
+            if(!value){
+                show_text_alert([[error_text_alert], 'Ningún campo debe de estar vacío']);
+                return;
+            }
         }
     }
 }
