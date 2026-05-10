@@ -105,10 +105,13 @@ select{
     -moz-appearance: none;
 }
 label{
+    display: flex;
     min-width: 140px;
     min-height: 40px;
     margin: 5px 0 5px 0;
     float: left;
+    justify-content: center;
+    align-items: center;
 }
 #file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset}
 #img_cards_container{display: flex; padding-top: 10px; overflow-x: auto; overflow-y: hidden; white-space: nowrap; height: 120px}
