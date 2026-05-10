@@ -137,6 +137,7 @@ article > label.normal_text{text-align: left}
     background-color: rgb(0,0,0,0.2);
 
     z-index: 999999;
+    transition: all 0.5s ease;
 }
 #img_viewer_ribbon{display: flex; gap: 20px; justify-content: center; align-items: top;}
 #img_viewer_ribbon > p{
@@ -148,6 +149,10 @@ article > label.normal_text{text-align: left}
     border: none; 
     border-radius: 10px; 
     max-height: 20px;
+}
+#img_viewer_ribbon > p{
+    background-color: rgb(0,0,0,0.5);
+    transform: scale(0.97);
 }
 #content_buttons_Re{text-align: center}
 #content_buttons_Re > p{margin-top: 10px}
