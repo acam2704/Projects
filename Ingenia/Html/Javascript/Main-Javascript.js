@@ -332,7 +332,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
     article.querySelectorAll(':scope > input, :scope > select').forEach(element => {
-        const span = element.previousElementSibling;
+        let span = element.previousElementSibling;
+        if(!(span instanceof HTMLSpanElement)){span = span.previousElementSibling}
         element.addEventListener('change', () => {
             span.style.display = 'none';
         })
