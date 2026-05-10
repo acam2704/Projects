@@ -168,6 +168,7 @@ label{
     background-color: rgb(0,0,0,0.5);
     transform: scale(0.97);
 }
+#message_description_Re{width:300px; min-height:40px; max-height:200px; overflow:hidden; resize:none}
 #content_buttons_Re{text-align: center}
 #content_buttons_Re > p{margin-top: 10px}
 .g_id_signin{

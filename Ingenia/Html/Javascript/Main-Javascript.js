@@ -892,6 +892,11 @@ document.getElementById('delete_degree').addEventListener('click', () => {
     }
 });
 
+document.getElementById('message_description_Re').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+});
+
 function validate_data(user_data){
     const keys = Object.keys(user_data);
     const error_text_alert = document.getElementById('error_text_alert');
@@ -915,7 +920,7 @@ function collect_user_data(){
             key_name = splitted_id[1];
             if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.textContent}
             else{user_data[key_name] = element.value}
-        })
+        });
 
         const profile_picture = document.getElementById('file_img_Re');
         const degree_images = document.getElementById('img_cards_container').querySelectorAll(':scope > img');
