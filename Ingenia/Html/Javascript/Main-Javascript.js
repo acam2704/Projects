@@ -887,7 +887,7 @@ function register_user(){
     document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
         let splitted_id;
         let key_name;
-        article.querySelector(':scope > input').forEach(input => {
+        article.querySelectorAll(':scope > input').forEach(input => {
             splitted_id = input.id.split('_');
             key_name = splitted_id[1];
             user_data[key_name] = input.value;
@@ -942,6 +942,6 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords(); // Validación de contraseñas
     } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
-        register_user()
+        register_user();
     }
 });
