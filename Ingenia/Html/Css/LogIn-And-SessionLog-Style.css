@@ -139,7 +139,15 @@ article > label.normal_text{text-align: left}
     z-index: 999999;
 }
 #img_viewer_ribbon{display: flex; gap: 20px; justify-content: center; align-items: top;}
-#img_viewer_ribbon > p{color: white; font-weight: bold; margin-left: 50px; background-color: rgb(0,0,0,0.3); padding: 10px; border: none; border-radius: 10px;}
+#img_viewer_ribbon > p{
+    color: white; 
+    font-weight: bold; 
+    margin-left: 50px; 
+    background-color: rgb(0,0,0,0.3); 
+    padding: 10px; border: none; 
+    border-radius: 10px; 
+    max-height: 32px;
+}
 #content_buttons_Re{text-align: center}
 #content_buttons_Re > p{margin-top: 10px}
 .g_id_signin{
