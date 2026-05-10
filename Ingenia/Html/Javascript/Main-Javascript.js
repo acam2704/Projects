@@ -626,7 +626,7 @@ function place_district(municipality_key, departament_key){
     districts.forEach(dis => {
         const option = document.createElement('option');
         option.classList = 'option_district';
-        option.value = dis;
+        option.value = dis.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replaceAll(' ', '_');
         option.textContent = dis;
 
         select.appendChild(option);
@@ -909,19 +909,13 @@ function collect_user_data(){
     document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
         let splitted_id;
         let key_name;
-        article.querySelectorAll(':scope > input').forEach(input => {
-            splitted_id = input.id.split('_');
-            key_name = splitted_id[1];
-            user_data[key_name] = input.value;
-        })
 
-        if(article.id === 'identity_information_container'){
-            article.querySelectorAll(':scope > select').forEach(select => {
-                splitted_id = select.id.split('_');
-                key_name = splitted_id[1];
-                user_data[key_name] = select.value.toLowerCase();
-            })
-        }
+        article.querySelectorAll(':scope > input, :scope > select, textarea').forEach(element => {
+            splitted_id = element.id.split('_');
+            key_name = splitted_id[1];
+            if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.textContent}
+            else{user_data[key_name] = element.value}
+        })
 
         const profile_picture = document.getElementById('file_img_Re');
         const degree_images = document.getElementById('img_cards_container').querySelectorAll(':scope > img');
