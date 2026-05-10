@@ -818,8 +818,9 @@ function place_picture(input, boolean){
     if(boolean){const preview = input.nextElementSibling}
     else{
         const container = document.getElementById('img_cards_container');
-        const array_img = container.querySelectorAll(':scope > img');
-        const preview = array_img[array_img.length - 1]
+        const array_img = container.querySelectorAll('img');
+        const preview = array_img[array_img.length - 1];
+        console.log(preview);
     }
 
     if(picture){
