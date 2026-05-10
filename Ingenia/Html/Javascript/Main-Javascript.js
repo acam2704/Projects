@@ -155,7 +155,9 @@ function go_back(){
             const filtered_containers = containers.filter(container => container !== previous_container); // Array
             const containers_to_show = [previous_container];
             if (previous_container.id === 'personal_information_container')
-                {containers_to_show.push(content_check_buttons_with); 
+                {containers_to_show.push(content_check_buttons_with);
+                const main_title = document.getElementById('main_title');
+                containers_to_show.push(main_title); 
                 const back_bttn = document.getElementById('back_bttn'); 
                 filtered_containers.push(back_bttn)}
             enable_inputs(containers_to_show);
