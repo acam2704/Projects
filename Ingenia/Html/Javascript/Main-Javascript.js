@@ -852,6 +852,8 @@ function add_degree(){
     let img = document.createElement('img');
     const input = document.getElementById('input_degrees_Re');
     img.className = 'card_img';
+    img.src = '';
+    img.alt = '';
     container.appendChild(img);
 
     input.click();
