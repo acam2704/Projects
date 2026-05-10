@@ -91,7 +91,7 @@ article > label.normal_text{text-align: left}
     transition: all 0.5s ease
 }
 select{
-    width: 40%;
+    width: auto;
     padding: 12px 40px 12px 16px;
     border-radius: 20px;
     border: 1px solid #D1D5DB;
