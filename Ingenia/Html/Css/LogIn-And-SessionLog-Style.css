@@ -105,6 +105,7 @@ select{
     -moz-appearance: none;
 }
 label{
+    min-height: 40px;
     float: left;
 }
 #file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset}
