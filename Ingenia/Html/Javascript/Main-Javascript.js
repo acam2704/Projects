@@ -815,13 +815,14 @@ function choose_picture(img){
 
 function place_picture(input, boolean){
     const picture = input.files[0];
-    if(boolean){const preview = input.nextElementSibling}
-    else{
+    if(boolean){
+        let preview = input.nextElementSibling;
+    } else{
         const container = document.getElementById('img_cards_container');
         const array_img = container.querySelectorAll('img');
-        const preview = array_img[array_img.length - 1];
-        console.log(preview);
+        let preview = array_img[array_img.length - 1];
     }
+    console.log(preview);
 
     if(picture){
         const formData = new FormData();
