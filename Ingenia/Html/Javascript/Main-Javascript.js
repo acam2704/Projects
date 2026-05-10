@@ -643,9 +643,6 @@ document.getElementById('select_departament').addEventListener('change', functio
     const departament_key = document.getElementById('select_departament').value;
     const departament = map[departament_key][0];
 
-    const span = this.previousElementSibling;
-    span.style.display = 'none';
-
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
@@ -659,19 +656,11 @@ document.getElementById('select_municipality').addEventListener('change', functi
     const municipality = document.getElementById('select_municipality').value;
     const departament = document.getElementById('select_departament').value;
 
-    const span = this.previousElementSibling;
-    span.style.display = 'none';
-
     document.querySelectorAll('.option_district').forEach(el => el.remove());
 
     if(municipality.trim().length !== 0){
         place_district(municipality, departament);
     }
-});
-
-document.getElementById("select_district").addEventListener('change', function() {
-    const span = this.previousElementSibling;
-    span.style.display = 'none';
 });
 
 // Función que ejecuta un código repetitivo de la función verify_identity_information
