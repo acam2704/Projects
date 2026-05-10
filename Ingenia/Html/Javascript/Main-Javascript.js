@@ -509,6 +509,8 @@ function emailSent(response){
 }
 
 function show_verification_code_window(containers_to_hide){
+    const main_title = document.getElementById('main_title');
+    containers_to_hide.push(main_title);
     const back_bttn = document.getElementById('back_bttn');
     const containers_to_show = [verification_code_container, back_bttn];
 
@@ -702,6 +704,8 @@ function verify_identity_information(){
 
 // Función que muestra el campo de ingreso del DUI del usuario
 function show_identity_information_window(containers_to_hide){
+    const main_title = document.getElementById('main_title');
+    containers_to_hide.push(main_title);
     const bttn_send_txt = document.getElementById('bttn_send_txt');
     const back_bttn = document.getElementById('back_bttn');
     const containers_to_show = [identity_information_container, bttn_send_txt, back_bttn]; // Sección a mostrar
