@@ -735,7 +735,8 @@ function registerUser(){
 // Función que redirige al usuario a verificar su usuario con su cuenta de microsoft
 async function verifyMicrosoftAccount(){
     const json_response = await fetch('Php/environment_variables.php');
-    const client_id = json_response.json().client_id;
+    const data = await json_response.json();
+    const client_id = data.client_id;
     const redirect_uri = encodeURIComponent("https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Php/Microsoft-Account-Verification.php");
 
     const url = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}&scope=openid profile email`;
