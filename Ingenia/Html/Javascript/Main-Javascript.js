@@ -906,7 +906,6 @@ function validate_data(user_data){
             }
         }
     }
-
     register_user(user_data);
 }
 
