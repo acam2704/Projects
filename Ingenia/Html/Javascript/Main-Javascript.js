@@ -714,13 +714,7 @@ function register_user(user_data){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            username: 'username',
-            name: 'name',
-            lastnames: 'lastnames',
-            email: 'email',
-            picture: 'picture'
-        })  
+        body: JSON.stringify(user_data)
     })
     .then(response => response.text())
     .then(data => console.log(data))*/
