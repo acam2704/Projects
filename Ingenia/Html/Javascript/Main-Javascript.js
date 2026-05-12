@@ -277,9 +277,6 @@ function retrieve_alert_changes(){
     })
 }
 /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
-const window_location = window.location;
-const window_pathname = window_location['pathname'].split('/');
-const HTML = window_pathname[window_pathname.length - 1];
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = [localStorage.getItem('user'), 'localStorage'];
     let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
@@ -643,11 +640,10 @@ function place_district(municipality_key, departament_key){
 // Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
 document.getElementById('select_departament').addEventListener('change', function() {
     const departament_key = document.getElementById('select_departament').value;
-    if(!departament_key){return;}
-    const departament = map[departament_key][0];
-
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
     document.querySelectorAll('.option_district').forEach(el => el.remove());
+    if(!departament_key){return;}
+    const departament = map[departament_key][0];
 
     if(departament_key.trim().length !== 0){
         place_municipality(departament, departament_key);
@@ -657,10 +653,9 @@ document.getElementById('select_departament').addEventListener('change', functio
 // Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
 document.getElementById('select_municipality').addEventListener('change', function() {
     const municipality = document.getElementById('select_municipality').value;
+    document.querySelectorAll('.option_district').forEach(el => el.remove());
     if(!municipality){return;}
     const departament = document.getElementById('select_departament').value;
-
-    document.querySelectorAll('.option_district').forEach(el => el.remove());
 
     if(municipality.trim().length !== 0){
         place_district(municipality, departament);
@@ -980,5 +975,13 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
 });
 
 /* ESTILOS */
+const window_location = window.location;
+const window_pathname = window_location['pathname'].split('/');
+const HTML = window_pathname[window_pathname.length - 1];
 
+if(HTML === 'session-log.html'){
+    if(window.matchMedia('(max-width: 768px)')){
+          
+    }
+}
 
