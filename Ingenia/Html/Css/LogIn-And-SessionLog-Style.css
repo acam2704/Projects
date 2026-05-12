@@ -49,8 +49,12 @@ main.content_window{width: 60%; min-width: 360px;}
     text-align: center;
     transition: all 0.8s ease;
 }
-#construction_worker_bttn{background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/backgroun_construction_workers_2.jpg');}
-#client_bttn{background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa_2.jpg')} 
+#construction_worker_bttn{
+    background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/backgroun_construction_workers_2.jpg');
+}
+#client_bttn{
+    background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa_2.jpg');
+}
 #construction_worker_bttn > article{background-color: rgb(217, 119, 6, 0.7);}
 #client_bttn > article{background-color: rgba(7, 52, 150, 0.7);}
 .user_bttn_send > article{display: flex; align-items: center; height: 100%; border-radius: 10px; transition: all 0.5s ease;}
@@ -235,9 +239,10 @@ label{
 #content_buttons_Re{text-align: center;}
 #content_buttons_Re > p{margin-top: 10px;}
 #primary_bttns_container_father{text-align: center; width: 100%; height: auto; margin: 0;}
-#primary_bttns_container{text-align: center; width:calc( 100% - 20px ); height: 40px; padding: 0 10px 0 10px;}
+#primary_bttns_container{display: grid; text-align: center; width:calc( 100% - 20px ); height: 40px; padding: 0 10px 0 10px;}
 #bttn_send_container{float: right; width: 80px;}
 #bttn_back_container{float: left; width: 80px;}
+
 .g_id_signin{
     width: 213px;
     overflow: hidden;
@@ -370,8 +375,6 @@ label{
         height: 100%;
     }
     .option_user > article{height: 100%;}
-    #construction_worker_bttn{float: right; margin: 20px 10px 100px 0;}
-    #client_bttn{float: left; margin: 20px 0 100px 10px;}
     .bttn_title_text,
     .bttn_subtitle_text{font-size: 16px;}
     .bttn_title_text{font-weight: bold;}
