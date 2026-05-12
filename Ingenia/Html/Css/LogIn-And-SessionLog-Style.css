@@ -239,7 +239,7 @@ label{
 #message_description_Re{width:300px; min-height:40px; max-height:200px; overflow:hidden; resize:none;}
 #content_buttons_Re{text-align: center; width: 400px}
 #content_buttons_Re > p{margin-top: 10px;}
-#primary_bttns_container_father{text-align: center; width: 400px; height: auto; margin-left: calc( (100% - 400px) / 2 );}
+#primary_bttns_container_father{text-align: center; width: 400px; height: auto; margin-left: calc(50% - 100px);}
 #primary_bttns_container{
     display: flex;
     width: 100%;

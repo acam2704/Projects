@@ -950,7 +950,7 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
     disable_all_inputs(); // Se deshabilitan todos los inputs
     const error_text_alert = document.getElementById('error_text_alert');
     error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si h  ubo un error anteriormente
-    document.getElementById('bttn_send').style.marginTop = "20px"; // Se reestablece el marginTop de bttn_send
+    document.getElementById('bttn_send').style.marginTop = "0"; // Se reestablece el marginTop de bttn_send
     animationLoad(); // Al dar click, se muestra la animación de carga en el botón
     await delay(500); // Se espera medio segundo
 
