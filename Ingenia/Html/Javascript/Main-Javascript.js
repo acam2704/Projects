@@ -308,8 +308,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
 
-                
-                console.log(window_location);
+                let window_pathname = window_location['pathname'].split('/');
+                window_pathname =window_pathname[window_pathname.length - 1];
+                console.log(window_pathname);
 
                 show_identity_information_window(elements_to_hide);
                 return;
