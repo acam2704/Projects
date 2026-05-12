@@ -112,19 +112,6 @@ body{position: relative}
 }
 .content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08); background-color: white; transition: all 0.5s ease;}
 .signup_section{transition: all 0.5s ease; display: none;}
-.back_bttn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #2563EB;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: rgb(0, 0, 0, 0);
-    border: none;
-}
-.back_bttn:hover{color: #1D4ED8; transform: translateX(-2px);}
-.back_bttn:active {color: #1D4ED8; transform: translateX(-2px);}
 .input{
     display: inline-block;
     width: calc(100% - 30px);
@@ -247,9 +234,9 @@ label{
 #message_description_Re{width:300px; min-height:40px; max-height:200px; overflow:hidden; resize:none;}
 #content_buttons_Re{text-align: center;}
 #content_buttons_Re > p{margin-top: 10px;}
-#primary_bttns_container{display: flex; justify-content: center;}
-#bttn_send_container{float: right; width: 60px;}
-#bttn_back_container{float: left; width: 60px;}
+#primary_bttns_container{text-align: center;}
+#bttn_send_container{float: right; width: 80px;}
+#bttn_back_container{float: left; width: 80px;}
 .g_id_signin{
     width: 213px;
     overflow: hidden;
