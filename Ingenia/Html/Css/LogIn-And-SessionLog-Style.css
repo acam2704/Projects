@@ -148,7 +148,7 @@ input[type="number"]::-webkit-inner-spin-button{-webkit-appearance: none; margin
 #input_degrees_Re{display: none;}
 .normal_text{color: var(--label-text-); font-size: 14px;}
 .informative_text{text-align: right; font-size: 10px; color: var(--informative-text-);}
-.text_alert{color: var(--alert-text-); font-size: 12px; margin-left: 15px; display: none;}
+.text_alert{color: var(--alert-text-); font-size: 12px; display: none;}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-);}
 .text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold;}
 article > label.normal_text{text-align: left;}
@@ -292,6 +292,7 @@ label{
     display: flex;
     width: 213px;
     justify-content: center;
+    color: var(--label-text-)
 }
 
 /* BOTÓN MICROSOFT */
@@ -314,6 +315,9 @@ label{
 
 .microsoft-btn:hover{background: #F0F7FF; border-color: #93C5FD;}
 .microsoft-btn:active{transform: scale(0.97);}
+#Microsoft > span {
+    color: #4b4e52;
+}
 
 /* LOGO MICROSOFT */
 .ms-logo{
@@ -349,7 +353,7 @@ label{
         height: 100vh;
     }
     #logo{width: 40px;}
-    #main_title{display: flex; align-items: center; justify-content: center; font-size: 15px;}
+    #main_title{display: flex; align-items: center; justify-content: center; font-size: 17px;}
     body{overflow-x: hidden; display: flex; overflow-y: hidden;}
     .content_inputs{
         padding: 20px 20px 20px 20px;
@@ -369,7 +373,7 @@ label{
         margin: 0;
     }
     .signup_section{
-        width: 400px;   
+        width: 500px;   
         margin: 0px 10px;
         display: flex;
         flex-direction: column;
