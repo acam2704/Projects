@@ -237,16 +237,17 @@ label{
     transform: scale(0.97);
 }
 #message_description_Re{width:300px; min-height:40px; max-height:200px; overflow:hidden; resize:none;}
-#content_buttons_Re{text-align: center; width: 400px}
-#content_buttons_Re > p{margin-top: 10px;}
-#primary_bttns_container_father{text-align: center; width: 400px; height: auto; margin-left: calc(50% - 100px);}
+#content_buttons_Re{text-align: center; width: 380px; margin-left: calc(50% - 200px); width: 400px;}
+#content_buttons_Re > p{margin-top: 10px};
+#primary_bttns_container_father{text-align: center; width: 400px; height: auto;}
 #primary_bttns_container{
     display: flex;
-    width: 100%;
+    width: 60%;
     height: 60px;
     padding: 0px 10px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-left: calc(20% - 10px);
 }
 #bttn_send_container{/*float: right; */width: 80px;}
 #bttn_back_container{/*float: left; */width: 80px;}
@@ -337,7 +338,7 @@ p#bttn_send_txt{margin:0;}
 
 @media (min-width: 768px){
     body{margin: 0; padding: 0;}
-    main.content_window{width: 60%; margin-top: calc( (100vh - 400px) /2 );}
+    main.content_window{width: 60%;}
     #aside_background{
         display: block;
         background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa.jpg');
@@ -349,7 +350,15 @@ p#bttn_send_txt{margin:0;}
     #logo{width: 40px;}
     #main_title{display: flex; align-items: center; justify-content: center; font-size: 15px;}
     body{overflow-x: hidden; display: flex; overflow-y: hidden;}
-    .content_inputs{padding: 20px 20px 20px 20px ; box-shadow: none; height: 600px; border: none;}
+    .content_inputs{
+        padding: 20px 20px 20px 20px;
+        box-shadow: none;
+        height: 100vh;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     .content_window{
         position: relative;
         width: 100%;
