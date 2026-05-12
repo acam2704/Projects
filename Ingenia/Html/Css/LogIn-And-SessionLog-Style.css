@@ -234,8 +234,8 @@ label{
 #message_description_Re{width:300px; min-height:40px; max-height:200px; overflow:hidden; resize:none;}
 #content_buttons_Re{text-align: center;}
 #content_buttons_Re > p{margin-top: 10px;}
-#primary_bttns_container_father{text-align: center; width: 100%; height: auto; margin: 30px}
-#primary_bttns_container{text-align: center; width: 100%; height: 40px;}
+#primary_bttns_container_father{text-align: center; width: 100%; height: auto; margin: 0;}
+#primary_bttns_container{text-align: center; width: 100%; height: 40px; padding: 0 10px 0 10px;}
 #bttn_send_container{float: right; width: 80px;}
 #bttn_back_container{float: left; width: 80px;}
 .g_id_signin{
@@ -396,7 +396,7 @@ label{
     }
     select{
         width: 50%;
-        padding: 12px 40px 12px 16px;
+        padding: 12px 40px 10px 5px;
         border-bottom-color: var(--text-into-input-);
         border-radius: 5px;
     }
