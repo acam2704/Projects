@@ -106,13 +106,19 @@ a.bttn_subtitle_text{display: block; margin-top: 15px; transition: all 0.5s ease
 #article_bttn_back *:hover{color: var(--border-input-);}
 
 /* VENTANA DE REGISTRO DE USUARIO */
-body{position: relative}
+body{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
 .content_window{
     position: relative;
     width: 400px;
     border: 2px solid white;
     border-radius: 10px;
-    margin: 50px 0px 0px calc( ( 100% - 400px ) / 2 );
+    margin: 0;
     transition: all 0.5s ease;
 }
 .content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08); background-color: white; transition: all 0.5s ease;}
@@ -352,7 +358,7 @@ label{
 }
 
 @media (min-width: 768px){
-    body{margin: 0; padding: 0;}
+    body{display: block;}
     main.content_window{width: 60%;}
     #aside_background{
         display: block;

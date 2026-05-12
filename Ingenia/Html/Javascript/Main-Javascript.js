@@ -988,6 +988,8 @@ if(html.toLowerCase() === 'session-log.html'){
                 input.padding = '5px 10px 5px 10px';
             })
             throw new Error('-');
+        } else if(window.matchMedia('(max-width: 767px)')){
+            content_window.style.width = '100%';
         }
         inputs_container.style.padding = '40px';
 
