@@ -644,6 +644,7 @@ function place_district(municipality_key, departament_key){
 // Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
 document.getElementById('select_departament').addEventListener('change', function() {
     const departament_key = document.getElementById('select_departament').value;
+    if(!departament_key){return;}
     const departament = map[departament_key][0];
 
     document.querySelectorAll('.option_municipality').forEach(el => el.remove());
@@ -657,6 +658,7 @@ document.getElementById('select_departament').addEventListener('change', functio
 // Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
 document.getElementById('select_municipality').addEventListener('change', function() {
     const municipality = document.getElementById('select_municipality').value;
+    if(!municipality){return;}
     const departament = document.getElementById('select_departament').value;
 
     document.querySelectorAll('.option_district').forEach(el => el.remove());
