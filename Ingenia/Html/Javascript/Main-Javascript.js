@@ -139,12 +139,13 @@ function go_back(){
             }
             const filtered_containers = containers.filter(container => container !== previous_container); // Array
             const containers_to_show = [previous_container];
-            if (previous_container.id === 'personal_information_container')
-                {containers_to_show.push(content_check_buttons_with);
-                const main_title = document.getElementById('main_title');
-                containers_to_show.push(main_title); 
+            if (previous_container.id === 'personal_information_container'){
                 const back_bttn = document.getElementById('back_bttn'); 
-                filtered_containers.push(back_bttn)}
+                const main_title = document.getElementById('main_title');
+                containers_to_show.push(content_check_buttons_with);
+                containers_to_show.push(main_title); 
+                filtered_containers.push(back_bttn);
+            }
             enable_inputs(containers_to_show);
             hide_and_show(containers_to_show, filtered_containers);
             return;
@@ -197,7 +198,12 @@ function hide_and_show(containers_to_show, containers_to_hide){
         container.style.display = "none";
     }); 
     containers_to_show.forEach(container => {
-        container.style.display = "flex";
+        if(container.id === 'content_check_buttons_with'){
+            container.style.display = 'flex'; 
+            container.style.flexWrap = 'column'; 
+            container.style.alignItems = 'center';
+        }
+        else{container.style.display = "flex";}
     });
 }
 // Función que permite generar un username
