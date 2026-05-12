@@ -277,6 +277,7 @@ function retrieve_alert_changes(){
     })
 }
 /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
+let window_location = window.location;
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = [localStorage.getItem('user'), 'localStorage'];
     let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
@@ -328,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     hide_all_text_alerts();
+    console.log(window_location);
 })
 
 document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
@@ -845,8 +847,8 @@ async function place_picture(input, boolean){
             }
             preview.src = data.url;
         } catch(e){
-            const PPIC_2 = document.getElementById('PPIC_2');
-            show_text_alert([[PPIC_2], 'La imagen no se logró subir']);
+            const error = document.getElementById('error_text_alert');
+            show_text_alert([[error], 'La imagen no se logró subir']);
             preview.remove();
             return;
         }
