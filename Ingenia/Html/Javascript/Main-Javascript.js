@@ -980,21 +980,28 @@ const window_pathname = window_location['pathname'].split('/');
 const HTML = window_pathname[window_pathname.length - 1];
 
 if(HTML.toLowerCase() === 'session-log.html'){
-    if(window.matchMedia('(min-width: 768px)')){
-        const content_window = document.getElementsByClassName('content_window')[0];
-        const aside = document.getElementById('aside_background');
-        const inputs_container = document.getElementById('inputs_container');
+    const content_window = document.getElementsByClassName('content_window')[0];
+    const aside = document.getElementById('aside_background');
+    const inputs_container = document.getElementById('inputs_container');
+    content_window.style.minWidth = '360px';
+    try{
+        if(window.matchMedia('(min-width: 768px)')){
+            content_window.style.width = '50%';
+            aside.style.width = '50%';
 
-        content_window.style.width = '50%';
-        aside.style.width = '50%';
+            inputs_container.style.padding = '20px 20px 20px 20px';
 
-        inputs_container.style.padding = '20px 20px 20px 20px';
+            const signup_section = Array.from(document.getElementsByClassName('signup_section'));
+            signup_section.forEach(article => {
+                article.style.margin = '0 10px 0 10px';
+                article.style.height = '100%';
+            });
+            throw new Error('-');
+        }
+        inputs_container.style.padding = '40px';
 
-        const signup_section = document.getElementsByClassName('signup_section');
-        signup_section.forEach(article => {
-            article.style.margin = '0 10px 0 10px';
-            article.style.height = '100%';
-        });
+    } catch(e){
+
     }
 }
 
