@@ -413,7 +413,6 @@ async function transformData(json){
         input_name_Re.value = json.names;
         input_lastname_Re.value = json.lastnames;
         input_email_Re.value = json.email;
-        img_Re.src = json.picture;
         almacenate(json);
 
         // Se preparan los inputs a mostrar, ocultar y deshabilitar
