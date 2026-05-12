@@ -247,7 +247,9 @@ label{
 #message_description_Re{width:300px; min-height:40px; max-height:200px; overflow:hidden; resize:none;}
 #content_buttons_Re{text-align: center;}
 #content_buttons_Re > p{margin-top: 10px;}
-#primary_bttns_container{display: flex;}
+#primary_bttns_container{display: flex; justify-content: center;}
+#bttn_send_container{float: right; width: 60px;}
+#bttn_back_container{float: left; width: 60px;}
 .g_id_signin{
     width: 213px;
     overflow: hidden;
@@ -397,30 +399,22 @@ label{
     .input{
         padding: 5px 10px 2px 10px; 
         height: 20px;
-        border-radius: 0; 
-        border-bottom-color: var(--title-text-);
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
+        border-radius: 5px; 
+        border-color: #93C5FD;
         width: 100%;
         margin: 0px 0px 10px 0px;
     }
     .input:focus,
     .input:hover{
-        border-bottom-color: var(--text-into-input-);
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
+        border-color: var(--);
     }
     select{
         width: 50%;
         padding: 12px 40px 12px 16px;
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
         border-bottom-color: var(--text-into-input-);
         border-radius: 0;
     }
+    select:focus{border-color: #93C5FD}
 }
 
 @media (max-width: 1020px){
