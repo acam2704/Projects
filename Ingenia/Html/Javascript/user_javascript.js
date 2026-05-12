@@ -1,6 +1,8 @@
 document.getElementById('user_backbttn').addEventListener('click', () => {
     window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html';
 });
+const window_location = window.location['pathname'].split('/');
+const window_pathname = window_location[window_location.length - 1];
 const bttns = ['client_bttn', 'construction_worker_bttn'];
 bttns.forEach(bttn => {
     let section = document.getElementById(bttn);
@@ -30,6 +32,11 @@ bttns.forEach(bttn => {
         this.querySelectorAll('.textbttn').forEach(text => {text.style.transform = 'scale(1)';})
     })
 });
+
+if(window_pathname === 'user.html'){
+    const article_bttn_back = document.getElementById('article_bttn_back');
+    article_bttn_back.style.width = '100%';
+}
 
 document.getElementById('client_bttn').addEventListener('click', () =>{
     window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/session-log.html';
