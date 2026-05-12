@@ -49,8 +49,8 @@ main.content_window{width: 60%;}
     text-align: center;
     transition: all 0.8s ease;
 }
-#construction_worker_bttn{background-image: url('C:/Users/compu3/Documents/GitHub/Projects/Ingenia/Html/Imágenes/backgroun_construction_workers_2.jpg');}
-#client_bttn{background-image: url('C:/Users/compu3/Documents/GitHub/Projects/Ingenia/Html/Imágenes/interior_de_casa_2.jpg')} 
+#construction_worker_bttn{background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/backgroun_construction_workers_2.jpg');}
+#client_bttn{background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa_2.jpg')} 
 #construction_worker_bttn > article{background-color: rgb(217, 119, 6, 0.7);}
 #client_bttn > article{background-color: rgba(7, 52, 150, 0.7);}
 .user_bttn_send > article{display: flex; align-items: center; height: 100%; border-radius: 10px; transition: all 0.5s ease;}
@@ -337,7 +337,7 @@ label{
     main.content_window{width: 60%;}
     #aside_background{
         display: block;
-        background-image: url('C:/Users/compu3/Documents/GitHub/Projects/Ingenia/Html/Imágenes/interior_de_casa.jpg');
+        background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         width: 40%; 

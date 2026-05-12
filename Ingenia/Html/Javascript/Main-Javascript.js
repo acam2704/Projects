@@ -277,7 +277,9 @@ function retrieve_alert_changes(){
     })
 }
 /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
-let window_location = window.location;
+const window_location = window.location;
+const window_pathname = window_location['pathname'].split('/');
+const HTML = window_pathname[window_pathname.length - 1];
 document.addEventListener('DOMContentLoaded', function() {
     let data_user = [localStorage.getItem('user'), 'localStorage'];
     let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
@@ -307,10 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_name_Re.value = name;
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
-
-                let window_pathname = window_location['pathname'].split('/');
-                window_pathname =window_pathname[window_pathname.length - 1];
-                console.log(window_pathname);
 
                 show_identity_information_window(elements_to_hide);
                 return;
@@ -979,3 +977,7 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
         collect_user_data();
     }
 });
+
+/* ESTILOS */
+
+
