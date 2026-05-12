@@ -129,10 +129,6 @@ function go_back(){
     const error_text_alert = document.getElementById('error_text_alert');
     error_text_alert.style.display = 'none';
 
-    // Se reestablece el marginTop de bttn_send
-    const bttn_send = document.getElementById('bttn_send');
-    bttn_send.style.marginTop = '20px';
-
     const inputs_container = document.getElementById('inputs_container');
     const containers = Array.from(inputs_container.querySelectorAll('.signup_section'));
     for(const container of containers){
@@ -497,8 +493,6 @@ function emailSent(response){
             input_email_Re.focus(); // Se devuelve el foco a input_email_Re
         } else {
             enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
-            const bttn_send = document.getElementById('bttn_send');
-            bttn_send.style.marginTop = '10px'; // Se modifica el margin-top del botón
             // Se le dice al usuario que hubo un error y que lo vuelva a intentar
             show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo otra vez']);
         }
