@@ -29,7 +29,8 @@ main.content_window{width: 60%; min-width: 360px;}
     background-image: url('C:/Users/compu3/Documents/GitHub/Projects/Ingenia/Html/Imágenes/interior_de_casa.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    width: 40%; 
+    width: 40%;
+    height: 100vh;
 }
 .content_inputs > p.text_title{display: flex; font-size: 17px; align-items: center;}
 #logo{width: 40px}
@@ -238,10 +239,10 @@ label{
 #message_description_Re{width:300px; min-height:40px; max-height:200px; overflow:hidden; resize:none;}
 #content_buttons_Re{text-align: center;}
 #content_buttons_Re > p{margin-top: 10px;}
-#primary_bttns_container_father{text-align: center; width: 100%; height: auto; margin: 0;}
+#primary_bttns_container_father{text-align: center; width: 400px; height: auto; margin-left: calc( (100% - 400px) / 2 );}
 #primary_bttns_container{
     display: flex;
-    width: calc(100% - 20px);
+    width: 100%;
     height: 60px;
     padding: 0px 10px;
     align-items: center;
@@ -335,14 +336,14 @@ label{
 
 @media (min-width: 768px){
     body{margin: 0; padding: 0;}
-    main.content_window{width: 60%;}
+    main.content_window{width: 60%; margin-top: calc( (100vh - 400px) /2 );}
     #aside_background{
         display: block;
         background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         width: 40%;
-        height: 100%;
+        height: 100vh;
     }
     #logo{width: 40px;}
     #main_title{display: flex; align-items: center; justify-content: center; font-size: 15px;}
@@ -356,7 +357,7 @@ label{
         margin: 0;
     }
     .signup_section{
-        width: 300px,     
+        width: 400px;   
         margin: 0px 10px;
         display: flex;
         flex-direction: column;
@@ -395,7 +396,7 @@ label{
     .bttn_normal_text{font-size: 12px;}
     .textbttn{transition: all 0.8s ease;}
     #overlay_section_shadow{
-        background-color: rgb(0, 0, 0, 0.9);
+        background-color: rgb(0, 0, 0, 0.7);
         width: 100%;
         height: 100%;
     }
@@ -403,7 +404,7 @@ label{
         padding: 5px 10px 2px 10px; 
         height: 20px;
         border-radius: 5px; 
-        border-color: var(--informative-text-);
+        border-color: var(--border-input-);
         width: 60%;
         margin: 0px 0px 10px 0px;
     }
@@ -416,7 +417,7 @@ label{
     .input:focus,
     .input:hover,
     select:focus,
-    select:active{border-color: #93C5FD;}
+    select:active{border-color: var(--border-input-hover-);}
 }
 
 @media (max-width: 1020px){

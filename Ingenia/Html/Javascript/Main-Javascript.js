@@ -986,7 +986,7 @@ if(html.toLowerCase() === 'session-log.html'){
             const signup_section = Array.from(document.getElementsByClassName('signup_section'));
             const inputs = Array.from(document.getElementsByClassName('input'));
             signup_section.forEach(article => {
-                article.style.margin = '0 10px 0 10px';
+                article.style.margin = '0 10px 0 calc( ( 100% - 400px ) / 2 )';
             });
             inputs.forEach(input =>{
                 input.padding = '5px 10px 5px 10px';

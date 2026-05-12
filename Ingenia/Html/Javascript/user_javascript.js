@@ -10,6 +10,10 @@ bttns.forEach(bttn => {
             increase = 5;
             this.querySelectorAll('.textbttn').forEach(text => {text.style.transform = 'scale(1.01)';})
         }
+        if(window.matchMedia('(min-width: 768px)')){
+            const window_container = document.getElementsByClassName('content_window')[0];
+            window_container.style.marginTop = 'calc(50vh - 300px)';
+        }
         this.querySelectorAll('img').forEach(img => {
             img.style.boxShadow = `0 0 10px rgb(0,0,0,0.1)`;
             img.style.transform = `rotate(${10+increase}deg) scale(1.05)`;
