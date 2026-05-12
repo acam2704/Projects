@@ -201,6 +201,7 @@ function hide_and_show(containers_to_show, containers_to_hide){
         container.style.display = "none";
     }); 
     containers_to_show.forEach(container => {
+        if(container.id === '' || container.id === 'content_buttons_Re')
         container.style.display = "flex";
     });
 }
@@ -672,7 +673,7 @@ function executor_from_VII(element, text){
 
 // Función que verifica los datos del usuairo de los campos ingresados
 function verify_identity_information(){
-    const elements = identity_information_container.querySelectorAll(':scope > input, :scope > select'); // inputs y selects
+    const elements = identity_information_container.querySelectorAll('select'); // inputs y selects
     for (const element of elements){ // Se recorre cada input y select
         if (element.value.trim() === ''){ // Si el campo está vacío
             executor_from_VII(element, 'Campo obligatorio');
