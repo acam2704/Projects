@@ -201,8 +201,7 @@ function hide_and_show(containers_to_show, containers_to_hide){
         container.style.display = "none";
     }); 
     containers_to_show.forEach(container => {
-        if(container.id === 'content_buttons_Re' || container.id === 'content_check_buttons_with'){container.style.display = 'block'}
-        else{container.style.display = "flex";}
+        container.style.display = "flex";
     });
 }
 // Función que permite generar un username
@@ -987,7 +986,7 @@ if(html.toLowerCase() === 'session-log.html'){
             const signup_section = Array.from(document.getElementsByClassName('signup_section'));
             const inputs = Array.from(document.getElementsByClassName('input'));
             signup_section.forEach(article => {
-                article.style.margin = '0 10px 0 calc( ( 100% - 400px ) / 2 )';
+                article.style.margin = '0 10px';
             });
             inputs.forEach(input =>{
                 input.padding = '5px 10px 5px 10px';
