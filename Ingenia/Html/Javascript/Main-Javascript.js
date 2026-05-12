@@ -981,7 +981,8 @@ const HTML = window_pathname[window_pathname.length - 1];
 
 if(HTML === 'session-log.html'){
     if(window.matchMedia('(max-width: 768px)')){
-          
+          const content_window = document.getElementsByClassName('content_window')[0];
+          content_window.style.width = '50%';
     }
 }
 
