@@ -979,7 +979,7 @@ const window_location = window.location;
 const window_pathname = window_location['pathname'].split('/');
 const HTML = window_pathname[window_pathname.length - 1];
 
-if(HTML === 'session-log.html'){
+if(HTML.toLowerCase() === 'session-log.html'){
     if(window.matchMedia('(min-width: 768px)')){
           const content_window = document.getElementsByClassName('content_window')[0];
           console.log(content_window);
