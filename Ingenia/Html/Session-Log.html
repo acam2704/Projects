@@ -20,7 +20,6 @@
             <article id="img_container"></article>
         </section>
         <section class="content_inputs" id="inputs_container">
-            <button onclick="go_back()" class="back_bttn" id="back_bttn">← Volver</button>
             <p class="text_title" id="main_title">Registro</p>
 
             <article id="personal_information_container" class="signup_section">
@@ -98,14 +97,23 @@
                 data-client_id="359974457768-j5n8e6eh9c2m100uee1nu0ifvr6nv5tf.apps.googleusercontent.com"
                 data-callback="handleCredentialResponse">
                 </article>
-                <p class="text_alert" id="error_text_alert"></p>
-                <button class="bttn_send" id="bttn_send">
-                    <p id="loader"></p>
-                    <p id="bttn_send_txt">Siguiente</p>
-                </button>
-                <p class="normal_text">
-                    ¿Ya tienes una cuenta? 
-                    <a href="#" class="normal_text" id="Go_to_LogIn">Iniciar sesión</a>
+                <section id="primary_bttns_container">
+                    <article>
+                        <button onclick="go_back()" class="bttn_send" id="back_bttn">
+                            ← Volver
+                        </button>
+                    </article>
+                    <article>
+                        <p class="text_alert" id="error_text_alert"></p>
+                        <button class="bttn_send" id="bttn_send">
+                            <p id="loader"></p>
+                            <p id="bttn_send_txt">Siguiente</p>
+                        </button>
+                        <p class="normal_text">
+                        </section>
+                        ¿Ya tienes una cuenta? 
+                        <a href="#" class="normal_text" id="Go_to_LogIn">Iniciar sesión</a>
+                    </article>
                 </p> <br>
                 
                 <section id="content_check_buttons_with">
