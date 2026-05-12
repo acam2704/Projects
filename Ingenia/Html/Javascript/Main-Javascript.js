@@ -981,9 +981,20 @@ const HTML = window_pathname[window_pathname.length - 1];
 
 if(HTML.toLowerCase() === 'session-log.html'){
     if(window.matchMedia('(min-width: 768px)')){
-          const content_window = document.getElementsByClassName('content_window')[0];
-          console.log(content_window);
-          content_window.style.width = '50%';
+        const content_window = document.getElementsByClassName('content_window')[0];
+        const aside = document.getElementById('aside_background');
+        const inputs_container = document.getElementById('inputs_container');
+
+        content_window.style.width = '50%';
+        aside.style.width = '50%';
+
+        inputs_container.style.padding = '20px 20px 20px 20px';
+
+        const signup_section = document.getElementsByClassName('signup_section');
+        signup_section.forEach(article => {
+            article.style.margin = '0 10px 0 10px';
+            article.style.height = '100%';
+        });
     }
 }
 
