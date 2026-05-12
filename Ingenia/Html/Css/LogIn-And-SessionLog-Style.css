@@ -273,6 +273,7 @@ label{
     cursor: pointer;
 }
 .bttn_send:active{transform: scale(0.97);}
+#bttn_back{background-color: var(--alert-text-);}
 #loader{
     width: 10px;
     height: 10px;
