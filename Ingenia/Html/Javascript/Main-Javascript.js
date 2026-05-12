@@ -308,6 +308,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
 
+                
+                console.log(window_location);
+
                 show_identity_information_window(elements_to_hide);
                 return;
             } else {throw null;}
@@ -329,7 +332,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     hide_all_text_alerts();
-    console.log(window_location);
 })
 
 document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
