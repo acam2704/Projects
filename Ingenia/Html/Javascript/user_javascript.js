@@ -28,5 +28,5 @@ bttns.forEach(bttn => {
 });
 
 document.getElementById('client_bttn').addEventListener('click', () =>{
-    window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/session-Log.html';
+    window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/session-log.html';
 });
