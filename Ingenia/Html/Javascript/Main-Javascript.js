@@ -988,7 +988,7 @@ if(html.toLowerCase() === 'session-log.html'){
             content_window.style.width = '50%';
             aside.style.width = '50%';
 
-            inputs_container.style.padding = '20px 20px 20px 20px';
+            inputs_container.style.padding = '40px';
 
             const signup_section = Array.from(document.getElementsByClassName('signup_section'));
             const inputs = Array.from(document.getElementsByClassName('input'));

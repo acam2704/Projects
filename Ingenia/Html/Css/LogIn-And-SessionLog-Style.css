@@ -390,7 +390,7 @@ label{
         height: 20px;
         border-radius: 5px; 
         border-color: var(--informative-text-);
-        width: 60%;
+        width: 100%;
         margin: 0px 0px 10px 0px;
     }
     select{
