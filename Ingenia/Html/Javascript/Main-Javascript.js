@@ -201,7 +201,7 @@ function hide_and_show(containers_to_show, containers_to_hide){
         container.style.display = "none";
     }); 
     containers_to_show.forEach(container => {
-        if(container.id === 'content_buttons_Re'){container.style.display = 'block'}
+        if(container.id === 'content_buttons_Re' || container.id === 'content_check_buttons_with'){container.style.display = 'block'}
         else{container.style.display = "flex";}
     });
 }
