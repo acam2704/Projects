@@ -152,8 +152,6 @@ body{
 .input:hover{border-color: var(--border-input-hover-);}
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button{-webkit-appearance: none; margin: 0;}
-#input_DUI_Re,
-#input_phonenumber_Re{max-width: 60%;}
 #input_picture_Re, 
 #input_degrees_Re{display: none;}
 .normal_text{color: var(--label-text-); font-size: 14px;}
@@ -171,6 +169,12 @@ article > label.normal_text{text-align: left;}
     height: 100px;
     margin-top: 10px;
     transition: all 0.5s ease;
+}
+.select_article {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 select{
     width: 50%;
