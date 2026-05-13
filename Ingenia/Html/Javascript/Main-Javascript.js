@@ -666,7 +666,15 @@ function executor_from_VII(element, text){
     enable_inputs([identity_information_container]); // Se vuelven a habilitar los inputs
     element.focus(); // Se devuelve el enfoque 
     let alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
-    while(alert && !(alert instanceof HTMLSpanElement)){alert = alert.previousElementSibling;} // Si no es un span se toma el de arriba
+    while(!(alert instanceof HTMLSpanElement)){
+        
+    }
+    while(!(alert instanceof HTMLSpanElement)){
+        alert = alert.previousElementSibling; 
+        if(!alert){alert = document.getElementById('error_text_alert'); 
+            break;
+        }
+    } // Si no es un span se toma el de arriba
     show_text_alert([[alert], text]); // Se muestra la alerta
 }
 

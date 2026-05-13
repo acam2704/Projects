@@ -49,8 +49,13 @@ main.content_window{width: 60%; min-width: 360px;}
     font-size: 15px;
     transition: all 0.8s ease;
 }
+#back_bttn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 #bttn_send_txt{justify-content: center; display: flex;}
-#bttn_back_txt{justify-content: center; display: flex;}
+#bttn_back_txt{align-items: center;; display: flex;}
 #construction_worker_bttn{
     background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/backgroun_construction_workers_2.jpg');
 }
