@@ -56,12 +56,13 @@ main.content_window{width: 60%; min-width: 360px;}
 #client_bttn{
     background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa_2.jpg');
 }
-#construction_worker_bttn > article{background-color: rgb(217, 119, 6, 0.7);}
-#client_bttn > article{background-color: rgba(7, 52, 150, 0.7);}
+#construction_worker_bttn > section{background-color: rgb(217, 119, 6, 0.7);}
+#client_bttn > section{background-color: rgba(7, 52, 150, 0.7);}
+#user_bttn_container{display: flex; flex-direction: row; justify-content: space-between;}
 .user_bttn_send > article{display: flex; align-items: center; height: 100%; border-radius: 10px; transition: all 0.5s ease;}
-.user_bttn_send > article > article{height: 100%;}
-.user_bttn_send > article > article > *{margin: 10px}
-.user_bttn_send > article > article > img.img_option{margin: 10px 10px 20px 10px}
+.option_user > article{height: auto;}
+.option_user > article > *{margin: 10px}
+.option_user > article > img.img_option{margin: 10px 10px 20px 10px}
 a.bttn_subtitle_text{display: block; margin-top: 15px; transition: all 0.5s ease;}
 .user_bttn_send:hover{
     transform: scale(1.02);
@@ -79,8 +80,8 @@ a.bttn_subtitle_text{display: block; margin-top: 15px; transition: all 0.5s ease
 #option_user_cw_img{background-color: var(--background-button-);}
 #option_user_c_img{background-color: var(--alert-text-);}
 .option_user{
-    text-align: left;
     padding: 0 10px 0 10px;
+    border-radius: 10px;
 }
 .option_user > article > a.bttn_subtitle_text{margin-top: 25px;}
 .bttn_title_text,
@@ -90,20 +91,13 @@ a.bttn_subtitle_text{display: block; margin-top: 15px; transition: all 0.5s ease
 .bttn_text_container{width: 100%}
 .textbttn{transition: all 0.3s ease;}
 #article_bttn_back{
-    display: flex;
-    margin: 50px 0 0 10px; 
-    background-color: var(--background-button-);
-    width: 80px; 
-    height: 32px; 
-    justify-content: center;
+    margin: 50px 0 0 0; 
+    background-color: transparent;
+    height: 32px;
     align-items: center;
     border-radius: 10px;
-    float: bottom;
     transition: all 0.5s ease;
 }
-#article_bttn_back:hover{background-color: var(--background-button-hover-)}
-#article_bttn_back *{color: white;}
-#article_bttn_back *:hover{color: var(--border-input-);}
 
 /* VENTANA DE REGISTRO DE USUARIO */
 body{
@@ -272,7 +266,7 @@ label{
     border: 1px solid white;
     border-radius: 10px;
     height: 30px;
-    width: 100%;
+    width: 90px;
     color: var(--button-text-);
     background-color: var(--background-button-);
     font-size: 15px;
@@ -400,11 +394,11 @@ label{
     .user_bttn_send{
         background-size: 200%;
         width: 47%;
-        display: inline-block;
+        display: flex;
         height: 370px;
     }
-    .user_bttn_send > article > article > *{margin: 10px;}
-    .user_bttn_send > article > article > img.img_option{
+    .option_user > article > *{margin: 10px;}
+    .option_user > article > img.img_option{
         display: flex;
         padding: 10px;
         border-radius: 10px;
@@ -412,18 +406,18 @@ label{
         transition: all 0.3s ease;
         margin: 25px 15px 145px 15px;
     }
-    .user_bttn_send > article > article > a.bttn_subtitle_text{
+    .option_user > article > a.bttn_subtitle_text{
         margin: 35px 15px 15px 15px;
     }
     a.bttn_subtitle_text{margin-top: 25px;}
     #option_user_cw_img{background-color: var(--background-button-);}
     #option_user_c_img{background-color: var(--alert-text-);}
     .option_user{
-        text-align: left;
         padding: 0px 10px 0px 10px;
         height: 100%;
+        width: 100%;
     }
-    .option_user > article{height: 100%;}
+    .option_user > article{height: auto;}
     .bttn_title_text,
     .bttn_subtitle_text{font-size: 16px;}
     .bttn_title_text{font-weight: bold;}
@@ -457,6 +451,7 @@ label{
 
 @media (max-width: 1020px){
     .user_bttn_send{
+        display: flex;
         background-size: 300%;
         height: 350px;
     }
@@ -464,7 +459,7 @@ label{
     .bttn_subtitle_text{font-size: 13px;}
     .bttn_title_text{margin-top: 20px;}
     .bttn_normal_text{font-size: 11px;}
-    .user_bttn_send > article > article > img.img_option{
+    .option_user > article > img.img_option{
         display: flex;
         padding: 10px;
         border-radius: 10px;
