@@ -50,6 +50,7 @@ main.content_window{width: 60%; min-width: 360px;}
     transition: all 0.8s ease;
 }
 #bttn_send_txt{justify-content: center; display: flex;}
+#bttn_back_txt{justify-content: center; display: flex;}
 #construction_worker_bttn{
     background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/backgroun_construction_workers_2.jpg');
 }
@@ -58,7 +59,7 @@ main.content_window{width: 60%; min-width: 360px;}
 }
 #construction_worker_bttn > section{background-color: rgb(217, 119, 6, 0.7);}
 #client_bttn > section{background-color: rgba(7, 52, 150, 0.7);}
-#user_bttn_container{display: flex; flex-direction: row; justify-content: space-between;}
+#user_bttn_container{display: flex; flex-direction: column;}
 .user_bttn_send > article{display: flex; align-items: center; height: 100%; border-radius: 10px; transition: all 0.5s ease;}
 .option_user > article{height: auto;}
 .option_user > article > *{margin: 10px}
@@ -82,8 +83,17 @@ a.bttn_subtitle_text{display: block; margin-top: 15px; transition: all 0.5s ease
 .option_user{
     padding: 0 10px 0 10px;
     border-radius: 10px;
+    width: 100%;
 }
 .option_user > article > a.bttn_subtitle_text{margin-top: 25px;}
+.option_user > article > img.img_option{
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    width: 15px;
+    transition: all 0.3s ease;
+    margin: 25px 15px 125px 15px;
+}
 .bttn_title_text,
 .bttn_subtitle_text{font-size: 16px;}
 .bttn_title_text{font-weight: bold;}
@@ -354,6 +364,10 @@ label{
 @media (min-width: 768px){
     body{display: block;}
     main.content_window{width: 60%;}
+    #user_bttn_container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
     #aside_background{
         display: block;
         background-image: url('https://ingeniastorage.blob.core.windows.net/profile-pictures/interior_de_casa.jpg');
@@ -481,7 +495,7 @@ label{
         background-size: 200%;
         height: 200px;
     }
-    .user_bttn_send > article > article > img.img_option{
+    .option_user > article > img.img_option{
         display: flex;
         padding: 10px;
         border-radius: 10px;
