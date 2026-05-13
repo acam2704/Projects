@@ -978,10 +978,10 @@ if(html.toLowerCase() === 'session-log.html'){
     const inputs_container = document.getElementById('inputs_container');
     try{
         if(window.matchMedia('(min-width: 768px)')){
-            content_window.style.width = '40%';
-            aside.style.width = '60%';
+            /*content_window.style.width = '40%';
+            aside.style.width = '60%';*/
 
-            inputs_container.style.padding = '40px';
+            inputs_container.style.padding = '0 40px';
 
             const inputs = Array.from(document.getElementsByClassName('input'));
             inputs.forEach(input =>{
