@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventario</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  display:flex;
+  background:#f4f6f9;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:250px;
+  background:#0b2c4d;
+  color:white;
+  height:100vh;
+  padding:20px;
+  position:fixed;
+}
+
+.menu{
+  list-style:none;
+}
+
+.menu li{
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.menu li:hover{
+  background:#1e4f7a;
+}
+
+/* MAIN */
+
+.main{
+  margin-left:250px;
+  padding:20px;
+  width:100%;
+}
+
+/* FORMULARIO */
+
+.form-container{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  margin-top:20px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+  outline:none;
+}
+
+/* BOTONES */
+
+button{
+  background:#f7894a;
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+/* LISTA INVENTARIO */
+
+.inventory-list{
+  margin-top:20px;
+}
+
+.item{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.delete-btn{
+  background:red;
+  padding:8px 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:600px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+  <h2>Ingenia</h2>
+
+  <ul class="menu">
+
+ 
+  </ul>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+  <h1>Inventario 🧰</h1>
+
+  <!-- BUSCADOR -->
+
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Buscar herramienta o material..."
+  >
+
+  <!-- FORMULARIO -->
+
+  <div class="form-container">
+
+    <input
+      type="text"
+      id="nombre"
+      placeholder="Nombre del material o herramienta"
+    >
+
+    <input
+      type="number"
+      id="cantidad"
+      placeholder="Cantidad"
+    >
+
+    <button onclick="agregarItem()">
+      Agregar al inventario
+    </button>
+
+  </div>
+
+  <!-- LISTA -->
+
+  <div
+    class="inventory-list"
+    id="inventoryList"
+  ></div>
+
+</div>
+
+<script>
+
+const inventoryList = document.getElementById("inventoryList");
+const searchInput = document.getElementById("searchInput");
+
+/* AGREGAR ITEMS */
+
+function agregarItem(){
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const cantidad = document.getElementById("cantidad").value.trim();
+
+  if(nombre === "" || cantidad === ""){
+    alert("Completa todos los campos");
+    return;
+  }
+
+  const item = document.createElement("div");
+  item.classList.add("item");
+
+  item.innerHTML = `
+    <div class="info">
+      <h3>${nombre}</h3>
+      <p>Cantidad: ${cantidad}</p>
+    </div>
+
+    <button class="delete-btn">
+      Eliminar
+    </button>
+  `;
+
+  /* BOTON ELIMINAR */
+
+  item.querySelector(".delete-btn").addEventListener("click", () => {
+    item.remove();
+  });
+
+  inventoryList.appendChild(item);
+
+  document.getElementById("nombre").value = "";
+  document.getElementById("cantidad").value = "";
+
+}
+
+/* BUSCADOR */
+
+searchInput.addEventListener("input", () => {
+
+  const valor = searchInput.value.toLowerCase();
+
+  const items = document.querySelectorAll(".item");
+
+  items.forEach(item => {
+
+    const texto = item.innerText.toLowerCase();
+
+    if(texto.includes(valor)){
+      item.style.display = "flex";
+    }else{
+      item.style.display = "none";
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>

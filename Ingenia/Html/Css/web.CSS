@@ -78,7 +78,7 @@
       background-color: black;
     }
     .hero::before {
-      background-image: url("../Imágenes/Ingenia.webp");
+      background-image: url("../Imágenes/Background_construction_workers.jpg");
         background-repeat: no-repeat;
       background-size: cover;
       content: '';
