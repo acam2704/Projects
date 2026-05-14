@@ -202,6 +202,13 @@ select{
     -moz-appearance: none;
 }
 select:focus{border-color: var(--border-input-hover-);}
+.select_article_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 label{
     display: flex;
     width: 50%;
@@ -474,7 +481,6 @@ label{
     }
     .input:focus,
     .input:hover,
-    select:focus,
     select:active{border-color: var(--border-input-hover-);}
     #content_buttons_Re{width: 100%;}
 }
