@@ -335,12 +335,9 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
     article.querySelectorAll(':scope > input, select').forEach(element => {
         let span = element.previousElementSibling;
-        console.log('0' + span);
         while( element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement) ){
             span = span.previousElementSibling;
-            console.log('1' + span);
             if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
-            console.log('2' + span);
             if(!span){return;}
         }
         element.addEventListener('change', function() {
