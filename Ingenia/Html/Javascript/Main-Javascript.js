@@ -333,11 +333,11 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
-    article.querySelectorAll(':scope > input, :scope > select').forEach(element => {
+    article.querySelectorAll(':scope > input, select').forEach(element => {
         let span = element.previousElementSibling;
-        while(element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement)){
-            if(span){span = span.previousElementSibling}
-            else{break}
+        while(!(span instanceof HTMLSpanElement)){
+            span = span.previousElementSibling;
+            if(span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
         }
         element.addEventListener('change', function() {
             span.style.display = 'none';
@@ -666,12 +666,9 @@ function executor_from_VII(element, text){
     enable_inputs([identity_information_container]); // Se vuelven a habilitar los inputs
     element.focus(); // Se devuelve el enfoque 
     let alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
-    console.log('0' + alert);
     while(!(alert instanceof HTMLSpanElement)){
         alert = alert.previousElementSibling;
-        console.log('1' + alert);
         if(!alert){alert = element.previousElementSibling;alert = alert.parentElement.previousElementSibling;}
-        console.log('2' + alert);
     }
     
     show_text_alert([[alert], text]); // Se muestra la alerta
