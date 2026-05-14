@@ -183,8 +183,7 @@ article > label.normal_text{text-align: left;}
 }
 .select_article {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     max-width: 302px;
 }
@@ -204,6 +203,7 @@ select{
 }
 label{
     display: flex;
+    width: 50%;
     min-width: 110px;
     min-height: 40px;
     margin: 5px 0 5px 0;
