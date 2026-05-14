@@ -667,7 +667,8 @@ function executor_from_VII(element, text){
     element.focus(); // Se devuelve el enfoque 
     let alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
     while(!(alert instanceof HTMLSpanElement)){
-        
+        console.log(alert);
+        alert.previousElementSibling;
     }
     while(!(alert instanceof HTMLSpanElement)){
         alert = alert.previousElementSibling; 
