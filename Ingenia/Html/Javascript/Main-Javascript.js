@@ -336,7 +336,7 @@ document.getElementById('inputs_container').querySelectorAll(':scope > article')
     article.querySelectorAll(':scope > input, select').forEach(element => {
         let span = element.previousElementSibling;
         console.log('0' + span);
-        while(!(span instanceof HTMLSpanElement)){
+        while( element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement) ){
             span = span.previousElementSibling;
             console.log('1' + span);
             if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
