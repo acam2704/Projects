@@ -666,25 +666,34 @@ function executor_from_VII(element, text){
     enable_inputs([identity_information_container]); // Se vuelven a habilitar los inputs
     element.focus(); // Se devuelve el enfoque 
     let alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
+    while(!(alert instanceof HTMLSpanElement)){
+        alert = alert.previousElementSibling;
+        if(!alert){alert = alert.parentElement.previousElementSibling;}
+    }
     
     show_text_alert([[alert], text]); // Se muestra la alerta
 }
 
 // Función que verifica los datos del usuairo de los campos ingresados
 function verify_identity_information(){
-    const elements = identity_information_container.querySelectorAll('select'); // inputs y selects
-    for (const element of elements){ // Se recorre cada input y select
-        if (element.value.trim() === ''){ // Si el campo está vacío
-            executor_from_VII(element, 'Campo obligatorio');
+    const selects = identity_information_container.querySelectorAll('select'); // inputs y selects
+    for (const select of selects){ // Se recorre cada input y select
+        if (select.value.trim() === ''){ // Si el campo está vacío
+            executor_from_VII(select, 'Campo obligatorio');
             hideLoader();
             return; // Se fuerza el final de la función
         }
-        if( element.classList.contains('input') ){ // Si el elemento es uno clase .input
-            if(element.id === 'input_DUI_Re'){
-                const DUI = element.value.replace('-', '');
-                if(!isNaN(DUI) && DUI.length !== 9){executor_from_VII(element, 'DUI Inválido'); hideLoader(); return}
+    }
+    const inputs = identity_information_container.querySelectorAll('input');
+    for (const input of inputs){
+        if( input.classList.contains('input') ){ // Si el elemento es uno clase .input
+            if(input.id === 'input_DUI_Re'){
+                const DUI = input.value.replace('-', '');
+                if(!isNaN(DUI) && DUI.length !== 9){
+                    executor_from_VII(input, 'DUI Inválido'); hideLoader(); return
+                }
             } else {
-                if(element.value.length !== 8){executor_from_VII(element, 'Número inválido'); hideLoader(); return}
+                if(input.value.length !== 8){executor_from_VII(input, 'Número inválido'); hideLoader(); return}
             }
         }
     }
