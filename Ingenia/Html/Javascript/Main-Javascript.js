@@ -337,7 +337,7 @@ document.getElementById('inputs_container').querySelectorAll(':scope > article')
         let span = element.previousElementSibling;
         while(!(span instanceof HTMLSpanElement)){
             span = span.previousElementSibling;
-            if(span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
+            if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
         }
         element.addEventListener('change', function() {
             span.style.display = 'none';
