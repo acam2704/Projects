@@ -341,6 +341,7 @@ document.getElementById('inputs_container').querySelectorAll(':scope > article')
             console.log('1' + span);
             if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
             console.log('2' + span);
+            if(!span){return;}
         }
         element.addEventListener('change', function() {
             span.style.display = 'none';
