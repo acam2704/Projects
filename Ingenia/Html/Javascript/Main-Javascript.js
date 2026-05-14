@@ -200,7 +200,7 @@ function hide_and_show(containers_to_show, containers_to_hide){
     containers_to_show.forEach(container => {
         if(container.id === 'content_check_buttons_with'){
             container.style.display = 'flex'; 
-            container.style.flexWrap = 'column'; 
+            container.style.flexDirection = 'column'; 
             container.style.alignItems = 'center';
         }
         else{container.style.display = "flex";}
