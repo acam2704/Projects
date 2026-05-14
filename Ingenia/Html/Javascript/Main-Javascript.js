@@ -666,10 +666,11 @@ function executor_from_VII(element, text){
     enable_inputs([identity_information_container]); // Se vuelven a habilitar los inputs
     element.focus(); // Se devuelve el enfoque 
     let alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
+    console.log('0' + alert);
     while(!(alert instanceof HTMLSpanElement)){
         alert = alert.previousElementSibling;
         console.log('1' + alert);
-        if(!alert){alert = alert.parentElement.previousElementSibling;}
+        if(!alert){alert = element.previousElementSibling;alert = alert.parentElement.previousElementSibling;}
         console.log('2' + alert);
     }
     
