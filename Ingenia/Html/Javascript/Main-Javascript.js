@@ -668,7 +668,9 @@ function executor_from_VII(element, text){
     let alert = element.previousElementSibling; // Se toma al elemento de arriba (span)
     while(!(alert instanceof HTMLSpanElement)){
         alert = alert.previousElementSibling;
+        console.log('1' + alert);
         if(!alert){alert = alert.parentElement.previousElementSibling;}
+        console.log('2' + alert);
     }
     
     show_text_alert([[alert], text]); // Se muestra la alerta
