@@ -186,6 +186,7 @@ article > label.normal_text{text-align: left;}
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    max-width: 302px;
 }
 select{
     width: 50%;
@@ -468,9 +469,6 @@ label{
         margin: 0px 0px 10px 0px;
     }
     select{
-        width: 50%;
-        padding: 12px 40px 10px 5px;
-        border-color: var(--informative-text-);
         border-radius: 5px;
     }
     .input:focus,
