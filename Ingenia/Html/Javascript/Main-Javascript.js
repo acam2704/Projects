@@ -194,21 +194,17 @@ function hideLoader(){
 }
 // Función que permite ocultar y mostrar elementos
 function hide_and_show(containers_to_show, containers_to_hide){
-    if(containers_to_show !== null){
-        containers_to_hide.forEach(container => {
-            container.style.display = "none";
-        }); 
-    }
-    if(containers_to_hide !== null){
-        containers_to_show.forEach(container => {
-            if(container.id === 'content_check_buttons_with'){
-                container.style.display = 'flex'; 
-                container.style.flexDirection = 'column'; 
-                container.style.alignItems = 'center';
-            }
-            else{container.style.display = "flex";}
-        });
-    }
+    containers_to_hide.forEach(container => {
+        container.style.display = "none";
+    }); 
+    containers_to_show.forEach(container => {
+        if(container.id === 'content_check_buttons_with'){
+            container.style.display = 'flex'; 
+            container.style.flexDirection = 'column'; 
+            container.style.alignItems = 'center';
+        }
+        else{container.style.display = "flex";}
+    });
 }
 // Función que permite generar un username
 function generateUsername(text) {
@@ -287,16 +283,23 @@ document.addEventListener('DOMContentLoaded', function() {
     let data_user = [localStorage.getItem('user'), 'localStorage'];
     let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
     const array_to_travel = [data_user, session_data];
+    let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
+    const loader = document.getElementById('loader');
+    elements_to_hide.push(loader);
     disable_all_inputs();
 
     for (let data of array_to_travel){
         try{
             if (data[0] !== null){
                 data[0] = JSON.parse(data[0]);
-
                 const email = data[0].email;
+
                 const name = data[0].names;
                 const surname = data[0].lastnames;
+
+                elements_to_hide = elements_to_hide.filter(article => article !== identity_information_container);
+                elements_to_hide.push(content_check_buttons_with);
+                const elements_to_show = [identity_information_container];
 
                 const input_name_Re = document.getElementById('input_name_Re');
                 const input_lastname_Re = document.getElementById('input_lastname_Re');
@@ -305,8 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_name_Re.value = name;
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
-
-                hide_and_show(personal_information_container, null);
 
                 return;
             } else {throw null;}
@@ -327,7 +328,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    hideLoader();
     hide_all_text_alerts();
 })
 
