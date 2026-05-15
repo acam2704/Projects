@@ -201,6 +201,7 @@ select{
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+select:active,
 select:focus{border-color: var(--border-input-hover-);}
 .select_article_container{
     width: 100%;
