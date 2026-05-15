@@ -26,8 +26,7 @@ try{
         };
 
         $sql_request = $conexion->prepare('INSERT INTO users (names, surnames, email, password, description, phonenumber, dui, rol, degrees, picture, birthdate, 
-                                        created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        
+                                        created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $sql_request->bind_param('ssssssssssss', $_POST['names'], $_POST['lastnames'], $_POST['email'], $h_psw, $_POST['description'], $_POST['phonenumber'],
                         $h_dui, $_POST['rol'], $_POST['degrees'], $_POST['picture'], $_POST['birthdate'], $now, $now, 'active');
 
