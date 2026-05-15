@@ -95,14 +95,13 @@
                 <img src="https://ingeniastorage.blob.core.windows.net/profile-pictures/without-picture.jpg" alt="Imágenes/without-picture.jpg" id="file_img_Re" onclick="choose_picture(this)"><br><br>
                 
                 <input type="file" id="input_degrees_Re" onchange="place_picture(this, false)">
-                <p class="normal_text">Títulos o trabajos destacados</p>
-                <article>
-                    </article><article class="card_img more_img" onclick="add_degree()">
+                <p class="normal_text">Títulos y trabajos destacados</p>
+                <section id="img_cards_container"></section>
+                <article class="card_img more_img" onclick="add_degree()">
+                    <p class="normal_text">Agregue títulos o trabajos destacados</p>
                     <img src="Imágenes/agregar.png" alt="" id="add_img">
                 </article>
-                <section id="img_cards_container">
-                </section>
-                <p class="normal_text">Muestre sus títulos de estudios técnicos o Muestre sus trabajos</p>
+                
                 
                 <br>
                 <textarea type="text" class="input" id="message_description_Re" placeholder="Descripción del usuario" maxlength="250"></textarea>
