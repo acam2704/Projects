@@ -897,7 +897,7 @@ document.getElementById('message_description_Re').addEventListener('input', func
     if(words_amount >= 250){this.disabled = true; words_amount = words_amount.slice(0, 250);}
     this.disabled = false;
     let words_counter = document.getElementById('words_counter');
-    words_counter.textContent = words_amount + '/250';
+    words_counter.textContent = words_amount.textContent.length + '/250';
 });
 
 function validate_data(user_data){
