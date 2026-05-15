@@ -297,8 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const name = data[0].names;
                 const surname = data[0].lastnames;
 
-                elements_to_hide = elements_to_hide.filter(article => article !== identity_information_container);
-                elements_to_hide.push(content_check_buttons_with);
+                elements_to_hide = elements_to_hide.filter(article => article !== personal_information_container);
                 const elements_to_show = [personal_information_container];
 
                 const input_name_Re = document.getElementById('input_name_Re');
