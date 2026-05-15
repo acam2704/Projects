@@ -894,11 +894,8 @@ document.getElementById('message_description_Re').addEventListener('input', func
     this.style.height = 'auto';
     this.style.height = this.scrollHeight + 'px';
     let words_amount = this.textContent.length;
-    while(words_amount >= 250){
-        this.disabled = 'true';
-        words_amount.pop();
-    }
-    this.disabled = 'false';
+    if(words_amount >= 250){this.disabled = true; words_amount = words_amount.slice(0, 250);}
+    this.disabled = false;
     let words_counter = document.getElementById('words_counter');
     words_counter.textContent = words_amount + '/250';
 });
