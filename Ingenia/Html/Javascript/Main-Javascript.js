@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 elements_to_hide = elements_to_hide.filter(article => article !== identity_information_container);
                 elements_to_hide.push(content_check_buttons_with);
-                const elements_to_show = [identity_information_container];
+                const elements_to_show = [personal_information_container];
 
                 const input_name_Re = document.getElementById('input_name_Re');
                 const input_lastname_Re = document.getElementById('input_lastname_Re');
@@ -308,6 +308,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_name_Re.value = name;
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
+
+                hide_and_show(elements_to_show, elements_to_hide);
 
                 return;
             } else {throw null;}
