@@ -29,7 +29,7 @@ try{
                                         created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         
         $sql_request->bind_param('ssssssssssss', $_POST['names'], $_POST['lastnames'], $_POST['email'], $h_psw, $_POST['description'], $_POST['phonenumber'],
-                        $h_dui, $_POST['role'], $_POST['degrees'], $_POST['picture'], $_POST['birthdate'], $now, $now, 'active');
+                        $h_dui, $_POST['rol'], $_POST['degrees'], $_POST['picture'], $_POST['birthdate'], $now, $now, 'active');
 
         if($sql_request->execute()){
             echo json_encode([
@@ -43,14 +43,14 @@ try{
                 'error' => $sql_request->error,
                 'msg' => 'Hubo un error al ejecutar el registro'
             ]);
-        };
+        }
     } else {
         echo json_encode([
             'status' => 'failed',
             'error' => 'POST',
             'msg' => 'El fetch no está enviando ningún POST'
         ]);
-    };
+    }
 } catch(Error $e){
     echo json_encode([
         'status' => 'failed',

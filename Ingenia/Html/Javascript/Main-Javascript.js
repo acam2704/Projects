@@ -712,7 +712,7 @@ function show_identity_information_window(containers_to_hide){
 /* CIERRE DE VENTANA DE INFORMACIÓN PRIVADA DEL USUARIO --------------------------------------------------------------------*/
 
 function register_user(user_data){
-    console.log(user_data);
+    console.log(user_data); /* names, lastnames, email, birthdate, phonenumber, dui, code, departament, municipality, district, 1psw, 2psw, picture, degrees, description
     /*fetch('Php/Register_new_user_in_DB.php', {
         method: 'POST',
         headers: {
@@ -912,7 +912,8 @@ function validate_data(user_data){
 }
 
 function collect_user_data(){
-    const user_data = {};
+    let user_data = {};
+    user_data['rol'] = JSON.parse(localStorage.getItem('user')).rol;
     document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
         let splitted_id;
         let key_name;

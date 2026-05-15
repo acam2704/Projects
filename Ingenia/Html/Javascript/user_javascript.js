@@ -1,4 +1,12 @@
 document.getElementById('user_backbttn').addEventListener('click', () => {
+    let user_data = localStorage.getItem('user');
+    if(!user_data){
+        let json = {rol: 'client'};
+        localStorage.setItem('user', JSON.stringify());
+    }
+    else{user_data['rol'] = 'client';}
+    localStorage.setItem('user', JSON.stringify(user_data));
+
     window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html';
 });
 const window_location = window.location['pathname'].split('/');
