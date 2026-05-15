@@ -310,6 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_email_Re.value = email;
 
                 hide_and_show(elements_to_show, elements_to_hide);
+                enable_inputs(elements_to_show);
 
                 return;
             } else {throw null;}
