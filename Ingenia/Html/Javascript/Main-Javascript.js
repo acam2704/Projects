@@ -921,8 +921,7 @@ function collect_user_data(){
         article.querySelectorAll(':scope > input, select, textarea').forEach(element => {
             splitted_id = element.id.split('_');
             key_name = splitted_id[1];
-            if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.textContent}
-            else{user_data[key_name] = element.value}
+            user_data[key_name] = element.value
         });
 
         const profile_picture = document.getElementById('file_img_Re');
