@@ -12,6 +12,9 @@ $now = date("Y-m-d H:i:s", time());
 $psw = $_POST['password'];
 $h_psw = password_hash($psw, PASSWORD_DEFAULT);
 
+$dui = $_POST['dui'];
+$h_dui = password_hash($dui, PASSWORD_DEFAULT);
+
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(!$conexion->error){
@@ -26,7 +29,7 @@ try{
                                         created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         
         $sql_request->bind_param('ssssssssssss', $_POST['names'], $_POST['lastnames'], $_POST['email'], $h_psw, $_POST['description'], $_POST['phonenumber'],
-                        $_POST['dui'], $_POST['role'], $_POST['degrees'], $_POST['picture'], $_POST['birthdate'], $now, $now, 'active');
+                        $h_dui, $_POST['role'], $_POST['degrees'], $_POST['picture'], $_POST['birthdate'], $now, $now, 'active');
 
         if($sql_request->execute()){
             echo json_encode([
