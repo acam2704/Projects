@@ -893,13 +893,13 @@ document.getElementById('delete_degree').addEventListener('click', () => {
 document.getElementById('message_description_Re').addEventListener('input', function() {
     this.style.height = 'auto';
     this.style.height = this.scrollHeight + 'px';
-    const words_amount = this.textContent.length;
-    while(words_amount > 250){
+    let words_amount = this.textContent.length;
+    while(words_amount >= 250){
         this.disabled = 'true';
         words_amount.pop();
     }
     this.disabled = 'false';
-    const words_counter = document.getElementById('words_counter');
+    let words_counter = document.getElementById('words_counter');
     words_counter.textContent = words_amount + '/250';
 });
 
