@@ -33,6 +33,7 @@ main.content_window{width: 60%; min-width: 360px;}
     height: 100vh;
 }
 .content_inputs > p.text_title{display: flex; font-size: 20px; justify-content: center;}
+#personal_information_container > p.normal_text{width: 100%; max-width: 302px; text-align: left;}
 #logo{width: 40px}
 .select_user_text{text-align: center; font-size: 15px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 .user_bttn_send{
