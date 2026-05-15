@@ -219,21 +219,52 @@ label{
     align-items: center;
 }
 #file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
-#img_cards_container{display: flex; padding-top: 10px; overflow-x: auto; overflow-y: hidden; white-space: nowrap; height: 120px;}
+#img_cards_container{
+    display: flex;
+    padding-top: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    height: 120px;
+    width: 70%;
+    min-width: 280px;
+    border: solid 1px var(--border-input-);
+    border-radius: 20px;
+}
+.text_more_img{
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--link-text-hover-);
+    text-decoration: underline;
+}
 .card_img{border: 1px solid #ccc; border-radius: 10px; width: 140px; height: 100px; min-width: 140px; margin-bottom: 20px;}
 .card_img:hover{box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: box-shadow 0.3s ease-in-out;}
+.add_img{width: 40px;}
 .card_img:active{transform: scale(0.99); transition: transform 0.5s ease-in-out;}
-.card_img.more_img{
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    background-color: #f0f0f0; 
-    color: #333; 
-    font-size: 16px; 
-    font-weight: bold; 
+.card_img.more_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    flex-direction: column;
     cursor: pointer;
+    width: 50%;
+    height: 150px;
+    min-width: 280px;
 }
 .card_img.more_img > p{font-size: 15px; font-weight: bold;}
+.text_more_img{
+    .card_img.more_img > p {
+    font-size: 11px;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--link-text-hover-);
+}
+}
 #img_viewer{
     position: fixed;
     top: 0;
@@ -426,7 +457,6 @@ label{
         width: 100%;
         margin: 0;
         display: flex;
-        flex-direction: column;
         align-items: center;
     }
     .user_bttn_send{
