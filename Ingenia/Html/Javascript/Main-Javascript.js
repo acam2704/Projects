@@ -904,6 +904,7 @@ function validate_data(user_data){
     const keys = Object.keys(user_data);
     const error_text_alert = document.getElementById('error_text_alert');
     const non_mandatory_fields = ['picture', 'degrees', 'description'];
+    console.log(user_data);
     for(const key of keys){
         if(!non_mandatory_fields.includes(key)){
             const value = user_data[key];
