@@ -283,23 +283,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let data_user = [localStorage.getItem('user'), 'localStorage'];
     let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
     const array_to_travel = [data_user, session_data];
-    let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
-    const loader = document.getElementById('loader');
-    elements_to_hide.push(loader);
     disable_all_inputs();
 
     for (let data of array_to_travel){
         try{
             if (data[0] !== null){
                 data[0] = JSON.parse(data[0]);
-                const email = data[0].email;
 
+                const email = data[0].email;
                 const name = data[0].names;
                 const surname = data[0].lastnames;
-
-                elements_to_hide = elements_to_hide.filter(article => article !== identity_information_container);
-                elements_to_hide.push(content_check_buttons_with);
-                const elements_to_show = [identity_information_container];
 
                 const input_name_Re = document.getElementById('input_name_Re');
                 const input_lastname_Re = document.getElementById('input_lastname_Re');
@@ -309,7 +302,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
 
-                show_identity_information_window(elements_to_hide);
                 return;
             } else {throw null;}
         } catch(e){
@@ -329,6 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+    hideLoader();
     hide_all_text_alerts();
 })
 
@@ -417,13 +410,6 @@ async function transformData(json){
         input_lastname_Re.value = json.lastnames;
         input_email_Re.value = json.email;
         almacenate(json);
-
-        // Se preparan los inputs a mostrar, ocultar y deshabilitar
-        let elements_to_hide = [personal_information_container, content_check_buttons_with];
-
-        disable_inputs(elements_to_hide); // Se mandan a deshabilitar los inputs
-
-        show_identity_information_window(elements_to_hide); // Se muestran demás elementos de la ventana de contraseñas
     }
 }
 
@@ -923,7 +909,7 @@ function collect_user_data(){
         let splitted_id;
         let key_name;
 
-        article.querySelectorAll(':scope > input, :scope > select, textarea').forEach(element => {
+        article.querySelectorAll(':scope > input, select, textarea').forEach(element => {
             splitted_id = element.id.split('_');
             key_name = splitted_id[1];
             if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.textContent}

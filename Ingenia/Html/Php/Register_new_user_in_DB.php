@@ -22,12 +22,12 @@ try{
             ]));
         };
 
-        $sql_request = $conexion->prepare('INSERT INTO users (username, names, lastnames, email, picture, degrees, 
-                                        description, password, status, last_login, created_at, updated_at) 
+        $sql_request = $conexion->prepare('INSERT INTO users (names, surnames, email, password,description, phonenumber, role, degrees, picture, birthdate, 
+                                        created_at, updated_at, status) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         
-        $sql_request->bind_param('ssssssssssss', $_POST['username'], $_POST['names'], $_POST['lastnames'], $_POST['email'], 
-                        $_POST['picture'], '', '', $h_psw, "active", $now, $now, $now);
+        $sql_request->bind_param('ssssssssssss', $_POST['names'], $_POST['lastnames'], $_POST['email'], $h_psw, $_POST['description'], $_POST['phonenumber'],
+                        $_POST['dui'], $_POST['role'], $_POST['degrees'], $_POST['picture'], $_POST['birthdate'], $now, $now, 'active');
 
         if($sql_request->execute()){
             echo json_encode([
