@@ -89,21 +89,20 @@
             </article>
 
             <article id="public_profile_information_container" class="signup_section">
-                <br> <p class="text_section_title">Información Personal</p> <br>
-                <p class="normal_text">Foto de perfil</p>
+                <br> <p class="text_section_title">Personaliza tu perfil</p> <br>
+                <p class="normal_text">Agrega fotografías y una descripción profesional para destacar tus habilidades.</p>
                 <input type="file" id="input_picture_Re" onchange="place_picture(this, true)">
                 <img src="https://ingeniastorage.blob.core.windows.net/profile-pictures/without-picture.jpg" alt="Imágenes/without-picture.jpg" id="file_img_Re" onclick="choose_picture(this)"><br><br>
                 
-                <p class="normal_text">Títulos de estudios técnicos</p>
                 <input type="file" id="input_degrees_Re" onchange="place_picture(this, false)">
-                <article class="card_img more_img" onclick="add_degree()">
+                <p class="normal_text">Títulos o trabajos destacados</p>
+                <article>
+                    </article><article class="card_img more_img" onclick="add_degree()">
                     <img src="Imágenes/agregar.png" alt="" id="add_img">
-                    <p class="text_more_img">Muestre sus títulos de estudios técnicos</p>
-                    <p class="text_more_img">o</p>
-                    <p class="text_more_img">Muestre sus trabajos</p>
                 </article>
                 <section id="img_cards_container">
                 </section>
+                <p class="normal_text">Muestre sus títulos de estudios técnicos o Muestre sus trabajos</p>
                 
                 <br>
                 <textarea type="text" class="input" id="message_description_Re" placeholder="Descripción del usuario" maxlength="250"></textarea>
