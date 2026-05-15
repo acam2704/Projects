@@ -887,7 +887,7 @@ document.getElementById('delete_degree').addEventListener('click', () => {
 document.getElementById('message_description_Re').addEventListener('input', function() {
     this.style.height = 'auto';
     this.style.height = this.scrollHeight + 'px';
-    let words_amount = this.textContent.length;
+    let words_amount = this.value.length;
     if(words_amount >= 250){this.disabled = true; words_amount = words_amount.slice(0, 250);}
     this.disabled = false;
     let words_counter = document.getElementById('words_counter');
@@ -921,7 +921,9 @@ function collect_user_data(){
         article.querySelectorAll(':scope > input, select, textarea').forEach(element => {
             splitted_id = element.id.split('_');
             key_name = splitted_id[1];
-            user_data[key_name] = element.value;
+            console.log(element);
+            if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.textContent; console.log('1');}
+            else{user_data[key_name] = element.value; console.log('0');}
         });
 
         const profile_picture = document.getElementById('file_img_Re');
