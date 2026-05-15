@@ -169,7 +169,7 @@ input[type="number"]::-webkit-inner-spin-button{-webkit-appearance: none; margin
 .informative_text{text-align: right; font-size: 10px; color: var(--informative-text-);}
 .text_alert{color: var(--alert-text-); font-size: 12px; display: none;}
 .text_title{font-size: 30px; font-weight: bold; width: 100%; text-align: center; color: var(--title-text-);}
-.text_section_title{color: var(--informative-text-); font-size: 20px; font-weight: bold;}
+.text_section_title{color: var(--alert-text-); font-size: 20px; font-weight: bold;}
 article > label.normal_text{text-align: left;}
 #words_counter{width: 100%; text-align: right;}
 #error_text_alert{height: 10px;}
@@ -228,6 +228,7 @@ label{
     height: 120px;
     width: 70%;
     min-width: 280px;
+    max-width: 302px;
     border: solid 1px var(--border-input-);
     border-radius: 20px;
 }
@@ -249,15 +250,14 @@ label{
     cursor: pointer;
     width: 100px;
     height: 35px;
-    min-width: 280px;
+    min-width: 260px;
     margin-top: 5px;
+    background-color: var(--background-button-);
 }
 .card_img.more_img > p{
     font-size: 12px;
-    font-weight: bold;
     text-align: center;
-    color: var(--link-text-hover-);
-    text-decoration: underline;
+    color: white;
 }
 #img_viewer{
     position: fixed;
