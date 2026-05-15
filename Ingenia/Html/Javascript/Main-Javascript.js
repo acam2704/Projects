@@ -712,8 +712,8 @@ function show_identity_information_window(containers_to_hide){
 /* CIERRE DE VENTANA DE INFORMACIÓN PRIVADA DEL USUARIO --------------------------------------------------------------------*/
 
 function register_user(user_data){
-    console.log(user_data); /* names, lastnames, email, birthdate, phonenumber, dui, code, departament, municipality, district, 1psw, 2psw, picture, degrees, description
-    /*fetch('Php/Register_new_user_in_DB.php', {
+    console.log(user_data); /* names, lastnames, email, birthdate, phonenumber, dui, code, departament, municipality, district, 1psw, 2psw, picture, degrees, description*/
+    fetch('Php/Register_new_user_in_DB.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -721,7 +721,7 @@ function register_user(user_data){
         body: JSON.stringify(user_data)
     })
     .then(response => response.text())
-    .then(data => console.log(data))*/
+    .then(data => console.log(data));
 }
 
 // Función que redirige al usuario a verificar su usuario con su cuenta de microsoft
