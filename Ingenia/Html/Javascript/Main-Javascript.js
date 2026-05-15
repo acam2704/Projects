@@ -194,17 +194,21 @@ function hideLoader(){
 }
 // Función que permite ocultar y mostrar elementos
 function hide_and_show(containers_to_show, containers_to_hide){
-    containers_to_hide.forEach(container => {
-        container.style.display = "none";
-    }); 
-    containers_to_show.forEach(container => {
-        if(container.id === 'content_check_buttons_with'){
-            container.style.display = 'flex'; 
-            container.style.flexDirection = 'column'; 
-            container.style.alignItems = 'center';
-        }
-        else{container.style.display = "flex";}
-    });
+    if(containers_to_show !== null){
+        containers_to_hide.forEach(container => {
+            container.style.display = "none";
+        }); 
+    }
+    if(containers_to_hide !== null){
+        containers_to_show.forEach(container => {
+            if(container.id === 'content_check_buttons_with'){
+                container.style.display = 'flex'; 
+                container.style.flexDirection = 'column'; 
+                container.style.alignItems = 'center';
+            }
+            else{container.style.display = "flex";}
+        });
+    }
 }
 // Función que permite generar un username
 function generateUsername(text) {
@@ -301,6 +305,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_name_Re.value = name;
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
+
+                hide_and_show(personal_information_container, null);
 
                 return;
             } else {throw null;}
