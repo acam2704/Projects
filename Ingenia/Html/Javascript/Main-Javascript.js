@@ -367,6 +367,27 @@ async function next(code_typed_before){
                 }
                 return; // Se fuerza el final de la función
             }
+            if(input.id = 'input_birthdate_Re'){
+                const input_date = new Date(input.value);
+                let today = new Date();
+
+                const dia = String(hoy.getDate()).padStart(2, '0');
+                const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Enero es 0
+                const año = hoy.getFullYear() - 18;
+
+                const formatedDate = `${dia}/${mes}/${año}`;
+                today = new Date(formatedDate);
+
+                if(input_date >= formatedDate){}
+
+                input.focus(); // Se devuelve el foco
+                hideLoader(); // Se esconde la animación de carga
+                enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
+                if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
+                    show_text_alert([[alert], 'Campo obligatorio']) // Se muestra la alerta
+                }
+                return; // Se fuerza el final de la función
+            }
         }
     }
     if (code_typed_before) {
@@ -383,6 +404,7 @@ async function next(code_typed_before){
             email: input_email_Re.value,
             domain: 'google'
         });
+
         // Se envían a una función que envía un código de verificación
         sendCode(json_data);
     }
