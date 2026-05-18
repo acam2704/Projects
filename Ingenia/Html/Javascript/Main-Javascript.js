@@ -372,7 +372,7 @@ async function next(code_typed_before){
                 const formatedDate = `${day}/${month}/${year}`;
                 today = new Date(formatedDate);
 
-                if(input_date >= formatedDate){
+                if(input_date >= today){
                     input.focus(); // Se devuelve el foco
                     hideLoader(); // Se esconde la animación de carga
                     enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
@@ -409,6 +409,7 @@ function code_already_typed(){
     let data = localStorage.getItem('user')
     data = JSON.parse(data);
     const input_email_Re = document.getElementById('input_email_Re');
+    console.log(input_email_Re);
     
     if( ( data['email'] === input_email_Re.value.trim() ) && data ){next(true);}
     else{localStorage.removeItem('user'); next(false);}
