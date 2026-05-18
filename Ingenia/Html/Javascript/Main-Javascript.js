@@ -361,7 +361,7 @@ async function next(code_typed_before){
                 }
                 return; // Se fuerza el final de la función
             }
-            if(input.id = 'input_birthdate_Re'){
+            if(input.id === 'input_birthdate_Re'){
                 const input_date = new Date(input.value);
                 let today = new Date();
 
