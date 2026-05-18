@@ -378,7 +378,7 @@ async function next(code_typed_before){
         }
     }
 
-    const birthdate = document.getElementById('input_birthda_Re');
+    const birthdate = document.getElementById('input_birthdate_Re');
     const input_date = new Date(birthdate.value);
     const today = new Date();
     const minDate = new Date(
