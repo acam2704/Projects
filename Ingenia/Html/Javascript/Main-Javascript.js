@@ -385,7 +385,8 @@ async function next(code_typed_before){
         today.getFullYear() - 18,
         today.getMonth(),
         today.getDay()
-    );  
+    );
+    console.log(birthdate.value + ' ' + minDate);
 
     if(input_date >= minDate){
         const alert = birthdate.previousElementSibling;
