@@ -371,7 +371,7 @@ async function next(code_typed_before){
                 hideLoader(); // Se esconde la animación de carga
                 enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
                 if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
-                    show_text_alert([[alert], 'Campo obligatorio']) // Se muestra la alerta
+                    show_text_alert([[alert], 'Número inválido']) // Se muestra la alerta
                 }
                 return; // Se fuerza el final de la función
             }
