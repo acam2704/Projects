@@ -132,6 +132,11 @@ function go_back(){
     const inputs_container = document.getElementById('inputs_container');
     const containers = Array.from(inputs_container.querySelectorAll('.signup_section'));
     for(const container of containers){
+        if(container.id === 'personal_information_container'){
+            window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/user.html';
+            return;
+        }
+
         if (getComputedStyle(container).display !== 'none' && container.id !== 'personal_information_container'){
             let previous_container = container.previousElementSibling;
             if (previous_container.id === 'verification_code_container'){
@@ -145,7 +150,6 @@ function go_back(){
                 containers_to_show.push(content_check_buttons_with);
                 containers_to_show.push(main_title); 
                 filtered_containers.push(back_bttn);
-                window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/user.html';
             }
             enable_inputs(containers_to_show);
             hide_and_show(containers_to_show, filtered_containers);
