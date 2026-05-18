@@ -353,10 +353,20 @@ async function next(code_typed_before){
     /* Se valida si hay campos vacíos */
     for (const container of elements_to_hide){ // Se recorre cada elemento
         const inputs = container.querySelectorAll(':scope > input'); // Del elemento se toman los inputs
+        const inputs_num = {input_phonenumber_Re: 8, input_dui_Re: 9};
         for(const input of inputs){ // Por cada input
+            const alert = input.previousElementSibling; // Se toma el span de arriba
             if(input.value.trim() === ''){ // Se valida si no está vacío
-                const alert = input.previousElementSibling; // Se toma el span de arriba
-
+                input.focus(); // Se devuelve el foco
+                hideLoader(); // Se esconde la animación de carga
+                enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
+                if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
+                    show_text_alert([[alert], 'Campo obligatorio']) // Se muestra la alerta
+                }
+                return; // Se fuerza el final de la función
+            } 
+            const input_num = inputs_num[input.id] ?? null;
+            if( input_num && ( input.value.trim().length !== input_num ) ){
                 input.focus(); // Se devuelve el foco
                 hideLoader(); // Se esconde la animación de carga
                 enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
@@ -365,29 +375,29 @@ async function next(code_typed_before){
                 }
                 return; // Se fuerza el final de la función
             }
-            if(input.id === 'input_birthdate_Re'){
-                const input_date = new Date(input.value);
-                let today = new Date();
-
-                const day = String(today.getDate()).padStart(2, '0');
-                const month = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
-                const year = today.getFullYear() - 18;
-
-                const formatedDate = `${day}/${month}/${year}`;
-                today = new Date(formatedDate);
-
-                if(input_date >= today){
-                    input.focus(); // Se devuelve el foco
-                    hideLoader(); // Se esconde la animación de carga
-                    enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
-                    if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
-                        show_text_alert([[alert], 'Edad mínima']); // Se muestra la alerta
-                    }
-                    return; // Se fuerza el final de la función
-                }
-            }
         }
     }
+
+    const birthdate = document.getElementById('input_birthda_Re');
+    const input_date = new Date(birthdate.value);
+    const today = new Date();
+    const minDate = new Date(
+        today.getFullYear() - 18,
+        today.getMonth(),
+        today.getDay()
+    );  
+
+    if(input_date >= minDate){
+        const alert = birthdate.previousElementSibling;
+        birthdate.focus(); // Se devuelve el foco
+        hideLoader(); // Se esconde la animación de carga
+        enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
+        if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
+            show_text_alert([[alert], 'Edad mínima']); // Se muestra la alerta
+        }
+        return; // Se fuerza el final de la función
+    }
+
     if (code_typed_before) {
         show_identity_information_window(elements_to_hide);
     } else{
