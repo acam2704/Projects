@@ -379,14 +379,17 @@ async function next(code_typed_before){
     }
 
     const birthdate = document.getElementById('input_birthdate_Re');
-    const input_date = new Date(birthdate.value);
+    const [year, month, day] = birthdate.value.split('-').map(Number);
+    const input_date = new Date(year, month - 1, day);
     const today = new Date();
     const minDate = new Date(
         today.getFullYear() - 18,
         today.getMonth(),
         today.getDay()
     );
-    console.log(birthdate.value + ' ' + minDate + ' ' + input_date);
+
+    console.log('1' + minDate);
+    console.log('2' + input_date);
 
     if(input_date >= minDate){
         const alert = birthdate.previousElementSibling;
@@ -424,7 +427,6 @@ function code_already_typed(){
     let data = localStorage.getItem('user')
     data = JSON.parse(data);
     const input_email_Re = document.getElementById('input_email_Re');
-    console.log(input_email_Re);
     
     if( ( data['email'] === input_email_Re.value.trim() ) && data ){next(true);}
     else{localStorage.removeItem('user'); next(false);}
