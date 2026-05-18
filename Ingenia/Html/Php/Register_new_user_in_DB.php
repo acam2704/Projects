@@ -9,10 +9,10 @@ $data = json_decode($json, true);
 
 include('conexion_to_user_DB.php');
 $now = date("Y-m-d H:i:s", time());
-$psw = $_POST['password'];
+$psw = $data['password'];
 $h_psw = password_hash($psw, PASSWORD_DEFAULT);
 
-$dui = $_POST['dui'];
+$dui = $data['dui'];
 $h_dui = password_hash($dui, PASSWORD_DEFAULT);
 
 try{
@@ -27,8 +27,8 @@ try{
 
         $sql_request = $conexion->prepare('INSERT INTO users (names, surnames, email, password, description, phonenumber, dui, rol, degrees, picture, birthdate, 
                                         created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $sql_request->bind_param('ssssssssssss', $_POST['names'], $_POST['lastnames'], $_POST['email'], $h_psw, $_POST['description'], $_POST['phonenumber'],
-                        $h_dui, $_POST['rol'], $_POST['degrees'], $_POST['picture'], $_POST['birthdate'], $now, $now, 'active');
+        $sql_request->bind_param('ssssssssssss', $data['names'], $data['lastnames'], $data['email'], $h_psw, $data['description'], $data['phonenumber'],
+                        $h_dui, $data['rol'], $data['degrees'], $data['picture'], $data['birthdate'], $now, $now, 'active');
 
         if($sql_request->execute()){
             echo json_encode([
