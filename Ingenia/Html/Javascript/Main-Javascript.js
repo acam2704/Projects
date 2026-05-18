@@ -378,15 +378,15 @@ async function next(code_typed_before){
                 const formatedDate = `${day}/${month}/${year}`;
                 today = new Date(formatedDate);
 
-                if(input_date >= formatedDate){}
-
-                input.focus(); // Se devuelve el foco
-                hideLoader(); // Se esconde la animación de carga
-                enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
-                if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
-                    show_text_alert([[alert], 'Edad mínima']); // Se muestra la alerta
+                if(input_date >= formatedDate){
+                    input.focus(); // Se devuelve el foco
+                    hideLoader(); // Se esconde la animación de carga
+                    enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
+                    if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
+                        show_text_alert([[alert], 'Edad mínima']); // Se muestra la alerta
+                    }
+                    return; // Se fuerza el final de la función
                 }
-                return; // Se fuerza el final de la función
             }
         }
     }
