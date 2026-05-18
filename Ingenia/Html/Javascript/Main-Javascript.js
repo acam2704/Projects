@@ -384,7 +384,7 @@ async function next(code_typed_before){
                 hideLoader(); // Se esconde la animación de carga
                 enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
                 if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
-                    show_text_alert([[alert], 'Campo obligatorio']) // Se muestra la alerta
+                    show_text_alert([[alert], 'Edad mínima']); // Se muestra la alerta
                 }
                 return; // Se fuerza el final de la función
             }
@@ -919,7 +919,7 @@ document.getElementById('message_description_Re').addEventListener('input', func
 function validate_data(user_data){
     const keys = Object.keys(user_data);
     const error_text_alert = document.getElementById('error_text_alert');
-    const non_mandatory_fields = ['picture', 'degrees', 'description'];
+    const non_mandatory_fields = ['picture', 'degrees', 'description', 'code'];
     console.log(user_data);
     for(const key of keys){
         if(!non_mandatory_fields.includes(key)){
@@ -944,7 +944,7 @@ function collect_user_data(){
             splitted_id = element.id.split('_');
             key_name = splitted_id[1];
             console.log(element);
-            if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.textContent; console.log('1');}
+            if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.value; console.log('1'); console.log(element.value);}
             else{user_data[key_name] = element.value; console.log('0');}
         });
 
