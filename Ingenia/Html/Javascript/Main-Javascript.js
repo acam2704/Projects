@@ -385,7 +385,7 @@ async function next(code_typed_before){
     const minDate = new Date(
         today.getFullYear() - 18,
         today.getMonth(),
-        today.getDay()
+        today.getDate()
     );
 
     console.log('1' + minDate);
