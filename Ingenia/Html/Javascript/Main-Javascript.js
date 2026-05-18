@@ -386,7 +386,7 @@ async function next(code_typed_before){
         today.getMonth(),
         today.getDay()
     );
-    console.log(birthdate.value + ' ' + minDate);
+    console.log(birthdate.value + ' ' + minDate + ' ' + input_date);
 
     if(input_date >= minDate){
         const alert = birthdate.previousElementSibling;
