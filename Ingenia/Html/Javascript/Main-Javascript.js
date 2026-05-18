@@ -397,7 +397,7 @@ async function next(code_typed_before){
         hideLoader(); // Se esconde la animación de carga
         enable_inputs(elements_to_hide); // Se vuelven a habilitar loos inputs de los elementos validados
         if(alert && alert.classList.contains('text_alert')){ // Si el span es válido y con la clase requerida
-            show_text_alert([[alert], 'Edad mínima']); // Se muestra la alerta
+            show_text_alert([[alert], 'No cumples con la edad mínima']); // Se muestra la alerta
         }
         return; // Se fuerza el final de la función
     }
@@ -930,7 +930,9 @@ function validate_data(user_data){
     for(const key of keys){
         if(!non_mandatory_fields.includes(key)){
             const value = user_data[key];
-            if(!value){
+            if(!value || value === undefined){
+                enable_inputs([public_profile_information_container]);
+                hideLoader();
                 show_text_alert([[error_text_alert], 'Ningún campo debe de estar vacío']);
                 return;
             }
@@ -941,7 +943,7 @@ function validate_data(user_data){
 
 function collect_user_data(){
     let user_data = {};
-    user_data['rol'] = JSON.parse(localStorage.getItem('user')).rol;
+    user_data['rol'] = JSON.parse(localStorage.getItem('user')).rol ?? null;
     document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
         let splitted_id;
         let key_name;
@@ -958,11 +960,11 @@ function collect_user_data(){
         const degree_images = document.getElementById('img_cards_container').querySelectorAll(':scope > img');
         let images = [];
         degree_images.forEach(img => {
-            if(img){images.push(img.src)}
+            if(img){images.push(img.src);}
         });
-        if(profile_picture.src){user_data['picture'] = profile_picture.src}
-        if(images){user_data['degrees'] = images}
-    })
+        if(profile_picture.src){user_data['picture'] = profile_picture.src;}
+        if(images){user_data['degrees'] = images;}
+    });
     
     validate_data(user_data);
 }
