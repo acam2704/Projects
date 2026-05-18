@@ -145,6 +145,7 @@ function go_back(){
                 containers_to_show.push(content_check_buttons_with);
                 containers_to_show.push(main_title); 
                 filtered_containers.push(back_bttn);
+                window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/user.html';
             }
             enable_inputs(containers_to_show);
             hide_and_show(containers_to_show, filtered_containers);
@@ -283,10 +284,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let data_user = [localStorage.getItem('user'), 'localStorage'];
     let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
     const array_to_travel = [data_user, session_data];
-    let elements_to_hide = Array.from(document.getElementById('inputs_container').querySelectorAll('.signup_section'));
-    const loader = document.getElementById('loader');
-    elements_to_hide.push(loader);
     disable_all_inputs();
+    hideLoader();
 
     for (let data of array_to_travel){
         try{
@@ -297,7 +296,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const name = data[0].names;
                 const surname = data[0].lastnames;
 
-                elements_to_hide = elements_to_hide.filter(article => article !== personal_information_container);
                 const elements_to_show = [personal_information_container];
 
                 const input_name_Re = document.getElementById('input_name_Re');
@@ -308,20 +306,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 input_lastname_Re.value = surname;
                 input_email_Re.value = email;
 
-                hide_and_show(elements_to_show, elements_to_hide);
+                hide_and_show(elements_to_show, []);
                 enable_inputs(elements_to_show);
 
                 return;
             } else {throw null;}
         } catch(e){
             if (data[1] === array_to_travel[array_to_travel.length - 1][1]){
-                const back_bttn = document.getElementById('back_bttn');
-                elements_to_hide.push(back_bttn);
                 const elements_to_show = [personal_information_container];
-                for(const element of elements_to_show)
-                    {elements_to_hide = elements_to_hide.filter(c => c !== element)}
                 enable_inputs(elements_to_show);
-                hide_and_show(elements_to_show, elements_to_hide);
+                hide_and_show(elements_to_show, []);
                 if (e){
                     if (data[1] === 'localStorage'){localStorage.removeItem('user');} 
                     else if(data[1] === 'sessionStorage'){sessionStorage.removeItem('user');}
