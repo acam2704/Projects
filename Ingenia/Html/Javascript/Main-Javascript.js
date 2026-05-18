@@ -132,7 +132,7 @@ function go_back(){
     const inputs_container = document.getElementById('inputs_container');
     const containers = Array.from(inputs_container.querySelectorAll('.signup_section'));
     for(const container of containers){
-        if(container.id === 'personal_information_container'){
+        if(container.id === 'personal_information_container' && getComputedStyle(container).display !== 'none'){
             window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/user.html';
             return;
         }
