@@ -256,12 +256,18 @@ function enable_inputs(containers){
 }
 // Función que almacena datos dentro de localStorage y sessionStorage
 function almacenate(data){
+    const user_data = localStorage.getItem('user');
+    let result = {};
+    if(user_data){
+        user_data = JSON.parse(user_data);
+        result = {
+            user_data,
+            data
+        }
+    }
+    console.log(localStorage.getItem('user'));
     // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
-    localStorage.setItem('user', JSON.stringify({
-        names: data['names'],
-        lastnames: data['lastnames'],
-        email: data['email']
-    }));
+    localStorage.setItem('user', JSON.stringify(result));
     // Se almacena en la sesión, temporalmente, el dato 'email' y 'fullName' del usuario
     sessionStorage.setItem("email", data['email']);
     sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
