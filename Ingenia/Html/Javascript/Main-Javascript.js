@@ -148,8 +148,7 @@ function go_back(){
                 const back_bttn = document.getElementById('back_bttn'); 
                 const main_title = document.getElementById('main_title');
                 containers_to_show.push(content_check_buttons_with);
-                containers_to_show.push(main_title); 
-                filtered_containers.push(back_bttn);
+                containers_to_show.push(main_title);
             }
             enable_inputs(containers_to_show);
             hide_and_show(containers_to_show, filtered_containers);
