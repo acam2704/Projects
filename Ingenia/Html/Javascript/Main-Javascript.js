@@ -371,11 +371,11 @@ async function next(code_typed_before){
                 const input_date = new Date(input.value);
                 let today = new Date();
 
-                const dia = String(hoy.getDate()).padStart(2, '0');
-                const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Enero es 0
-                const año = hoy.getFullYear() - 18;
+                const day = String(today.getDate()).padStart(2, '0');
+                const month = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+                const year = today.getFullYear() - 18;
 
-                const formatedDate = `${dia}/${mes}/${año}`;
+                const formatedDate = `${day}/${month}/${year}`;
                 today = new Date(formatedDate);
 
                 if(input_date >= formatedDate){}
