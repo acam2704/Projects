@@ -411,7 +411,7 @@ function code_already_typed(){
     const input_email_Re = document.getElementById('input_email_Re');
     
     if(!data){next(false); return}
-    if(data['email'] === input_email_Re.value.trim() && data){
+    if(data['email'] === input_email_Re.value.trim()){
         next(true);
     } else {
         localStorage.removeItem('user');
