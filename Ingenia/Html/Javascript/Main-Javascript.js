@@ -410,14 +410,8 @@ function code_already_typed(){
     data = JSON.parse(data);
     const input_email_Re = document.getElementById('input_email_Re');
     
-    if(!data){next(false); return}
-    if(data['email'] === input_email_Re.value.trim()){
-        next(true);
-    } else {
-        localStorage.removeItem('user');
-        sessionStorage.removeItem('user');
-        next(false);
-    }
+    if( ( data['email'] === input_email_Re.value.trim() ) && data ){next(true);}
+    else{localStorage.removeItem('user'); next(false);}
 }
 
 // Función que se usa al verificar la cuenta con Google (handleCredentialResponse -> transformData)
