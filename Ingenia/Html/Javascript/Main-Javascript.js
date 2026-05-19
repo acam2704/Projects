@@ -612,7 +612,7 @@ async function codeVerificationResponse(response){
     if(response['status'] === 'ok'){
         const names = document.getElementById('input_name_Re').value;
         const lastnames = document.getElementById('input_lastname_re').value;
-        const email = document.getElementById('input_email_Re.value'); 
+        const email = document.getElementById('input_email_Re.value').value; 
         const json_data = {
             'names': names,
             'lastnames': lastnames,
