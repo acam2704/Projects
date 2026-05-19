@@ -430,9 +430,11 @@ async function next(code_typed_before){
 // Función que valida si el código fue ingresado anteriormente al momento de registrarse
 function code_already_typed(){
     let data = localStorage.getItem('user')
+    let email = data['email'] ?? null;
     data = JSON.parse(data);
     const input_email_Re = document.getElementById('input_email_Re');
     
+    if(!email){next(false);}
     if( ( data['email'] === input_email_Re.value.trim() ) && data ){next(true);}
     else{localStorage.removeItem('user'); next(false);}
 }

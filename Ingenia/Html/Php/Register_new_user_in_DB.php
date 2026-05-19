@@ -7,7 +7,7 @@ date_default_timezone_set("America/El_Salvador");
 $json = file_get_contents('php://input', true );
 $data = json_decode($json, true);
 
-include('conexion_to_user_DB.php');
+include('conexion_SQLAzure.php');
 $now = date("Y-m-d H:i:s", time());
 $psw = $data['password'];
 $h_psw = password_hash($psw, PASSWORD_DEFAULT);
@@ -18,11 +18,7 @@ $h_dui = password_hash($dui, PASSWORD_DEFAULT);
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(!$conexion->error){
-            die(json_encode([
-                'status' => 'failed',
-                'error' => $conexion->connect_error,
-                'msg' => 'No hubo conexión'
-            ]));
+            throw new Error('Conexión no lograda');
         };
 
         $sql_request = $conexion->prepare('INSERT INTO users (names, surnames, email, password, description, phonenumber, dui, rol, degrees, picture, birthdate, 
@@ -37,24 +33,16 @@ try{
                 'msg' => 'Registrado con éxito'
             ]);
         } else{
-            echo json_encode([
-                'status' => 'failed',
-                'error' => $sql_request->error,
-                'msg' => 'Hubo un error al ejecutar el registro'
-            ]);
+            throw new Error('Error al registrar el usuario');
         }
     } else {
-        echo json_encode([
-            'status' => 'failed',
-            'error' => 'POST',
-            'msg' => 'El fetch no está enviando ningún POST'
-        ]);
+        throw new Error('Inválid Request');
     }
 } catch(Error $e){
-    echo json_encode([
+    die(json_encode([
         'status' => 'failed',
-        'error' => $_SERVER->error_get_last,
-        'msg' => 'Hubo un error al correr el código'
-    ]);
+        'error' => $e->getMessage(),
+        'msg' => 'Ocurrió un error'
+    ]));
 };
 ?>
