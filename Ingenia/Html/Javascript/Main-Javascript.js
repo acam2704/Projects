@@ -610,6 +610,15 @@ async function codeVerificationResponse(response){
     
     // El status de la respuesta debe de ser 'ok'
     if(response['status'] === 'ok'){
+        const names = document.getElementById('input_name_Re').value;
+        const lastnames = document.getElementById('input_lastname_re').value;
+        const email = document.getElementById('input_email_Re.value'); 
+        const json_data = {
+            'names': names,
+            'lastnames': lastnames,
+            'email': email
+        }
+        almacenate(json_data);
         // Se muestra la ventana de ingreso de información más delicada del usuario
         show_identity_information_window(elements_to_hide);
     } else{ // Si el status es diferente a 'ok'
