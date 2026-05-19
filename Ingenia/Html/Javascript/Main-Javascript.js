@@ -613,7 +613,7 @@ async function codeVerificationResponse(response){
         // Se muestra la ventana de ingreso de información más delicada del usuario
         show_identity_information_window(elements_to_hide);
     } else{ // Si el status es diferente a 'ok'
-        show_text_alert([text, 'Ingresa el código enviado']); // Se muestra la alerta
+        show_text_alert([[text], 'Ingresa el código enviado']); // Se muestra la alerta
         enable_inputs(elements_to_hide); // Se habilitan los inputs requeridos
     }
     hideLoader(); // Se oculta la animación de carga del botón
