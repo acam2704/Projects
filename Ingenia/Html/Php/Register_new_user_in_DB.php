@@ -65,6 +65,10 @@ try{
                 'error' => null, 
                 'msg' => 'Registrado con éxito'
             ]);
+
+            sqlsrv_free_stmt($stmt);
+            sqlsrv_close($conn);
+            
         } else{
             throw new Error(print_r(sqlsrv_errors(), true));
         }
@@ -77,5 +81,8 @@ try{
         'error' => $e->getMessage(),
         'msg' => 'Ocurrió un error'
     ]));
+
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
 };
 ?>
