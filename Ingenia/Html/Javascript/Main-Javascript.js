@@ -258,7 +258,7 @@ function enable_inputs(containers){
 function almacenate(data){
     const user_data = localStorage.getItem('user');
     let result = data;
-    if(user_data){user_data = JSON.parse(user_data); result = {user_data, data}}
+    if(user_data){user_data = JSON.parse(user_data); result = Object.assign({}, user_data, data);}
     console.log(localStorage.getItem('user'));
     // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
     localStorage.setItem('user', JSON.stringify(result));
@@ -294,6 +294,13 @@ document.addEventListener('DOMContentLoaded', function() {
         try{
             if (data[0] !== null){
                 data[0] = JSON.parse(data[0]);
+
+                for(const value of Object.keys(data)){
+                    if(value === undefined){
+                        throw new Error('Local and Session eliminated.');
+                    }
+                }
+
                 const email = data[0].email;
 
                 const name = data[0].names;
@@ -423,13 +430,12 @@ async function next(code_typed_before){
 
 // Función que valida si el código fue ingresado anteriormente al momento de registrarse
 function code_already_typed(){
-    let data = localStorage.getItem('user')
-    let email = data?.email ?? null;
+    let data = JSON.parse(localStorage.getItem('user'));
+    let email = data.email ?? null;
     data = JSON.parse(data);
     const input_email_Re = document.getElementById('input_email_Re');
-    
-    if(!email){next(false);}
-    if( ( data['email'] === input_email_Re.value.trim() ) && data ){next(true);}
+
+    if( email && ( email === input_email_Re.value.trim() ) ){next(true);}
     else{localStorage.removeItem('user'); next(false);}
 }
 
@@ -552,7 +558,6 @@ async function verification_code_window(email){
     const text = document.getElementById('text_VC1');
     const input_code_Re = document.getElementById('input_code_Re');
     // Se mantiene el texto mostrado
-    hideLoader();
     
     if(input_code_Re.value.trim().length === 0){ // El código debe de haberse ingresado
         show_text_alert([[text], 'Campo obligatorio']); // Se modifica text_VC1
@@ -591,7 +596,6 @@ function codeVerification(json_data){
         // La respuesta enviada se procesa en codeVerificationResponse
         codeVerificationResponse(JSON.parse(data))
     });
-    hideLoader(); // Se oculta la animación de carga del botón
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
