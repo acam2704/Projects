@@ -39,6 +39,7 @@ try{
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         $status = 'active';
+        $degress = json_encode($data['degrees'], true);
         $params = [
             &$data['names'], 
             &$data['lastnames'], 
@@ -48,7 +49,7 @@ try{
             &$data['phonenumber'],
             &$h_dui, 
             &$data['rol'], 
-            &$data['degrees'], 
+            &$degrees, 
             &$data['picture'], 
             &$data['birthdate'], 
             &$now, 
