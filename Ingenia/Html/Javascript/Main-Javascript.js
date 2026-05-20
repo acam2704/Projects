@@ -256,12 +256,16 @@ function enable_inputs(containers){
 }
 // Función que almacena datos dentro de localStorage y sessionStorage
 function almacenate(data){
-    const user_data = localStorage.getItem('user');
-    let result = data;
-    if(user_data){user_data = JSON.parse(user_data); result = Object.assign({}, user_data, data);}
-    console.log(localStorage.getItem('user'));
+    const user_data = JSON.parse(localStorage.getItem('user') ?? '{}');
+    if(Object.keys(user_data).length !== 0){
+        user_data = JSON.parse(user_data); 
+        for(const key of data){
+            user_data[key] = data[key];
+        }
+    } else { user_data = data; }
+    console.log(user_data);
     // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
-    localStorage.setItem('user', JSON.stringify(result));
+    localStorage.setItem('user', JSON.stringify(user_data));
     // Se almacena en la sesión, temporalmente, el dato 'email' y 'fullName' del usuario
     sessionStorage.setItem("email", data['email']);
     sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
@@ -393,9 +397,6 @@ async function next(code_typed_before){
         today.getMonth(),
         today.getDate()
     );
-
-    console.log('1' + minDate);
-    console.log('2' + input_date);
 
     if(input_date >= minDate){
         const alert = birthdate.previousElementSibling;
