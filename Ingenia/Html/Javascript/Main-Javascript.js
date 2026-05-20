@@ -426,6 +426,7 @@ async function next(code_typed_before){
 
         // Se envían a una función que envía un código de verificación
         sendCode(json_data);
+        
     }
 }
 

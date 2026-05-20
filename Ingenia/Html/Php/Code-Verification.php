@@ -66,7 +66,7 @@ try{
         'SERVER' => $_SERVER->error_get_last,
         'sql_request' => sqlsrv_errors(),
         'msg' => 'Revisar los errores. Verificación de código no conseguida',
-        'status' => 'fatal error',
+        'status' => 'failed',
         'error' => 'conexion error',
     ]));
 }

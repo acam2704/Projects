@@ -13,45 +13,30 @@ $data = json_decode($json_file, true);
 
 include("conexion_to_Verification_Codes_DB.php");
 
-if($conexion === false){
-    die(json_encode([
-        'status' => 'failed',
-        'error' => print_r(sqlsrv_errors(), true),
-        'msg' => 'error de conexión'
-    ]));
-} else if(!$data['email']){
-    die(json_encode([
-        'error' => 'no Email',
-        'msg' => 'no se ha podido tomar el valor del correo electrónico',
-        'status' => 'failed',
-    ]));
-};
+try{
+    if($conexion === false){
+        throw new Error(sqlsrv_errors());
+    }
+    if(!$data['email']){
+        throw new Error('no Email');
+    }
 
-$codigo = bin2hex(random_bytes(3));
-$codigo_hash = password_hash($codigo, PASSWORD_DEFAULT);
-$expiration = date("Y-m-d H:i:s", time() + 600);
-$now = date("Y-m-d H:i:s", time());
-$status = 'OK';
+    $codigo = bin2hex(random_bytes(3));
+    $codigo_hash = password_hash($codigo, PASSWORD_DEFAULT);
+    $expiration = date("Y-m-d H:i:s", time() + 600);
+    $now = date("Y-m-d H:i:s", time());
+    $status = 'OK';
 
-$sql_request = "INSERT INTO verification_codes (email, code, expires_at, status, created_at) VALUES (?, ?, ?, ?, ?)";
+    $sql_request = "INSERT INTO verification_codes (email, code, expires_at, status, created_at) VALUES (?, ?, ?, ?, ?)";
 
-try {
     if($_SERVER["REQUEST_METHOD"] === 'POST'){
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-            die(json_encode([
-                'status' => 'failed',
-                'error' => 'Invalid email: ' . $data['email'],
-                'msg' => 'Correo electrónico inválido'
-            ]));
-        };
+            throw new Error('Invalid email: ' . $data['email']);
+        }
         $params = array($data['email'], $codigo_hash, $expiration, $status, $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if($stmt === false){
-            die(json_encode([
-                'error' => sqlsrv_errors(),
-                'status' => 'failed',
-                'msg' => 'Correo no enviado',
-            ]));
+            throw new Error(sqlsrv_errors());
         }
         require '/home/site/wwwroot/Ingenia/PHPMailer/src/PHPMailer.php';
         require '/home/site/wwwroot/Ingenia/PHPMailer/src/SMTP.php';
@@ -62,7 +47,8 @@ try {
 
         if ($data['domain'] === 'microsoft'){
             $admin_email = getenv('microsoft_email');
-            $password = getenv('microsoft_email_password');
+            $password = getenv('microsoft_email_password'); 
+
             $mail->Host = 'smtp.office365.com';
             $mail->Username = $admin_email;
             $mail->Password = $password;
@@ -70,6 +56,7 @@ try {
         } else {
             $admin_email = getenv('google_email');
             $password = getenv('google_email_password');
+
             $mail->Host = 'smtp.gmail.com';
             $mail->Username = $admin_email;
             $mail->Password = $password;
@@ -101,19 +88,14 @@ try {
             'error' => null,
         ]);
     } else {
-        die(json_encode([
-            'status' => 'failed',
-            'error' => 'No POST',
-            'msg' => 'fetch enviado con method no POST',
-        ]));
+        throw new Error('No POST');
     }
 } catch(Error $e){
     die(json_encode([ 
-        'error' => print_r($e), 
-        'Exact_error' => $e->getMessage(),
+        'error' => print_r($e, true),
         'status' => 'error',
         'msg' => 'Revisar "Exact_error"',
-        ]));
+    ]));
 }
 
 
