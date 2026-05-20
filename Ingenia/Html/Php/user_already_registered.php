@@ -24,6 +24,9 @@ try{
     if($sql_request && sqlsrv_execute($sql_request) !== false){
         $email_from_DB = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
         if($email_from_DB){
+            sqlsrv_free_stmt($stmt);
+            sqlsrv_close($conn);
+
             echo json_encode([
                 'status' => 'ok',
                 'error' => null,
@@ -36,10 +39,13 @@ try{
         throw new Error(print_r(sqlsrv_errors(), true));
     }
 } catch(Error $e){
-    echo json_encode([
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
+
+    die(json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
         'msg' => 'check "error"'
-    ]);
+    ]));
 }
 ?>

@@ -53,6 +53,7 @@ try{
 
         sqlsrv_free_stmt($stmt);
         sqlsrv_close($conexion);
+        
     } else {
         echo json_encode([
                 'error' => $conexion->connect_error,

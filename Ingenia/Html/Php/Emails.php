@@ -92,10 +92,13 @@ try{
         throw new Error('No POST');
     }
 } catch(Error $e){
-    echo json_encode([ 
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
+
+    die(json_encode([ 
         'error' => $e->getMessage(),
         'status' => 'error',
         'msg' => 'Check "error"',
-    ]);
+    ]));
 }
 ?>

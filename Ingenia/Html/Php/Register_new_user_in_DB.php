@@ -76,13 +76,13 @@ try{
         throw new Error('Inválid Request');
     }
 } catch(Error $e){
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
+
     die(json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
         'msg' => 'Ocurrió un error'
     ]));
-
-    sqlsrv_free_stmt($stmt);
-    sqlsrv_close($conn);
 };
 ?>
