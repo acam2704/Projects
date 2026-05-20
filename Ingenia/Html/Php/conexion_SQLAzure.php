@@ -2,7 +2,7 @@
 $serverName = getenv('DBServer_name');
 $DataBase_password = getenv('DataBase_password');
 $DataBase_name = getenv('DataBase');
-$Uid = getenv('DBServer_Usernameid');
+$Uid = getenv('DBServer_UsernameId');
 $connectionOptions = array(
     "Database" => $DataBase_name,
     "Uid" => $Uid,
