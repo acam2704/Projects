@@ -11,33 +11,37 @@ $json_data = file_get_contents('php://input', true);
 $data = json_decode($json_data, true);
 
 try{
-    if($conn === false){
-        throw new Error('Conexión no conseguida');
-    }
-    if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-        throw new Error('Invalid email: ' . $data['email']);
-    }
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if($conn === false){
+            throw new Error('Conexión no conseguida');
+        }
+        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+            throw new Error('Invalid email: ' . $data['email']);
+        }
 
-    $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
-    $params = [ &$data['email'] ];
-    $sql_request = sqlsrv_prepare($conn, $sql, $params);
+        $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
+        $params = [ &$data['email'] ];
+        $sql_request = sqlsrv_prepare($conn, $sql, $params);
 
-    if($sql_request && sqlsrv_execute($sql_request) !== false){
-        $email_from_DB = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        if($email_from_DB){
-            sqlsrv_free_stmt($stmt);
-            sqlsrv_close($conn);
+        if($sql_request && sqlsrv_execute($sql_request) !== false){
+            $email_from_DB = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+            if($email_from_DB){
+                sqlsrv_free_stmt($stmt);
+                sqlsrv_close($conn);
 
-            echo json_encode([
-                'status' => 'ok',
-                'error' => null,
-                'msg' => 'No email registered'
-            ]);
+                echo json_encode([
+                    'status' => 'ok',
+                    'error' => null,
+                    'msg' => 'No email registered'
+                ]);
+            } else{
+                throw new Error('Email registered');
+            }
         } else{
-            throw new Error('Email registered');
+            throw new Error(print_r(sqlsrv_errors(), true));
         }
     } else{
-        throw new Error(print_r(sqlsrv_errors(), true));
+        throw new Error('No POST');
     }
 } catch(Error $e){
     sqlsrv_free_stmt($stmt);
