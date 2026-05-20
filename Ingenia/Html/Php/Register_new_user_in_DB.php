@@ -38,25 +38,27 @@ try{
             status
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
+        $status = 'active';
         $params = [
-            $data['names'], 
-            $data['lastnames'], 
-            $data['email'], $h_psw, 
-            $data['description'], 
-            $data['phonenumber'],
-            $h_dui, 
-            $data['rol'], 
-            $data['degrees'], 
-            $data['picture'], 
-            $data['birthdate'], 
-            $now, 
-            $now, 
-            'active'
+            &$data['names'], 
+            &$data['lastnames'], 
+            &$data['email'], 
+            &$h_psw, 
+            &$data['description'], 
+            &$data['phonenumber'],
+            &$h_dui, 
+            &$data['rol'], 
+            &$data['degrees'], 
+            &$data['picture'], 
+            &$data['birthdate'], 
+            &$now, 
+            &$now, 
+            &$status
         ];
 
         $sql_request = sqlsrv_prepare($conn, $sql, $params);
 
-        if($sql_request && sqlsrv_execute($sql_request)){
+        if($sql_request && sqlsrv_execute($sql_request) !== false){
             echo json_encode([
                 'status' => 'ok',
                 'error' => null, 
