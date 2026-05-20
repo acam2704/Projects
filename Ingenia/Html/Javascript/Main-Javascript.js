@@ -432,7 +432,6 @@ async function next(code_typed_before){
 function code_already_typed(){
     let data = JSON.parse(localStorage.getItem('user'));
     let email = data.email ?? null;
-    data = JSON.parse(data);
     const input_email_Re = document.getElementById('input_email_Re');
 
     if( email && ( email === input_email_Re.value.trim() ) ){next(true);}
