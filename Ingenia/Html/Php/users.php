@@ -18,7 +18,7 @@ try{
     while ($row = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC)) {
         echo "ID: " . $row['ID'] .
             " - names: " . $row['names'] .
-            " - lastnames: " . $row['lastnames'] .
+            " - lastnames: " . $row['surnames'] .
             " - email: " . $row['email'] .
             " - password: " . $row['password'] .
             " - description: " . $row['description'] .
