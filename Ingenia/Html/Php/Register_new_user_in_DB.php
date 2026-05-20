@@ -17,11 +17,11 @@ $h_dui = password_hash($dui, PASSWORD_DEFAULT);
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if(!$conexion->error){
+        if(!$conn->error){
             throw new Error('Conexión no lograda');
         };
 
-        $sql_request = $conexion->prepare('INSERT INTO users (names, surnames, email, password, description, phonenumber, dui, rol, degrees, picture, birthdate, 
+        $sql_request = $conn->prepare('INSERT INTO users (names, surnames, email, password, description, phonenumber, dui, rol, degrees, picture, birthdate, 
                                         created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $sql_request->bind_param('ssssssssssss', $data['names'], $data['lastnames'], $data['email'], $h_psw, $data['description'], $data['phonenumber'],
                         $h_dui, $data['rol'], $data['degrees'], $data['picture'], $data['birthdate'], $now, $now, 'active');
