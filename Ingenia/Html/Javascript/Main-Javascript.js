@@ -578,7 +578,6 @@ async function verification_code_window(email){
             codeVerification(json_data); // Se envía a verificarlo
         };
     }
-    hideLoader(); // Se oculta la animación de carga del botón
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
@@ -598,6 +597,7 @@ function codeVerification(json_data){
         // La respuesta enviada se procesa en codeVerificationResponse
         codeVerificationResponse(JSON.parse(data))
     });
+    hideLoader(); // Se oculta la animación de carga del botón
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
