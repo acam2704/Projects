@@ -24,7 +24,7 @@ try{
         $sql_request = sqlsrv_prepare($conn, $sql, $params);
 
         if($sql_request && sqlsrv_execute($sql_request) !== false){
-            $email_from_DB = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+            $email_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
             if($email_from_DB){
                 sqlsrv_free_stmt($sql_request);
                 sqlsrv_close($conn);
