@@ -766,7 +766,10 @@ function register_user(user_data){
         body: JSON.stringify(user_data)
     })
     .then(response => response.text())
-    .then(data => console.log(data));
+    .then(data => {
+        console.log(data);
+        console.log('Intento de registro:' + JSON.parse(data).status)
+    });
 }
 
 // Función que redirige al usuario a verificar su usuario con su cuenta de microsoft
