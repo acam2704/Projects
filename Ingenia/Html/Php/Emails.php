@@ -15,7 +15,7 @@ include("conexion_to_Verification_Codes_DB.php");
 
 try{
     if($conexion === false){
-        throw new Error(sqlsrv_errors());
+        throw new Error(print_r(sqlsrv_errors(), true));
     }
     if(!$data['email']){
         throw new Error('no Email');
@@ -36,7 +36,7 @@ try{
         $params = array($data['email'], $codigo_hash, $expiration, $status, $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if($stmt === false){
-            throw new Error(sqlsrv_errors());
+            throw new Error(print_r(sqlsrv_errors(), true));
         }
         require '/home/site/wwwroot/Ingenia/PHPMailer/src/PHPMailer.php';
         require '/home/site/wwwroot/Ingenia/PHPMailer/src/SMTP.php';
@@ -92,7 +92,7 @@ try{
     }
 } catch(Error $e){
     die(json_encode([ 
-        'error' => print_r($e, true),
+        'error' => $e->getMessage(),
         'status' => 'error',
         'msg' => 'Revisar "Exact_error"',
     ]));

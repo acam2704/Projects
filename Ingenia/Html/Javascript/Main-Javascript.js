@@ -507,7 +507,7 @@ function emailSent(response){
         const elements_to_hide = [personal_information_container, content_check_buttons_with];
         const error_text_alert = document.getElementById('error_text_alert');
         // No debe de haber error en la etiqueta 'error' de la respuesta
-        if(response['error'] === null){
+        if(response['error'] === null){containers_to_hide.push(main_title);
             // El status de la respueta debe ser 'ok'
             if(response["status"] === "ok"){
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
@@ -523,9 +523,9 @@ function emailSent(response){
             }
         } else if(response['error'].includes('Invalid email')){
             enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
-            const text_VC1 = document.getElementById('text_VC1');
             const input_email_Re = document.getElementById('input_email_Re');
-            show_text_alert([[text_VC1], 'Correo inválido']); // Se le dice al usuario que el correo es inválido
+            const alert = input_email_Re.previousElementSibling;
+            show_text_alert([[alert], 'Correo inválido']); // Se le dice al usuario que el correo es inválido
             input_email_Re.focus(); // Se devuelve el foco a input_email_Re
         } else {
             enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
