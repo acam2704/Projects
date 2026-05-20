@@ -256,7 +256,7 @@ function enable_inputs(containers){
 }
 // Función que almacena datos dentro de localStorage y sessionStorage
 function almacenate(data){
-    const user_data = JSON.parse(localStorage.getItem('user') ?? '{}');
+    let user_data = JSON.parse(localStorage.getItem('user') ?? '{}');
     if(Object.keys(user_data).length !== 0){
         user_data = JSON.parse(user_data); 
         for(const key of data){
