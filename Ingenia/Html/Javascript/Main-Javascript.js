@@ -444,6 +444,7 @@ function email_registered(response, elements_to_hide){
     const alert = input_email_Re.previousElementSibling;
 
     if(response.status === 'ok'){
+        console.log(response);
         code_already_typed(elements_to_hide);
         return;
     } else if(response.error.includes('Email registered')){
@@ -454,6 +455,7 @@ function email_registered(response, elements_to_hide){
         const error_text_alert = document.getElementById('error_text_alert');
         show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
     }
+    console.log(response);
     enable_inputs(elements_to_hide);
     hideLoader();
 }
