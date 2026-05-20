@@ -34,6 +34,7 @@ try{
             " - status: " . $row['status'] .
             " <br />";
     }
+    echo 'hola';
 }catch(Error $e){
     die(json_encode([
         'status' => 'failed',
