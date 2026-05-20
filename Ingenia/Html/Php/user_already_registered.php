@@ -2,6 +2,7 @@
 header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Content-Type');
+header('Content-Type: application/json');
 
 date_default_timezone_set("America/El_Salvador");
 include('conexion_SQLAzure.php');
