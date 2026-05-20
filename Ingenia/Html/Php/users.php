@@ -28,9 +28,9 @@ try{
             " - rol: " . $row['rol'] .
             " - degrees: " . $row['degrees'] .
             " - picture: " . $row['picture'] .
-            " - birthdate: " . $row['birthdate'] .
-            " - created_at: " . $row['created_at'] .
-            " - updated_at: " . $row['updated_at'] .
+            " - birthdate: " . $row['birthdate']->format('Y-m-d') .
+            " - created_at: " . $row['created_at']->format('Y-m-d H:i:s') .
+            " - updated_at: " . $row['updated_at']->format('Y-m-d H:i:s') .
             " - status: " . $row['status'] .
             " <br />";
     }
