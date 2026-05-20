@@ -35,7 +35,11 @@ try{
             " <br />";
     }
     echo 'hola';
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
 }catch(Error $e){
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
     die(json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
@@ -43,6 +47,5 @@ try{
     ]));
 }
 
-sqlsrv_free_stmt($stmt);
-sqlsrv_close($conn);
+
 ?>

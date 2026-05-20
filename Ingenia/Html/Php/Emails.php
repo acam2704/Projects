@@ -46,7 +46,7 @@ try{
         $mail = new PHPMailer(true);
         $mail->isSMTP();
 
-        if ($data['domain'] === 'microsoft'){
+        if ($data['domain'] !== 'google'){
             $admin_email = getenv('microsoft_email');
             $password = getenv('microsoft_email_password'); 
 

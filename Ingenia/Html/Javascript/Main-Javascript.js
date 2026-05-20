@@ -354,8 +354,35 @@ document.getElementById('inputs_container').querySelectorAll(':scope > article')
     })
 });
 
+// Función que valida si el código fue ingresado anteriormente al momento de registrarse
+function code_already_typed(elements_to_hide){
+    let data = JSON.parse(localStorage.getItem('user'));
+    let email = data?.email ?? null;
+    const input_email_Re = document.getElementById('input_email_Re');
+
+    if ( email && ( email === input_email_Re.value.trim() ) ) {
+        show_identity_information_window(elements_to_hide);
+    } else{
+        localStorage.removeItem('user');
+        // Se crea un json con la Información Personal del usuario
+        const input_name_Re = document.getElementById('input_name_Re');
+        const input_lastname_Re = document.getElementById('input_lastname_Re');
+        const input_email_Re = document.getElementById('input_email_Re');
+
+        const json_data = JSON.stringify({
+            names: input_name_Re.value,
+            lastnames: input_lastname_Re.value,
+            email: input_email_Re.value,
+            domain: 'google'
+        });
+
+        // Se envían a una función que envía un código de verificación
+        sendCode(json_data);
+    }
+}
+
 // Función que se usa cuando se ingresan manualmente los campos de Información Personal
-async function next(code_typed_before){
+async function next(){
     // Se preparan los inputs a ocultar y que, en caso de fallar su validación, se vuelven a habilitar
     const elements_to_hide = [personal_information_container, content_check_buttons_with];
 
@@ -408,35 +435,41 @@ async function next(code_typed_before){
         return; // Se fuerza el final de la función
     }
 
-    if (code_typed_before) {
-        show_identity_information_window(elements_to_hide);
-    } else{
-        // Se crea un json con la Información Personal del usuario
-        const input_name_Re = document.getElementById('input_name_Re');
-        const input_lastname_Re = document.getElementById('input_lastname_Re');
-        const input_email_Re = document.getElementById('input_email_Re');
-
-        const json_data = JSON.stringify({
-            names: input_name_Re.value,
-            lastnames: input_lastname_Re.value,
-            email: input_email_Re.value,
-            domain: 'google'
-        });
-
-        // Se envían a una función que envía un código de verificación
-        sendCode(json_data);
-        
-    }
+    const input_email_Re = document.getElementById('input_email_Re');
+    validate_email(input_email_Re.value.trim(), elements_to_hide);
 }
 
-// Función que valida si el código fue ingresado anteriormente al momento de registrarse
-function code_already_typed(){
-    let data = JSON.parse(localStorage.getItem('user'));
-    let email = data?.email ?? null;
+function email_registered(response, elements_to_hide){
     const input_email_Re = document.getElementById('input_email_Re');
+    const alert = input_email_Re.previousElementSibling;
 
-    if( email && ( email === input_email_Re.value.trim() ) ){next(true);}
-    else{localStorage.removeItem('user'); next(false);}
+    if(response.status === 'ok'){
+        code_already_typed(elements_to_hide);
+        return;
+    } else if(response.error.includes('Email registered')){
+        show_text_alert([[alert], 'Correo en uso']);
+    } else if(response.error.includes('Invalid email')){
+        show_text_alert([[alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
+    } else{
+        const error_text_alert = document.getElementById('error_text_alert');
+        show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
+    }
+    enable_inputs(elements_to_hide);
+    hideLoader();
+}
+
+function validate_email(email, elements_to_hide){
+    fetch('Php/user_already_registered.php', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: email})
+    })
+    .then(response => response.text())
+    .then(data => {
+        email_registered(JSON.parse(data), elements_to_hide);
+    });
 }
 
 // Función que se usa al verificar la cuenta con Google (handleCredentialResponse -> transformData)
@@ -952,8 +985,8 @@ function validate_data(user_data){
             const value = user_data[key];
             if(!value || value === undefined){
                 enable_inputs([public_profile_information_container]);
-                hideLoader();
                 show_text_alert([[error_text_alert], 'Ningún campo debe de estar vacío']);
+                hideLoader();
                 return;
             }
         }
