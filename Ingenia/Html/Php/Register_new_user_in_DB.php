@@ -41,8 +41,8 @@ try{
         $status = 'active';
         $degress = json_encode($data['degrees'], true);
         $params = [
-            &$data['names'], 
-            &$data['lastnames'], 
+            &$data['name'], 
+            &$data['lastname'], 
             &$data['email'], 
             &$h_psw, 
             &$data['description'], 
