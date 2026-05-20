@@ -436,31 +436,37 @@ async function next(){
     }
 
     const input_email_Re = document.getElementById('input_email_Re');
-    validate_email(input_email_Re.value.trim(), elements_to_hide);
+    validate_email(input_email_Re.value.trim(), elements_to_hide, true);
 }
 
-function email_registered(response, elements_to_hide){
+function email_registered(response, elements_to_hide, boolean){
     const input_email_Re = document.getElementById('input_email_Re');
     const alert = input_email_Re.previousElementSibling;
 
-    if(response.status === 'ok'){
+    if(boolean){
+        if(response.status === 'ok'){
+            console.log(response);
+            code_already_typed(elements_to_hide);
+            return;
+        } else if(response.error.includes('Email registered')){
+            show_text_alert([[alert], 'Correo en uso']);
+        } else if(response.error.includes('Invalid email')){
+            show_text_alert([[alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
+        } else{
+            const error_text_alert = document.getElementById('error_text_alert');
+            show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
+        }
         console.log(response);
-        code_already_typed(elements_to_hide);
-        return;
-    } else if(response.error.includes('Email registered')){
-        show_text_alert([[alert], 'Correo en uso']);
-    } else if(response.error.includes('Invalid email')){
-        show_text_alert([[alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
+        enable_inputs(elements_to_hide);
+        hideLoader();
     } else{
-        const error_text_alert = document.getElementById('error_text_alert');
-        show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
+        if(response.status === 'ok'){
+
+        }
     }
-    console.log(response);
-    enable_inputs(elements_to_hide);
-    hideLoader();
 }
 
-function validate_email(email, elements_to_hide){
+function validate_email(email, elements_to_hide, boolean){
     fetch('Php/user_already_registered.php', {
         method: 'POST', 
         headers: {
@@ -470,7 +476,7 @@ function validate_email(email, elements_to_hide){
     })
     .then(response => response.text())
     .then(data => {
-        email_registered(JSON.parse(data), elements_to_hide);
+        email_registered(JSON.parse(data), elements_to_hide, boolean);
     });
 }
 
@@ -993,6 +999,7 @@ function validate_data(user_data){
             }
         }
     }
+    validate_email(user_data.email, [], false);
     register_user(user_data);
 }
 

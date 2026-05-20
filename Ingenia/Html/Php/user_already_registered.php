@@ -34,7 +34,8 @@ try{
                 echo json_encode([
                     'status' => 'ok',
                     'error' => null,
-                    'msg' => 'No email registered'
+                    'msg' => 'No email registered',
+                    'user' => $data
                 ]);
             }
         } else{
@@ -50,7 +51,7 @@ try{
     die(json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
-        'msg' => 'check "error"'
+        'msg' => 'check "error"',
     ]));
 }
 ?>
