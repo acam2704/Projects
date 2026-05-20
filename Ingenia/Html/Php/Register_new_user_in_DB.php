@@ -66,7 +66,7 @@ try{
                 'msg' => 'Registrado con éxito'
             ]);
 
-            sqlsrv_free_stmt($stmt);
+            sqlsrv_free_stmt($sql_request);
             sqlsrv_close($conn);
             
         } else{
@@ -76,7 +76,7 @@ try{
         throw new Error('Inválid Request');
     }
 } catch(Error $e){
-    sqlsrv_free_stmt($stmt);
+    sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
 
     die(json_encode([

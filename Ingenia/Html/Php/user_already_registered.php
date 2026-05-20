@@ -26,7 +26,7 @@ try{
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $email_from_DB = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
             if($email_from_DB){
-                sqlsrv_free_stmt($stmt);
+                sqlsrv_free_stmt($sql_request);
                 sqlsrv_close($conn);
 
                 echo json_encode([
@@ -44,7 +44,7 @@ try{
         throw new Error('No POST');
     }
 } catch(Error $e){
-    sqlsrv_free_stmt($stmt);
+    sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
 
     die(json_encode([
