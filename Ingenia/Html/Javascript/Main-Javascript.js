@@ -257,14 +257,8 @@ function enable_inputs(containers){
 // Función que almacena datos dentro de localStorage y sessionStorage
 function almacenate(data){
     const user_data = localStorage.getItem('user');
-    let result = {};
-    if(user_data){
-        user_data = JSON.parse(user_data);
-        result = {
-            user_data,
-            data
-        }
-    }
+    let result = data;
+    if(user_data){user_data = JSON.parse(user_data); result = {user_data, data}}
     console.log(localStorage.getItem('user'));
     // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
     localStorage.setItem('user', JSON.stringify(result));
@@ -612,7 +606,7 @@ async function codeVerificationResponse(response){
     if(response['status'] === 'ok'){
         const names = document.getElementById('input_name_Re').value;
         const lastnames = document.getElementById('input_lastname_Re').value;
-        const email = document.getElementById('input_email_Re.value').value; 
+        const email = document.getElementById('input_email_Re').value; 
         const json_data = {
             'names': names,
             'lastnames': lastnames,
