@@ -1042,7 +1042,7 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
 
     // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
     if(getComputedStyle(personal_information_container).display !== 'none'){
-        code_already_typed(); // Validación de la información
+        next(); // Validación de la información
     } else if(getComputedStyle(verification_code_container).display !== 'none'){
         verification_code_window(sessionStorage.getItem('email')); // Validación de código
     } else if(getComputedStyle(identity_information_container).display !== 'none'){
