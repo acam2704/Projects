@@ -17,23 +17,53 @@ $h_dui = password_hash($dui, PASSWORD_DEFAULT);
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if(!$conn->error){
+        if($conn === false){
             throw new Error('Conexión no lograda');
         };
 
-        $sql_request = $conn->prepare('INSERT INTO users (names, surnames, email, password, description, phonenumber, dui, rol, degrees, picture, birthdate, 
-                                        created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $sql_request->bind_param('ssssssssssss', $data['names'], $data['lastnames'], $data['email'], $h_psw, $data['description'], $data['phonenumber'],
-                        $h_dui, $data['rol'], $data['degrees'], $data['picture'], $data['birthdate'], $now, $now, 'active');
+        $sql = 'INSERT INTO users (
+            names, 
+            surnames, 
+            email, 
+            password, 
+            description, 
+            phonenumber, 
+            dui, 
+            rol, 
+            degrees, 
+            picture, 
+            birthdate, 
+            created_at, 
+            updated_at, 
+            status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        if($sql_request->execute()){
+        $params = [
+            $data['names'], 
+            $data['lastnames'], 
+            $data['email'], $h_psw, 
+            $data['description'], 
+            $data['phonenumber'],
+            $h_dui, 
+            $data['rol'], 
+            $data['degrees'], 
+            $data['picture'], 
+            $data['birthdate'], 
+            $now, 
+            $now, 
+            'active'
+        ];
+
+        $sql_request = sqlsrv_prepare($conn, $sql, $params);
+
+        if($sql_request && sqlsrv_execute($sql_request)){
             echo json_encode([
                 'status' => 'ok',
                 'error' => null, 
                 'msg' => 'Registrado con éxito'
             ]);
         } else{
-            throw new Error('Error al registrar el usuario');
+            throw new Error(print_r(sqlsrv_errors(), true));
         }
     } else {
         throw new Error('Inválid Request');
