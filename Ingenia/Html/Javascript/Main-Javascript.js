@@ -506,7 +506,7 @@ function emailSent(response){
         const elements_to_hide = [personal_information_container, content_check_buttons_with];
         const error_text_alert = document.getElementById('error_text_alert');
         // No debe de haber error en la etiqueta 'error' de la respuesta
-        if(response['error'] === null){containers_to_hide.push(main_title);
+        if(response['error'] === null){
             // El status de la respueta debe ser 'ok'
             if(response["status"] === "ok"){
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
@@ -532,8 +532,10 @@ function emailSent(response){
             show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo otra vez']);
         }
     } catch(e){
-        console.log({ name: e.name, 
-            message: e.message}); // Si hubo un error se muestra en la consola
+        console.log({ 
+            name: e.name, 
+            message: e.message
+        }); // Si hubo un error se muestra en la consola
         alert("Recargue la página y vuelva a intentarlo"); // Se le pide al usuario volver a intentar el Registro
     }
     hideLoader(); // Se oculta la animación de carga del botón
