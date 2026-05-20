@@ -26,6 +26,8 @@ try{
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $email_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
             if($email_from_DB){
+                throw new Error('Email registered');
+            } else{
                 sqlsrv_free_stmt($sql_request);
                 sqlsrv_close($conn);
 
@@ -34,8 +36,6 @@ try{
                     'error' => null,
                     'msg' => 'No email registered'
                 ]);
-            } else{
-                throw new Error('Email registered');
             }
         } else{
             throw new Error(print_r(sqlsrv_errors(), true));
