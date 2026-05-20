@@ -506,21 +506,21 @@ function emailSent(response){
         const elements_to_hide = [personal_information_container, content_check_buttons_with];
         const error_text_alert = document.getElementById('error_text_alert');
         // No debe de haber error en la etiqueta 'error' de la respuesta
-        if(response['error'] === null){
+        if(response.error === null){
             // El status de la respueta debe ser 'ok'
-            if(response["status"] === "ok"){
+            if(response.status === "ok"){
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
                 almacenate(response); // Datos importantes: sent_at y sent_to
                 show_verification_code_window(elements_to_hide);
-            } else{
+            } else {
                 // De otro modo, se imprime en la consola el status
-                console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response['status']);
+                console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response.status);
                 // Se le dice al usuario que hubo un error
                 show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo de nuevo']);
                 // Se habilita la modificación de los valores de los inputs
                 enable_inputs(elements_to_hide);
             }
-        } else if(response['error'].includes('Invalid email')){
+        } else if(response.error.includes('Invalid email')){
             enable_inputs(elements_to_hide); // Se habilita la modificación de los valores de los inputs
             const input_email_Re = document.getElementById('input_email_Re');
             const alert = input_email_Re.previousElementSibling;

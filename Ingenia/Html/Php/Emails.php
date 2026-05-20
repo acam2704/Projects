@@ -2,6 +2,7 @@
 header("Access-Control-Allow-Origin: https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET, OPTIONS, POST");
+header('Content-Type: application/json');
 use PHPMailer\PHPMailer\PHPMailer;
 
 ini_set('display_errors', 0);
@@ -91,10 +92,10 @@ try{
         throw new Error('No POST');
     }
 } catch(Error $e){
-    die(json_encode([ 
+    echo json_encode([ 
         'error' => $e->getMessage(),
         'status' => 'error',
-        'msg' => 'Revisar "Exact_error"',
-    ]));
+        'msg' => 'Check "error"',
+    ]);
 }
 ?>
