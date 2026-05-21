@@ -44,6 +44,6 @@ document.getElementById('input_dui_OCR').addEventListener('change', function(){
     });
     const data = await response.json();
     console.log(data);
-    text.textContent = data.currentAddress + '\n' + data.dateOfBirth + '\n' + data.documentNumber + '\n'
-    + data.email + '\n' + data.firstName + '\n' + data.lastName + '\n' + data.phoneNumber + '\n' + data.status;
+    text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
+    + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
 });
