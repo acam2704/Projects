@@ -44,7 +44,7 @@ try{
             &$data['names'], 
             &$data['lastnames'], 
             &$data['email'], 
-            &$h_psw, 
+            &$data['dui'], 
             &$data['description'], 
             &$data['phonenumber'],
             &$h_dui, 

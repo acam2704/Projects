@@ -434,8 +434,10 @@ async function next(){
         return; // Se fuerza el final de la función
     }
 
-    const input_email_Re = document.getElementById('input_email_Re');
-    validate_email({email: input_email_Re.value.trim()}, elements_to_hide, true);
+    const email = document.getElementById('input_email_Re').value.trim();
+    const phonenumber = document.getElementById('input_phonenumber_Re').value.trim();
+    const dui = document.getElementById('input_dui_Re').value.trim();
+    validate_email({email: email, phonenumber: phonenumber, dui: dui}, elements_to_hide, true);
 }
 
 function email_registered(response, elements_to_hide, param){
@@ -449,9 +451,13 @@ function email_registered(response, elements_to_hide, param){
     if(response[0].error.includes('Email registered')){
         show_text_alert([[error_text_alert], 'Correo en uso']);
     } else if(response[0].error.includes('Invalid email')){
-        show_text_alert([[error_text_alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
+        show_text_alert([[error_text_alert], 'Correo inválido. Asegurate de haberlo digitado correctamente']);
+    } else if(response[0].error.includes('Phonenumber registered')){
+        show_text_alert([[error_text_alert], 'Número de contacto en uso']);
+    } else if(response[0].error.includes('DUI registered')){
+        show_text_alert([[error_text_alert], 'DUI en uso']);
     } else{
-        show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
+        show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo de nuevo'])
     }
     console.log(response);
     enable_inputs(elements_to_hide);
@@ -464,7 +470,7 @@ function validate_email(user_data, elements_to_hide, param){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: user_data.email})
+        body: JSON.stringify({email: user_data.email, dui: user_data.dui, phonenumber: user_data.phonenumber})
     })
     .then(response => response.text())
     .then(data => {
@@ -1052,7 +1058,9 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
         verifyPasswords(); // Validación de contraseñas
     } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
         const email = document.getElementById('input_email_Re').value;
-        validate_email({email: email.trim()}, [], false);
+        const dui = document.getElementById('input_dui_Re').value;
+        const phonenumber = document.getElementById('input_phonenumber_Re').value;
+        validate_email({email: email.trim(), dui: dui.trim(), phonenumber: phonenumber.trim()}, [], false);
     }
 });
 

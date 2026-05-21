@@ -19,6 +19,7 @@ try{
             throw new Error('Invalid email: ' . $data['email']);
         }
 
+        /* VERIFICAR QUE EL EMAIL NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
         $params = [ &$data['email'] ];
         $sql_request = sqlsrv_prepare($conn, $sql, $params);
@@ -27,6 +28,30 @@ try{
             $email_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
             if($email_from_DB){
                 throw new Error('Email registered');
+            }
+        } else{ throw new Error(print_r(sqlsrv_errors(), true)); }
+
+        /* VERIFICAR QUE EL NÚMERO DE CONTACTO NO SE HAYA REGISTRADO */
+        $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
+        $params = [ &$data['phonenumber'] ];
+        $sql_request = sqlsrv_prepare($conn, $sql, $params);
+
+        if($sql_request && sqlsrv_execute($sql_request) !== false){
+            $phonenumber_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
+            if($phonenumber_from_DB){
+                throw new Error('Phonenumber registered');
+            }
+        } else{ throw new Error(print_r(sqlsrv_errors(), true)); }
+
+        /* VERIFICAR QUE EL DUI NO SE HAYA REGISTRADO */
+        $sql = 'SELECT TOP 1 1 FROM users WHERE dui = ?';
+        $params = [ &$data['dui'] ];
+        $sql_request = sqlsrv_prepare($conn, $sql, $params);
+
+        if($sql_request && sqlsrv_execute($sql_request) !== false){
+            $dui_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
+            if($dui_from_DB){
+                throw new Error('DUI registered');
             } else{
                 sqlsrv_free_stmt($sql_request);
                 sqlsrv_close($conn);
@@ -38,9 +63,8 @@ try{
                     'user' => $data
                 ]);
             }
-        } else{
-            throw new Error(print_r(sqlsrv_errors(), true));
-        }
+        } else{ throw new Error(print_r(sqlsrv_errors(), true)); }
+
     } else{
         throw new Error('No POST');
     }
