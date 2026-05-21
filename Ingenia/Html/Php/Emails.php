@@ -70,7 +70,8 @@ try{
         $mail->addAddress($data['email']);
 
         $mail->Subject = 'Código de Verificación';
-    
+        $mail->isHTML(true);
+
         $link = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html';
         $mail->Body = "
         <html>
