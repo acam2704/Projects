@@ -295,6 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     try{
         if(session){ 
+            session = JSON.parse(session);
             const params =  ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code'];
             let user_data = {};
             for(const param of params){
