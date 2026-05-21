@@ -8,7 +8,7 @@ try{
     $endpoint = getenv('MSI_ENDPOINT');
     $secret = getenv('MSI_SECRET');
 
-    $resource = urlencode('https://cognitiveservices.azure.com/');
+    $resource = urlencode('https://cognitiveservices.azure.com');
     $url = $endpoint . '?resource=' . $resource . '&api-version=2019-08-01';
     $ch = curl_init($url);
 
@@ -16,8 +16,10 @@ try{
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Secret: $secret"
+        "Secret: $secret",
+        "Metadata: true"
     ]);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
 
     $response = curl_exec($ch);
     if(curl_errno($ch)){
