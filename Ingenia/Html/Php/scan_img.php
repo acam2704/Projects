@@ -8,7 +8,9 @@ try{
     $endpoint = getenv("IDENTITY_ENDPOINT");
     $secret = getenv("IDENTITY_HEADER");
     $resource = urlencode("https://cognitiveservices.azure.com");
-    $url = $endpoint . "?resource=$resource&api-version=2019-08-01";
+    $my_resource = urlencode("https://ingeniadinteliggence.cognitiveservices.azure.com/");
+    
+    $url = $endpoint . "?resource=$resource&api-version=2019-08-01"; // Para tomar token
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -113,6 +115,20 @@ try{
         throw new Exception("OCR no completado: " . json_encode($ocrData));
     }
     $text = $ocrData['analyzeResult']['content'];
+    $fields = $ocrData['analyzeResult']['documents'][0]['fields'];
+
+    $firstName = $fields['FirstName']['content'] ?? null;
+    $lastName = $fields['LastName']['content'] ?? null;
+    $documentNumber = $fields['DocumentNumber']['content'] ?? null;
+    $dateOfBirth = $fields['DateOfBirth']['content'] ?? null;
+
+    echo json_encode([
+        'status' => 'ok',
+        'firstName' => $firstName,
+        'lastName' => $lastName,
+        'documentNumber' => $documentNumber,
+        'dateOfBirth' => $dateOfBirth
+    ]);
     echo json_encode([
         'status' => 'ok',
         'error' => null,
