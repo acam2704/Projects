@@ -25,6 +25,7 @@
 
 document.getElementById('file_dui_OCR').addEventListener('click', async function() {
     const file = document.getElementById('input_dui_OCR').files[0];
+    const text = document.getElementById('main_alert');
     const form = new FormData();
     form.append('file', file);
 
@@ -34,6 +35,7 @@ document.getElementById('file_dui_OCR').addEventListener('click', async function
     });
     const data = await response.json();
     console.log(data);
+    text.textContent = data;
 });
 
 document.getElementById('input_dui_OCR').addEventListener('change', function(){
