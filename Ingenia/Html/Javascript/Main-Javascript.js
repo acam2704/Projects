@@ -445,7 +445,7 @@ function email_registered(response, elements_to_hide, param){
 
     if(response[0].status === 'ok'){
         if(param){ console.log(response); code_already_typed(elements_to_hide); return; }
-        else if(param){ console.log(response); almacenate(response[1]); window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'; return; }
+        else{ console.log(response); almacenate(response[1]); window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'; return; }
     }
 
     if(response[0].error.includes('Email registered')){
