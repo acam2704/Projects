@@ -138,7 +138,7 @@ try{
     echo json_encode([
         'status' => 'ok',
         'error' => null,
-        'text' => $text
+        'text' => $fields
     ]);
 
 } catch(Exception $e){
