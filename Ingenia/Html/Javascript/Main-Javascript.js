@@ -258,13 +258,9 @@ function enable_inputs(containers){
 function almacenate(data){
     let user_data = JSON.parse(localStorage.getItem('user') ?? '{}');
     const avoid = ['1psw', '2psw', 'code'];
-    if(Object.keys(user_data).length !== 0){ 
-        for(const key of Object.keys(data)){
-            if(!avoid.includes(key)){
-                user_data[key] = data[key];
-            }
-        }
-    } else { user_data = data; }
+    user_data.email = data.email;
+    user_data.names = data.names;
+    user_data.lastnames = data.lastnames;
     console.log(user_data);
     // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
     localStorage.setItem('user', JSON.stringify(user_data));
@@ -314,12 +310,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const elements_to_show = [personal_information_container];
 
-                const input_name_Re = document.getElementById('input_name_Re');
-                const input_lastname_Re = document.getElementById('input_lastname_Re');
+                const input_names_Re = document.getElementById('input_names_Re');
+                const input_lastnames_Re = document.getElementById('input_lastnames_Re');
                 const input_email_Re = document.getElementById('input_email_Re');
 
-                input_name_Re.value = name;
-                input_lastname_Re.value = surname;
+                input_names_Re.value = name;
+                input_lastnames_Re.value = surname;
                 input_email_Re.value = email;
 
                 hide_and_show(elements_to_show, []);
@@ -368,13 +364,13 @@ function code_already_typed(elements_to_hide){
     } else{
         localStorage.removeItem('user');
         // Se crea un json con la Información Personal del usuario
-        const input_name_Re = document.getElementById('input_name_Re');
-        const input_lastname_Re = document.getElementById('input_lastname_Re');
+        const input_names_Re = document.getElementById('input_names_Re');
+        const input_lastnames_Re = document.getElementById('input_lastnames_Re');
         const input_email_Re = document.getElementById('input_email_Re');
 
         const json_data = JSON.stringify({
-            names: input_name_Re.value,
-            lastnames: input_lastname_Re.value,
+            names: input_names_Re.value,
+            lastnames: input_lastnames_Re.value,
             email: input_email_Re.value,
             domain: 'google'
         });
@@ -442,14 +438,14 @@ async function next(){
     validate_email({email: input_email_Re.value.trim()}, elements_to_hide, true);
 }
 
-function email_registered(response, elements_to_hide, boolean){
+function email_registered(response, elements_to_hide, param){
     const input_email_Re = document.getElementById('input_email_Re');
     const alert = input_email_Re.previousElementSibling;
     const error_text_alert = document.getElementById('error_text_alert');
 
     if(response[0].status === 'ok'){
-        if(boolean){ console.log(response); code_already_typed(elements_to_hide); return; }
-        else{ console.log(response); almacenate(response[1]); window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'; return; }
+        if(param){ console.log(response); code_already_typed(elements_to_hide); return; }
+        else if(param){ console.log(response); almacenate(response[1]); window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'; return; }
     }
 
     if(response[0].error.includes('Email registered')){
@@ -464,7 +460,7 @@ function email_registered(response, elements_to_hide, boolean){
     hideLoader();
 }
 
-function validate_email(user_data, elements_to_hide, boolean){
+function validate_email(user_data, elements_to_hide, param){
     fetch('Php/user_already_registered.php', {
         method: 'POST', 
         headers: {
@@ -474,23 +470,24 @@ function validate_email(user_data, elements_to_hide, boolean){
     })
     .then(response => response.text())
     .then(data => {
-        email_registered([JSON.parse(data), user_data], elements_to_hide, boolean);
+        email_registered([JSON.parse(data), user_data], elements_to_hide, param);
     });
 }
 
 // Función que se usa al verificar la cuenta con Google (handleCredentialResponse -> transformData)
 async function transformData(json){
-    const input_name_Re = document.getElementById('input_name_Re');
-    const input_lastname_Re = document.getElementById('input_lastname_Re');
+    const input_names_Re = document.getElementById('input_names_Re');
+    const input_lastnames_Re = document.getElementById('input_lastnames_Re');
     const input_email_Re = document.getElementById('input_email_Re');
-    const img_Re = document.getElementById('img_Re');
+    const file_img_Re = document.getElementById('file_img_Re');
     // El status de la respuesta a la verificación de las credenciales debe de ser 'ok'
     if(json["status"] === "ok"){
-
         // Se ingresa el supuesto nombre y el apellido del usuario
-        input_name_Re.value = json.names;
-        input_lastname_Re.value = json.lastnames;
+        input_names_Re.value = json.names;
+        input_lastnames_Re.value = json.lastnames;
         input_email_Re.value = json.email;
+        file_img_Re.src = json.picture;
+
         almacenate(json);
     }
 }
@@ -650,8 +647,8 @@ async function codeVerificationResponse(response){
     
     // El status de la respuesta debe de ser 'ok'
     if(response['status'] === 'ok'){
-        const names = document.getElementById('input_name_Re').value;
-        const lastnames = document.getElementById('input_lastname_Re').value;
+        const names = document.getElementById('input_names_Re').value;
+        const lastnames = document.getElementById('input_lastnames_Re').value;
         const email = document.getElementById('input_email_Re').value; 
         const json_data = {
             'names': names,
