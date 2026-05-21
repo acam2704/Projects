@@ -570,7 +570,6 @@ function emailSent(response){
             // El status de la respueta debe ser 'ok'
             if(response.status === "ok"){
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
-                almacenate(response); // Datos importantes: sent_at y sent_to
                 show_verification_code_window(elements_to_hide);
             } else {
                 // De otro modo, se imprime en la consola el status
