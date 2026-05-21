@@ -801,8 +801,7 @@ function register_user(user_data){
     })
     .then(response => response.text())
     .then(data => {
-        console.log(data);
-        console.log('Intento de registro:' + JSON.parse(data).status)
+        window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'
     });
 }
 
@@ -992,6 +991,7 @@ function validate_data(user_data){
             }
         }
     }
+    almacenate(user_data);
     register_user(user_data);
 }
 
