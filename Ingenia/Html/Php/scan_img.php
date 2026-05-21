@@ -31,6 +31,15 @@ try{
 
     $token = $tokenData['access_token'];
     $endpoint = 'https://ingeniadinteliggence.cognitiveservices.azure.com/documentintelligence/documentModels/prebuilt-idDocument:analyze?api-version=2024-11-30';
+    
+    if (!isset($_FILES['file'])) {
+        throw new Exception("No se recibió ningún archivo");
+    }
+    $maxSize = 10 * 1024 * 1024;
+    if ($_FILES['file']['size'] > $maxSize) {
+        throw new Exception("La imagen supera el límite de 10 MB");
+    }
+
     $file = $_FILES['file']['tmp_name'];
     $mime = mime_content_type($file);
     $allowedMimes = [
