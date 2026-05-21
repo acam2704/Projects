@@ -82,7 +82,7 @@ try{
             'code' => $codigo
         ];
 
-        $url =  'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Php/account_verification_th_email.php?' . http_build_query($params);
+        $url = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Php/account_verification_th_email.php?' . http_build_query($params);
         $mail->Body = "
         <!DOCTYPE html>
             <html>
