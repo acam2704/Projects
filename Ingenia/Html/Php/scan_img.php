@@ -26,7 +26,7 @@ try{
         throw new Error(curl_error($ch));
     }
     if($response === false){
-        throw new Error('No se logró la conexión');
+        throw new Error('No se logró la conexióndshgvc');
     }
 
     $data = json_decode($response, true);
