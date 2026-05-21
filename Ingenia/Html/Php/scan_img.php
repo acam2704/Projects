@@ -5,8 +5,8 @@ header("Access-Control-Allow-Methods: GET, OPTIONS, POST");
 header('Content-Type: application/json');
 
 try{
-    $endpoint = getenv('IDENTITY_ENDPOINT');
-    $header = getenv('IDENTITY_HEADER');
+    $endpoint = getenv('MSI_ENDPOINT');
+    $secret = getenv('MSI_SECRET');
     echo var_dump($endpoint);
     echo var_dump($header);
 
@@ -18,7 +18,7 @@ try{
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Metadata: true'
+        'Secret:' . $secret
     ]);
 
     $response = curl_exec($ch);
