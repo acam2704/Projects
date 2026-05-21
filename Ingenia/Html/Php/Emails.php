@@ -147,6 +147,14 @@ try{
                     Para activar tu cuenta y continuar tu registro,
                     debes verificar tu correo electrónico.
                 </p>
+                <p style='
+                    color:#444;
+                    font-size:16px;
+                    line-height:1.5;
+                '>
+                    Si no se te fue posible verificar la cuenta con el botón, 
+                    el código que debes digitar es el siguiente: $codigo
+                </p>
 
                 <table cellpadding='0' cellspacing='0' border='0' width='100%'>
                 <tr>
