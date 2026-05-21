@@ -10,6 +10,9 @@ try{
     echo var_dump($endpoint);
     echo var_dump($header);
 
+    echo var_dump(getenv('IDENTITY_ENDPOINT'));
+    echo var_dump(getenv('IDENTITY_HEADER'));
+
     $resource = urlencode('https://cognitiveservices.azure.com/');
     $url = $endpoint . '?resource=' . $resource . '&api-version=2019-08-01';
     $ch = curl_init($url);
