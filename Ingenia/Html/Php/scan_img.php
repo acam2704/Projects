@@ -27,7 +27,7 @@ try{
 
     $data = json_decode($response, true);
     if(!isset($data['access_token'])){
-        throw new Error('No se logró la conexión: ' . $data . ' - response: ' . $response);
+        throw new Error($data);
     }
 
     $token = $data['access_token'];
