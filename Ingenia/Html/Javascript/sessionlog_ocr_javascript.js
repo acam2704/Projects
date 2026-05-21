@@ -23,10 +23,6 @@
     }
 });*/
 
-document.getElementById('file_dui_OCR').addEventListener('click', async function() {
-    
-});
-
 document.getElementById('input_dui_OCR').addEventListener('change', function(){
     const file = this.files[0];
     if (file) {
