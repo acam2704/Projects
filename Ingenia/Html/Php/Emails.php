@@ -150,7 +150,7 @@ try{
 
                 <table cellpadding='0' cellspacing='0' border='0' width='100%'>
                 <tr>
-                <td align='center' style='padding:35px 0;'>
+                <td align='center' style='padding:35px 0; display: flex; justify-content: center;'>
 
                     <a href='$url'
                     style='
@@ -174,6 +174,8 @@ try{
                     color:#777;
                     font-size:14px;
                     line-height:1.6;
+                    width: 100%;
+                    text-align: center
                 '>
                     Si no fuiste tú, puedes ignorar este correo.
                 </p>

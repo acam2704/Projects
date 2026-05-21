@@ -2,7 +2,6 @@
 header("Access-Control-Allow-Origin: https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET");
-header('Content-Type: application/json');
 
 try{
     if($_SERVER['REQUEST_METHOD'] !== 'GET'){
