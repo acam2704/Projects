@@ -6,6 +6,9 @@ header('Content-Type: application/json');
 
 
 try{
+    echo getenv('IDENTITY_ENDPOINT');
+    echo getenv('IDENTITY_HEADER');
+    echo var_dump($_ENV);
     $resource = urlencode('https://cognitiveservices.azure.com/');
     $url = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=$resource";
     $ch = curl_init($url);
@@ -31,7 +34,6 @@ try{
     $file_content = file_get_contents($file);
 
     $ch = curl_init($endpoint);
-
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
@@ -49,18 +51,14 @@ try{
     $headers = substr($response, 0, $header_size);
 
     preg_match('/Operation-Location:\s*(.*)/i', $headers, $matches);
-
     $operation_url = trim($matches[1]);
-
     sleep(3);
 
     $ch = curl_init($operation_url);
-
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         "Authorization: Bearer $token"
     ]);
-
     $result = curl_exec($ch);
     $data = json_decode($result, true);
 
@@ -69,7 +67,7 @@ try{
     }
     $text = $data['analyzeResult']['content'];
     echo $text;
-    
+
     curl_close($ch);
 } catch(Error $e){
     curl_close($ch);
