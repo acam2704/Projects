@@ -22,7 +22,7 @@ try{
         throw new Error(curl_error($ch));
     }
     if($response === false){
-        throw new Error('respuesta bruta: ' . $response);
+        throw new Error($response);
     }
 
     $data = json_decode($response, true);
