@@ -27,8 +27,6 @@ try{
         throw new Error('No se logró la conexión');
     }
 
-    var_dump($response);
-
     $data = json_decode($response, true);
     if(!isset($data['access_token'])){
         throw new Error('No se logró la conexión');
@@ -72,7 +70,7 @@ try{
         throw new Error('No se obtuvo resultado OCR: ' . $data);
     }
     $text = $data['analyzeResult']['content'];
-    echo $text;
+    echo 'TEXTO: ' . $text;
 
     curl_close($ch);
 } catch(Error $e){
