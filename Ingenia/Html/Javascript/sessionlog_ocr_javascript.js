@@ -24,18 +24,7 @@
 });*/
 
 document.getElementById('file_dui_OCR').addEventListener('click', async function() {
-    const file = document.getElementById('input_dui_OCR').files[0];
-    const text = document.getElementById('main_alert');
-    const form = new FormData();
-    form.append('file', file);
-
-    const response = await fetch('Php/scan_img.php', {
-        method: 'POST',
-        body: form
-    });
-    const data = await response.json();
-    console.log(data);
-    text.textContent = data;
+    
 });
 
 document.getElementById('input_dui_OCR').addEventListener('change', function(){
@@ -48,4 +37,17 @@ document.getElementById('input_dui_OCR').addEventListener('change', function(){
         }
         reader.readAsDataURL(file); // Lee el archivo como URL de datos
     }
+
+    const text = document.getElementById('main_alert');
+    const form = new FormData();
+    form.append('file', file);
+
+    const response = await fetch('Php/scan_img.php', {
+        method: 'POST',
+        body: form
+    });
+    const data = await response.json();
+    console.log(data);
+    text.textContent = data.currentAddress + '\n' + data.dateOfBirth + '\n' + data.documentNumber + '\n'
+    + data.email + '\n' + data.firstName + '\n' + data.lastName + '\n' + data.phoneNumber + '\n' + data.status;
 });
