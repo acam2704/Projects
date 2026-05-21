@@ -32,7 +32,7 @@ try{
         } else{ throw new Error(print_r(sqlsrv_errors(), true)); }
 
         /* VERIFICAR QUE EL NÚMERO DE CONTACTO NO SE HAYA REGISTRADO */
-        $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
+        $sql = 'SELECT TOP 1 1 FROM users WHERE phonenumber = ?';
         $params = [ &$data['phonenumber'] ];
         $sql_request = sqlsrv_prepare($conn, $sql, $params);
 
