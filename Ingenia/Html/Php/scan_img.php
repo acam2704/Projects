@@ -4,13 +4,13 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET, OPTIONS, POST");
 header('Content-Type: application/json');
 
-
 try{
-    echo getenv('IDENTITY_ENDPOINT');
-    echo getenv('IDENTITY_HEADER');
+    $endpoint = getenv('IDENTITY_ENDPOINT');
+    $header = getenv('IDENTITY_HEADER');
+
     echo var_dump($_ENV);
     $resource = urlencode('https://cognitiveservices.azure.com/');
-    $url = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=$resource";
+    $url = $endpoint . '?resource=' . $resource . '&api-version=2019-08-01';
     $ch = curl_init($url);
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
