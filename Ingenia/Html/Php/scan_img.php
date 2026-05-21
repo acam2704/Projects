@@ -16,7 +16,7 @@ try{
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Secret: . $secret"
+        "Secret: $secret"
     ]);
 
     $response = curl_exec($ch);
