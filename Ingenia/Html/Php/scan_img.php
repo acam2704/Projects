@@ -5,46 +5,45 @@ header("Access-Control-Allow-Methods: GET, OPTIONS, POST");
 header('Content-Type: application/json');
 
 try{
-    $endpoint = getenv('MSI_ENDPOINT');
-    $secret = getenv('MSI_SECRET');
+    $resource = 'https://cognitiveservices.azure.com';
+    $url = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=" . urlencode($resource);
 
-    $resource = urlencode('https://cognitiveservices.azure.com');
-    $url = $endpoint . '?resource=' . $resource . '&api-version=2019-08-01';
     $ch = curl_init($url);
-
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [ "Metadata: true" ]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPGET, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Secret: $secret"
-    ]);
 
     $response = curl_exec($ch);
     if(curl_errno($ch)){
-        throw new Error(curl_error($ch));
+        throw new Exception(curl_error($ch));
     }
     if($response === false){
-        throw new Error('No se logró la conexióndshgvc');
+        throw new Exception('No se logró la conexióndshgvc');
     }
 
-    var_dump($response);
-    var_dump(curl_getinfo($ch, CURLINFO_HTTP_CODE));
-    var_dump(curl_error($ch));
-
-    $data = json_decode($response, true);
-    if(!isset($data['access_token'])){
-        throw new Error('No se logró la conexión: ' . $data['access_token']);
+    $tokenData = json_decode($response, true);
+    if(!isset($tokenData['access_token'])){
+        throw new Exception('No se logró la conexión: ' . $tokenData['access_token']);
     }
 
-    $token = $data['access_token'];
+    $token = $tokenData['access_token'];
     $endpoint = 'https://ingeniadinteliggence.cognitiveservices.azure.com/documentintelligence/documentModels/prebuilt-idDocument:analyze?api-version=2024-11-30';
-    $file = $_FILES['document']['tmp_name'];
+    $file = $_FILES['file']['tmp_name'];
     $file_content = file_get_contents($file);
+    curl_close($ch); 
 
     $ch = curl_init($endpoint);
-    curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $file_content);
+    
+    $operation_url = null;
+    curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($curl, $header) use (&$operation_url) {
+        if (preg_match('/operation-location:\s*(.*)/i', $header, $matches)) {
+            $operation_url = trim($matches[1]);
+        }
+        return strlen($header);
+    });   
+    
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         "Authorization: Bearer $token",
         "Content-Type: application/octet-stream"
@@ -52,40 +51,63 @@ try{
 
     $response = curl_exec($ch);
     if(curl_errno($ch)){
-        throw new Error(curl_error($ch));
+        throw new Exception(curl_error($ch));
     }
-    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-    $headers = substr($response, 0, $header_size);
+    curl_close($ch);
 
-    preg_match('/Operation-Location:\s*(.*)/i', $headers, $matches);
-    $operation_url = trim($matches[1]);
-    sleep(3);
+    $maxAttempts = 15;
+    $attempts = 1;
 
-    $ch = curl_init($operation_url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Authorization: Bearer $token"
+    if (!$operation_url) {
+        throw new Exception("No se obtuvo Operation-Location");
+    }
+
+    do {
+        sleep(2);
+        $ch = curl_init($operation_url);
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $token"
+        ]);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $err = curl_error($ch);
+            curl_close($ch);
+            throw new Exception($err);
+        }
+        $ocrData = json_decode($result, true);
+        $status = $ocrData['status'] ?? null;
+
+        $attempts++;
+        curl_close($ch);
+    } while (($status === "running" || $status === "notStarted") && $attempts < $maxAttempts);
+
+    if ($status !== "succeeded") {
+        throw new Exception("OCR no completado: " . json_encode($ocrData));
+    }
+    $text = $ocrData['analyzeResult']['content'];
+    echo json_encode([
+        'status' => 'ok',
+        'error' => null,
+        'text' => $text
     ]);
-    $result = curl_exec($ch);
-    $data = json_decode($result, true);
 
-    if(!isset($data['analyzeResult'])){
-        throw new Error('No se obtuvo resultado OCR: ' . $data);
-    }
-    $text = $data['analyzeResult']['content'];
-    echo 'TEXTO: ' . $text;
-
-    curl_close($ch);
-} catch(Error $e){
-    curl_close($ch);
+} catch(Exception $e){
     echo json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
-        'data' => $data,
-        'response' => $response,
+        'ocrData' => $ocrData ?? [],
+        'tokenData' => $tokenData ?? [],
+        'response' => $response ?? [],
         'curl_error' => curl_error($ch),
         'curl_errno' => curl_errno($ch),
         'mg' => 'Check "error"'
     ]);
+    if(isset($ch)){
+        curl_close($ch);
+    }
 }
 ?>
