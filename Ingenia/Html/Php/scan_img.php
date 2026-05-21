@@ -80,6 +80,8 @@ try{
         'error' => $e->getMessage(),
         'data' => $data,
         'response' => $response,
+        'curl_error' => curl_error($ch),
+        'curl_errno' => curl_errno($ch),
         'mg' => 'Check "error"'
     ]);
 }
