@@ -31,6 +31,7 @@ try{
 ?>
 
 <script>
-    sessionStorage.setItem('vth_email', <?php echo json_encode($params); ?>);
-    window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/session-log.html'
+    const user = <?php echo json_encode($params); ?>;
+    sessionStorage.setItem('vth_email', JSON.stringify(user));
+    window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/session-log.html';
 </script>
