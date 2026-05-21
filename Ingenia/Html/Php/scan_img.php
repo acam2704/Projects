@@ -135,11 +135,6 @@ try{
         'phoneNumber' => $phoneNumber,
         'email' => $email
     ]);
-    echo json_encode([
-        'status' => 'ok',
-        'error' => null,
-        'text' => $fields
-    ]);
 
 } catch(Exception $e){
     echo json_encode([
