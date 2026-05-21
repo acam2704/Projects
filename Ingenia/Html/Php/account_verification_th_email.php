@@ -1,8 +1,18 @@
+<style>
+    *{
+        color: white;
+        background-color: white;
+    }
+</style>
+
 <?php
 header("Access-Control-Allow-Origin: https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/");
-header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET");
 
+session_start();
+
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 try{
     if($_SERVER['REQUEST_METHOD'] !== 'GET'){
         throw new Exception('NO GET');
@@ -19,7 +29,7 @@ try{
         if($value === ''){ throw new Exception("$mandatory required"); }
         $params[$mandatory] = $value;
     }
-
+    $_SESSION['vth_email'] = $params;
 } catch(Exception $e){
     die(json_encode([
         'status' => 'failed',
