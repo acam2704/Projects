@@ -12,14 +12,11 @@ try{
     $url = $endpoint . '?resource=' . $resource . '&api-version=2019-08-01';
     $ch = curl_init($url);
 
-    echo $url;
-
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Secret: $secret",
-        "Metadata: true"
-    ]);
     curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Secret: $secret"
+    ]);
 
     $response = curl_exec($ch);
     if(curl_errno($ch)){
@@ -29,9 +26,13 @@ try{
         throw new Error('No se logró la conexióndshgvc');
     }
 
+    var_dump($response);
+    var_dump(curl_getinfo($ch, CURLINFO_HTTP_CODE));
+    var_dump(curl_error($ch));
+
     $data = json_decode($response, true);
     if(!isset($data['access_token'])){
-        throw new Error('No se logró la conexión');
+        throw new Error('No se logró la conexión: ' . $data['access_token']);
     }
 
     $token = $data['access_token'];
