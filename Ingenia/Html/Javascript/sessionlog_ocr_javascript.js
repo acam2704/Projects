@@ -1,4 +1,4 @@
-document.getElementById('input_dui_OCR').addEventListener('change', function() {
+/*document.getElementById('input_dui_OCR').addEventListener('change', function() {
     const dui_picture = this.files[0];
     let preview = document.getElementById('file_dui_OCR');
     const formData = new formData();
@@ -21,4 +21,8 @@ document.getElementById('input_dui_OCR').addEventListener('change', function() {
         preview.remove();
         return;
     }
-})
+});*/
+
+document.getElementById('file_dui_OCR').addEventListener('click', function() {
+    
+});
