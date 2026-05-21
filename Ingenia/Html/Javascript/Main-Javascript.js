@@ -445,7 +445,7 @@ function email_registered(response, elements_to_hide, param){
 
     if(response[0].status === 'ok'){
         if(param){ console.log(response); code_already_typed(elements_to_hide); return; }
-        else{ console.log(response); almacenate(response[1]); window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'; return; }
+        else{ console.log(response); collect_user_data(); return; }
     }
 
     if(response[0].error.includes('Email registered')){
@@ -994,7 +994,7 @@ function validate_data(user_data){
             }
         }
     }
-    validate_email(user_data, [], false);
+    register_user(user_data);
 }
 
 function collect_user_data(){
@@ -1053,7 +1053,8 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
     } else if(getComputedStyle(security_information_container).display !== 'none'){
         verifyPasswords(); // Validación de contraseñas
     } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
-        collect_user_data();
+        const email = document.getElementById('input_email_Re').value;
+        validate_email(email.trim(), [], false);
     }
 });
 
