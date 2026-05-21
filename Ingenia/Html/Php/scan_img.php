@@ -21,10 +21,13 @@ try{
     if(curl_errno($ch)){
         throw new Error(curl_error($ch));
     }
+    if($response === false){
+        throw new Error('respuesta bruta: ' . $response);
+    }
 
     $data = json_decode($response, true);
     if(!isset($data['access_token'])){
-        throw new Error(['No se logró la conexión: ' . $data, 'respuesta bruta: ' . $response]);
+        throw new Error('No se logró la conexión: ' . $data);
     }
 
     $token = $data['access_token'];
