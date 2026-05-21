@@ -10,10 +10,11 @@ try{
     $resource = urlencode("https://cognitiveservices.azure.com");
     $url = $endpoint . "?resource=$resource&api-version=2019-08-01";
 
-
     $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [ "X-IDENTITY-HEADER: $secret" ]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "X-IDENTITY-HEADER: $secret"
+    ]);
 
     $response = curl_exec($ch);
     if(curl_errno($ch)){
