@@ -14,4 +14,8 @@ var_dump($result);
 var_dump(curl_errno($ch));
 var_dump(curl_error($ch));
 echo "</pre>";
+
+echo getenv("IDENTITY_ENDPOINT");
+echo "\n";
+echo getenv("MSI_ENDPOINT");
 ?>
