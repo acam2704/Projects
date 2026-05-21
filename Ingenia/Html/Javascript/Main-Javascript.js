@@ -439,8 +439,6 @@ async function next(){
 }
 
 function email_registered(response, elements_to_hide, param){
-    const input_email_Re = document.getElementById('input_email_Re');
-    const alert = input_email_Re.previousElementSibling;
     const error_text_alert = document.getElementById('error_text_alert');
 
     if(response[0].status === 'ok'){
@@ -449,9 +447,9 @@ function email_registered(response, elements_to_hide, param){
     }
 
     if(response[0].error.includes('Email registered')){
-        show_text_alert([[alert], 'Correo en uso']);
+        show_text_alert([[error_text_alert], 'Correo en uso']);
     } else if(response[0].error.includes('Invalid email')){
-        show_text_alert([[alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
+        show_text_alert([[error_text_alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
     } else{
         show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
     }
