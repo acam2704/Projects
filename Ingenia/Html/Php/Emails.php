@@ -150,7 +150,7 @@ try{
 
                 <table cellpadding='0' cellspacing='0' border='0' width='100%'>
                 <tr>
-                <td align='center' style='padding:35px 0; display: flex; justify-content: center;'>
+                <td align='center' style='padding:35px 0; display: flex; justify-content: center; align-items: center'>
 
                     <a href='$url'
                     style='
