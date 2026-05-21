@@ -159,7 +159,7 @@ body{
     -webkit-text-fill-color: var(--text-into-input-);
     transition: background-color 9999s ease-in-out 0s;
 }
-.input::selection{background-color: transparent; border-color: var(--border-input-hover-);}
+.input::selection{background-color: var(--placeholder-text-); border-color: var(--border-input-hover-);}
 .input:focus,
 .input:hover{border-color: var(--border-input-hover-);}
 input[type="number"]::-webkit-outer-spin-button,

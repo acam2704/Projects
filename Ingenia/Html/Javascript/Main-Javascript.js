@@ -257,9 +257,12 @@ function enable_inputs(containers){
 // Función que almacena datos dentro de localStorage y sessionStorage
 function almacenate(data){
     let user_data = JSON.parse(localStorage.getItem('user') ?? '{}');
+    const avoid = ['1psw', '2psw', 'code'];
     if(Object.keys(user_data).length !== 0){ 
         for(const key of Object.keys(data)){
-            user_data[key] = data[key];
+            if(!avoid.includes(key)){
+                user_data[key] = data[key];
+            }
         }
     } else { user_data = data; }
     console.log(user_data);
@@ -436,47 +439,42 @@ async function next(){
     }
 
     const input_email_Re = document.getElementById('input_email_Re');
-    validate_email(input_email_Re.value.trim(), elements_to_hide, true);
+    validate_email({email: input_email_Re.value.trim()}, elements_to_hide, true);
 }
 
 function email_registered(response, elements_to_hide, boolean){
     const input_email_Re = document.getElementById('input_email_Re');
     const alert = input_email_Re.previousElementSibling;
+    const error_text_alert = document.getElementById('error_text_alert');
 
-    if(boolean){
-        if(response.status === 'ok'){
-            console.log(response);
-            code_already_typed(elements_to_hide);
-            return;
-        } else if(response.error.includes('Email registered')){
-            show_text_alert([[alert], 'Correo en uso']);
-        } else if(response.error.includes('Invalid email')){
-            show_text_alert([[alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
-        } else{
-            const error_text_alert = document.getElementById('error_text_alert');
-            show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
-        }
-        console.log(response);
-        enable_inputs(elements_to_hide);
-        hideLoader();
-    } else{
-        if(response.status === 'ok'){
-
-        }
+    if(response[0].status === 'ok'){
+        if(boolean){ console.log(response); code_already_typed(elements_to_hide); return; }
+        else{ console.log(response); almacenate(response[1]); window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'; return; }
     }
+
+    if(response[0].error.includes('Email registered')){
+        show_text_alert([[alert], 'Correo en uso']);
+    } else if(response[0].error.includes('Invalid email')){
+        show_text_alert([[alert], 'Correo inválido. Asegurate de haberlo digitado correctamente'])
+    } else{
+        show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo otra vez'])
+    }
+    console.log(response);
+    enable_inputs(elements_to_hide);
+    hideLoader();
 }
 
-function validate_email(email, elements_to_hide, boolean){
+function validate_email(user_data, elements_to_hide, boolean){
     fetch('Php/user_already_registered.php', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: email})
+        body: JSON.stringify({email: user_data.email})
     })
     .then(response => response.text())
     .then(data => {
-        email_registered(JSON.parse(data), elements_to_hide, boolean);
+        email_registered([JSON.parse(data), user_data], elements_to_hide, boolean);
     });
 }
 
@@ -999,8 +997,7 @@ function validate_data(user_data){
             }
         }
     }
-    validate_email(user_data.email, [], false);
-    register_user(user_data);
+    validate_email(user_data, [], false);
 }
 
 function collect_user_data(){
