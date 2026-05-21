@@ -32,6 +32,17 @@ try{
     $token = $tokenData['access_token'];
     $endpoint = 'https://ingeniadinteliggence.cognitiveservices.azure.com/documentintelligence/documentModels/prebuilt-idDocument:analyze?api-version=2024-11-30';
     $file = $_FILES['file']['tmp_name'];
+    $mime = mime_content_type($file);
+    $allowedMimes = [
+        'application/pdf',
+        'image/jpeg',
+        'image/png',
+        'image/tiff'
+    ];
+
+    if (!in_array($mime, $allowedMimes)) {
+        throw new Exception("Tipo de archivo no permitido: " . $mime);
+    }
     $file_content = file_get_contents($file);
     curl_close($ch); 
 
