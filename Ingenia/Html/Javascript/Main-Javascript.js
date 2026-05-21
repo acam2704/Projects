@@ -437,7 +437,7 @@ async function next(){
     const email = document.getElementById('input_email_Re').value.trim();
     const phonenumber = document.getElementById('input_phonenumber_Re').value.trim();
     const dui = document.getElementById('input_dui_Re').value.trim();
-    validate_email({email: email, phonenumber: phonenumber, dui: dui}, elements_to_hide, true);
+    validate_info({email: email, phonenumber: phonenumber, dui: dui}, elements_to_hide, true);
 }
 
 function email_registered(response, elements_to_hide, param){
@@ -464,7 +464,7 @@ function email_registered(response, elements_to_hide, param){
     hideLoader();
 }
 
-function validate_email(user_data, elements_to_hide, param){
+function validate_info(user_data, elements_to_hide, param){
     fetch('Php/user_already_registered.php', {
         method: 'POST', 
         headers: {
@@ -1060,7 +1060,7 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
         const email = document.getElementById('input_email_Re').value;
         const dui = document.getElementById('input_dui_Re').value;
         const phonenumber = document.getElementById('input_phonenumber_Re').value;
-        validate_email({email: email.trim(), dui: dui.trim(), phonenumber: phonenumber.trim()}, [], false);
+        validate_info({email: email.trim(), dui: dui.trim(), phonenumber: phonenumber.trim()}, [], false);
     }
 });
 

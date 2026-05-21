@@ -59,7 +59,7 @@ try{
                 echo json_encode([
                     'status' => 'ok',
                     'error' => null,
-                    'msg' => 'No email registered',
+                    'msg' => 'No dui, email and phonenumber registered',
                     'user' => $data
                 ]);
             }
