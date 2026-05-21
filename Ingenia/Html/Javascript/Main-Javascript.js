@@ -369,7 +369,7 @@ function code_already_typed(elements_to_hide){
     if ( email && ( email === input_email_Re.value.trim() ) ) {
         show_identity_information_window(elements_to_hide);
     } else{
-        const input_code = document.getElementById('input_code_ Re');
+        const input_code = document.getElementById('input_code_Re');
         input_code.value = '';
 
         localStorage.removeItem('user');
