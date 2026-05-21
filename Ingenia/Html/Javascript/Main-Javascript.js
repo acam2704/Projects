@@ -286,54 +286,61 @@ function retrieve_alert_changes(){
 }
 /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function() {
-    let data_user = [localStorage.getItem('user'), 'localStorage'];
-    let session_data = [sessionStorage.getItem('user'), 'sessionStorage'];
-    const array_to_travel = [data_user, session_data];
+    let local = localStorage.getItem('user');
+    let session = sessionStorage.getItem('vth_email');
+    const elements_to_show = [personal_information_container];
+
     disable_all_inputs();
     hideLoader();
 
-    for (let data of array_to_travel){
-        try{
-            if (data[0] !== null){
-                data[0] = JSON.parse(data[0]);
-
-                for(const value of Object.keys(data)){
-                    if(value === undefined){
-                        throw new Error('Local and Session eliminated.');
-                    }
-                }
-
-                const email = data[0].email;
-
-                const name = data[0].names;
-                const surname = data[0].lastnames;
-
-                const elements_to_show = [personal_information_container];
-
-                const input_names_Re = document.getElementById('input_names_Re');
-                const input_lastnames_Re = document.getElementById('input_lastnames_Re');
-                const input_email_Re = document.getElementById('input_email_Re');
-
-                input_names_Re.value = name;
-                input_lastnames_Re.value = surname;
-                input_email_Re.value = email;
-
-                hide_and_show(elements_to_show, []);
-                enable_inputs(elements_to_show);
-
-                return;
-            } else {throw null;}
-        } catch(e){
-            if (data[1] === array_to_travel[array_to_travel.length - 1][1]){
-                const elements_to_show = [personal_information_container];
-                enable_inputs(elements_to_show);
-                hide_and_show(elements_to_show, []);
-                if (e){
-                    if (data[1] === 'localStorage'){localStorage.removeItem('user');} 
-                    else if(data[1] === 'sessionStorage'){sessionStorage.removeItem('user');}
-                    console.log(e);
-                }
+    try{
+        if(session){ 
+            const params =  ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code'];
+            let user_data = {};
+            for(const param of params){
+                const value = session[param] ?? null;
+                if(!value){ user_data = {}; break; }
+                user_data[param] = value;
             }
+            if(Object.keys(user_data).length === 7){
+                for(const param of params){
+                    const id = 'input_' + param + '_Re';
+                    const input = document.getElementById(id);
+
+                    input.value = user_data[param];
+                }
+                const json_data = JSON.stringify({
+                    code: user_data.codigo,
+                    email: user_data.email
+                });
+                codeVerification(json_data, false); // Se envía a verificarlo
+                return;
+            }
+        }
+
+        if(local === null){ throw null; return;}
+
+        local = JSON.parse(local);
+        const mandatories = ['names', 'lastnames', 'email', 'birthdate'];
+
+        for(const mandatory of mandatories){
+            const value = local[mandatory] ?? null;
+            if(!value){ throw new Error('Local and Session eliminated'); }
+
+            const id = 'input_' + mandatory +  '_Re';
+            const input = document.getElementById(id);
+            input.value = value;
+        }
+
+        hide_and_show(elements_to_show, []);
+        enable_inputs(elements_to_show);
+        return;
+    } catch(e){
+        enable_inputs(elements_to_show);
+        hide_and_show(elements_to_show, []);
+        if (e){
+            localStorage.removeItem('user');
+            sessionStorage.removeItem('vth_email');
         }
     }
     hide_all_text_alerts();
@@ -362,16 +369,26 @@ function code_already_typed(elements_to_hide){
     if ( email && ( email === input_email_Re.value.trim() ) ) {
         show_identity_information_window(elements_to_hide);
     } else{
+        const input_code = document.getElementById('input_code_ Re');
+        input_code.value = '';
+
         localStorage.removeItem('user');
         // Se crea un json con la Información Personal del usuario
-        const input_names_Re = document.getElementById('input_names_Re');
-        const input_lastnames_Re = document.getElementById('input_lastnames_Re');
-        const input_email_Re = document.getElementById('input_email_Re');
+        const names = document.getElementById('input_names_Re').value;
+        const lastnames = document.getElementById('input_lastnames_Re').value;
+        const email = document.getElementById('input_email_Re').value;
+        const birthdate = document.getElementById('input_birthdate_Re').value;
+        const phonenumber = document.getElementById('input_phonenumber_Re').value;
+        const dui = document.getElementById('input_dui_Re').value;
 
         const json_data = JSON.stringify({
-            names: input_names_Re.value,
-            lastnames: input_lastnames_Re.value,
-            email: input_email_Re.value,
+            names: names,
+            lastnames: lastnames,
+            email: email,
+            birthdate: birthdate,
+            phonenumber: phonenumber,
+            dui: dui,
+
             domain: 'google'
         });
 
@@ -617,7 +634,7 @@ async function verification_code_window(email){
                 code: input_code_Re.value,
                 email: email
             });
-            codeVerification(json_data); // Se envía a verificarlo
+            codeVerification(json_data, true); // Se envía a verificarlo
         };
     }
 }
@@ -625,7 +642,7 @@ async function verification_code_window(email){
 // Función que se usa al ingresar manualmente la Información Personal del usuario
 // Función que envía a verificar la legitimidad el código ingresado
 // Desde VerificationCodeWindow -> codeVerification
-function codeVerification(json_data){
+function codeVerification(json_data, bool){
     // Se envía el código y el correo electrónico "Code-Verification.php"
     fetch('Php/Code-Verification.php', {
         method: 'POST',
@@ -637,17 +654,19 @@ function codeVerification(json_data){
     .then(response => response.text())
     .then(data => {
         // La respuesta enviada se procesa en codeVerificationResponse
-        codeVerificationResponse(JSON.parse(data))
+        codeVerificationResponse(JSON.parse(data), bool)
     });
 }
 
 // Función que se usa al ingresar manualmente la Información Personal del usuario
 // Función que procesa la respuesta de verificación de código
 // Desde: codeVerification -> codeVerificationResponse
-async function codeVerificationResponse(response){
-    const text = document.getElementById('text_VC1');
+async function codeVerificationResponse(response, bool){
+    const text = document.getElementById('error_text_alert');
     // Se preparan los inputs a ocultar y mostrar
-    const elements_to_hide = [verification_code_container];
+    let elements_to_hide = [];
+    if(bool){elements_to_hide = [verification_code_container];}
+    else{elements_to_hide = [personal_information_container, content_check_buttons_with];}
     
     // El status de la respuesta debe de ser 'ok'
     if(response['status'] === 'ok'){
@@ -663,7 +682,7 @@ async function codeVerificationResponse(response){
         // Se muestra la ventana de ingreso de información más delicada del usuario
         show_identity_information_window(elements_to_hide);
     } else{ // Si el status es diferente a 'ok'
-        show_text_alert([[text], 'Ingresa el código enviado']); // Se muestra la alerta
+        show_text_alert([[text], 'Código inválido']); // Se muestra la alerta
         enable_inputs(elements_to_hide); // Se habilitan los inputs requeridos
     }
     hideLoader(); // Se oculta la animación de carga del botón

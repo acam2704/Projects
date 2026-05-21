@@ -72,7 +72,17 @@ try{
         $mail->Subject = 'Código de Verificación';
         $mail->isHTML(true);
 
-        $link = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html';
+        $params = [
+            'email' => $data['email'],
+            'lastnames' => $data['lastnames'],
+            'names' => $data['names'],
+            'birthdate' => $data['birthdate'],
+            'phonenumber' => $data['phonenumber'],
+            'dui' => $data['dui'],
+            'code' => $codigo
+        ];
+
+        $url =  'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Php/account_verification_th_email.php?' . http_build_query($params);
         $mail->Body = "
         <!DOCTYPE html>
             <html>
@@ -112,7 +122,7 @@ try{
                 </h1>
 
                 <p style='margin-top:10px;font-size:16px;opacity:0.9;'>
-                    Verificación de cuenta
+                    Verificación de correo
                 </p>
             </td>
             </tr>
@@ -142,7 +152,7 @@ try{
                 <tr>
                 <td align='center' style='padding:35px 0;'>
 
-                    <a href='$link'
+                    <a href='$url'
                     style='
                         background:#0078D4;
                         color:white;
