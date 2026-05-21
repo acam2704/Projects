@@ -121,13 +121,19 @@ try{
     $lastName = $fields['LastName']['content'] ?? null;
     $documentNumber = $fields['DocumentNumber']['content'] ?? null;
     $dateOfBirth = $fields['DateOfBirth']['content'] ?? null;
+    $currentAddress = $fields['Address']['content'] ?? null;
+    $phonenumber = $fields['PhoneNumber']['content'] ?? null;
+    $email = $fields['Email']['content'] ?? null;
 
     echo json_encode([
         'status' => 'ok',
         'firstName' => $firstName,
         'lastName' => $lastName,
         'documentNumber' => $documentNumber,
-        'dateOfBirth' => $dateOfBirth
+        'dateOfBirth' => $dateOfBirth,
+        'currentAddress' => $currentAddress,
+        'phoneNumber' => $phoneNumber,
+        'email' => $email
     ]);
     echo json_encode([
         'status' => 'ok',
