@@ -70,9 +70,33 @@ try{
         $mail->addAddress($data['email']);
 
         $mail->Subject = 'Código de Verificación';
-        $mail->Body = 'Se ha detectado un dispositivo intentando ingresar a Ingenia con tu correo.' .
-        '¿Eres tú? Si es así imprime el código en la ventana que estás viendo' .
-        'En caso contrario, ignora este correo. CÓDIGO: ' . $codigo;
+    
+        $link = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html';
+        $mail->Body = "
+        <html>
+            <body>
+
+                <h2>Verifica tu cuenta</h2>
+                <br>
+                <p>Se ha detectado un dispotivo intentando ingresar a Ingenia con tu correo</p>
+                <p>Si eres tu, haz clic en el botón para continuar:</p>
+
+                <a href='$link'
+                style='
+                    display:inline-block;
+                    padding:12px 24px;
+                    background:#0078D4;
+                    color:white;
+                    text-decoration:none;
+                    border-radius:8px;
+                    font-weight:bold;
+                '>
+                    Verificar cuenta
+                </a>
+
+            </body>
+        </html>
+        ";
 
         sqlsrv_free_stmt($stmt);
         sqlsrv_close($conexion);
