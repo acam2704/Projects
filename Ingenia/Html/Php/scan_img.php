@@ -7,8 +7,6 @@ header('Content-Type: application/json');
 try{
     $endpoint = getenv('MSI_ENDPOINT');
     $secret = getenv('MSI_SECRET');
-    echo var_dump($endpoint);
-    echo var_dump($secret);
 
     $resource = urlencode('https://cognitiveservices.azure.com/');
     $url = $endpoint . '?resource=' . $resource . '&api-version=2019-08-01';
@@ -18,7 +16,7 @@ try{
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Secret:' . $secret
+        "Secret: . $secret"
     ]);
 
     $response = curl_exec($ch);
