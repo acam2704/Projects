@@ -1,5 +1,5 @@
 <?php
-$url = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://cognitiveservices.azure.com";
+$url = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://ingeniadinteliggence.cognitiveservices.azure.com/";
 
 $ch = curl_init($url);
 
