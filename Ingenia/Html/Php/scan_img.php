@@ -7,10 +7,14 @@ header('Content-Type: application/json');
 try{
     $endpoint = getenv('IDENTITY_ENDPOINT');
     $header = getenv('IDENTITY_HEADER');
+    echo var_dump($endpoint);
+    echo var_dump($header);
 
     $resource = urlencode('https://cognitiveservices.azure.com/');
     $url = $endpoint . '?resource=' . $resource . '&api-version=2019-08-01';
     $ch = curl_init($url);
+
+    echo $url;
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
