@@ -23,6 +23,15 @@
     }
 });*/
 
-document.getElementById('file_dui_OCR').addEventListener('click', function() {
-    
+document.getElementById('file_dui_OCR').addEventListener('click', async function() {
+    const file = document.getElementById('input_dui_OCR').files[0];
+    const form = new FormData();
+    form.append('file', file);
+
+    const response = await fetch('Php/scan_img.php', {
+        method: 'POST',
+        body: form
+    });
+    const data = await response.json();
+    console.log(data);
 });
