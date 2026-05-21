@@ -22,12 +22,12 @@ try{
         throw new Error(curl_error($ch));
     }
     if($response === false){
-        throw new Error($response);
+        throw new Error('Respuesta bruta: ' . print_r($response, true));
     }
 
     $data = json_decode($response, true);
     if(!isset($data['access_token'])){
-        throw new Error($data);
+        throw new Error('No se logró la conexión: ' . print_r($data, true));
     }
 
     $token = $data['access_token'];
