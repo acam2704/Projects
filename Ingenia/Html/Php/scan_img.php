@@ -25,6 +25,8 @@ try{
         throw new Error('No se logró la conexión');
     }
 
+    var_dump($response);
+
     $data = json_decode($response, true);
     if(!isset($data['access_token'])){
         throw new Error('No se logró la conexión');
