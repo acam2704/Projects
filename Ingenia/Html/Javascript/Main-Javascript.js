@@ -1052,7 +1052,7 @@ document.getElementById('bttn_send').addEventListener("click", async () => {
         verifyPasswords(); // Validación de contraseñas
     } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
         const email = document.getElementById('input_email_Re').value;
-        validate_email(email.trim(), [], false);
+        validate_email({email: email.trim()}, [], false);
     }
 });
 
