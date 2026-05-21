@@ -293,6 +293,8 @@ document.addEventListener('DOMContentLoaded', function() {
     disable_all_inputs();
     hideLoader();
 
+    hide_and_show([personal_information_container], []);
+
     try{
         if(session){ 
             session = JSON.parse(session);
