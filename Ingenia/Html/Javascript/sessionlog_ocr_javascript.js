@@ -35,3 +35,15 @@ document.getElementById('file_dui_OCR').addEventListener('click', async function
     const data = await response.json();
     console.log(data);
 });
+
+document.getElementById('input_dui_OCR').addEventListener('change', function(){
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader(); // Crea el lector de archivos
+        const img = document.getElementById('file_dui_OCR');
+        reader.onload = function(e) {
+            img.src = e.target.result; // Asigna la ruta de la imagen
+        }
+        reader.readAsDataURL(file); // Lee el archivo como URL de datos
+    }
+});
