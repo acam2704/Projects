@@ -125,7 +125,7 @@ try{
                     color:#222;
                     font-size:24px;
                 '>
-                    ¡Bienvenido!
+                    ¡Sigue así!
                 </h2>
 
                 <p style='
@@ -133,8 +133,8 @@ try{
                     font-size:16px;
                     line-height:1.7;
                 '>
-                    Gracias por registrarte en Ingenia.
-                    Para activar tu cuenta y continuar utilizando la plataforma,
+                    Gracias por empezar a crear tu cuenta en Ingenia.\n
+                    Para activar tu cuenta y continuar tu registro,
                     debes verificar tu correo electrónico.
                 </p>
 
@@ -165,7 +165,7 @@ try{
                     font-size:14px;
                     line-height:1.6;
                 '>
-                    Si no creaste esta cuenta, puedes ignorar este correo.
+                    Si no fuiste tú, puedes ignorar este correo.
                 </p>
 
                 <hr style='
