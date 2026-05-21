@@ -6,4 +6,5 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
     echo curl_exec($ch);
+    echo 'hola';
 ?>
