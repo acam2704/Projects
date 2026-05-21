@@ -685,6 +685,7 @@ async function codeVerificationResponse(response, bool){
     } else{ // Si el status es diferente a 'ok'
         show_text_alert([[text], 'Código inválido']); // Se muestra la alerta
         enable_inputs(elements_to_hide); // Se habilitan los inputs requeridos
+        hide_and_show(elements_to_hide, [])
     }
     hideLoader(); // Se oculta la animación de carga del botón
 }
