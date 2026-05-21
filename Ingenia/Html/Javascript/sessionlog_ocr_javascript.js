@@ -23,7 +23,7 @@
     }
 });*/
 
-document.getElementById('input_dui_OCR').addEventListener('change', function(){
+document.getElementById('input_dui_OCR').addEventListener('change', async function(){
     const file = this.files[0];
     if (file) {
         const reader = new FileReader(); // Crea el lector de archivos
