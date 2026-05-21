@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
 

@@ -1,5 +1,5 @@
 <?php
-$serverName = "ingenia.database.windows.net";
+$serverName = getenv('DBServer_name');
 $password = getenv('DataBase_password');
 $db = getenv('DataBase');
 

@@ -1091,4 +1091,3 @@ if(html.toLowerCase() === 'session-log.html'){
 
     }
 }
-
