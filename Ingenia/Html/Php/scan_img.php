@@ -22,12 +22,12 @@ try{
         throw new Error(curl_error($ch));
     }
     if($response === false){
-        throw new Error('Respuesta bruta: ' . print_r($response, true));
+        throw new Error('No se logró la conexión');
     }
 
     $data = json_decode($response, true);
     if(!isset($data['access_token'])){
-        throw new Error('No se logró la conexión: ' . print_r($data, true));
+        throw new Error('No se logró la conexión');
     }
 
     $token = $data['access_token'];
@@ -76,6 +76,8 @@ try{
     echo json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
+        'data' => $data,
+        'response' => $response,
         'mg' => 'Check "error"'
     ]);
 }
