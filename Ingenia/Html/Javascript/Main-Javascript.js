@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     input.value = user_data[param];
                 }
                 const json_data = JSON.stringify({
-                    code: user_data.codigo,
+                    code: user_data.code,
                     email: user_data.email
                 });
                 codeVerification(json_data, false); // Se envía a verificarlo
