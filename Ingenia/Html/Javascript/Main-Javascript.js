@@ -298,14 +298,15 @@ document.addEventListener('DOMContentLoaded', function() {
     try{
         if(session){ 
             session = JSON.parse(session);
-            const params =  ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code'];
+            const params =  ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code', 'rol'];
             let user_data = {};
             for(const param of params){
                 const value = session[param] ?? null;
+                if(param === 'rol'){ user_data[param] = value; continue;}
                 if(!value){ user_data = {}; break; }
                 user_data[param] = value;
             }
-            if(Object.keys(user_data).length === 7){
+            if(Object.keys(user_data).length === 8){
                 for(const param of params){
                     const id = 'input_' + param + '_Re';
                     const input = document.getElementById(id);
@@ -383,6 +384,7 @@ function code_already_typed(elements_to_hide){
         const birthdate = document.getElementById('input_birthdate_Re').value;
         const phonenumber = document.getElementById('input_phonenumber_Re').value;
         const dui = document.getElementById('input_dui_Re').value;
+        const rol = JSON.parse(localStorage.getItem('user')).rol;
 
         const json_data = JSON.stringify({
             names: names,
@@ -391,6 +393,7 @@ function code_already_typed(elements_to_hide){
             birthdate: birthdate,
             phonenumber: phonenumber,
             dui: dui,
+            rol: rol,
 
             domain: 'google'
         });

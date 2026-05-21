@@ -79,7 +79,8 @@ try{
             'birthdate' => $data['birthdate'],
             'phonenumber' => $data['phonenumber'],
             'dui' => $data['dui'],
-            'code' => $codigo
+            'code' => $codigo,
+            'rol' => $data['rol']
         ];
 
         $url = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/Php/account_verification_th_email.php?' . http_build_query($params);

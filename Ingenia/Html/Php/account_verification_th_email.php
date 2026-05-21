@@ -21,7 +21,7 @@ try{
         throw new Exception('GET required');
     }
 
-    $mandatories = ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code'];
+    $mandatories = ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code', 'rol'];
     $params = [];
 
     foreach($mandatories as $mandatory){
