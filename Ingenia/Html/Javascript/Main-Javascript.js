@@ -308,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(!value){ user_data = {}; break; }
                 user_data[param] = value;
             }
+            console.log(Object.keys(user_data).length);
             if(Object.keys(user_data).length === 8){
                 for(const param of params){
                     const id = 'input_' + param + '_Re';
