@@ -891,7 +891,7 @@ function PasswordsWindow(){
     bttn_send_txt.style.display = "block";
     enable_inputs(containers_to_show);
     hide_and_show(containers_to_show, containers_to_hide);
-
+    hideLoader();
     show_text_alert([[bttn_send_txt], 'Siguiente'])
 }
 
