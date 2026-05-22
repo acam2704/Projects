@@ -47,11 +47,8 @@ if(window_pathname === 'user.html'){
 }
 
 document.getElementById('client_bttn').addEventListener('click', () =>{
-    let data = localStorage.getItem('user');
-    if(data){
-        data = JSON.parse(data);
-        data.rol = 'client';
-        localStorage.setItem('user', JSON.stringify(data));
-    } else{localStorage.setItem('user', JSON.stringify({rol: 'client'}));}
+    let data = JSON.parse(localStorage.getItem('user') ?? '{}');
+    data.rol = 'client';
+    localStorage.setItem('user', JSON.stringify(data));
     window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/session-log.html';
 });

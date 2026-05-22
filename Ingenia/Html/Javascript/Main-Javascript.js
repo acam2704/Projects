@@ -260,16 +260,11 @@ function enable_inputs(containers){
 // Función que almacena datos dentro de localStorage y sessionStorage
 function almacenate(data){
     let user_data = JSON.parse(localStorage.getItem('user') ?? '{}');
-    const avoid = ['1psw', '2psw', 'code'];
     user_data.email = data.email;
     user_data.names = data.names;
     user_data.lastnames = data.lastnames;
-    console.log(user_data);
     // Almacenamiento de los datos importantes del usuario en el localStorage como JSON
     localStorage.setItem('user', JSON.stringify(user_data));
-    // Se almacena en la sesión, temporalmente, el dato 'email' y 'fullName' del usuario
-    sessionStorage.setItem("email", data['email']);
-    sessionStorage.setItem("fullname", data['names'] + ' ' + data['lastnames']);
 }
 // Función que permite una espera, dada en milisegundos, dentro de la ejecución de código en una función ASYNC.
 function delay(ms) {
@@ -369,8 +364,9 @@ document.getElementById('inputs_container').querySelectorAll(':scope > article')
 
 // Función que valida si el código fue ingresado anteriormente al momento de registrarse
 function code_already_typed(elements_to_hide){
-    let data = JSON.parse(localStorage.getItem('user'));
+    let data = JSON.parse(localStorage.getItem('user') ?? '{}');
     let email = data?.email ?? null;
+    const rol = data?.rol ?? null;
     const input_email_Re = document.getElementById('input_email_Re');
     const alert = document.getElementById('error_text_alert');
 
@@ -381,7 +377,6 @@ function code_already_typed(elements_to_hide){
             const input_code = document.getElementById('input_code_Re');
             input_code.value = '';
 
-            localStorage.removeItem('user');
             // Se crea un json con la Información Personal del usuario
             const names = document.getElementById('input_names_Re').value;
             const lastnames = document.getElementById('input_lastnames_Re').value;
@@ -389,9 +384,8 @@ function code_already_typed(elements_to_hide){
             const birthdate = document.getElementById('input_birthdate_Re').value;
             const phonenumber = document.getElementById('input_phonenumber_Re').value;
             const dui = document.getElementById('input_dui_Re').value;
-            const rol = JSON.parse(localStorage.getItem('user')).rol ?? null;
 
-            if(!rol){ show_text_alert([[alert], 'Tipo de usuario no identificado']); return; }
+            if(!rol){ show_text_alert([[alert], 'Tipo de usuario no identificado']); hideLoader(); enable_inputs(elements_to_hide); return; }
 
             const json_data = {
                 names: names,
@@ -401,7 +395,6 @@ function code_already_typed(elements_to_hide){
                 phonenumber: phonenumber,
                 dui: dui,
                 rol: rol,
-
                 domain: 'google'
             };
 
