@@ -303,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let user_data = {};
             for(const param of params){
                 const value = session[param] ?? null;
+                console.log(param + ': ' + value);
                 if(param === 'rol'){ user_data[param] = value; continue;}
                 if(!value){ user_data = {}; break; }
                 user_data[param] = value;
