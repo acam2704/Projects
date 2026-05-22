@@ -316,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     input.value = user_data[param];
                 }
+                console.log('se hace el json');
                 const json_data = JSON.stringify({
                     code: user_data.code,
                     email: user_data.email
