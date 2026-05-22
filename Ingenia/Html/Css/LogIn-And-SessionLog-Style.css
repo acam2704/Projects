@@ -444,7 +444,8 @@ label{
 }
 #loading_screen{
     position: absolute;
-    background-color: rgb(0,0,0,0.5);
+    background-color: rgb(0,0,0, 0.5);
+    filter: blur(10px);
     width: 100vw;
     height: 100vh;
 }
