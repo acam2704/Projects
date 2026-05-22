@@ -638,6 +638,7 @@ function show_verification_code_window(containers_to_hide){
 
     enable_inputs(containers_to_show);
     disable_inputs(containers_to_hide);
+    hideLoader();
 
     hide_and_show(containers_to_show, containers_to_hide);
 }
@@ -857,6 +858,7 @@ function register_user(user_data){
     })
     .then(response => response.text())
     .then(data => {
+        hideLoader();
         window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html'
     });
 }
@@ -897,8 +899,6 @@ function PasswordsWindow(){
 
 // Función que verifica las contraseñas ingresadas por le usuario
 function verifyPasswords(){
-    hideLoader();
-
     // Se preparan los inputs a mostrar, ocultar, habilitar y deshabilitar
     const inputs_to_hide = [security_information_container];
     
@@ -913,12 +913,14 @@ function verifyPasswords(){
         show_text_alert([[text_SI1], 'La contraseña no puede ser menor a 8 carácteres']); // Se muestra la alerta
         // Se habilitan los campos nuevamente
         enable_inputs(inputs_to_hide);
+        hideLoader();
         return;
     }
     if(input_1psw_Re.value.trim() !== input_2psw_Re.value.trim()){ // Si las contraseñas no son euivalentes
         show_text_alert([[text_SI1, text_SI2], 'Las contraseñas no coinciden']); // Se muestra la alerta
         // Se habilitan los campos nuevamente
         enable_inputs(inputs_to_hide);
+        hideLoader();
         return;
     }
     // Se muestra los campos para ingresar el DUI 
@@ -937,6 +939,7 @@ function show_public_information_window(containers_to_hide){
 
     enable_inputs(containers_to_show);
     hide_and_show(containers_to_show, containers_to_hide);
+    hideLoader();
 
     show_text_alert([[bttn_send_txt], 'Siguiente'])
 }
