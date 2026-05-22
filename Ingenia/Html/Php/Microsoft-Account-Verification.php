@@ -77,7 +77,7 @@ try{
 <script>
     // Guardar datos en el navegador
     const user = <?php echo json_encode($respond)?>;
-    sessionStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.removeItem('vth_email');
     localStorage.setItem('user', JSON.stringify(user));
 
     // Redirigir al HTML

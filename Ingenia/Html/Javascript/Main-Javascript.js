@@ -293,9 +293,6 @@ document.addEventListener('DOMContentLoaded', function() {
     hideLoader();
 
     hide_and_show([personal_information_container], []);
-    
-    console.log(local);
-    console.log('session: ' + session);
 
     try{
         if(session){ 
@@ -306,10 +303,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const value = session[param] ?? null;
                 console.log(param + ': ' + value);
                 if(param === 'rol'){ user_data[param] = value; continue;}
-                if(!value){ user_data = {}; break; }
+                if(!value){ user_data = {}; throw new Error('vth_email'); break; }
                 user_data[param] = value;
             }
-            console.log(Object.keys(user_data).length);
             if(Object.keys(user_data).length === 8){
                 for(const param of params){
                     if(param === 'rol'){ continue; }
@@ -318,24 +314,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     input.value = user_data[param];
                 }
-                console.log('se hace el json');
                 const json_data = JSON.stringify({
                     code: user_data.code,
                     email: user_data.email
                 });
-                console.log('se manda el codigo');
                 codeVerification(json_data, false); // Se envía a verificarlo
                 return;
             }
         }
 
-        console.log(local);
-        if(local === null){ throw null; return;}
+        if(local === null){ throw new Error('user'); return;}
 
         local = JSON.parse(local);
         const mandatories = ['names', 'lastnames', 'email', 'birthdate'];
 
-        console.log(local);
         for(const mandatory of mandatories){
             const value = local[mandatory] ?? null;
             if(!value){ throw null; return;}
@@ -351,9 +343,10 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch(e){
         enable_inputs(elements_to_show);
         hide_and_show(elements_to_show, []);
-        if (e){
-            localStorage.removeItem('user');
+        if (e.message === 'vth_email'){
             sessionStorage.removeItem('vth_email');
+        } else if(e.message === 'user'){
+            localStorage.removeItem('user');
         }
     }
     hide_all_text_alerts();
@@ -541,6 +534,7 @@ async function transformData(json){
         file_img_Re.src = json.picture;
 
         almacenate(json);
+        sessionStorage.removeItem('vth_email');
     }
 }
 
@@ -714,6 +708,7 @@ async function codeVerificationResponse(response, bool){
         show_identity_information_window(elements_to_hide);
     } else{ // Si el status es diferente a 'ok'
         show_text_alert([[text], 'Código inválido']); // Se muestra la alerta
+        sessionStorage.removeItem('vth_email');
         enable_inputs(elements_to_hide); // Se habilitan los inputs requeridos
         hide_and_show(elements_to_hide, [])
     }
