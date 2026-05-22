@@ -292,6 +292,8 @@ document.addEventListener('DOMContentLoaded', function() {
     hideLoader();
 
     hide_and_show([personal_information_container], []);
+    
+    console.log(local);
 
     try{
         if(session){ 
