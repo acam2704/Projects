@@ -29,3 +29,13 @@ document.getElementById('input_frontdui_OCR').addEventListener('change', async f
     text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
     + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
 });
+
+document.getElementById('bttn_frontdui').addEventListener('click', function() {
+    const input_file = document.getElementById('input_frontdui_OCR');
+    input_file.click();
+});
+
+document.getElementById('bttn_backdui').addEventListener('click', function() {
+    const input_file = document.getElementById('input_backdui_OCR');
+    input_file.click();
+});

@@ -413,18 +413,40 @@ label{
 /* SESSION-LOG-OCR */
 #information_dui_container{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
 }
-#information_dui_container > article{
+#information_dui_container > section{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.file_container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 151px;
-
-    padding: 10px;
+    justify-content: center;
+    max-width: 40%;
+}
+#input_backdui_OCR,
+#input_frontdui_OCR{
+    display: none;
+}
+.dui_img{
+    width: 20px;
+}
+.bttn_send.dui{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#loading_screen{
+    position: absolute;
+    background-color: rgb(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
 }
 
 @keyframes girar{
