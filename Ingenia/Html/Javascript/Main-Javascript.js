@@ -372,37 +372,52 @@ function code_already_typed(elements_to_hide){
     let data = JSON.parse(localStorage.getItem('user'));
     let email = data?.email ?? null;
     const input_email_Re = document.getElementById('input_email_Re');
+    const alert = document.getElementById('error_text_alert');
 
-    if ( email && ( email === input_email_Re.value.trim() ) ) {
-        show_identity_information_window(elements_to_hide);
-    } else{
-        const input_code = document.getElementById('input_code_Re');
-        input_code.value = '';
+    try{
+        if ( email && ( email === input_email_Re.value.trim() ) ) {
+            show_identity_information_window(elements_to_hide);
+        } else{
+            const input_code = document.getElementById('input_code_Re');
+            input_code.value = '';
 
-        localStorage.removeItem('user');
-        // Se crea un json con la Información Personal del usuario
-        const names = document.getElementById('input_names_Re').value;
-        const lastnames = document.getElementById('input_lastnames_Re').value;
-        const email = document.getElementById('input_email_Re').value;
-        const birthdate = document.getElementById('input_birthdate_Re').value;
-        const phonenumber = document.getElementById('input_phonenumber_Re').value;
-        const dui = document.getElementById('input_dui_Re').value;
-        const rol = JSON.parse(localStorage.getItem('user')).rol;
+            localStorage.removeItem('user');
+            // Se crea un json con la Información Personal del usuario
+            const names = document.getElementById('input_names_Re').value;
+            const lastnames = document.getElementById('input_lastnames_Re').value;
+            const email = document.getElementById('input_email_Re').value;
+            const birthdate = document.getElementById('input_birthdate_Re').value;
+            const phonenumber = document.getElementById('input_phonenumber_Re').value;
+            const dui = document.getElementById('input_dui_Re').value;
+            const rol = JSON.parse(localStorage.getItem('user')).rol ?? null;
 
-        const json_data = JSON.stringify({
-            names: names,
-            lastnames: lastnames,
-            email: email,
-            birthdate: birthdate,
-            phonenumber: phonenumber,
-            dui: dui,
-            rol: rol,
+            if(!rol){ show_text_alert([[alert], 'Tipo de usuario no identificado']); return; }
 
-            domain: 'google'
-        });
+            const json_data = {
+                names: names,
+                lastnames: lastnames,
+                email: email,
+                birthdate: birthdate,
+                phonenumber: phonenumber,
+                dui: dui,
+                rol: rol,
 
-        // Se envían a una función que envía un código de verificación
-        sendCode(json_data);
+                domain: 'google'
+            };
+
+            for(const key of Object.keys(json_data)){
+                const value = json_data[key];
+                if(!value){
+                    throw new Error(`${value} requerido`);
+                }
+            }
+            // Se envían a una función que envía un código de verificación
+            sendCode(JSON.stringify(json_data));
+        }
+    } catch(e){
+        show_text_alert([[alert], 'Hubo un error. Inténtelo nuevamente'])
+        hideLoader();
+        enable_inputs(elements_to_hide);
     }
 }
 
