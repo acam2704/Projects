@@ -311,6 +311,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(Object.keys(user_data).length);
             if(Object.keys(user_data).length === 8){
                 for(const param of params){
+                    if(param === 'rol'){ continue; }
                     const id = 'input_' + param + '_Re';
                     const input = document.getElementById(id);
 
