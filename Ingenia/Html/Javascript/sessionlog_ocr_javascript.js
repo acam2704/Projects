@@ -1,33 +1,15 @@
-/*document.getElementById('input_dui_OCR').addEventListener('change', function() {
-    const dui_picture = this.files[0];
-    let preview = document.getElementById('file_dui_OCR');
-    const formData = new formData();
-    formData.append('dui', dui_picture);
+const information_dui_container = document.getElementById('information_dui_container');
 
-    try{
-        const json_response = await fetch('Php/upload_picture.php', {
-            method: 'POST',
-            body: formData
-        });
-        const data = await json_response.json();
+document.addEventListener('DOMContentLoaded', function(){
+    information_dui_container.style.display = 'flex';
 
-        if(data.status !== 'ok'){
-            throw new Error('La imagen no se logró subir');
-        }
-        preview.src = data.url;
-    } catch(e){
-        const error = document.getElementById('main_alert');
-        show_text_alert([[error], 'La imagen no se logró subir']);
-        preview.remove();
-        return;
-    }
-});*/
+});
 
-document.getElementById('input_dui_OCR').addEventListener('change', async function(){
+document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
     const file = this.files[0];
     if (file) {
         const reader = new FileReader(); // Crea el lector de archivos
-        const img = document.getElementById('file_dui_OCR');
+        const img = document.getElementById('file_frontdui_OCR');
         reader.onload = function(e) {
             img.src = e.target.result; // Asigna la ruta de la imagen
         }

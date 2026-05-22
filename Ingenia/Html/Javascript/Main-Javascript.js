@@ -192,7 +192,10 @@ function normalizeSelect(select){
 // Función que oculta la animación de carga y muestra el texto del botón
 function hideLoader(){
     const bttn_send_txt = document.getElementById('bttn_send_txt');
+    const bttn_send = document.getElementById('bttn_send');
     const loader = document.getElementById('loader');
+
+    bttn_send.classList.remove('blocked');
     loader.style.display = "none";
     bttn_send_txt.style.display = "block";
 }
@@ -1058,14 +1061,17 @@ function collect_user_data(){
 // Función que muestra la animación de carga en el botón
 function animationLoad(){
     const loader = document.getElementById("loader");
+    const bttn_send = document.getElementById('bttn_send');
     const bttn_send_txt = document.getElementById("bttn_send_txt");
 
+     bttn_send.classList.add('blocked');
     bttn_send_txt.style.display = "none";
     loader.style.display = "block";
 }
 // Al presionar o dar click al botón, se valida en la sección actual activa para mover al usuario a la siguiente 
 document.getElementById('bttn_send').addEventListener("click", async () => {
     disable_all_inputs(); // Se deshabilitan todos los inputs
+    const bttn_send = document.getElementById('bttn_send');
     const error_text_alert = document.getElementById('error_text_alert');
     error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si h  ubo un error anteriormente
     document.getElementById('bttn_send').style.marginTop = "0"; // Se reestablece el marginTop de bttn_send
