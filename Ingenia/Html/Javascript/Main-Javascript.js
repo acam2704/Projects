@@ -284,6 +284,7 @@ function retrieve_alert_changes(){
 }
 /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function() {
+    animationLoad();
     let local = localStorage.getItem('user');
     let session = sessionStorage.getItem('vth_email');
     const elements_to_show = [personal_information_container];
@@ -356,6 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     hide_all_text_alerts();
+    hideLoader();
 })
 
 document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
