@@ -322,14 +322,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        console.log(local);
         if(local === null){ throw null; return;}
 
         local = JSON.parse(local);
         const mandatories = ['names', 'lastnames', 'email', 'birthdate'];
 
+        console.log(local);
         for(const mandatory of mandatories){
             const value = local[mandatory] ?? null;
-            if(!value){ throw new Error('Local and Session eliminated'); }
+            if(!value){ throw null; return;}
 
             const id = 'input_' + mandatory +  '_Re';
             const input = document.getElementById(id);
