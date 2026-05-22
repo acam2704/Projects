@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
     hide_and_show([personal_information_container], []);
     
     console.log(local);
+    console.log('session: ' + session);
 
     try{
         if(session){ 
@@ -374,6 +375,7 @@ function code_already_typed(elements_to_hide){
     const input_email_Re = document.getElementById('input_email_Re');
     const alert = document.getElementById('error_text_alert');
     console.log(data);
+    console.log(rol);
 
     try{
         if ( email && ( email === input_email_Re.value.trim() ) ) {
