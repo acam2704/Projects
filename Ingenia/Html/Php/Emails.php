@@ -144,7 +144,7 @@ try{
                     font-size: 16px;
                     line-height: 1.7;
                 '>
-                    Gracias por empezar a crear tu cuenta en Ingenia.\n
+                    Gracias por empezar a crear tu cuenta en Ingenia.
                     Para activar tu cuenta y continuar tu registro,
                     debes verificar tu correo electrónico.
                 </p>
@@ -154,14 +154,14 @@ try{
                     line-height: 1.5;
                     text-align: center;
                 '>
-                    Digita el código: $codigo \n
-                    o\n
+                    Digita el código: $codigo <br>
+                    o<br>
                     Verifica tu cuenta presionando el siguiente botón:
                 </p>
 
                 <table cellpadding='0' cellspacing='0' border='0' width='100%'>
                 <tr>
-                <td align='center' style='padding: 35px 0; display: flex; justify-content: center; align-items: center'>
+                <td align='center' style='padding: 35px 0; display: flex; justify-content: center; align-items: center; width: 100%'>
 
                     <a href='$url'
                     style='
