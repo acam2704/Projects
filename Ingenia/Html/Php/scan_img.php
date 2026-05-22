@@ -133,7 +133,8 @@ try{
         'dateOfBirth' => $dateOfBirth,
         'currentAddress' => $currentAddress,
         'phoneNumber' => $phoneNumber,
-        'email' => $email
+        'email' => $email,
+        'fields' => $fields
     ]);
 
 } catch(Exception $e){
@@ -141,12 +142,9 @@ try{
         'status' => 'failed',
         'error' => $e->getMessage(),
         'ocrData' => $ocrData ?? [],
-        'tokenData' => $tokenData ?? [],
-        'response' => $response ?? [],
         'curl_error' => curl_error($ch),
         'curl_errno' => curl_errno($ch),
         'mg' => 'Check "error"',
-        'fields' => $fields
     ]);
     if(isset($ch)){
         curl_close($ch);
