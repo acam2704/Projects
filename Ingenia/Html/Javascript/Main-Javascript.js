@@ -319,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     code: user_data.code,
                     email: user_data.email
                 });
+                console.log('se manda el codigo');
                 codeVerification(json_data, false); // Se envía a verificarlo
                 return;
             }
