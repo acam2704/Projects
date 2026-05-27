@@ -32,8 +32,26 @@
                     </article> 
                 </section>
             </article>
-            <p id="main_alert"></p>
-            <button class="back_bttn" id="slocr_backbttn">← Volver</button>
+            <section id="primary_bttns_container_father">
+                <p id="main_alert"></p>
+                <section id="primary_bttns_container">
+                    <article id="bttn_back_container">
+                        <button onclick="go_back()" class="bttn_send" id="slocr_backbttn">
+                            <p id="bttn_back_txt">← Volver</p>
+                        </button>
+                    </article>
+                    <article id="bttn_send_container">
+                        <button class="bttn_send" id="bttn_send">
+                            <p id="loader"></p>
+                            <p id="bttn_send_txt">Siguiente</p>
+                        </button>
+                    </article>
+                </section>
+                <p class="normal_text">
+                    ¿Ya tienes una cuenta? 
+                    <a href="#" class="normal_text" id="Go_to_LogIn">Iniciar sesión</a>
+                </p> <br>
+            </section>
         </section>
     </main>
     <aside id="aside_background">

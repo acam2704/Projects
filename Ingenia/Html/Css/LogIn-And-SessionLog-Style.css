@@ -50,7 +50,8 @@ main.content_window{width: 60%; min-width: 360px;}
     font-size: 15px;
     transition: all 0.8s ease;
 }
-#back_bttn {
+.back_bttn,
+#back_bttn{
     display: flex;
     align-items: center;
     justify-content: center;

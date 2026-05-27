@@ -1235,4 +1235,7 @@ if(html.toLowerCase() === 'session-log.html'){
     } catch(e){
 
     }
+} else if(html.toLowerCase() === 'session-log-ocr.html'){
+    const container1 = document.getElementById('primary_bttns_container');
+    container1.style.maxWidth = '500px';
 }
