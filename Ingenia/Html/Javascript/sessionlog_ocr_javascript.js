@@ -73,15 +73,19 @@ function validate_dui_info(data, bool){
             const required_fields = ['firstname', 'dateOfBirth', 'documentNumber', 'lastName'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia - Hubo un error'); }
             for(const key of Object.keys(data)){
-                if(data[key] === undefined){ console.log(key + ' es un undefined'); }
-                console.log('key: ' + key + ' - ' + 'value: ' + data[key]);
+                if(required_fields.includes(key)){
+                    if(data[key] === undefined){ console.log(key + ' es un undefined'); }
+                    console.log('key: ' + key + ' - ' + 'value: ' + data[key]);
+                }
             }
         } else{
             const required_fields = ['currentAddress', 'dateOfBirth', 'documentNumber', 'lastName'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia - Hubo un error'); }
             for(const key of Object.keys(data)){
-                if(data[key] === undefined){ console.log(key + ' es un undefined'); }
-                console.log('key: ' + key + ' - ' + 'value: ' + data[key]);
+                if(required_fields.includes(key)){
+                    if(data[key] === undefined){ console.log(key + ' es un undefined'); }
+                    console.log('key: ' + key + ' - ' + 'value: ' + data[key]);
+                }
             }
         }
     } catch(e){
