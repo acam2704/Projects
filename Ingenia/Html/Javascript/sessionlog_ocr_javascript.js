@@ -25,6 +25,7 @@ document.getElementById('input_frontdui_OCR').addEventListener('change', async f
         body: form
     });
     const data = await response.json();
+    validate_dui_info(data, true);
     console.log(data);
     text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
     + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
@@ -51,6 +52,7 @@ document.getElementById('input_backdui_OCR').addEventListener('change', async fu
     });
     const data = await response.json();
     console.log(data);
+    validate_dui_info(data, false);
     text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
     + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
 })
