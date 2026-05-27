@@ -1192,23 +1192,25 @@ document.getElementById('bttn_backdui').addEventListener('click', function() {
 
 function validate_dui_info(data, bool){
     try{   
+        if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
         if(bool){
             const required_fields = ['firstname', 'dateOfBirth', 'documentNumber', 'lastName'];
-            if(!(data.status === 'ok')){ throw new Error('Ingenia - Hubo un error'); }
+            if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
                 if(!required_fields.includes(key) && data[key] === undefined)
-                { throw new Error('Ingenia - Imprecisión al escanear los datos. Por favor, mejore la calidad o posición de la foto'); }
+                { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
             }
         } else{
             const required_fields = ['currentAddress', 'dateOfBirth', 'documentNumber', 'lastName'];
-            if(!(data.status === 'ok')){ throw new Error('Ingenia - Hubo un error'); }
+            if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
                 if(required_fields.includes(key) && data[key] === undefined)
-                { throw new Error('Imprecisión al escanear los datos. Por favor, mejore la calidad o posición de la foto'); }
+                { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
             }
         }
     } catch(e){
-        if(e.message.includes('Ingenia')){ console.log(e.message.split('-')[1]); }
+        const alert = document.getElementById('main_alert');
+        if(e.message.includes('Ingenia -')){ alert.textContent = e.message.split('-')[1]; console.log(e.message.split('-')[1]); }
     }
 }
 

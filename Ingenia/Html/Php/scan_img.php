@@ -23,7 +23,7 @@ try{
         throw new Exception(curl_error($ch));
     }
     if($response === false){
-        throw new Exception('No se logró la conexióndshgvc');
+        throw new Exception('No se logró la conexión');
     }
 
     $tokenData = json_decode($response, true);
@@ -35,11 +35,11 @@ try{
     $endpoint = 'https://ingeniadinteliggence.cognitiveservices.azure.com/documentintelligence/documentModels/prebuilt-idDocument:analyze?api-version=2024-11-30';
     
     if (!isset($_FILES['file'])) {
-        throw new Exception("No se recibió ningún archivo");
+        throw new Exception("Ingenia -No se recibió ningún archivo");
     }
     $maxSize = 10 * 1024 * 1024;
     if ($_FILES['file']['size'] > $maxSize) {
-        throw new Exception("La imagen supera el límite de 10 MB");
+        throw new Exception("Ingenia -La imagen supera el límite de 10 MB");
     }
 
     $file = $_FILES['file']['tmp_name'];
@@ -52,7 +52,7 @@ try{
     ];
 
     if (!in_array($mime, $allowedMimes)) {
-        throw new Exception("Tipo de archivo no permitido: " . $mime);
+        throw new Exception("Ingenia -Tipo de archivo no permitido: " . $mime);
     }
     $file_content = file_get_contents($file);
     curl_close($ch); 
@@ -84,9 +84,7 @@ try{
     $maxAttempts = 15;
     $attempts = 1;
 
-    if (!$operation_url) {
-        throw new Exception("No se obtuvo Operation-Location");
-    }
+    if (!$operation_url) { throw new Exception("No se obtuvo Operation-Location"); }
 
     do {
         sleep(2);
