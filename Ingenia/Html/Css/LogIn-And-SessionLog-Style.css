@@ -441,6 +441,7 @@ label{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 80%;
 }
 #loading_screen{
     position: absolute;
@@ -448,7 +449,11 @@ label{
     filter: blur(10px);
     width: 100vw;
     height: 100vh;
+
+    display: none;
 }
+#file_frontdui_OCR,
+#file_backdui_OCR{width: 100%;}
 
 @keyframes girar{
     from {
