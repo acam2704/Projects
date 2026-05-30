@@ -11,6 +11,8 @@ const security_information_container = document.getElementById("security_informa
 const identity_information_container = document.getElementById("identity_information_container");
 //----- VENTANA: INFORMACIÓN PÚBLICA DEL PERFIL -----//
 const public_profile_information_container = document.getElementById('public_profile_information_container');
+//----- OCR -----//
+const information_dui_container = document.getElementById('information_dui_container');
 //----- ELEMENTOS GUÍAS DE CADA VENTANA -----//
 const content_check_buttons_with = document.getElementById("content_check_buttons_with");
 
@@ -119,6 +121,244 @@ const map = {
         ]
     }]
 }
+
+const window_pathname = window.location.pathname.toLowerCase();
+if(window_pathname.includes('session-log.html')){
+    /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
+    document.addEventListener('DOMContentLoaded', function() {
+        animationLoad();
+        let local = localStorage.getItem('user');
+        let session = sessionStorage.getItem('vth_email');
+        const elements_to_show = [personal_information_container];
+
+        disable_all_inputs();
+        hideLoader();
+
+        hide_and_show([personal_information_container], []);
+
+        try{
+            if(session){ 
+                session = JSON.parse(session);
+                const params =  ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code', 'rol'];
+                let user_data = {};
+                for(const param of params){
+                    const value = session[param] ?? null;
+                    console.log(param + ': ' + value);
+                    if(param === 'rol'){ user_data[param] = value; continue;}
+                    if(!value){ user_data = {}; throw new Error('vth_email'); break; }
+                    user_data[param] = value;
+                }
+                if(Object.keys(user_data).length === 8){
+                    for(const param of params){
+                        if(param === 'rol'){ continue; }
+                        const id = 'input_' + param + '_Re';
+                        const input = document.getElementById(id);
+
+                        input.value = user_data[param];
+                    }
+                    const json_data = JSON.stringify({
+                        code: user_data.code,
+                        email: user_data.email
+                    });
+                    codeVerification(json_data, false); // Se envía a verificarlo
+                    return;
+                }
+            }
+
+            if(local === null){ throw new Error('user'); return;}
+
+            local = JSON.parse(local);
+            const mandatories = ['names', 'lastnames', 'email', 'birthdate'];
+
+            for(const mandatory of mandatories){
+                const value = local[mandatory] ?? null;
+                if(!value){ throw null; return;}
+
+                const id = 'input_' + mandatory +  '_Re';
+                const input = document.getElementById(id);
+                input.value = value;
+            }
+
+            hide_and_show(elements_to_show, []);
+            enable_inputs(elements_to_show);
+            return;
+        } catch(e){
+            enable_inputs(elements_to_show);
+            hide_and_show(elements_to_show, []);
+            if (e.message === 'vth_email'){
+                sessionStorage.removeItem('vth_email');
+            } else if(e.message === 'user'){
+                localStorage.removeItem('user');
+            }
+        }
+        hide_all_text_alerts();
+    })
+    document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
+        article.querySelectorAll(':scope > input, select').forEach(element => {
+            let span = element.previousElementSibling;
+            while( element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement) ){
+                span = span.previousElementSibling;
+                if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
+                if(!span){return;}
+            }
+            element.addEventListener('change', function() {
+                span.style.display = 'none';
+            })
+        })
+    });
+    document.getElementById('back_bttn').addEventListener('click', go_back);
+    // Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
+    document.getElementById('select_departament').addEventListener('change', function() {
+        const departament_key = document.getElementById('select_departament').value;
+        document.querySelectorAll('.option_municipality').forEach(el => el.remove());
+        document.querySelectorAll('.option_district').forEach(el => el.remove());
+        if(!departament_key){return;}
+        const departament = map[departament_key][0];
+
+        if(departament_key.trim().length !== 0){
+            place_municipality(departament, departament_key);
+        }
+    });
+    // Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
+    document.getElementById('select_municipality').addEventListener('change', function() {
+        const municipality = document.getElementById('select_municipality').value;
+        document.querySelectorAll('.option_district').forEach(el => el.remove());
+        if(!municipality){return;}
+        const departament = document.getElementById('select_departament').value;
+
+        if(municipality.trim().length !== 0){
+            place_district(municipality, departament);
+        }
+    });
+    document.getElementById('close_img_viewer').addEventListener('click', () => {
+        const img_viewer = document.getElementById('img_viewer');
+        img_viewer.style.display = 'none';
+    });
+    document.getElementById('delete_degree').addEventListener('click', () => {
+        if(current_img){
+            const img_viewer = document.getElementById('img_viewer');
+            current_img.remove();
+            img_viewer.style.display = 'none';
+
+            current_img = null;
+        }
+    });
+    document.getElementById('message_description_Re').addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+        let words_amount = this.value.length;
+        if(words_amount >= 250){this.disabled = true; words_amount = words_amount.slice(0, 250);}
+        this.disabled = false;
+        let words_counter = document.getElementById('words_counter');
+        words_counter.textContent = words_amount.value.length + '/250';
+    });
+    // Al presionar o dar click al botón, se valida en la sección actual activa para mover al usuario a la siguiente 
+    document.getElementById('bttn_send').addEventListener("click", async () => {
+        disable_all_inputs(); // Se deshabilitan todos los inputs
+        const bttn_send = document.getElementById('bttn_send');
+        const error_text_alert = document.getElementById('error_text_alert');
+        error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si h  ubo un error anteriormente
+        document.getElementById('bttn_send').style.marginTop = "0"; // Se reestablece el marginTop de bttn_send
+        animationLoad(); // Al dar click, se muestra la animación de carga en el botón
+        await delay(500); // Se espera medio segundo
+
+        // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
+        if(getComputedStyle(personal_information_container).display !== 'none'){
+            next(); // Validación de la información
+        } else if(getComputedStyle(verification_code_container).display !== 'none'){
+            verification_code_window(sessionStorage.getItem('email')); // Validación de código
+        } else if(getComputedStyle(identity_information_container).display !== 'none'){
+            verify_identity_information(); // Validación de información
+        } else if(getComputedStyle(security_information_container).display !== 'none'){
+            verifyPasswords(); // Validación de contraseñas
+        } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
+            const email = document.getElementById('input_email_Re').value;
+            const dui = document.getElementById('input_dui_Re').value;
+            const phonenumber = document.getElementById('input_phonenumber_Re').value;
+            validate_info({email: email.trim(), dui: dui.trim(), phonenumber: phonenumber.trim()}, [], false);
+        }
+    });
+
+    const content_window = document.getElementsByClassName('content_window')[0];
+    const aside = document.getElementById('aside_background');
+    const inputs_container = document.getElementById('inputs_container');
+    if(window.matchMedia('(min-width: 768px)')){
+        inputs_container.style.padding = '0 40px';
+
+        const inputs = Array.from(document.getElementsByClassName('input'));
+        inputs.forEach(input =>{
+            input.padding = '5px 10px 5px 10px';
+        });
+    } else if(window.matchMedia('(max-width: 767px)')){
+        content_window.style.width = '100%';
+    }
+    inputs_container.style.padding = '40px';
+
+} else if(window_pathname.includes('session-log-ocr.html')){
+    document.addEventListener('DOMContentLoaded', function(){
+        information_dui_container.style.display = 'flex';
+    });
+    document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader(); // Crea el lector de archivos
+            const img = document.getElementById('file_frontdui_OCR');
+            reader.onload = function(e) {
+                img.src = e.target.result; // Asigna la ruta de la imagen
+            }
+            reader.readAsDataURL(file); // Lee el archivo como URL de datos
+        }
+        const text = document.getElementById('main_alert');
+        const form = new FormData();
+        form.append('file', file);
+        const response = await fetch('Php/scan_img.php', {
+            method: 'POST',
+            body: form
+        });
+        const data = await response.json();
+        validate_dui_info(data, true);
+        console.log(data);
+        text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
+        + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
+    });
+    document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader(); // Crea el lector de archivos
+            const img = document.getElementById('file_backdui_OCR');
+            reader.onload = function(e) {
+                img.src = e.target.result; // Asigna la ruta de la imagen
+            }
+            reader.readAsDataURL(file); // Lee el archivo como URL de datos
+        }
+
+        const text = document.getElementById('main_alert');
+        const form = new FormData();
+        form.append('file', file);
+
+        const response = await fetch('Php/scan_img.php', {
+            method: 'POST',
+            body: form
+        });
+        const data = await response.json();
+        console.log(data);
+        validate_dui_info(data, false);
+        text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
+        + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
+    });
+    document.getElementById('bttn_frontdui').addEventListener('click', function() {
+        const input_file = document.getElementById('input_frontdui_OCR');
+        input_file.click();
+    });
+    document.getElementById('bttn_backdui').addEventListener('click', function() {
+        const input_file = document.getElementById('input_backdui_OCR');
+        input_file.click();
+    });
+
+    const container1 = document.getElementById('primary_bttns_container');
+    container1.style.maxWidth = '500px';
+}
+
 // Función que permite simular volver a los campos de ingreso anteriores
 function go_back(){
     // Se deshabilitan todos los inputs
@@ -192,12 +432,14 @@ function normalizeSelect(select){
 // Función que oculta la animación de carga y muestra el texto del botón
 function hideLoader(){
     const bttn_send_txt = document.getElementById('bttn_send_txt');
-    const bttn_send = document.getElementById('bttn_send');
     const loader = document.getElementById('loader');
-
-    bttn_send.classList.remove('blocked');
-    loader.style.display = "none";
+    let bttns_ids = ['bttn_send', 'slocr_sendbttn'];
+    for(const id of bttns_ids){
+        try{ const bttn_send = document.getElementById(id); bttn_send.classList.remove('blocked');} 
+        catch(e){ continue; }
+    }
     bttn_send_txt.style.display = "block";
+    loader.style.display = "none";
 }
 // Función que permite ocultar y mostrar elementos
 function hide_and_show(containers_to_show, containers_to_hide){
@@ -282,92 +524,6 @@ function retrieve_alert_changes(){
         })
     })
 }
-/* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
-document.addEventListener('DOMContentLoaded', function() {
-    animationLoad();
-    let local = localStorage.getItem('user');
-    let session = sessionStorage.getItem('vth_email');
-    const elements_to_show = [personal_information_container];
-
-    disable_all_inputs();
-    hideLoader();
-
-    hide_and_show([personal_information_container], []);
-
-    try{
-        if(session){ 
-            session = JSON.parse(session);
-            const params =  ['names', 'lastnames', 'email', 'birthdate', 'phonenumber', 'dui', 'code', 'rol'];
-            let user_data = {};
-            for(const param of params){
-                const value = session[param] ?? null;
-                console.log(param + ': ' + value);
-                if(param === 'rol'){ user_data[param] = value; continue;}
-                if(!value){ user_data = {}; throw new Error('vth_email'); break; }
-                user_data[param] = value;
-            }
-            if(Object.keys(user_data).length === 8){
-                for(const param of params){
-                    if(param === 'rol'){ continue; }
-                    const id = 'input_' + param + '_Re';
-                    const input = document.getElementById(id);
-
-                    input.value = user_data[param];
-                }
-                const json_data = JSON.stringify({
-                    code: user_data.code,
-                    email: user_data.email
-                });
-                codeVerification(json_data, false); // Se envía a verificarlo
-                return;
-            }
-        }
-
-        if(local === null){ throw new Error('user'); return;}
-
-        local = JSON.parse(local);
-        const mandatories = ['names', 'lastnames', 'email', 'birthdate'];
-
-        for(const mandatory of mandatories){
-            const value = local[mandatory] ?? null;
-            if(!value){ throw null; return;}
-
-            const id = 'input_' + mandatory +  '_Re';
-            const input = document.getElementById(id);
-            input.value = value;
-        }
-
-        hide_and_show(elements_to_show, []);
-        enable_inputs(elements_to_show);
-        return;
-    } catch(e){
-        enable_inputs(elements_to_show);
-        hide_and_show(elements_to_show, []);
-        if (e.message === 'vth_email'){
-            sessionStorage.removeItem('vth_email');
-        } else if(e.message === 'user'){
-            localStorage.removeItem('user');
-        }
-    }
-    hide_all_text_alerts();
-    hideLoader();
-})
-
-document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
-    article.querySelectorAll(':scope > input, select').forEach(element => {
-        let span = element.previousElementSibling;
-        while( element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement) ){
-            span = span.previousElementSibling;
-            if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
-            if(!span){return;}
-        }
-        element.addEventListener('change', function() {
-            span.style.display = 'none';
-        })
-    })
-});
-
-document.getElementById('back_bttn').addEventListener('click', go_back);
 
 // Función que valida si el código fue ingresado anteriormente al momento de registrarse
 function code_already_typed(elements_to_hide){
@@ -764,31 +920,6 @@ function place_district(municipality_key, departament_key){
     });
 }
 
-// Evento change que agrega los municipios al siguiente select dependiendo del departamento seleccionado
-document.getElementById('select_departament').addEventListener('change', function() {
-    const departament_key = document.getElementById('select_departament').value;
-    document.querySelectorAll('.option_municipality').forEach(el => el.remove());
-    document.querySelectorAll('.option_district').forEach(el => el.remove());
-    if(!departament_key){return;}
-    const departament = map[departament_key][0];
-
-    if(departament_key.trim().length !== 0){
-        place_municipality(departament, departament_key);
-    }
-});
-
-// Evento change que agrega los distritos al siguiente select dependiendo del municipio seleccionado
-document.getElementById('select_municipality').addEventListener('change', function() {
-    const municipality = document.getElementById('select_municipality').value;
-    document.querySelectorAll('.option_district').forEach(el => el.remove());
-    if(!municipality){return;}
-    const departament = document.getElementById('select_departament').value;
-
-    if(municipality.trim().length !== 0){
-        place_district(municipality, departament);
-    }
-});
-
 // Función que ejecuta un código repetitivo de la función verify_identity_information
 function executor_from_VII(element, text){
     enable_inputs([identity_information_container]); // Se vuelven a habilitar los inputs
@@ -950,7 +1081,6 @@ function choose_picture(img){
 }
 
 let current_img;
-
 async function place_picture(input, boolean){
     const picture = input.files[0];
     let preview;
@@ -1005,31 +1135,6 @@ function add_degree(){
 
     input.click();
 }
-
-document.getElementById('close_img_viewer').addEventListener('click', () => {
-    const img_viewer = document.getElementById('img_viewer');
-    img_viewer.style.display = 'none';
-});
-
-document.getElementById('delete_degree').addEventListener('click', () => {
-    if(current_img){
-        const img_viewer = document.getElementById('img_viewer');
-        current_img.remove();
-        img_viewer.style.display = 'none';
-
-        current_img = null;
-    }
-});
-
-document.getElementById('message_description_Re').addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = this.scrollHeight + 'px';
-    let words_amount = this.value.length;
-    if(words_amount >= 250){this.disabled = true; words_amount = words_amount.slice(0, 250);}
-    this.disabled = false;
-    let words_counter = document.getElementById('words_counter');
-    words_counter.textContent = words_amount.value.length + '/250';
-});
 
 function validate_data(user_data){
     const keys = Object.keys(user_data);
@@ -1086,111 +1191,13 @@ function animationLoad(){
     const bttn_send = document.getElementById('bttn_send');
     const bttn_send_txt = document.getElementById("bttn_send_txt");
 
-     bttn_send.classList.add('blocked');
+    bttn_send.classList.add('blocked');
     bttn_send_txt.style.display = "none";
     loader.style.display = "block";
 }
-// Al presionar o dar click al botón, se valida en la sección actual activa para mover al usuario a la siguiente 
-document.getElementById('bttn_send').addEventListener("click", async () => {
-    disable_all_inputs(); // Se deshabilitan todos los inputs
-    const bttn_send = document.getElementById('bttn_send');
-    const error_text_alert = document.getElementById('error_text_alert');
-    error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si h  ubo un error anteriormente
-    document.getElementById('bttn_send').style.marginTop = "0"; // Se reestablece el marginTop de bttn_send
-    animationLoad(); // Al dar click, se muestra la animación de carga en el botón
-    await delay(500); // Se espera medio segundo
-
-    // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-    if(getComputedStyle(personal_information_container).display !== 'none'){
-        next(); // Validación de la información
-    } else if(getComputedStyle(verification_code_container).display !== 'none'){
-        verification_code_window(sessionStorage.getItem('email')); // Validación de código
-    } else if(getComputedStyle(identity_information_container).display !== 'none'){
-        verify_identity_information(); // Validación de información
-    } else if(getComputedStyle(security_information_container).display !== 'none'){
-        verifyPasswords(); // Validación de contraseñas
-    } else if(getComputedStyle(public_profile_information_container).display !== 'none'){
-        const email = document.getElementById('input_email_Re').value;
-        const dui = document.getElementById('input_dui_Re').value;
-        const phonenumber = document.getElementById('input_phonenumber_Re').value;
-        validate_info({email: email.trim(), dui: dui.trim(), phonenumber: phonenumber.trim()}, [], false);
-    }
-});
-
-/* ESTILOS */
-const window_location = window.location;
-const window_pathname = window_location['pathname'].split('/');
-const html = window_pathname[window_pathname.length - 1];
 
 /* SESSION LOG OCR */
-const information_dui_container = document.getElementById('information_dui_container');
 
-document.addEventListener('DOMContentLoaded', function(){
-    information_dui_container.style.display = 'flex';
-
-});
-
-document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader(); // Crea el lector de archivos
-        const img = document.getElementById('file_frontdui_OCR');
-        reader.onload = function(e) {
-            img.src = e.target.result; // Asigna la ruta de la imagen
-        }
-        reader.readAsDataURL(file); // Lee el archivo como URL de datos
-    }
-
-    const text = document.getElementById('main_alert');
-    const form = new FormData();
-    form.append('file', file);
-
-    const response = await fetch('Php/scan_img.php', {
-        method: 'POST',
-        body: form
-    });
-    const data = await response.json();
-    validate_dui_info(data, true);
-    console.log(data);
-    text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
-    + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
-});
-
-document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader(); // Crea el lector de archivos
-        const img = document.getElementById('file_backdui_OCR');
-        reader.onload = function(e) {
-            img.src = e.target.result; // Asigna la ruta de la imagen
-        }
-        reader.readAsDataURL(file); // Lee el archivo como URL de datos
-    }
-
-    const text = document.getElementById('main_alert');
-    const form = new FormData();
-    form.append('file', file);
-
-    const response = await fetch('Php/scan_img.php', {
-        method: 'POST',
-        body: form
-    });
-    const data = await response.json();
-    console.log(data);
-    validate_dui_info(data, false);
-    text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
-    + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
-})
-
-document.getElementById('bttn_frontdui').addEventListener('click', function() {
-    const input_file = document.getElementById('input_frontdui_OCR');
-    input_file.click();
-});
-
-document.getElementById('bttn_backdui').addEventListener('click', function() {
-    const input_file = document.getElementById('input_backdui_OCR');
-    input_file.click();
-});
 
 function validate_dui_info(data, bool){
     try{   
@@ -1214,30 +1221,4 @@ function validate_dui_info(data, bool){
         const alert = document.getElementById('main_alert');
         if(e.message.includes('Ingenia -')){ alert.textContent = e.message.split('-')[1]; console.log(e.message.split('-')[1]); }
     }
-}
-
-if(html.toLowerCase() === 'session-log.html'){
-    const content_window = document.getElementsByClassName('content_window')[0];
-    const aside = document.getElementById('aside_background');
-    const inputs_container = document.getElementById('inputs_container');
-    try{
-        if(window.matchMedia('(min-width: 768px)')){
-            inputs_container.style.padding = '0 40px';
-
-            const inputs = Array.from(document.getElementsByClassName('input'));
-            inputs.forEach(input =>{
-                input.padding = '5px 10px 5px 10px';
-            })
-            throw new Error('-');
-        } else if(window.matchMedia('(max-width: 767px)')){
-            content_window.style.width = '100%';
-        }
-        inputs_container.style.padding = '40px';
-
-    } catch(e){
-
-    }
-} else if(html.toLowerCase() === 'session-log-ocr.html'){
-    const container1 = document.getElementById('primary_bttns_container');
-    container1.style.maxWidth = '500px';
 }

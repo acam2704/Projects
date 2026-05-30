@@ -335,6 +335,9 @@ label{
     font-size: 15px;
     text-align: center;
     transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .bttn_send:hover{
     background-color: var(--background-button-hover-);
@@ -429,7 +432,7 @@ label{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 40%;
+    width: 40%;
 }
 #input_backdui_OCR,
 #input_frontdui_OCR{
@@ -443,6 +446,7 @@ label{
     justify-content: space-around;
     align-items: center;
     width: 80%;
+    background-color: var(--background-button-);
 }
 #loading_screen{
     position: absolute;
@@ -455,9 +459,10 @@ label{
 }
 #file_frontdui_OCR,
 #file_backdui_OCR{width: 100%;}
-.dui_img{
-    opacity: 0.5;
-}
+.dui_img{opacity: 0.5;}
+#bttn_send_container.ocr{margin-left: calc(40% - 80px);}
+#bttn_back_container.ocr{margin-right: calc(40% - 80px);}
+#primary_bttns_container.ocr{justify-content: space-around;}
 
 @keyframes girar{
     from {
