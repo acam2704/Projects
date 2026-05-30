@@ -435,7 +435,7 @@ label{
 #input_frontdui_OCR{
     display: none;
 }
-.dui_img{
+.icon_bttn{
     width: 20px;
 }
 .bttn_send.dui{
@@ -455,6 +455,9 @@ label{
 }
 #file_frontdui_OCR,
 #file_backdui_OCR{width: 100%;}
+.dui_img{
+    opacity: 0.5;
+}
 
 @keyframes girar{
     from {

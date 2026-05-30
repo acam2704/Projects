@@ -367,6 +367,8 @@ document.getElementById('inputs_container').querySelectorAll(':scope > article')
     })
 });
 
+document.getElementById('back_bttn').addEventListener('click', go_back);
+
 // Función que valida si el código fue ingresado anteriormente al momento de registrarse
 function code_already_typed(elements_to_hide){
     let data = JSON.parse(localStorage.getItem('user'));
