@@ -19,7 +19,9 @@ try{
         }
         echo json_encode(['number' => '2', 'status' => 'failed', 'email' => $data['email']]);
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-            throw new Exception('Invalid email: ' . $data['email']);
+            echo json_encode(['number' => '2.1', 'status' => 'failed', 'email' => $data['email']]);
+            $email = $data['email'] ?? null;
+            throw new Exception("Invalid email:  $email");
         }
         echo json_encode(['number' => '3', 'status' => 'failed']);
 
@@ -65,7 +67,6 @@ try{
                 ]);
             }
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
-        echo json_encode(['number' => '6', 'status' => 'failed']);
 
     } else{ throw new Exception('No POST'); }
 } catch(Exception $e){
