@@ -12,12 +12,9 @@ $data = json_decode($json_data, true);
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if($conn === false){
-            throw new Exception('Conexión no conseguida');
-        }
-        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-            throw new Exception("Ingenia -Correo Inválido");
-        }
+        if($conn === false){ throw new Exception('Conexión no conseguida'); }
+        if( !( $data && filter_var($data['email'], FILTER_VALIDATE_EMAIL) ) )
+        { throw new Exception("Ingenia -Correo Inválido"); }
 
         /* VERIFICAR QUE EL EMAIL NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
