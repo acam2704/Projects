@@ -648,14 +648,13 @@ async function next(){
 
 function email_registered(response, elements_to_hide, param){
     const error_text_alert = document.getElementById('error_text_alert');
-
     try{
         if(response[0].status === 'ok'){
             if(param){ code_already_typed(elements_to_hide); return; }
             else{ collect_user_data(); return; }
         }
-
         if(response[0].error){ throw new Error(response[0].error)}
+        else{ throw new Error(''); }
     } catch(e){
         let text = 'Hubo un error. Inténtelo de nuevo';
         if(e.message.includes('Ingenia -')) { text = e.message.split('-')[1]; }
