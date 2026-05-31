@@ -1209,14 +1209,11 @@ function validate_dui_info(data, n){
     try{
         if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
         if(n === 1){
-            const required_fields = ['firstname', 'dateofbirth', 'documentnumber', 'lastname'];
+            const required_fields = ['firstName', 'dateOfBirth', 'documentNumber', 'lastName'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
-            for(const key of Object.keys(data)){
-                console.log(key.toLowerCase() + ' - ' + required_fields);
-                console.log(data[key]);
-                if(!(required_fields.includes(key.toLowerCase()) && data[key]))
-                { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
-                usData_ocr[key] === data[key];
+            for(const field of required_fields){
+                if(!data[field]){ throw new Error('Ingenia -Mejore la calidad o posición de la foto.')}
+                usData_ocr[field] = data[field];
             }
         } else if(n === 2){
             const required_fields = ['city', 'state', 'countryRegion'];
