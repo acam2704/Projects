@@ -1208,28 +1208,18 @@ const usData_ocr = {};
 function validate_dui_info(data, n){
     try{
         if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
-        if(n === 1){
-            const required_fields = ['firstName', 'dateOfBirth', 'documentNumber', 'lastName'];
-            if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
-            for(const field of required_fields){
-                if(!data[field]){ throw new Error('Ingenia -Mejore la calidad o posición de la foto.')}
-                usData_ocr[field] = data[field];
-            }
-        } else if(n === 2){
-            const required_fields = ['city', 'state', 'countryRegion'];
-            if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
-            for(const key of Object.keys(data)){
-                if(required_fields.includes(key) && !data[key])
-                { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
-                usData_ocr[key] === data[key];
-            }
-        } else if(n === 3){
-            const required_fields = ['city', 'state', 'countryRegion', 'firstName', 'dateOfBirth', 'documentNumber', 'lastName'];
-            if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
-            for(const key of Object.keys(data)){
-                if(required_fields.includes(key) && !data[key])
-                { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
-                usData_ocr[key] === data[key];
+        const required_fields = [
+            ['firstName', 'dateOfBirth', 'documentNumber', 'lastName'], 
+            ['city', 'state', 'countryRegion'], 
+            ['firstName', 'dateOfBirth', 'documentNumber', 'lastName', 'city', 'state', 'countryRegion']
+        ];
+        for (let i = 0; i < 3; i++) {
+            if(n === (i+1)){
+                const fields = required_fields[i];
+                for(const field of fields){
+                    if(!data[field]){ throw new Error('Ingenia -Mejore la calidad o posición de la foto.'); }
+                    usData_ocr[field] = data[field];
+                }
             }
         }
         console.log(usData_ocr);
