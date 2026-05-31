@@ -82,7 +82,6 @@ try{
 
     $maxAttempts = 15;
     $attempts = 1;
-
     if (!$operation_url) { throw new Exception("Ingenia -No se obtuvo Operation-Location"); }
 
     do {
@@ -107,16 +106,25 @@ try{
         $attempts++;
         curl_close($ch);
     } while (($status === "running" || $status === "notStarted") && $attempts < $maxAttempts);
-
     if ($status !== "succeeded") {
         throw new Exception("OCR no completado: " . json_encode($ocrData));
     }
+
     $text = $ocrData['analyzeResult']['content'];
     $fields = $ocrData['analyzeResult']['documents'][0]['fields'];
     $return = [];
-    foreach ( $fields as $key => $value ) {
-        if(!$value){ throw new Exception('Ingenia -Campo no leído'); }
-        $return[$key] = $value['content'];
+    $valueAddress = $fields['Address']['valueAddress'] ?? null;
+    
+    if($valueAddress){ 
+        foreach( $valueAddress as $key => $value ){
+            if(!$value){ throw new Exception('Ingenia -Campo no leído'); }
+            $return[$key] = $value['content'];
+        }
+    } else{
+        foreach ( $fields as $key => $value ) {
+            if(!$value){ throw new Exception('Ingenia -Campo no leído'); }
+            $return[$key] = $value['content'];
+        }
     }
     $return['status'] = 'ok';
     $return['error'] = null;
