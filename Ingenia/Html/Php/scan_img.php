@@ -23,12 +23,12 @@ try{
         throw new Exception(curl_error($ch));
     }
     if($response === false){
-        throw new Exception('No se logró la conexión');
+        throw new Exception('Ingenia -No se logró la conexión');
     }
 
     $tokenData = json_decode($response, true);
     if(!isset($tokenData['access_token'])){
-        throw new Exception('No se logró la conexión: ' . $tokenData['access_token']);
+        throw new Exception('Ingenia -No se logró la conexión: ' . $tokenData['access_token']);
     }
 
     $token = $tokenData['access_token'];
@@ -45,7 +45,6 @@ try{
     $file = $_FILES['file']['tmp_name'];
     $mime = mime_content_type($file);
     $allowedMimes = [
-        'application/pdf',
         'image/jpeg',
         'image/png',
         'image/tiff'
@@ -84,7 +83,7 @@ try{
     $maxAttempts = 15;
     $attempts = 1;
 
-    if (!$operation_url) { throw new Exception("No se obtuvo Operation-Location"); }
+    if (!$operation_url) { throw new Exception("Ingenia -No se obtuvo Operation-Location"); }
 
     do {
         sleep(2);
@@ -114,31 +113,15 @@ try{
     }
     $text = $ocrData['analyzeResult']['content'];
     $fields = $ocrData['analyzeResult']['documents'][0]['fields'];
+    $return = [];
+    foreach ( $fields as $key => $value ) {
+        if($value){ throw new Error(''); }
+        $return[$key] = $value['content'];
+    }
+    $return['status'] = 'ok';
+    $return['error'] = null;
 
-    $firstName = $fields['FirstName']['content'] ?? null;
-    $lastName = $fields['LastName']['content'] ?? null;
-    $documentNumber = $fields['DocumentNumber']['content'] ?? null;
-    $dateOfBirth = $fields['DateOfBirth']['content'] ?? null;
-    $currentAddress = $fields['Address']['valueAddress'] ?? null;
-    $city = $currentAddress['city'] ?? null;
-    $state = $currentAddress['state'] ?? null;
-    $countryRegion = $currentAddress['countryRegion'] ?? null;
-    $phonenumber = $fields['PhoneNumber']['content'] ?? null;
-    $email = $fields['Email']['content'] ?? null;
-
-    echo json_encode([
-        'status' => 'ok',
-        'firstName' => $firstName,
-        'lastName' => $lastName,
-        'documentNumber' => $documentNumber,
-        'dateOfBirth' => $dateOfBirth,
-        'city' => $city,
-        'state' => $state,
-        'countryRegion' => $countryRegion,
-        'phoneNumber' => $phoneNumber,
-        'email' => $email,
-        'fields' => $fields
-    ]);
+    echo json_encode($return);
 
 } catch(Exception $e){
     echo json_encode([

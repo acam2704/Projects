@@ -1209,10 +1209,10 @@ function validate_dui_info(data, bool){
     try{
         if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
         if(n === 1){
-            const required_fields = ['firstName', 'dateOfBirth', 'documentNumber', 'lastName'];
+            const required_fields = ['firstname', 'dateofbirth', 'documentnumber', 'lastname'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
-                if(!required_fields.includes(key) && !data[key])
+                if(!(required_fields.includes(key.toLowerCase()) && data[key]))
                 { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
                 usData_ocr[key] === data[key];
             }
@@ -1233,6 +1233,7 @@ function validate_dui_info(data, bool){
                 usData_ocr[key] === data[key];
             }
         }
+        console.log(usData_ocr);
     } catch(e){
         const alert = document.getElementById('main_alert');
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); console.log(e.message.split('-')[1]); }
