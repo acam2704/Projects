@@ -655,15 +655,11 @@ function email_registered(response, elements_to_hide, param){
             else{ collect_user_data(); return; }
         }
 
-        if(response[0].error){ throw new Error(response[0].error)} 
-        else { throw new Error('Ingenia -Hubo un error. Inténtelo de nuevo'); }
-
-        console.log(response);
-        enable_inputs(elements_to_hide);
-        hideLoader();
+        if(response[0].error){ throw new Error(response[0].error)}
     } catch(e){
-        if(e.message.includes('Ingenia -'))
-        { show_text_alert([[error_text_alert], e.message.split('-')[1]]); }
+        let text = 'Hubo un error. Inténtelo de nuevo';
+        if(e.message.includes('Ingenia -')) { text = e.message.split('-')[1]; }
+        show_text_alert([[error_text_alert], text]);
         enable_inputs(elements_to_hide);
         hideLoader();
     }
