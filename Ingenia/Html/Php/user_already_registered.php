@@ -63,10 +63,10 @@ try{
     sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
 
-    die(json_encode([
+    echo json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
         'msg' => 'check "error"',
-    ]));
+    ]);
 }
 ?>
