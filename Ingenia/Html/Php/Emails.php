@@ -11,6 +11,7 @@ error_reporting(E_ALL);
 date_default_timezone_set("America/El_Salvador");
 $json_file = file_get_contents("php://input");
 $data = json_decode($json_file, true);
+echo json_encode(['number' => '1']);
 
 include("conexion_to_Verification_Codes_DB.php");
 
@@ -21,6 +22,7 @@ try{
     if(!$data['email']){
         throw new Error('no Email');
     }
+    echo json_encode(['number' => '2']);
 
     $codigo = bin2hex(random_bytes(3));
     $codigo_hash = password_hash($codigo, PASSWORD_DEFAULT);
@@ -31,9 +33,15 @@ try{
     $sql_request = "INSERT INTO verification_codes (email, code, expires_at, status, created_at) VALUES (?, ?, ?, ?, ?)";
 
     if($_SERVER["REQUEST_METHOD"] === 'POST'){
+        echo json_encode(['number' => '3']);
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
             throw new Error('Invalid email: ' . $data['email']);
         }
+        echo json_encode(['number' => '4']);
+        if(substr( $data['email'], -4 ) !== '.com'){
+            throw new Error('Invalid email: ' . $data['email']);
+        }
+        echo json_encode(['number' => '5']);
         $params = array($data['email'], $codigo_hash, $expiration, $status, $now);
         $stmt = sqlsrv_query($conexion, $sql_request, $params);
         if($stmt === false){

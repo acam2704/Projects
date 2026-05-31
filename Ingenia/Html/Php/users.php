@@ -34,7 +34,6 @@ try{
             " - status: " . $row['status'] .
             " <br />";
     }
-    echo 'hola';
 
     sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
