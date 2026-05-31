@@ -1212,6 +1212,8 @@ function validate_dui_info(data, n){
             const required_fields = ['firstname', 'dateofbirth', 'documentnumber', 'lastname'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
+                console.log(key.toLowerCase() + ' - ' + required_fields);
+                console.log(data[key]);
                 if(!(required_fields.includes(key.toLowerCase()) && data[key]))
                 { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
                 usData_ocr[key] === data[key];
