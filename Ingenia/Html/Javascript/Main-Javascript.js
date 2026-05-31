@@ -649,6 +649,7 @@ async function next(){
 function email_registered(response, elements_to_hide, param){
     const error_text_alert = document.getElementById('error_text_alert');
     try{
+        console.log(response[0]);
         response[0] = JSON.parse(response[0]);
         if(response[0].status === 'ok'){
             if(param){ code_already_typed(elements_to_hide); return; }
