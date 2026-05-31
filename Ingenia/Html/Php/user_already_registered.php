@@ -9,17 +9,13 @@ include('conexion_SQLAzure.php');
 
 $json_data = file_get_contents('php://input', true);
 $data = json_decode($json_data, true);
-echo json_encode(['number' => '0', 'status' => 'failed']);
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        echo json_encode(['number' => '1', 'status' => 'failed']);
         if($conn === false){
             throw new Exception('Conexión no conseguida');
         }
-        echo json_encode(['number' => '2', 'status' => 'failed', 'email' => $data['email']]);
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-            echo json_encode(['number' => '2.1', 'status' => 'failed', 'email' => $data['email']]);
             $email = $data['email'] ?? null;
             throw new Exception("Invalid email:  $email");
         }
