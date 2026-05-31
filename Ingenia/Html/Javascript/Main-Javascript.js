@@ -648,11 +648,14 @@ async function next(){
 
 function email_registered(response, elements_to_hide, param){
     const error_text_alert = document.getElementById('error_text_alert');
+    console.log('1');
     try{
+        console.log('2');
         if(response[0].status === 'ok'){
             if(param){ code_already_typed(elements_to_hide); return; }
             else{ collect_user_data(); return; }
         }
+        console.log('3');
         if(response[0].error){ throw new Error(response[0].error)} 
         else { throw new Error('Ingenia -Hubo un error. Inténtelo de nuevo'); }
 
@@ -660,6 +663,7 @@ function email_registered(response, elements_to_hide, param){
         enable_inputs(elements_to_hide);
         hideLoader();
     } catch(e){
+        console.log('4');
         let text = 'Hubo un error. Inténtelo de nuevo';
         const msg = e.message ?? null;
         if(msg && msg.includes('Ingenia -')) { text = msg.split('-')[1]; }
