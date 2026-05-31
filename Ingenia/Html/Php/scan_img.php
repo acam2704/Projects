@@ -114,7 +114,7 @@ try{
     $fields = $ocrData['analyzeResult']['documents'][0]['fields'];
     $valueAddress = $fields['Address']['valueAddress'] ?? null;
     $return = [];
-    $fields_return;
+    $fields_return = [];
 
     if( $valueAddress ){ $fields_return = $valueAddress; }
     else{ 
