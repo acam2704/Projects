@@ -650,6 +650,7 @@ function email_registered(response, elements_to_hide, param){
     const error_text_alert = document.getElementById('error_text_alert');
     console.log('1');
     try{
+        response[0] = JSON.parse(response[0]);
         console.log('2');
         if(response[0].status === 'ok'){
             if(param){ code_already_typed(elements_to_hide); return; }
@@ -684,7 +685,7 @@ function validate_info(user_data, elements_to_hide, param){
     .then(response => response.text())
     .then(data => {
         console.log('0');
-        email_registered([JSON.parse(data), user_data], elements_to_hide, param);
+        email_registered([data, user_data], elements_to_hide, param);
     });
 }
 
