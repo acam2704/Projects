@@ -126,7 +126,7 @@ const window_pathname = window.location.pathname.toLowerCase();
 if(window_pathname.includes('session-log.html')){
     /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
     document.addEventListener('DOMContentLoaded', function() {
-        animationLoad();
+        animationLoad(0);
         let local = localStorage.getItem('user');
         let session = sessionStorage.getItem('vth_email');
         const elements_to_show = [personal_information_container];
@@ -255,7 +255,7 @@ if(window_pathname.includes('session-log.html')){
     // Al presionar o dar click al botón, se valida en la sección actual activa para mover al usuario a la siguiente 
     document.getElementById('bttn_send').addEventListener("click", async () => {
         disable_all_inputs(); // Se deshabilitan todos los inputs
-        animationLoad(); // Al dar click, se muestra la animación de carga en el botón
+        animationLoad(0); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
 
         // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
@@ -353,7 +353,7 @@ if(window_pathname.includes('session-log.html')){
     });
     document.getElementById('slocr_sendbttn').addEventListener('click', async function(){
         disable_inputs([information_dui_container]); // Se deshabilitan todos los inputs
-        animationLoad(); // Al dar click, se muestra la animación de carga en el botón
+        animationLoad(1); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
 
         // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
@@ -1193,9 +1193,10 @@ function collect_user_data(){
 
 /* BOTÓN QUE CAMBIA SECCIONES -------------------------------------------------------------------------------------------*/
 // Función que muestra la animación de carga en el botón
-function animationLoad(){
+function animationLoad(n){
     const loader = document.getElementById("loader");
-    const bttn_send = document.getElementById('bttn_send');
+    const ids_bttnsend = ['bttn_send', 'slocr_sendbttn'];
+    const bttn_send = document.getElementById(ids_bttnsend[n]);
     const bttn_send_txt = document.getElementById("bttn_send_txt");
 
     bttn_send.classList.add('blocked');
