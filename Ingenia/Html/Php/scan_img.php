@@ -121,7 +121,7 @@ try{
 
     foreach ( $fields_return as $key => $value ) {
         if(!$value){ throw new Exception('Ingenia -Campo no leído'); }
-        $return[$key] = $value['content'];
+        $return[$key] = $value['content'] ?? null;
     }
     $return['status'] = 'ok'; 
     $return['error'] = null; 
