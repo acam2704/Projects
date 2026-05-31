@@ -1209,9 +1209,9 @@ function validate_dui_info(data, n){
     try{
         if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
         const required_fields = [
-            ['firstName', 'dateOfBirth', 'documentNumber', 'lastName'], 
-            ['city', 'state', 'countryRegion'], 
-            ['firstName', 'dateOfBirth', 'documentNumber', 'lastName', 'city', 'state', 'countryRegion']
+            ['FirstName', 'DateOfBirth', 'DocumentNumber', 'LastName'], 
+            ['City', 'State', 'CountryRegion'], 
+            ['FirstName', 'DateOfBirth', 'DocumentNumber', 'LastName', 'City', 'State', 'CountryRegion']
         ];
         for (let i = 0; i < 3; i++) {
             if(n === (i+1)){
