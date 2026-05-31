@@ -13,10 +13,10 @@ $data = json_decode($json_data, true);
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if($conn === false){
-            throw new Error('Conexión no conseguida');
+            throw new Exception('Conexión no conseguida');
         }
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-            throw new Error('Invalid email: ' . $data['email']);
+            throw new Exception('Invalid email: ' . $data['email']);
         }
 
         /* VERIFICAR QUE EL EMAIL NO SE HAYA REGISTRADO */
@@ -27,9 +27,9 @@ try{
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $email_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
             if($email_from_DB){
-                throw new Error('Email registered');
+                throw new Exception('Email registered');
             }
-        } else{ throw new Error(print_r(sqlsrv_errors(), true)); }
+        } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
 
         /* VERIFICAR QUE EL NÚMERO DE CONTACTO NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE phonenumber = ?';
@@ -39,9 +39,9 @@ try{
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $phonenumber_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
             if($phonenumber_from_DB){
-                throw new Error('Phonenumber registered');
+                throw new Exception('Phonenumber registered');
             }
-        } else{ throw new Error(print_r(sqlsrv_errors(), true)); }
+        } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
 
         /* VERIFICAR QUE EL DUI NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE dui = ?';
@@ -51,7 +51,7 @@ try{
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $dui_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
             if($dui_from_DB){
-                throw new Error('DUI registered');
+                throw new Exception('DUI registered');
             } else{
                 sqlsrv_free_stmt($sql_request);
                 sqlsrv_close($conn);
@@ -63,12 +63,12 @@ try{
                     'user' => $data
                 ]);
             }
-        } else{ throw new Error(print_r(sqlsrv_errors(), true)); }
+        } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
 
     } else{
-        throw new Error('No POST');
+        throw new Exception('No POST');
     }
-} catch(Error $e){
+} catch(Exception $e){
     sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
 
