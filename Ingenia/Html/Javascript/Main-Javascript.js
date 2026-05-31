@@ -1159,7 +1159,7 @@ function validate_data(user_data){
             }
         }
     }
-    almacenate(user_data);
+    almacenate(user_data);  
     register_user(user_data);
 }
 
@@ -1205,7 +1205,7 @@ function animationLoad(){
 
 /* SESSION LOG OCR */
 const usData_ocr = {};
-function validate_dui_info(data, bool){
+function validate_dui_info(data, n){
     try{
         if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
         if(n === 1){
