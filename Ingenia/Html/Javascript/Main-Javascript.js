@@ -314,8 +314,8 @@ if(window_pathname.includes('session-log.html')){
         const data = await response.json();
         validate_dui_info(data, 1);
         console.log(data);
-        text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
-        + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
+        data.dateOfBirth + '  -  ' + data.documentNumber + ' - ' + data.firstName + '  -  ' + data.lastName + '\n' + 
+        data.status;
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
         const file = this.files[0];
@@ -339,8 +339,7 @@ if(window_pathname.includes('session-log.html')){
         const data = await response.json();
         console.log(data);
         validate_dui_info(data, 2);
-        text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
-        + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
+        data.city + '  -  ' + data.state + ' - ' + data.countryRegion + '  -  ' + data.status;
     });
     document.getElementById('bttn_frontdui').addEventListener('click', function() {
         const input_file = document.getElementById('input_frontdui_OCR');
@@ -1234,7 +1233,6 @@ function validate_dui_info(data, bool){
                 usData_ocr[key] === data[key];
             }
         }
-        return;
     } catch(e){
         const alert = document.getElementById('main_alert');
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); console.log(e.message.split('-')[1]); }
