@@ -59,7 +59,7 @@ try{
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
 
     } else{ throw new Exception('No POST'); }
-} catch(Exception $e){
+} catch(Throwable $e){
     sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
 
