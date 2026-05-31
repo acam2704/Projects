@@ -1234,6 +1234,7 @@ function validate_dui_info(data, bool){
                 usData_ocr[key] === data[key];
             }
         }
+        return;
     } catch(e){
         const alert = document.getElementById('main_alert');
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); console.log(e.message.split('-')[1]); }
