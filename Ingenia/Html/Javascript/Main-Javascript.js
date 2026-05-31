@@ -295,7 +295,7 @@ if(window_pathname.includes('session-log.html')){
         information_dui_container.style.display = 'flex';
     });
     document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
-        const file = this.files[0];
+        const file = this.files[0] ?? null;
         if (file) {
             const reader = new FileReader(); // Crea el lector de archivos
             const img = document.getElementById('file_frontdui_OCR');
