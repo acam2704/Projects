@@ -344,10 +344,12 @@ if(window_pathname.includes('session-log.html')){
     });
     document.getElementById('bttn_frontdui').addEventListener('click', function() {
         const input_file = document.getElementById('input_frontdui_OCR');
+        input_file.value = '';
         input_file.click();
     });
     document.getElementById('bttn_backdui').addEventListener('click', function() {
         const input_file = document.getElementById('input_backdui_OCR');
+        input_file.value = '';
         input_file.click();
     });
     document.getElementById('slocr_sendbttn').addEventListener('click', async function(){
