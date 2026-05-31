@@ -120,6 +120,7 @@ try{
     }
     $return['status'] = 'ok';
     $return['error'] = null;
+    $return['fields'] = $fields;
 
     echo json_encode($return);
 
