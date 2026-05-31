@@ -112,8 +112,9 @@ try{
 
     $text = $ocrData['analyzeResult']['content'];
     $fields = $ocrData['analyzeResult']['documents'][0]['fields'];
-    $return = [];
     $valueAddress = $fields['Address']['valueAddress'] ?? null;
+    
+    $return = [];
     
     if($valueAddress){ 
         foreach( $valueAddress as $key => $value ){
