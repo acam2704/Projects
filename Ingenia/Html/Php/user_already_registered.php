@@ -9,15 +9,19 @@ include('conexion_SQLAzure.php');
 
 $json_data = file_get_contents('php://input', true);
 $data = json_decode($json_data, true);
+echo json_encode(['number' => '1']);
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        echo json_encode(['number' => '1']);
         if($conn === false){
             throw new Exception('Conexión no conseguida');
         }
+        echo json_encode(['number' => '1']);
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
             throw new Exception('Invalid email: ' . $data['email']);
         }
+        echo json_encode(['number' => '1']);
 
         /* VERIFICAR QUE EL EMAIL NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
