@@ -60,8 +60,8 @@ try{
 
     } else{ throw new Exception('No POST'); }
 } catch(Throwable $e){
-    sqlsrv_free_stmt($sql_request);
-    sqlsrv_close($conn);
+    if($sql_request){ sqlsrv_free_stmt($sql_request); }
+    if($conn){ sqlsrv_close($conn); }
 
     echo json_encode([
         'status' => 'failed',
