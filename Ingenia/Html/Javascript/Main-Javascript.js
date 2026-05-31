@@ -1208,7 +1208,7 @@ function validate_dui_info(data, bool){
     try{
         if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
         if(n === 1){
-            const required_fields = ['firstname', 'dateOfBirth', 'documentNumber', 'lastName'];
+            const required_fields = ['firstName', 'dateOfBirth', 'documentNumber', 'lastName'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
                 if(!required_fields.includes(key) && !data[key])
@@ -1224,7 +1224,7 @@ function validate_dui_info(data, bool){
                 usData_ocr[key] === data[key];
             }
         } else if(n === 3){
-            const required_fields = ['currentAddress', 'firstname', 'dateOfBirth', 'documentNumber', 'lastName'];
+            const required_fields = ['city', 'state', 'countryRegion', 'firstName', 'dateOfBirth', 'documentNumber', 'lastName'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
                 if(required_fields.includes(key) && !data[key])
