@@ -113,20 +113,17 @@ try{
     $text = $ocrData['analyzeResult']['content'];
     $fields = $ocrData['analyzeResult']['documents'][0]['fields'];
     $valueAddress = $fields['Address']['valueAddress'] ?? null;
-    
     $return = [];
-    
-    if($valueAddress){ 
-        foreach( $valueAddress as $key => $value ){
-            if(!$value){ throw new Exception('Ingenia -Campo no leído'); }
-            $return[$key] = $value['content'];
-        }
-    } else{
-        foreach ( $fields as $key => $value ) {
-            if(!$value){ throw new Exception('Ingenia -Campo no leído'); }
-            $return[$key] = $value['content'];
-        }
+    $fields_return;
+
+    if( $valueAddress ){ $fields_return = $valueAddress; }
+    else{ $fields_return = $fields; }
+
+    foreach ( $fields_return as $key => $value ) {
+        if(!$value){ throw new Exception('Ingenia -Campo no leído'); }
+        $return[$key] = $value['content'];
     }
+
     $return['status'] = 'ok';
     $return['error'] = null;
     $return['fields'] = $fields;
