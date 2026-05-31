@@ -653,8 +653,8 @@ function email_registered(response, elements_to_hide, param){
             if(param){ code_already_typed(elements_to_hide); return; }
             else{ collect_user_data(); return; }
         }
-        if(response[0].error){ throw new Error(response[0].error)}
-        else{ throw new Error(''); }
+        if(response[0].error){ throw new Error(response[0].error); return }
+        throw new Error('');
     } catch(e){
         let text = 'Hubo un error. Inténtelo de nuevo';
         if(e.message.includes('Ingenia -')) { text = e.message.split('-')[1]; }
