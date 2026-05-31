@@ -255,10 +255,6 @@ if(window_pathname.includes('session-log.html')){
     // Al presionar o dar click al botón, se valida en la sección actual activa para mover al usuario a la siguiente 
     document.getElementById('bttn_send').addEventListener("click", async () => {
         disable_all_inputs(); // Se deshabilitan todos los inputs
-        const bttn_send = document.getElementById('bttn_send');
-        const error_text_alert = document.getElementById('error_text_alert');
-        error_text_alert.style.display = 'none'; // Se oculta el texto de alerta, por si h  ubo un error anteriormente
-        document.getElementById('bttn_send').style.marginTop = "0"; // Se reestablece el marginTop de bttn_send
         animationLoad(); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
 
@@ -353,6 +349,16 @@ if(window_pathname.includes('session-log.html')){
     document.getElementById('bttn_backdui').addEventListener('click', function() {
         const input_file = document.getElementById('input_backdui_OCR');
         input_file.click();
+    });
+    document.getElementById('slocr_sendbttn').addEventListener('click', function(){
+        disable_inputs([information_dui_container]); // Se deshabilitan todos los inputs
+        animationLoad(); // Al dar click, se muestra la animación de carga en el botón
+        await delay(500); // Se espera medio segundo
+
+        // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
+        if(getComputedStyle(information_dui_container).display !== 'none'){
+            validate_dui_info(usData_ocr, 3);
+        }
     });
 
     const container1 = document.getElementById('primary_bttns_container');
@@ -484,8 +490,8 @@ function disable_inputs(containers){
     // A cada input enviado dentro de la lista 'inputs' se cambia a TRUE la propiedad 'disabled' 
     // Esto impide la modificación de los valores imprimidos anteriormente en el input.
     containers.forEach(container => 
-        container.querySelectorAll(':scope > input').forEach(i => {
-            i.disabled = true;
+        container.querySelectorAll('input').forEach(i => {
+            if(i.classList.contains('input')){ i.disabled = true; }
         })
     );
 }
@@ -1197,24 +1203,33 @@ function animationLoad(){
 }
 
 /* SESSION LOG OCR */
-
-
+const usData_ocr = {};
 function validate_dui_info(data, bool){
-    try{   
+    try{
         if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
-        if(bool){
+        if(n === 1){
             const required_fields = ['firstname', 'dateOfBirth', 'documentNumber', 'lastName'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
-                if(!required_fields.includes(key) && data[key] === undefined)
+                if(!required_fields.includes(key) && !data[key])
                 { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
+                usData_ocr[key] === data[key];
             }
-        } else{
-            const required_fields = ['currentAddress', 'dateOfBirth', 'documentNumber', 'lastName'];
+        } else if(n === 2){
+            const required_fields = ['currentAddress'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
-                if(required_fields.includes(key) && data[key] === undefined)
+                if(required_fields.includes(key) && !data[key])
                 { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
+                usData_ocr[key] === data[key];
+            }
+        } else if(n === 3){
+            const required_fields = ['currentAddress', 'firstname', 'dateOfBirth', 'documentNumber', 'lastName'];
+            if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
+            for(const key of Object.keys(data)){
+                if(required_fields.includes(key) && !data[key])
+                { throw new Error('Ingenia -Mejore la calidad o posición de la foto'); }
+                usData_ocr[key] === data[key];
             }
         }
     } catch(e){

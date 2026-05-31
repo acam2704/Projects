@@ -119,7 +119,10 @@ try{
     $lastName = $fields['LastName']['content'] ?? null;
     $documentNumber = $fields['DocumentNumber']['content'] ?? null;
     $dateOfBirth = $fields['DateOfBirth']['content'] ?? null;
-    $currentAddress = $fields['Address']['content'] ?? null;
+    $currentAddress = $fields['Address']['valueAddress'] ?? null;
+    $city = $currentAddress['city'] ?? null;
+    $state = $currentAddress['state'] ?? null;
+    $countryRegion = $currentAddress['countryRegion'] ?? null;
     $phonenumber = $fields['PhoneNumber']['content'] ?? null;
     $email = $fields['Email']['content'] ?? null;
 
@@ -129,7 +132,9 @@ try{
         'lastName' => $lastName,
         'documentNumber' => $documentNumber,
         'dateOfBirth' => $dateOfBirth,
-        'currentAddress' => $currentAddress,
+        'city' => $city,
+        'state' => $state,
+        'countryRegion' => $countryRegion,
         'phoneNumber' => $phoneNumber,
         'email' => $email,
         'fields' => $fields
