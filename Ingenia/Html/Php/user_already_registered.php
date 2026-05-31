@@ -9,7 +9,7 @@ include('conexion_SQLAzure.php');
 
 $json_data = file_get_contents('php://input', true);
 $data = json_decode($json_data, true);
-echo json_encode(['number' => '1']);
+echo json_encode(['number' => '0', 'status' => 'failed']);
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
