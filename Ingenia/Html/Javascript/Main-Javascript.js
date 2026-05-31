@@ -1216,7 +1216,9 @@ function validate_dui_info(data, n){
         for (let i = 0; i < 3; i++) {
             if(n === (i+1)){
                 const fields = required_fields[i];
+                console.log(fields);
                 for(const field of fields){
+                    console.log(field);
                     if(!data[field]){ throw new Error('Ingenia -Mejore la calidad o posición de la foto.'); }
                     usData_ocr[field] = data[field];
                 }
