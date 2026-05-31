@@ -683,6 +683,7 @@ function validate_info(user_data, elements_to_hide, param){
     })
     .then(response => response.text())
     .then(data => {
+        console.log('0');
         email_registered([JSON.parse(data), user_data], elements_to_hide, param);
     });
 }
