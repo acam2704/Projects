@@ -350,7 +350,7 @@ if(window_pathname.includes('session-log.html')){
         const input_file = document.getElementById('input_backdui_OCR');
         input_file.click();
     });
-    document.getElementById('slocr_sendbttn').addEventListener('click', function(){
+    document.getElementById('slocr_sendbttn').addEventListener('click', async function(){
         disable_inputs([information_dui_container]); // Se deshabilitan todos los inputs
         animationLoad(); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
