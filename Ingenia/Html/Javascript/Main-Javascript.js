@@ -655,8 +655,8 @@ function email_registered(response, elements_to_hide, param){
             else{ collect_user_data(); return; }
         }
 
-        if(response[0].error.includes('Ingenia -')){ throw new Error(response[0].error)} 
-        else { show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo de nuevo']); }
+        if(response[0].error){ throw new Error(response[0].error)} 
+        else { throw new Error('Ingenia -Hubo un error. Inténtelo de nuevo'); }
 
         console.log(response);
         enable_inputs(elements_to_hide);
