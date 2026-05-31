@@ -312,7 +312,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, true);
+        validate_dui_info(data, 1);
         console.log(data);
         text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
         + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
@@ -338,7 +338,7 @@ if(window_pathname.includes('session-log.html')){
         });
         const data = await response.json();
         console.log(data);
-        validate_dui_info(data, false);
+        validate_dui_info(data, 2);
         text.textContent = data.currentAddress + '  -  ' + data.dateOfBirth + '  -  ' + data.documentNumber + '\n'
         + data.email + '  -  ' + data.firstName + '  -  ' + data.lastName + '\n' + data.phoneNumber + '  -  ' + data.status;
     });
@@ -1216,7 +1216,7 @@ function validate_dui_info(data, bool){
                 usData_ocr[key] === data[key];
             }
         } else if(n === 2){
-            const required_fields = ['currentAddress'];
+            const required_fields = ['city', 'state', 'countryRegion'];
             if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error'); }
             for(const key of Object.keys(data)){
                 if(required_fields.includes(key) && !data[key])
