@@ -13,15 +13,15 @@ echo json_encode(['number' => '1']);
 
 try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        echo json_encode(['number' => '1']);
+        echo json_encode(['number' => '1', 'status' => 'failed']);
         if($conn === false){
             throw new Exception('Conexión no conseguida');
         }
-        echo json_encode(['number' => '1']);
+        echo json_encode(['number' => '2', 'status' => 'failed']);
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
             throw new Exception('Invalid email: ' . $data['email']);
         }
-        echo json_encode(['number' => '1']);
+        echo json_encode(['number' => '3', 'status' => 'failed']);
 
         /* VERIFICAR QUE EL EMAIL NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
@@ -34,6 +34,7 @@ try{
                 throw new Exception('Email registered');
             }
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
+        echo json_encode(['number' => '4', 'status' => 'failed']);
 
         /* VERIFICAR QUE EL NÚMERO DE CONTACTO NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE phonenumber = ?';
@@ -46,6 +47,7 @@ try{
                 throw new Exception('Phonenumber registered');
             }
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
+        echo json_encode(['number' => '5', 'status' => 'failed']);
 
         /* VERIFICAR QUE EL DUI NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE dui = ?';
@@ -68,6 +70,7 @@ try{
                 ]);
             }
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
+        echo json_encode(['number' => '6', 'status' => 'failed']);
 
     } else{
         throw new Exception('No POST');
