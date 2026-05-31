@@ -143,7 +143,6 @@ if(window_pathname.includes('session-log.html')){
                 let user_data = {};
                 for(const param of params){
                     const value = session[param] ?? null;
-                    console.log(param + ': ' + value);
                     if(param === 'rol'){ user_data[param] = value; continue;}
                     if(!value){ user_data = {}; throw new Error('vth_email'); break; }
                     user_data[param] = value;
@@ -313,7 +312,6 @@ if(window_pathname.includes('session-log.html')){
         });
         const data = await response.json();
         validate_dui_info(data, 1);
-        console.log(data);
         data.dateOfBirth + '  -  ' + data.documentNumber + ' - ' + data.firstName + '  -  ' + data.lastName + '\n' + 
         data.status;
     });
@@ -337,7 +335,6 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        console.log(data);
         validate_dui_info(data, 2);
         data.city + '  -  ' + data.state + ' - ' + data.countryRegion + '  -  ' + data.status;
     });
@@ -539,8 +536,6 @@ function code_already_typed(elements_to_hide){
     const rol = data?.rol ?? null;
     const input_email_Re = document.getElementById('input_email_Re');
     const alert = document.getElementById('error_text_alert');
-    console.log(data);
-    console.log(rol);
 
     try{
         if ( email && ( email === input_email_Re.value.trim() ) ) {
@@ -649,24 +644,19 @@ async function next(){
 function email_registered(response, elements_to_hide, param){
     const error_text_alert = document.getElementById('error_text_alert');
     try{
-        console.log(response[0]);
         response[0] = JSON.parse(response[0]);
         if(response[0].status === 'ok'){
             if(param){ code_already_typed(elements_to_hide); return; }
             else{ collect_user_data(); return; }
         }
-        console.log('3');
         if(response[0].error){ throw new Error(response[0].error)} 
         else { throw new Error('Ingenia -Hubo un error. Inténtelo de nuevo'); }
 
-        console.log(response);
         enable_inputs(elements_to_hide);
         hideLoader();
     } catch(e){
-        console.log('4');
         let text = 'Hubo un error. Inténtelo de nuevo';
         const msg = e.message ?? null;
-        console.log(msg);
         if(msg && msg.includes('Ingenia -')) { text = msg.split('-')[1]; }
         show_text_alert([[error_text_alert], text]);
         enable_inputs(elements_to_hide);
@@ -684,7 +674,6 @@ function validate_info(user_data, elements_to_hide, param){
     })
     .then(response => response.text())
     .then(data => {
-        console.log('0');
         email_registered([data, user_data], elements_to_hide, param);
     });
 }
@@ -764,8 +753,6 @@ function emailSent(response){
                 // Se almacena en el localStorage y en el sessionStorage los datos enviados desde 'Emails.php'
                 show_verification_code_window(elements_to_hide);
             } else {
-                // De otro modo, se imprime en la consola el status
-                console.log('Hubo un error al enviar el correo. ' + 'Estado del envío: ' + response.status);
                 // Se le dice al usuario que hubo un error
                 show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo de nuevo']);
                 // Se habilita la modificación de los valores de los inputs
@@ -783,10 +770,6 @@ function emailSent(response){
             show_text_alert([[error_text_alert], 'Hubo un error. Inténtalo otra vez']);
         }
     } catch(e){
-        console.log({ 
-            name: e.name, 
-            message: e.message
-        }); // Si hubo un error se muestra en la consola
         alert("Recargue la página y vuelva a intentarlo"); // Se le pide al usuario volver a intentar el Registro
     }
     hideLoader(); // Se oculta la animación de carga del botón
@@ -988,7 +971,6 @@ function show_identity_information_window(containers_to_hide){
 /* CIERRE DE VENTANA DE INFORMACIÓN PRIVADA DEL USUARIO --------------------------------------------------------------------*/
 
 function register_user(user_data){
-    console.log(user_data); /* names, lastnames, email, birthdate, phonenumber, dui, code, departament, municipality, district, 1psw, 2psw, picture, degrees, description*/
     fetch('Php/Register_new_user_in_DB.php', {
         method: 'POST',
         headers: {
@@ -1103,7 +1085,6 @@ async function place_picture(input, boolean){
         const array_img = Array.from(container.querySelectorAll('img'));
         preview = array_img[array_img.length - 1];
     }
-    console.log(preview);
 
     if(picture){
         const formData = new FormData();
@@ -1152,7 +1133,6 @@ function validate_data(user_data){
     const keys = Object.keys(user_data);
     const error_text_alert = document.getElementById('error_text_alert');
     const non_mandatory_fields = ['picture', 'degrees', 'description', 'code'];
-    console.log(user_data);
     for(const key of keys){
         if(!non_mandatory_fields.includes(key)){
             const value = user_data[key];
@@ -1178,9 +1158,8 @@ function collect_user_data(){
         article.querySelectorAll(':scope > input, select, textarea').forEach(element => {
             splitted_id = element.id.split('_');
             key_name = splitted_id[1];
-            console.log(element);
-            if(element instanceof HTMLTextAreaElement){user_data[key_name] = element.value; console.log('1'); console.log(element.value);}
-            else{user_data[key_name] = element.value; console.log('0');}
+            if(element instanceof HTMLTextAreaElement){ user_data[key_name] = element.value; }
+            else{ user_data[key_name] = element.value; }
         });
 
         const profile_picture = document.getElementById('file_img_Re');
@@ -1222,18 +1201,15 @@ function validate_dui_info(data, n){
         for (let i = 0; i < 3; i++) {
             if(n === (i+1)){
                 const fields = required_fields[i];
-                console.log(fields);
                 for(const field of fields){
-                    console.log(field);
                     if(!data[field]){ throw new Error('Ingenia -Mejore la calidad o posición de la foto.'); }
                     usData_ocr[field] = data[field];
                 }
             }
         }
-        console.log(usData_ocr);
     } catch(e){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
-        if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); console.log(e.message.split('-')[1]); }
+        if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
     }
 }
