@@ -661,7 +661,8 @@ function email_registered(response, elements_to_hide, param){
         hideLoader();
     } catch(e){
         let text = 'Hubo un error. Inténtelo de nuevo';
-        if(e.message.includes('Ingenia -')) { text = e.message.split('-')[1]; }
+        const msg = e.message ?? null;
+        if(msg.includes('Ingenia -')) { text = msg.split('-')[1]; }
         show_text_alert([[error_text_alert], text]);
         enable_inputs(elements_to_hide);
         hideLoader();
