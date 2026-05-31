@@ -79,6 +79,7 @@ try{
     sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
 
+    echo json_encode(['number' => '7', 'status' => 'failed']);
     die(json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
