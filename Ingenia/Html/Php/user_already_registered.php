@@ -16,10 +16,8 @@ try{
             throw new Exception('Conexión no conseguida');
         }
         if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-            $email = $data['email'] ?? null;
-            throw new Exception("Invalid email:  $email");
+            throw new Exception("Ingenia -Correo Inválido");
         }
-        echo json_encode(['number' => '3', 'status' => 'failed']);
 
         /* VERIFICAR QUE EL EMAIL NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE email = ?';
@@ -28,9 +26,8 @@ try{
 
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $email_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
-            if($email_from_DB){ throw new Exception('Email registered'); }
+            if($email_from_DB){ throw new Exception('Ingenia -Correo en uso'); }
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
-        echo json_encode(['number' => '4', 'status' => 'failed']);
 
         /* VERIFICAR QUE EL NÚMERO DE CONTACTO NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE phonenumber = ?';
@@ -39,7 +36,7 @@ try{
 
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $phonenumber_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
-            if($phonenumber_from_DB){ throw new Exception('Phonenumber registered'); }
+            if($phonenumber_from_DB){ throw new Exception('Ingenia -Número de teléfono en uso'); }
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
         echo json_encode(['number' => '5', 'status' => 'failed']);
 
@@ -50,7 +47,7 @@ try{
 
         if($sql_request && sqlsrv_execute($sql_request) !== false){
             $dui_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
-            if($dui_from_DB){ throw new Exception('DUI registered'); } 
+            if($dui_from_DB){ throw new Exception('Ingenia -Número de DUI en uso'); } 
             else{
                 sqlsrv_free_stmt($sql_request);
                 sqlsrv_close($conn);
@@ -69,7 +66,6 @@ try{
     sqlsrv_free_stmt($sql_request);
     sqlsrv_close($conn);
 
-    echo json_encode(['number' => '7', 'status' => 'failed']);
     die(json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),

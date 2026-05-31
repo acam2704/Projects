@@ -651,30 +651,22 @@ function email_registered(response, elements_to_hide, param){
 
     try{
         if(response[0].status === 'ok'){
-            if(param){ console.log(response); code_already_typed(elements_to_hide); return; }
-            else{ console.log(response); collect_user_data(); return; }
+            if(param){ code_already_typed(elements_to_hide); return; }
+            else{ collect_user_data(); return; }
         }
 
-        if(response[0].error.includes('Email registered')){
-            show_text_alert([[error_text_alert], 'Correo en uso']);
-        } else if(response[0].error.includes('Invalid email')){
-            show_text_alert([[error_text_alert], 'Correo inválido. Asegurate de haberlo digitado correctamente']);
-        } else if(response[0].error.includes('Phonenumber registered')){
-            show_text_alert([[error_text_alert], 'Número de contacto en uso']);
-        } else if(response[0].error.includes('DUI registered')){
-            show_text_alert([[error_text_alert], 'DUI en uso']);
-        } else{
-            show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo de nuevo']);
-        }
+        if(response[0].error.includes('Ingenia -')){ throw new Error(response[0].error)} 
+        else { show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo de nuevo']); }
+
         console.log(response);
         enable_inputs(elements_to_hide);
         hideLoader();
     } catch(e){
-        show_text_alert([[error_text_alert], 'Hubo un error. Inténtelo de nuevo']);
+        if(e.message.includes('Ingenia -'))
+        { show_text_alert([[error_text_alert], e.message.split('-')[1]]); }
         enable_inputs(elements_to_hide);
         hideLoader();
     }
-    
 }
 
 function validate_info(user_data, elements_to_hide, param){
