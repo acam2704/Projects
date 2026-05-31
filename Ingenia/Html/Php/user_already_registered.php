@@ -35,7 +35,6 @@ try{
             $phonenumber_from_DB = sqlsrv_fetch_array($sql_request, SQLSRV_FETCH_ASSOC);
             if($phonenumber_from_DB){ throw new Exception('Ingenia -Número de teléfono en uso'); }
         } else{ throw new Exception(print_r(sqlsrv_errors(), true)); }
-        echo json_encode(['number' => '5', 'status' => 'failed']);
 
         /* VERIFICAR QUE EL DUI NO SE HAYA REGISTRADO */
         $sql = 'SELECT TOP 1 1 FROM users WHERE dui = ?';
