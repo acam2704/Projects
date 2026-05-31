@@ -116,7 +116,7 @@ try{
     $return = [];
     $fields_return = [];
 
-    if( $valueAddress ){ $fields_return = $valueAddress; }
+    if( $valueAddress ){ $return = $valueAddress; }
     else{ 
         $fields_return = $fields;
         foreach ( $fields_return as $key => $value ) {
