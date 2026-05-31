@@ -127,7 +127,6 @@ try{
     $return['status'] = 'ok';
     $return['error'] = null;
     $return['fields'] = $fields;
-    $hola = '';
 
     echo json_encode($return);
 
