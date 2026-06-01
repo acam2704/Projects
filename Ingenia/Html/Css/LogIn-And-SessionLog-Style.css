@@ -565,6 +565,7 @@ label{
     #content_buttons_Re{width: 100%;}
     #information_dui_container{ flex-direction: row; }
     #img_cards_container{ max-width: 302px; }
+    #file_img_Re{ margin-left: 0; }
 
 }
 
