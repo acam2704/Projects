@@ -123,7 +123,7 @@ try{
         $return = [
             'city' =>  $city,
             'state' => $state,
-            'countryRegion' => $countryRegion
+            'countryregion' => $countryRegion
         ];
     }
     else{ 
