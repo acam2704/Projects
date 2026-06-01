@@ -11,10 +11,15 @@ const security_information_container = document.getElementById("security_informa
 const identity_information_container = document.getElementById("identity_information_container");
 //----- VENTANA: INFORMACIÓN PÚBLICA DEL PERFIL -----//
 const public_profile_information_container = document.getElementById('public_profile_information_container');
-//----- OCR -----//
-const information_dui_container = document.getElementById('information_dui_container');
 //----- ELEMENTOS GUÍAS DE CADA VENTANA -----//
 const content_check_buttons_with = document.getElementById("content_check_buttons_with");
+
+//-------------------------------------------------------// OCR //-------------------------------------------------------//
+
+//----- VENTANA DE INFORMACIÓN DE DUI -----//
+const dui_information_container = document.getElementById('dui_information_container');
+//----- VENTANA DE INFORMACIÓN DE CONTACTO -----//
+const contact_information_container = document.getElementById('contact_information_container');
 
 // Mapeo de los departamentos, municipios y distritos para los select
 const map = {
@@ -193,16 +198,18 @@ if(window_pathname.includes('session-log.html')){
         hide_all_text_alerts();
     })
     document.getElementById('inputs_container').querySelectorAll(':scope > article').forEach(article => {
-        article.querySelectorAll(':scope > input, select').forEach(element => {
-            let span = element.previousElementSibling;
-            while( element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement) ){
-                span = span.previousElementSibling;
-                if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
-                if(!span){return;}
+        article.querySelectorAll('input, select').forEach(element => {
+            if(element.classList.contains('input') || element instanceof HTMLSelectElement){
+                let span = element.previousElementSibling;
+                while( element instanceof HTMLSelectElement && !(span instanceof HTMLSpanElement) ){
+                    span = span.previousElementSibling;
+                    if(!span){span = element.previousElementSibling; span = span.parentElement.previousElementSibling;}
+                    if(!span){return;}
+                }
+                element.addEventListener('change', function() {
+                    span.style.display = 'none';
+                })
             }
-            element.addEventListener('change', function() {
-                span.style.display = 'none';
-            })
         })
     });
     document.getElementById('back_bttn').addEventListener('click', go_back);
@@ -291,7 +298,7 @@ if(window_pathname.includes('session-log.html')){
 
 } else if(window_pathname.includes('session-log-ocr.html')){
     document.addEventListener('DOMContentLoaded', function(){
-        information_dui_container.style.display = 'flex';
+        dui_information_container.style.display = 'flex';
     });
     document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
         const file = this.files[0] ?? null;
@@ -312,8 +319,6 @@ if(window_pathname.includes('session-log.html')){
         });
         const data = await response.json();
         validate_dui_info(data, 1, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones');
-        data.dateOfBirth + '  -  ' + data.documentNumber + ' - ' + data.firstName + '  -  ' + data.lastName + '\n' + 
-        data.status;
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
         const file = this.files[0];
@@ -336,7 +341,6 @@ if(window_pathname.includes('session-log.html')){
         });
         const data = await response.json();
         validate_dui_info(data, 2, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones');
-        data.city + '  -  ' + data.state + ' - ' + data.countryRegion + '  -  ' + data.status;
     });
     document.getElementById('bttn_frontdui').addEventListener('click', function() {
         const input_file = document.getElementById('input_frontdui_OCR');
@@ -349,12 +353,12 @@ if(window_pathname.includes('session-log.html')){
         input_file.click();
     });
     document.getElementById('slocr_sendbttn').addEventListener('click', async function(){
-        disable_inputs([information_dui_container]); // Se deshabilitan todos los inputs
+        disable_inputs([dui_information_container]); // Se deshabilitan todos los inputs
         animationLoad(1); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
 
         // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
-        if(getComputedStyle(information_dui_container).display !== 'none'){
+        if(getComputedStyle(dui_information_container).display !== 'none'){
             validate_dui_info(usData_ocr, 3, 'Los datos requeridos no han sido escaneados aún.\nAsegurese de haber escaneado su DUI correctamente');
         }
     });
@@ -1192,7 +1196,6 @@ function animationLoad(n){
 const usData_ocr = {};
 function validate_dui_info(data, n, msg){
     try{
-        console.log(data);
         if(!(data.status === 'ok')){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
@@ -1207,10 +1210,23 @@ function validate_dui_info(data, n, msg){
                     usData_ocr[field] = data[field];
                 }
             }
+            if(n === 3){
+                const container_to_hide = [dui_information_container];
+                show_contactInformationWindow_ocr(container_to_hide);
+            }
         }
     } catch(e){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
     }
+}
+
+function show_contactInformationWindow_ocr(container_to_hide){
+    const container_to_show = [contact_information_container];
+    
+    hide_and_show(container_to_show, container_to_hide);
+    enable_inputs(container_to_show);
+    hideLoader();
+    hide_all_text_alerts();
 }
