@@ -566,7 +566,6 @@ label{
     #information_dui_container{ flex-direction: row; }
     #img_cards_container{ max-width: 302px; }
     #file_img_Re{ margin-left: 0; }
-    .card_img.more_img{ margin-left: -50% }
 }
 
 @media (max-width: 1020px){
