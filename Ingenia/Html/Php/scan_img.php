@@ -116,9 +116,9 @@ try{
     $return = [];
 
     if( $valueAddress ){ 
-        $city = $fields['city'] ?? null;
-        $state = $fields['state'] ?? null;
-        $countryRegion = $fields['countryRegion'] ?? null;
+        $city = $valueAddress['city'] ?? null;
+        $state = $valueAddress['state'] ?? null;
+        $countryRegion = $valueAddress['countryRegion'] ?? null;
 
         $return = [
             'city' =>  $city,
