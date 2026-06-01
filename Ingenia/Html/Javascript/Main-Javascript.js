@@ -353,7 +353,7 @@ if(window_pathname.includes('session-log.html')){
         input_file.click();
     });
     document.getElementById('slocr_sendbttn').addEventListener('click', async function(){
-        disable_inputs([dui_information_container]); // Se deshabilitan todos los inputs
+        disable_all_inputs(); // Se deshabilitan todos los inputs
         animationLoad(1); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
 
@@ -406,8 +406,8 @@ function go_back(){
 }
 // Función que permite deshabilitar los inputs al cargar la página
 function disable_all_inputs(){
-    const containers = [personal_information_container, verification_code_container, security_information_container, 
-        identity_information_container, public_profile_information_container];
+    const inputs_container = document.getElementById('inputs_container');
+    const containers = inputs_container.querySelectorAll(':scope > article').filter(container => container.classList.contains('sigup_section'));
     disable_inputs(containers);
 }
 // Función que permite ocultar todas las alertas de cada sección
