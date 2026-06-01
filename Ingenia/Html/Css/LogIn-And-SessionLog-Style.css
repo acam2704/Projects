@@ -335,6 +335,8 @@ label{
     font-size: 15px;
     text-align: center;
     transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 .bttn_send:hover{
@@ -352,7 +354,6 @@ label{
     border-radius: 50%;
     animation: girar 1s linear infinite;
     display: none;
-    margin-left: calc( ( 100% - 10px ) / 2 );
 }
 #Google_Verification:hover{cursor: pointer;}
 #Go_to_LogIn{color: rgb(12, 7, 6);}
