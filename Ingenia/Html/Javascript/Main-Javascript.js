@@ -407,7 +407,7 @@ function go_back(){
 // Función que permite deshabilitar los inputs al cargar la página
 function disable_all_inputs(){
     const inputs_container = document.getElementById('inputs_container');
-    const containers = inputs_container.querySelectorAll(':scope > article').filter(container => container.classList.contains('sigup_section'));
+    const containers = Array.from(inputs_container.querySelectorAll(':scope > article')).filter(container => container.classList.contains('sigup_section'));
     disable_inputs(containers);
 }
 // Función que permite ocultar todas las alertas de cada sección
