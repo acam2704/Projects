@@ -1192,7 +1192,7 @@ function animationLoad(n){
 const usData_ocr = {};
 function validate_dui_info(data, n){
     try{
-        if(!(data.status === 'ok')){ throw new Error('Ingenia -Hubo un error.') }
+        if(!(data.status === 'ok')){ throw new Error(data.error) }
         const required_fields = [
             ['FirstName', 'DateOfBirth', 'DocumentNumber', 'LastName'], 
             ['city', 'state', 'countryRegion'], 

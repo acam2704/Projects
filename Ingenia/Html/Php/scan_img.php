@@ -28,7 +28,7 @@ try{
 
     $tokenData = json_decode($response, true);
     if(!isset($tokenData['access_token'])){
-        throw new Exception('Ingenia -No se logró la conexión: ' . $tokenData['access_token']);
+        throw new Exception('Ingenia -No se logró la conexión');
     }
 
     $token = $tokenData['access_token'];
@@ -51,7 +51,7 @@ try{
     ];
 
     if (!in_array($mime, $allowedMimes)) {
-        throw new Exception("Ingenia -Tipo de archivo no permitido: " . $mime);
+        throw new Exception("Ingenia -Tipo de archivo no permitido");
     }
     $file_content = file_get_contents($file);
     curl_close($ch); 
@@ -82,7 +82,7 @@ try{
 
     $maxAttempts = 15;
     $attempts = 1;
-    if (!$operation_url) { throw new Exception("Ingenia -No se obtuvo Operation-Location"); }
+    if (!$operation_url) { throw new Exception("Ingenia -Inténtelo nuevamente"); }
 
     do {
         sleep(2);
@@ -133,7 +133,7 @@ try{
     }
 
     foreach ( $return as $key => $value ) 
-    { if(!$value){ throw new Exception('Ingenia -Campo no leído'); } }
+    { if(!$value){ throw new Exception('Ingenia -No se logró captar los campos necesarios. Inténtelo nuevamente'); } }
 
     $return['status'] = 'ok'; 
     $return['error'] = null; 
