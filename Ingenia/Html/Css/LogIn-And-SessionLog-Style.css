@@ -222,7 +222,7 @@ label{
     float: left;
     align-items: center;
 }
-#file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset; margin-left: calc((100% - 100px) / 2);}
+#file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
 #img_cards_container{
     display: flex;
     padding-top: 10px;
