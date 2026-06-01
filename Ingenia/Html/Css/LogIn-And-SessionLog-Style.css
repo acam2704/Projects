@@ -231,7 +231,6 @@ label{
     white-space: nowrap;
     height: 120px;
     width: 100%;
-    max-width: 302px;
     border: solid 1px var(--border-input-);
     border-radius: 20px;
 }
@@ -298,8 +297,9 @@ label{
     background-color: rgb(0,0,0,0.5);
     transform: scale(0.97);
 }
-#message_description_Re{width:100%; min-height:40px; overflow:hidden; resize:none; margin: 0;}
-#content_buttons_Re{text-align: center;
+#message_description_Re{width: 90%; min-height: 40px; overflow: hidden; resize: none; margin: 0;}
+#content_buttons_Re{
+    text-align: center;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -566,7 +566,7 @@ label{
     #information_dui_container{ flex-direction: row; }
     #img_cards_container{ max-width: 302px; }
     #file_img_Re{ margin-left: 0; }
-
+    .card_img.more_img{ margin-left: -50% }
 }
 
 @media (max-width: 1020px){
