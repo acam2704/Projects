@@ -1208,7 +1208,7 @@ function validate_dui_info(data, n, msg){
                     usData_ocr[field] = data[field];
                 }
             }
-            if(n === 2){
+            if(n === 3){
                 const container_to_hide = [dui_information_container];
                 show_contactInformationWindow_ocr(container_to_hide);
             }
