@@ -116,7 +116,15 @@ try{
     $return = [];
 
     if( $valueAddress ){ 
-        $return = $valueAddress; 
+        $city = $fields['city'] ?? null;
+        $state = $fields['state'] ?? null;
+        $countryRegion = $fields['countryRegion'] ?? null;
+
+        $return = [
+            'city' =>  $city,
+            'state' => $state,
+            'countryRegion' => $countryRegion
+        ];
     }
     else{ 
         $birthdate = $fields['DateOfBirth']['content'] ?? null;

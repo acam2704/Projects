@@ -1195,9 +1195,9 @@ function validate_dui_info(data, n){
         console.log(data);
         if(!(data.status === 'ok')){ throw new Error(data.error) }
         const required_fields = [
-            ['FirstName', 'DateOfBirth', 'DocumentNumber', 'LastName'], 
+            ['firstname', 'birthdate', 'dui', 'lastname'], 
             ['city', 'state', 'countryRegion'], 
-            ['FirstName', 'DateOfBirth', 'DocumentNumber', 'LastName', 'city', 'state', 'countryRegion']
+            ['firstname', 'birthdate', 'dui', 'lastname', 'city', 'state', 'countryRegion']
         ];
         for (let i = 0; i < 3; i++) {
             if(n === (i+1)){
