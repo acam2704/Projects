@@ -311,7 +311,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 1);
+        validate_dui_info(data, 1, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones');
         data.dateOfBirth + '  -  ' + data.documentNumber + ' - ' + data.firstName + '  -  ' + data.lastName + '\n' + 
         data.status;
     });
@@ -335,7 +335,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 2);
+        validate_dui_info(data, 2, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones');
         data.city + '  -  ' + data.state + ' - ' + data.countryRegion + '  -  ' + data.status;
     });
     document.getElementById('bttn_frontdui').addEventListener('click', function() {
@@ -355,7 +355,7 @@ if(window_pathname.includes('session-log.html')){
 
         // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
         if(getComputedStyle(information_dui_container).display !== 'none'){
-            validate_dui_info(usData_ocr, 3);
+            validate_dui_info(usData_ocr, 3, 'Los datos requeridos no han sido escaneados aún.\nAsegurese de haber escaneado su DUI correctamente');
         }
     });
 
@@ -1190,7 +1190,7 @@ function animationLoad(n){
 
 /* SESSION LOG OCR */
 const usData_ocr = {};
-function validate_dui_info(data, n){
+function validate_dui_info(data, n, msg){
     try{
         console.log(data);
         if(!(data.status === 'ok')){ throw new Error(data.error) }
@@ -1203,7 +1203,7 @@ function validate_dui_info(data, n){
             if(n === (i+1)){
                 const fields = required_fields[i];
                 for(const field of fields){
-                    if(!data[field]){ throw new Error('Ingenia -Mejore la calidad o posición de la foto.'); }
+                    if(!data[field]){ throw new Error(`Ingenia - ${msg}`); }
                     usData_ocr[field] = data[field];
                 }
             }
