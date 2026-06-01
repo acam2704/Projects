@@ -414,12 +414,12 @@ label{
 }
 
 /* SESSION-LOG-OCR */
-#information_dui_container{
+#dui_information_container{
     display: flex;
     align-items: center;
     width: 100%;
 }
-#information_dui_container > section{
+#dui_information_container > section{
     display: flex;
     justify-content: space-around;
     align-items: center;
