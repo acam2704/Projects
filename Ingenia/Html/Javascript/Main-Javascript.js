@@ -357,7 +357,7 @@ if(window_pathname.includes('session-log.html')){
         animationLoad(1); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
 
-        // Se valida el campo en el que se encuentra el usuario según los inputs mostrados
+        // Se validan los datos escaneados/digitados por el usuario
         if(getComputedStyle(dui_information_container).display !== 'none'){
             validate_dui_info(usData_ocr, 3, 'Los datos requeridos no han sido escaneados aún.\nAsegurese de haber escaneado su DUI correctamente');
         }
@@ -415,8 +415,8 @@ function hide_all_text_alerts(){
     const inputs_container = document.getElementById('inputs_container');
 
     inputs_container.querySelectorAll(':scope > article').forEach(article => {
-        article.querySelectorAll(':scope > span').forEach(span => {
-            if(span.className = 'text_alert'){span.style.display = 'none';}
+        article.querySelectorAll('span').forEach(span => {
+            if(span && span.classList.contains('text_alert')){span.style.display = 'none';}
         })
     })
 }
@@ -525,10 +525,8 @@ function delay(ms) {
 function retrieve_alert_changes(){
     const inputs_container = document.getElementById('inputs_container');
     inputs_container.querySelectorAll(':scope > article').forEach(article => {
-        article.querySelectorAll(':scope > span').forEach(span => {
-            if(span && span.classList.contains('text_alert')){
-                span.textContent = '';
-            }
+        article.querySelectorAll('span').forEach(span => {
+            if(span && span.classList.contains('text_alert')){ span.textContent = ''; }
         })
     })
 }
