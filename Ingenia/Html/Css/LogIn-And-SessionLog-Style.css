@@ -221,7 +221,7 @@ label{
     float: left;
     align-items: center;
 }
-#file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset;}
+#file_img_Re:hover{cursor: pointer; box-shadow: 0 0 0 1000px rgb(0,0,0, 0.3) inset; margin-left: calc((100% - 100px) / 2);}
 #img_cards_container{
     display: flex;
     padding-top: 10px;
@@ -244,16 +244,16 @@ label{
 }
 .card_img{border: 1px solid #ccc; border-radius: 10px; width: 140px; height: 100px; min-width: 140px; margin-bottom: 20px;}
 .card_img:hover{box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: box-shadow 0.3s ease-in-out;}
-#add_img{width: 30px; margin-left: 10px;}
+#add_img{width: 20px; margin-left: 10px;}
 .card_img:active{transform: scale(0.99); transition: transform 0.5s ease-in-out;}
 .card_img.more_img {
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    width: 100px;
-    height: 35px;
-    min-width: 260px;
+    width: 90px;
+    height: 25px;
+    min-width: auto;
     margin-top: 5px;
     background-color: var(--background-button-);
 }
@@ -529,9 +529,7 @@ label{
         transition: all 0.3s ease;
         margin: 25px 15px 145px 15px;
     }
-    .option_user > article > a.bttn_subtitle_text{
-        margin: 35px 15px 15px 15px;
-    }
+    .option_user > article > a.bttn_subtitle_text{ margin: 35px 15px 15px 15px; }
     a.bttn_subtitle_text{margin-top: 25px;}
     #option_user_cw_img{background-color: var(--background-button-);}
     #option_user_c_img{background-color: var(--alert-text-);}
@@ -560,17 +558,13 @@ label{
         max-width: 280px;
         margin: 0px 0px 10px 0px;
     }
-    select{
-        border-radius: 5px;
-    }
+    select{ border-radius: 5px; }
     .input:focus,
     .input:hover,
     select:active{border-color: var(--border-input-hover-);}
     #content_buttons_Re{width: 100%;}
-
-    #information_dui_container{
-        flex-direction: row;
-    }
+    #information_dui_container{ flex-direction: row; }
+    #img_cards_container{ max-width: 302px; }
 }
 
 @media (max-width: 1020px){
