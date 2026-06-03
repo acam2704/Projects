@@ -578,7 +578,6 @@ label{
     opacity: 1; 
     position: relative;
     transform: scale(1);
-    gap: 10px;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .preview_container{
