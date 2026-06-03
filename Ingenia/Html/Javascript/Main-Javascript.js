@@ -384,6 +384,7 @@ if(window_pathname.includes('session-log.html')){
         preview.addEventListener('click', function() {
             try{
                 console.log(viewer);
+                console.log(input);
                 viewer.style.display = 'flex';
                 const img = input.files[0] ?? null;
                 console.log(img);
