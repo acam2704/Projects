@@ -384,15 +384,12 @@ if(window_pathname.includes('session-log.html')){
         preview.addEventListener('click', function() {
             try{
                 const img = input.files[0];
-                console.log(img);
-                console.log(img.type);
                 viewer.style.display = 'flex';
                 if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
                 if(img){ img_contr.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
                 else{ img_contr.style.background = 'red'; }
             } catch(e){
                 const alert = document.getElementById('main_alert');
-                console.log(e);
                 if(e.message.includes('Ingenia -')){
                     show_text_alert([[alert], e.message.split('-')[1]])
                 }
