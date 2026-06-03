@@ -383,6 +383,7 @@ if(window_pathname.includes('session-log.html')){
         else if(preview.id.includes('back')){ input = document.getElementById('input_backdui_OCR'); }
         preview.addEventListener('click', function() {
             try{
+                console.log(viewer);
                 viewer.style.display = 'flex';
                 const img = input.files[0] ?? null;
                 if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
