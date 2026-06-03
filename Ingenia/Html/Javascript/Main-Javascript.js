@@ -1209,6 +1209,7 @@ function validate_dui_info(data, n, msg, containers, loader){
             ['city', 'state', 'countryregion'], 
             ['firstname', 'birthdate', 'dui', 'lastname', 'city', 'state', 'countryregion']
         ];
+        console.log(data);
         for (let i = 0; i < 3; i++) {
             if(n === (i+1)){
                 const fields = required_fields[i];
