@@ -585,6 +585,11 @@ label{
     border-radius: 20px;
     overflow: hidden;
 }
+.check_container{
+    border-radius: 30px;
+    overflow: hidden;
+    
+}
 .check{ width: 60px; }
 
 @keyframes girar{
