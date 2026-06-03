@@ -376,26 +376,24 @@ if(window_pathname.includes('session-log.html')){
         img_viewer.style.display = 'none';
     });
     Array.from(document.getElementsByClassName('preview_container')).forEach(preview => {
-        if(preview instanceof HTMLImageElement){
-            const viewer = document.getElementById('img_viewer');
-            let input;
-            if(preview.id.includes('front')){ input = document.getElementById('input_frontdui_OCR'); }
-            else if(preview.id.includes('back')){ input = document.getElementById('input_backdui_OCR'); }
-            preview.addEventListener('click', function() {
-                try{
-                    viewer.style.display = 'flex';
-                    const img = input.files[0] ?? null;
-                    const allowed = ['image/png', 'image/jpeg', 'image/webp'];
-                    if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
-                    if(img){ viewer.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
-                } catch(e){
-                    const alert = document.getElementById('main_alert');
-                    if(e.message.includes('Ingenia -')){
-                        show_text_alert([[alert], e.message.split('-')[1]])
-                    }
+        const viewer = document.getElementById('img_viewer');
+        let input;
+        if(preview.id.includes('front')){ input = document.getElementById('input_frontdui_OCR'); }
+        else if(preview.id.includes('back')){ input = document.getElementById('input_backdui_OCR'); }
+        preview.addEventListener('click', function() {
+            try{
+                viewer.style.display = 'flex';
+                const img = input.files[0] ?? null;
+                const allowed = ['image/png', 'image/jpeg', 'image/webp'];
+                if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
+                if(img){ viewer.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
+            } catch(e){
+                const alert = document.getElementById('main_alert');
+                if(e.message.includes('Ingenia -')){
+                    show_text_alert([[alert], e.message.split('-')[1]])
                 }
-            });
-        }
+            }
+        });
     });
 
     const container1 = document.getElementById('primary_bttns_container');
