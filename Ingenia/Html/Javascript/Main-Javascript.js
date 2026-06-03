@@ -385,14 +385,9 @@ if(window_pathname.includes('session-log.html')){
                 try{
                     viewer.style.display = 'flex';
                     const img = input.files[0] ?? null;
-                    const extension = file?.name.split('.').pop().toLowerCase() ?? null;
                     const allowed = ['image/png', 'image/jpeg', 'image/webp'];
-                    if(!allowed.includes(file.type)){
-                        throw new Error('Ingenia -Formato no permitido');
-                    }
-                    if(img){
-                        viewer.style.backgroundImage = URL.createObjectURL(img);
-                    }
+                    if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
+                    if(img){ viewer.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
                 } catch(e){
                     const alert = document.getElementById('main_alert');
                     if(e.message.includes('Ingenia -')){
