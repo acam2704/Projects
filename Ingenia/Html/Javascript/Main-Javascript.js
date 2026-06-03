@@ -1296,4 +1296,5 @@ if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
     viewer_rbbn.style.position = 'absolute';
     viewer_rbbn.style.borderRadius = '30px';
     viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
+    viewer_rbbn.style.alignItems = 'center';
 }
