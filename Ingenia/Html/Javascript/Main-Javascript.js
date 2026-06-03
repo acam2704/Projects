@@ -1263,4 +1263,5 @@ if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
     const main = document.getElementsByClassName('content_window')[0];
     aside.style.width = '40vw';
     main.style.width = '60vw';
+    main.style.minWidth = '600px';
 }
