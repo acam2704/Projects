@@ -377,8 +377,8 @@ if(window_pathname.includes('session-log.html')){
     });
     const img_contr = document.getElementById('img_container');
     const allowed = ['image/png', 'image/jpeg', 'image/webp'];
-    let input;
     Array.from(document.getElementsByClassName('preview_container')).forEach(preview => {
+        let input;
         if(preview.id.includes('front')){ input = document.getElementById('input_frontdui_OCR'); }
         else if(preview.id.includes('back')){ input = document.getElementById('input_backdui_OCR'); }
         preview.addEventListener('click', function() {
