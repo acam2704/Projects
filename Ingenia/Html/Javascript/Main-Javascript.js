@@ -389,6 +389,7 @@ if(window_pathname.includes('session-log.html')){
                 if(img){ viewer.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
             } catch(e){
                 const alert = document.getElementById('main_alert');
+                console.log(e);
                 if(e.message.includes('Ingenia -')){
                     show_text_alert([[alert], e.message.split('-')[1]])
                 }
