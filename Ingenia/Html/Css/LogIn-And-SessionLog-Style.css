@@ -564,6 +564,12 @@ label{
     position: absolute;
     visibility: hidden;
     opacity: 0;
+    pointer-events: none;
+    gap: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     transform: scale(0.9);
 }
 #frontdui_preview.show,
@@ -572,8 +578,14 @@ label{
     opacity: 1; 
     position: relative;
     transform: scale(1); 
-    transition: opacity 0.2s ease, transform 0.2s ease; 
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
+.preview_container{
+    width: 200px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.check{ width: 60px; }
 
 @keyframes girar{
     from {
