@@ -385,11 +385,10 @@ if(window_pathname.includes('session-log.html')){
             try{
                 console.log(viewer);
                 console.log(input);
+                console.log(input.type);
                 viewer.style.display = 'flex';
-                const img = input.files[0] ?? null;
-                console.log(img);
                 if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
-                if(img){ img_contr.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
+                if(input){ img_contr.style.backgroundImage = `url(${URL.createObjectURL(input)})`; }
                 else{ img_contr.style.background = 'red'; }
             } catch(e){
                 const alert = document.getElementById('main_alert');
