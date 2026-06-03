@@ -346,7 +346,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 2, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones');
+        validate_dui_info(data, 2, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones', containers, loader);
     });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
         let input_file;
