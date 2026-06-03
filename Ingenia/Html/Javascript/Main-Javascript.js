@@ -371,6 +371,9 @@ if(window_pathname.includes('session-log.html')){
             validate_dui_info(usData_ocr, 3, 'Los datos requeridos no han sido escaneados aún.\nAsegurese de haber escaneado su DUI correctamente');
         }
     });
+    Array.from(document.getElementsByClassName('preview_container')).forEach(preview => {
+        
+    });
 
     const container1 = document.getElementById('primary_bttns_container');
     container1.style.maxWidth = '500px';
