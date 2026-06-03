@@ -1289,7 +1289,12 @@ if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
     const viewer_rbbn = document.getElementById('img_viewer_ribbon');
     aside.style.width = '40vw';
     main.style.width = '60vw';
-    main.style.minWidth = '600px';
+    if(window.innerWidth <= 768){
+        main.style.minWidth = '500px';
+    }else{
+        main.style.minWidth = '600px';
+    }
+    
     viewer_rbbn.style.height = '60px';
     viewer_rbbn.style.width = '60px';
     viewer_rbbn.style.gap = '0';
