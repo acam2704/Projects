@@ -383,9 +383,6 @@ if(window_pathname.includes('session-log.html')){
         else if(preview.id.includes('back')){ input = document.getElementById('input_backdui_OCR'); }
         preview.addEventListener('click', function() {
             try{
-                console.log(viewer);
-                console.log(input);
-                console.log(input.type);
                 const img = input.files[0];
                 console.log(img);
                 console.log(img.type);
