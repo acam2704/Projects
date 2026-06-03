@@ -348,16 +348,6 @@ if(window_pathname.includes('session-log.html')){
         const data = await response.json();
         validate_dui_info(data, 2, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones');
     });
-    document.getElementById('bttn_frontdui').addEventListener('click', function() {
-        const input_file = document.getElementById('input_frontdui_OCR');
-        input_file.value = '';
-        input_file.click();
-    });
-    document.getElementById('bttn_backdui').addEventListener('click', function() {
-        const input_file = document.getElementById('input_backdui_OCR');
-        input_file.value = '';
-        input_file.click();
-    });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
         let input_file;
         if(bttn.id.includes('front')){ input_file = document.getElementById('input_frontdui_OCR'); }

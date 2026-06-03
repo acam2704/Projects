@@ -468,7 +468,7 @@ label{
     justify-content: center;
     align-items: center;
 }
-.dui_img{ width: 80px; margin-right: 25px; }
+.dui_img{ width: 80px; }
 .dui_card > article{ text-align: center; display: flex; flex-direction: column;}
 .main_duiimg_txt{ font-size: 14px;font-weight: bold; text-decoration: underline;}
 .sub_duiimg_txt{ font-size: 14px;color: var(--informative-text-); }
