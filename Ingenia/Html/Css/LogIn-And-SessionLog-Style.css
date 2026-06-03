@@ -488,7 +488,7 @@ label{
     gap: 20px;
 }
 .photobttn{
-    background: linear-gradient(135deg, #6bafff 20%, #8c77fb 100%);
+    background: linear-gradient(135deg, #6bafff 20%, #3560ff 100%);
     border: none;
     box-shadow: 0px 5px 15px 3px rgba(0,0,0,0.1);
     color: white;
@@ -502,7 +502,7 @@ label{
     border: 2px solid var(--border-input-);
 }
 .uploadbttn:hover{
-    border-color: #bfc0ff;
+    border-color: #b5b6f8;
     background-color: #f3f3ff;
     transform: scale(1.03);
 }
@@ -530,7 +530,7 @@ label{
     border: 2px dashed #e5e5e5;
     transition: all 0.3s ease;
 }
-.dui_card:hover{ border-color: #c2c3ff; }
+.dui_card:hover{ border-color: #c0c6ff; }
 .dui_card > .loading_photo{
     position: absolute;
     visibility: hidden;
