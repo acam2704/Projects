@@ -580,6 +580,15 @@ label{
     transform: scale(1);
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
+.scan_title{
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+.scan_sub{
+    font-size: 14px;
+    color: var(--informative-text-);
+}
 .preview_container{
     width: 200px;
     border-radius: 20px;
