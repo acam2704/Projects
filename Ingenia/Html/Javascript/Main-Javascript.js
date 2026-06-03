@@ -371,14 +371,14 @@ if(window_pathname.includes('session-log.html')){
             validate_dui_info(usData_ocr, 3, 'Los datos requeridos no han sido escaneados aún.\nAsegurese de haber escaneado su DUI correctamente');
         }
     });
-    document.getElementById('imgview_closer').addEventListener('click', () => {
-        const img_viewer = document.getElementById('img_viewer');
-        img_viewer.style.display = 'none';
-    });
     const viewer = document.getElementById('img_viewer');
+    document.getElementById('imgview_closer').addEventListener('click', () => {
+        viewer.style.display = 'none';
+    });
+    const img_contr = document.getElementById('img_container');
     const allowed = ['image/png', 'image/jpeg', 'image/webp'];
+    let input;
     Array.from(document.getElementsByClassName('preview_container')).forEach(preview => {
-        let input;
         if(preview.id.includes('front')){ input = document.getElementById('input_frontdui_OCR'); }
         else if(preview.id.includes('back')){ input = document.getElementById('input_backdui_OCR'); }
         preview.addEventListener('click', function() {
@@ -386,7 +386,8 @@ if(window_pathname.includes('session-log.html')){
                 viewer.style.display = 'flex';
                 const img = input.files[0] ?? null;
                 if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
-                if(img){ viewer.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
+                if(img){ img_contr.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
+                else{ img_contr.style.background = 'red'; }
             } catch(e){
                 const alert = document.getElementById('main_alert');
                 console.log(e);
