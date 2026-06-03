@@ -1257,6 +1257,7 @@ function validate_dui_info(data, n, msg, containers, loader){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
+        scan_error(preview, loader);
         dui_card(containers, loader);
     }
 }
@@ -1281,6 +1282,20 @@ function dui_card(containers, loader){
 function show_preview(preview, loader){
     loader.classList.remove('show');
     preview.classList.add('show');
+    const con = preview.querySelector('.preview_container');
+    const img = preview.querySelector('.dui_img');
+    con.classList.add('show');
+    img.src = 'url(Imágenes/comprobar.png);'
+}
+function scan_error(preview, loader){
+    const img = preview.querySelector('.check');
+    const p = preview.querySelector('.scan_title');
+    const con = preview.querySelector('.preview_container');
+
+    preview.classList.add('show');
+    con.classList.remove('show');
+    p.textContent = 'Error al escanear';
+    img.src = 'url(Imágenes/eliminar.png)';
 }
 
 if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
