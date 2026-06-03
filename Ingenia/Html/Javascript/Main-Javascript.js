@@ -1232,11 +1232,16 @@ function validate_dui_info(data, n, msg, containers, loader){
                 show_contactInformationWindow_ocr(container_to_hide);
             }
         }
+        if(loader.id.includes('loadfront_dui'))
+        { const preview = document.getElementById('frontdui_preview'); show_preview(preview, loader); } 
+        else if(loader.id.includes('loadback_dui'))
+        { const preview = document.getElementById('backdui_preview'); show_preview(preview, loader); }
+        show_preview();
     } catch(e){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
-        hide_loadingphoto(containers, loader);
+        dui_card(containers, loader);
     }
 }
 
@@ -1250,14 +1255,16 @@ function show_contactInformationWindow_ocr(container_to_hide){
 }
 
 function loading_photo(containers, loader){
-    loader.style.display = 'flex';
     loader.classList.add('show');
     containers.forEach(con => con.style.display = 'none');
 }
-function hide_loadingphoto(container, loader){
-    loader.style.display = 'none';
+function dui_card(containers, loader){
     loader.classList.remove('show');
     containers.forEach(con => con.style.display = 'flex');
+}
+function show_preview(preview, loader){
+    loader.classList.remove('show');
+    preview.classList.add('show');
 }
 
 if(window_pathname.toLowerCase().includes('session-log-ocr.html')){

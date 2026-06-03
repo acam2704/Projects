@@ -433,6 +433,7 @@ label{
     justify-content: center;
     width: 50%;
     text-align: center;
+    gap: 10px;
 }
 #input_backdui_OCR,
 #input_frontdui_OCR{
@@ -467,7 +468,7 @@ label{
     justify-content: center;
     align-items: center;
 }
-.dui_img{ width: 80px; }
+.dui_img{ width: 80px; margin-right: 25px; }
 .dui_card > article{ text-align: center; display: flex; flex-direction: column;}
 .main_duiimg_txt{ font-size: 14px;font-weight: bold; text-decoration: underline;}
 .sub_duiimg_txt{ font-size: 14px;color: var(--informative-text-); }
@@ -475,33 +476,29 @@ label{
     width: 80%;
     gap: 10px;
 }
-.photobttn{
+.duibttns_container > button{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #6bafff 20%, #8c77fb 100%);
-    border: none;
     border-radius: 20px;
     padding: 10px;
-    box-shadow: 0px 5px 15px 3px rgba(0,0,0,0.1);
-    color: white;
     font-weight: bold;
     transition: all 0.3s ease;
+    gap: 20px;
+}
+.photobttn{
+    background: linear-gradient(135deg, #6bafff 20%, #8c77fb 100%);
+    border: none;
+    box-shadow: 0px 5px 15px 3px rgba(0,0,0,0.1);
+    color: white;
 }
 .photobttn:hover{
     box-shadow: 0 5px 10px 2px rgba(91, 45, 167, 0.3);
     transform: scale(1.03);
 }
 .uploadbttn{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     background-color: white;
     border: 2px solid var(--border-input-);
-    border-radius: 20px;
-    padding: 10px;
-    font-weight: bold;
-    transition: all 0.3s ease;
 }
 .uploadbttn:hover{
     border-color: #bfc0ff;
@@ -533,17 +530,17 @@ label{
     transition: all 0.3s ease;
 }
 .dui_card:hover{ border-color: #c2c3ff; }
-.dui_card > .loading_photo{ 
-    display: none; 
+.dui_card > .loading_photo{
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
     padding: 50px; 
     align-items: center; 
     color: rgb(100 135 217); 
-    gap: 20px; 
-    transition: display 0.3s ease; 
-    opacity:0;
-    pointer-events:none;
-    transform:translateY(15px);
-    transition:opacity .25s ease,transform .25s ease;
+    gap: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9);
 }
 .loader{
     width: 50px;
@@ -556,7 +553,13 @@ label{
 }
 .dui_card > .photo_view{ overflow: hidden; display: none;}
 .photo_view > img{ width: 100%; }
-.loading_photo.show{ opacity:1;pointer-events:auto;transform:translateY(0); }
+.dui_card > .loading_photo.show{ 
+    visibility: visible; 
+    opacity: 1; 
+    position: relative;
+    transform: scale(1); 
+    transition: opacity 0.2s ease, transform 0.2s ease; 
+}
 
 @keyframes girar{
     from {
