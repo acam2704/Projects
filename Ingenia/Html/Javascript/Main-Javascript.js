@@ -1282,19 +1282,30 @@ function dui_card(containers, loader){
 function show_preview(preview, loader){
     loader.classList.remove('show');
     preview.classList.add('show');
+
     const con = preview.querySelector('.preview_container');
     const img = preview.querySelector('.dui_img');
+    const title = preview.querySelector('.scan_title');
+    const sub = preview.querySelector('.scan_sub');
     con.classList.add('show');
-    img.src = 'url(Imágenes/comprobar.png);'
+    img.src = 'url(Imágenes/comprobar.png)';
+    title.textContent = 'Escaneado exitósamente';
+
+    let side;
+    if(preview.id.includes('front')){ side = 'frontal'; }
+    else if(preview.id.includes('back')){ side = 'trasera'; }
+    sub.textContent = `Cara ${side} verificada`;
 }
 function scan_error(preview, loader){
     const img = preview.querySelector('.check');
-    const p = preview.querySelector('.scan_title');
+    const title = preview.querySelector('.scan_title');
+    const sub = preview.querySelector('.scan_sub');
     const con = preview.querySelector('.preview_container');
 
     preview.classList.add('show');
     con.classList.remove('show');
-    p.textContent = 'Error al escanear';
+    title.textContent = 'Error al escanear.';
+    sub.textContent = 'Intente volver a ingresa la imagen';
     img.src = 'url(Imágenes/eliminar.png)';
 }
 
