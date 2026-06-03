@@ -277,7 +277,7 @@ label{
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgb(0,0,0,0.2);
+    background-color: rgb(0,0,0,0.4);
 
     z-index: 999999;
     transition: all 0.5s ease;
