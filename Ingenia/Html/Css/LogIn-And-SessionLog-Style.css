@@ -607,6 +607,12 @@ label{
 }
 .check{ width: 60px; }
 #imgview_closer{ width: 25px; }
+#img_container{
+    width: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 50vw;
+}
 
 @keyframes girar{
     from {

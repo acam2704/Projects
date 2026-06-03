@@ -1289,7 +1289,14 @@ function show_preview(preview, loader){
 if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
     const aside = document.getElementById('aside_background');
     const main = document.getElementsByClassName('content_window')[0];
+    const viewer_rbbn = document.getElementById('img_viewer_ribbon');
     aside.style.width = '40vw';
     main.style.width = '60vw';
     main.style.minWidth = '600px';
+    viewer_rbbn.style.height = '60px';
+    viewer_rbbn.style.width = '60px';
+    viewer_rbbn.style.gap = '0';
+    viewer_rbbn.style.position = 'absolute';
+    viewer_rbbn.style.borderRadius = '30px';
+    viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
 }
