@@ -1223,11 +1223,12 @@ function validate_dui_info(data, n, msg, containers, loader){
                 show_contactInformationWindow_ocr(container_to_hide);
             }
         }
+        let preview;
         if(loader.id.includes('loadfront_dui'))
-        { const preview = document.getElementById('frontdui_preview'); show_preview(preview, loader); } 
+        { preview = document.getElementById('frontdui_preview'); show_preview(preview, loader); } 
         else if(loader.id.includes('loadback_dui'))
-        { const preview = document.getElementById('backdui_preview'); show_preview(preview, loader); }
-        show_preview();
+        { preview = document.getElementById('backdui_preview'); show_preview(preview, loader); }
+        show_preview(preview, loader);
     } catch(e){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
