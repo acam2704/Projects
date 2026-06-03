@@ -613,6 +613,11 @@ label{
     background-repeat: no-repeat;
     background-size: 100%;
 }
+#dui_information_container > section{
+    flex-direction: row;
+    flex-direction: column;
+}
+
 
 @keyframes girar{
     from {
@@ -718,8 +723,7 @@ label{
     #img_cards_container{ max-width: 302px; }
     #file_img_Re{ margin-left: 0; }
     #dui_information_container > section{
-        display: flex;
-        flex-direction: column;
+        flex-direction: row;
     }
 }
 

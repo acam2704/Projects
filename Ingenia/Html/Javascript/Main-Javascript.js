@@ -1294,7 +1294,6 @@ if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
     }else{
         main.style.minWidth = '600px';
     }
-    
     viewer_rbbn.style.height = '60px';
     viewer_rbbn.style.width = '60px';
     viewer_rbbn.style.gap = '0';
