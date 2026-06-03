@@ -584,11 +584,14 @@ label{
     width: 200px;
     border-radius: 20px;
     overflow: hidden;
+    box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.2);
 }
 .check_container{
     border-radius: 30px;
     overflow: hidden;
-    
+    width: 60px;
+    height: 60px;
+    box-shadow: 0px 10px 20px 1px rgb(63 167 85 / 54%);
 }
 .check{ width: 60px; }
 
