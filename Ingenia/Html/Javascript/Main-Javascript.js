@@ -375,8 +375,9 @@ if(window_pathname.includes('session-log.html')){
         const img_viewer = document.getElementById('img_viewer');
         img_viewer.style.display = 'none';
     });
+    const viewer = document.getElementById('img_viewer');
+    const allowed = ['image/png', 'image/jpeg', 'image/webp'];
     Array.from(document.getElementsByClassName('preview_container')).forEach(preview => {
-        const viewer = document.getElementById('img_viewer');
         let input;
         if(preview.id.includes('front')){ input = document.getElementById('input_frontdui_OCR'); }
         else if(preview.id.includes('back')){ input = document.getElementById('input_backdui_OCR'); }
@@ -384,7 +385,6 @@ if(window_pathname.includes('session-log.html')){
             try{
                 viewer.style.display = 'flex';
                 const img = input.files[0] ?? null;
-                const allowed = ['image/png', 'image/jpeg', 'image/webp'];
                 if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
                 if(img){ viewer.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
             } catch(e){
