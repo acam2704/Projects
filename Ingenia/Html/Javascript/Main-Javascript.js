@@ -1223,6 +1223,7 @@ function validate_dui_info(data, n, msg, containers, loader){
                 show_contactInformationWindow_ocr(container_to_hide);
             }
         }
+        console.log(data);
         let preview;
         if(loader.id.includes('loadfront_dui')){ preview = document.getElementById('frontdui_preview'); } 
         else if(loader.id.includes('loadback_dui')){ preview = document.getElementById('backdui_preview'); }
