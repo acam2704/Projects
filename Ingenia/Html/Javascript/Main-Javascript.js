@@ -301,6 +301,9 @@ if(window_pathname.includes('session-log.html')){
         dui_information_container.style.display = 'flex';
     });
     document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
+        const loader = document.getElementById('loadfront_dui');
+        const containers = Array.from(document.getElementsByClassName('frontdui_container'));
+        loading_photo(containers, loader);
         const file = this.files[0] ?? null;
         if (file) {
             const reader = new FileReader(); // Crea el lector de archivos
@@ -318,9 +321,12 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 1, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones');
+        validate_dui_info(data, 1, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones', containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
+        const loader = document.getElementById('loadback_dui');
+        const containers = Array.from(document.getElementsByClassName('backdui_container'));
+        loading_photo(containers, loader);
         const file = this.files[0];
         if (file) {
             const reader = new FileReader(); // Crea el lector de archivos
@@ -351,6 +357,19 @@ if(window_pathname.includes('session-log.html')){
         const input_file = document.getElementById('input_backdui_OCR');
         input_file.value = '';
         input_file.click();
+    });
+    document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
+        let input_file;
+        if(bttn.id.includes('front')){ input_file = document.getElementById('input_frontdui_OCR'); }
+        else if(bttn.id.includes('back')){ input_file = document.getElementById('input_backdui_OCR'); }
+
+        if(bttn.classList.contains('photobttn')){ input_file.setAttribute('capture', 'environment'); }
+        else if(bttn.classList.contains('uploadbttn')){ input_file.removeAttribute('capture'); }
+        bttn.addEventListener('click', function(){
+            input_file.setAttribute('capture', 'environment');
+            input_file.value = '';
+            input_file.click(); 
+        });
     });
     document.getElementById('slocr_sendbttn').addEventListener('click', async function(){
         disable_all_inputs(); // Se deshabilitan todos los inputs
@@ -1192,7 +1211,7 @@ function animationLoad(n){
 
 /* SESSION LOG OCR */
 const usData_ocr = {};
-function validate_dui_info(data, n, msg){
+function validate_dui_info(data, n, msg, containers, loader){
     try{
         if(!(data.status === 'ok')){ throw new Error(data.error) }
         const required_fields = [
@@ -1217,6 +1236,7 @@ function validate_dui_info(data, n, msg){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
+        hide_loadingphoto(containers, loader);
     }
 }
 
@@ -1227,4 +1247,22 @@ function show_contactInformationWindow_ocr(container_to_hide){
     enable_inputs(container_to_show);
     hideLoader();
     hide_all_text_alerts();
+}
+
+function loading_photo(containers, loader){
+    loader.style.display = 'flex';
+    loader.classList.add('show');
+    containers.forEach(con => con.style.display = 'none');
+}
+function hide_loadingphoto(container, loader){
+    loader.style.display = 'none';
+    loader.classList.remove('show');
+    containers.forEach(con => con.style.display = 'flex');
+}
+
+if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
+    const aside = document.getElementById('aside_background');
+    const main = document.getElementsByClassName('content_window')[0];
+    aside.style.width = '40vw';
+    main.style.width = '60vw';
 }
