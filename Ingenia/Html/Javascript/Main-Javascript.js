@@ -386,6 +386,7 @@ if(window_pathname.includes('session-log.html')){
                 console.log(viewer);
                 viewer.style.display = 'flex';
                 const img = input.files[0] ?? null;
+                console.log(img);
                 if(!allowed.includes(img.type)){ throw new Error('Ingenia -Formato no permitido'); }
                 if(img){ img_contr.style.backgroundImage = `url(${URL.createObjectURL(img)})`; }
                 else{ img_contr.style.background = 'red'; }
