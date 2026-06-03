@@ -552,7 +552,6 @@ label{
     animation: girar 1.5s linear infinite;
     transition: display 0.5s ease;
 }
-.dui_card > .photo_view{ overflow: hidden; display: none;}
 .photo_view > img{ width: 100%; }
 .dui_card > .loading_photo.show{ 
     visibility: visible; 
