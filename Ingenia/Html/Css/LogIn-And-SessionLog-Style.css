@@ -578,6 +578,8 @@ label{
     opacity: 1; 
     position: relative;
     transform: scale(1);
+
+    align-items: center;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .scan_title{
