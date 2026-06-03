@@ -561,6 +561,20 @@ label{
     transform: scale(1); 
     transition: opacity 0.2s ease, transform 0.2s ease; 
 }
+.photo_view{
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.9);
+}
+#frontdui_preview.show,
+#backdui_preview.show{
+    visibility: visible; 
+    opacity: 1; 
+    position: relative;
+    transform: scale(1); 
+    transition: opacity 0.2s ease, transform 0.2s ease; 
+}
 
 @keyframes girar{
     from {

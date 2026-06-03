@@ -1224,10 +1224,8 @@ function validate_dui_info(data, n, msg, containers, loader){
             }
         }
         let preview;
-        if(loader.id.includes('loadfront_dui'))
-        { preview = document.getElementById('frontdui_preview'); show_preview(preview, loader); } 
-        else if(loader.id.includes('loadback_dui'))
-        { preview = document.getElementById('backdui_preview'); show_preview(preview, loader); }
+        if(loader.id.includes('loadfront_dui')){ preview = document.getElementById('frontdui_preview'); } 
+        else if(loader.id.includes('loadback_dui')){ preview = document.getElementById('backdui_preview'); }
         show_preview(preview, loader);
     } catch(e){
         const alert = document.getElementById('main_alert');
