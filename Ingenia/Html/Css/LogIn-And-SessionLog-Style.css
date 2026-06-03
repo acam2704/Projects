@@ -580,6 +580,7 @@ label{
     transform: scale(1);
 
     align-items: center;
+    pointer-events: auto;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .scan_title{
