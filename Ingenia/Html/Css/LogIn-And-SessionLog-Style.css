@@ -658,10 +658,13 @@ p.show{ display: block; }
     background-color: #f3f8ff;
     transform: scale(1.03);
 }
-#emailbttn_back{
+#ocrEmail_container{
     position: absolute;
     visibility: hidden;
     opacity: 0;
+}
+#emailbttn_back{
+    display: flex;
     padding: 0 20px 0 20px;
     display: none;
     justify-content: center;
@@ -672,7 +675,7 @@ p.show{ display: block; }
     max-width: 110px;
     transform: scale(0.9);
 }
-#emailbttn_bacl.show{
+#ocrEmail_container.show{
     visibility: visible;
     opacity: 1;
     transform: scale(1);
