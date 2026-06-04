@@ -1235,7 +1235,6 @@ function animationLoad(n){
 /* SESSION LOG OCR */
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
-        console.log(JSON.stringify(usData_ocr));
         if(!(data.status === 'ok') && n !== 3){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
@@ -1244,8 +1243,6 @@ async function validate_dui_info(data, n, msg, containers, loader){
         ];
         const fields = required_fields[n-1];
         for(const field of fields){
-            console.log(field);
-            console.log(data[field]);
             if(!data[field]){ throw new Error(`Ingenia -${msg}`); }
             usData_ocr[field] = data[field];
         }
@@ -1302,8 +1299,6 @@ function dui_card(containers, loader){
     img_cntr.style.margin = '20px';
     img.src = 'Imágenes/eliminar.png';
     img.style.width = '60px';
-    console.log(title);
-    console.log(sub);
     title.textContent = 'Error al escanear.';
     sub.textContent = 'Inténtelo nuevamente';
 }

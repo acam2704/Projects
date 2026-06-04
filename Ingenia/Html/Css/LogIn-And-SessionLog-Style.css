@@ -458,6 +458,7 @@ label{
 #file_frontdui_OCR,
 #file_backdui_OCR{ width: 100%; }
 .duiimg_container{
+    display: flex;
     width: 100px;
     height: 100px;
     border-radius: 50px;
@@ -465,7 +466,7 @@ label{
     justify-content: center;
     align-items: center;
 }
-.dui_img{ width: 80px; }
+.dui_img{ width: 100px; }
 .dui_card > article{ text-align: center; display: flex; flex-direction: column;}
 .main_duiimg_txt{ font-size: 14px;font-weight: bold; text-decoration: underline; display: none;}
 .sub_duiimg_txt{ font-size: 14px;color: var(--informative-text-); display: none; }
@@ -609,16 +610,22 @@ label{
 }
 p.show{ display: block; }
 #contact_information_container{ flex-direction: row; }
-#ocrInput_email_container{
+#ocrInput_email_container,
+#ocrInput_phonenumber_container{
     height: 400px;
+    width: 40%;
     border-radius: 20px;
     border: 2px solid var(--border-input-);
     background: linear-gradient(135deg, #ffffff 20%, #f6f8ff 100%);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 article.input > input{
     height: 40px;
     border-radius: 15px;
-    border: 2px solid var(--border-input-);
+    border: 2px solid #e9ebed;
 }
 
 
@@ -727,7 +734,7 @@ article.input > input{
     #dui_information_container > section{ flex-direction: row; }
     .file_container{ width: 50%; }
     .duiimg_container { width: 150px; height: 150px; }
-    .dui_img { width: 100px; }
+    .dui_img { width: 80px; }
 }
 
 @media (max-width: 1020px){
