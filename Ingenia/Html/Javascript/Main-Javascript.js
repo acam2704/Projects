@@ -1275,12 +1275,14 @@ function loading_photo(containers, loader){
 }
 function dui_card(containers, loader){
     loader.classList.remove('show');
+    containers.forEach(con => con.style.display = 'flex');
+
     const con = loader.parentElement;
     const img = con.querySelector('.dui_img');
     const img_cntr = img.parentElement;
+
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)'; 
     img.src = 'Imágenes/eliminar.png';
-    containers.forEach(con => con.style.display = 'flex');
 }
 function show_preview(preview, loader){
     loader.classList.remove('show');
@@ -1291,6 +1293,7 @@ function show_preview(preview, loader){
     const img_cntr = img.parentElement;
     const title = preview.querySelector('.scan_title');
     const sub = preview.querySelector('.scan_sub');
+    
     con.classList.add('show');
     img.src = 'Imágenes/comprobar.png';
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(63 167 85 / 54%)'; 
