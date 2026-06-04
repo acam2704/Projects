@@ -616,6 +616,7 @@ p.show{ display: block; }
 }
 #ocrInput_email_container,
 #ocrInput_phonenumber_container{
+    position: relative;
     height: 500px;
     width: 100%;
     padding: 50px 0 10px 0;
@@ -677,8 +678,8 @@ p.show{ display: block; }
 #ocrEmail_container.show{
     visibility: visible;
     opacity: 1;
-    position: relative;
     transform: scale(1);
+    top: 150px;
     transition: transform 0.4s ease-out;
 }
 #emailbttn_back img{width: 20px;}
