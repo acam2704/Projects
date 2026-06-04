@@ -1241,20 +1241,15 @@ async function validate_dui_info(data, n, msg, containers, loader){
             ['city', 'state', 'countryregion'], 
             ['firstname', 'birthdate', 'dui', 'lastname', 'city', 'state', 'countryregion']
         ];
-        for (let i = 0; i < 3; i++) {
-            if(n === (i+1)){
-                const fields = required_fields[i];
-                for(const field of fields){
-                    console.log(data);
-                    if(!data[field]){ throw new Error(`Ingenia -${msg}`); }
-                    usData_ocr[field] = data[field];
-                }
-            }
+        const fields = required_fields[n-1];
+        for(const field of fields){
+            console.log(data);
+            if(!data[field]){ throw new Error(`Ingenia -${msg}`); }
+            usData_ocr[field] = data[field];
         }
         if(n === 3){
             const container_to_hide = [dui_information_container];
             show_contactInformationWindow_ocr(container_to_hide);
-            return;
         } else{
             let preview;
             if(loader.id.includes('front')){ preview = document.getElementById('frontdui_preview'); } 
