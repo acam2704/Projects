@@ -371,7 +371,7 @@ if(window_pathname.includes('session-log.html')){
 
         // Se validan los datos escaneados/digitados por el usuario
         if(getComputedStyle(dui_information_container).display !== 'none'){
-            validate_dui_info(usData_ocr, 3, 'Los datos requeridos no han sido escaneados aún.\nAsegurese de haber escaneado su DUI correctamente');
+            validate_dui_info(usData_ocr, 3, 'Faltan escanear datos importantes del DUI.\nAsegurese de haber ingresado ambas caras de su DUI', [dui_information_container], loader);
         }
     });
     const viewer = document.getElementById('img_viewer');
@@ -1252,14 +1252,15 @@ async function validate_dui_info(data, n, msg, containers, loader){
             }
         }
         let preview;
-        if(loader.id.includes('loadfront_dui')){ preview = document.getElementById('frontdui_preview'); } 
-        else if(loader.id.includes('loadback_dui')){ preview = document.getElementById('backdui_preview'); }
+        if(loader.id.includes('front')){ preview = document.getElementById('frontdui_preview'); } 
+        else if(loader.id.includes('back')){ preview = document.getElementById('backdui_preview'); }
         show_preview(preview, loader);
     } catch(e){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
-        dui_card(containers, loader);
+        if(n !== 3){ dui_card(containers, loader); }
+        else{ hideLoader() }
     }
 }
 
