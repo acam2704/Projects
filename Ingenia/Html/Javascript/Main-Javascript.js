@@ -305,7 +305,7 @@ if(window_pathname.includes('session-log.html')){
     main.style.width = '60vw';
     main.style.marginTop = '50px';
     if(window.matchMedia('(min-width: 768px)').matches){
-        main.style.minWidth = '500px';
+        main.style.minWidth = '375px';
     } else{
         main.style.minWidth = '600px';
     }
