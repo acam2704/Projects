@@ -1235,7 +1235,7 @@ function animationLoad(n){
 /* SESSION LOG OCR */
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
-        if(!(data.status === 'ok')){ throw new Error(data.error) }
+        if(!(data.status === 'ok' && n !== 3)){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
             ['city', 'state', 'countryregion'], 
@@ -1246,7 +1246,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
                 const fields = required_fields[i];
                 for(const field of fields){
                     console.log(data);
-                    if(!data[field]){ throw new Error(`Ingenia - ${msg}`); }
+                    if(!data[field]){ throw new Error(`Ingenia -${msg}`); }
                     usData_ocr[field] = data[field];
                 }
             }
