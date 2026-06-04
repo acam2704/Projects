@@ -621,7 +621,6 @@ p.show{ display: block; }
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.07);
     background: linear-gradient(135deg, #ffffff 20%, #f6f8ff 100%);
     align-items: center;
-    display: flex;
     flex-direction: column;
     gap: 10px;
 }
