@@ -356,7 +356,6 @@ if(window_pathname.includes('session-log.html')){
         if(bttn.classList.contains('photobttn')){ input_file.setAttribute('capture', 'environment'); }
         else if(bttn.classList.contains('uploadbttn')){ input_file.removeAttribute('capture'); }
         bttn.addEventListener('click', function(){
-            input_file.setAttribute('capture', 'environment');
             input_file.value = '';
             input_file.click(); 
         });
