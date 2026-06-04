@@ -622,9 +622,10 @@ p.show{ display: block; }
 #ocrInput_phonenumber_container{
     height: 400px;
     width: 100%;
-    padding: 10px 0 10px 0;
+    padding: 50px 0 10px 0;
     border-radius: 20px;
     border: 2px solid var(--border-input-);
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.07);
     background: linear-gradient(135deg, #ffffff 20%, #f6f8ff 100%);
     align-items: center;
     display: flex;
@@ -646,7 +647,7 @@ p.show{ display: block; }
 .dui_img.email{ width: 40px; }
 .dui_img.phonenumber{ width: 35px; }
 .duibttns_container.email{ width: 80%; display: flex; flex-direction: column; }
-.duibttns_container.email > button{ width: 100%; }
+.duibttns_container.email > button{ width: 100%; border-radius: 10px; border-color: #e9ebed; transition: all 0.4s ease; }
 #input_phonenumber_OCR{ padding-left: 70px; width: calc(100% - 90px); font-size: 17px; }
 .ocrBttns_container{ 
     display: grid;
