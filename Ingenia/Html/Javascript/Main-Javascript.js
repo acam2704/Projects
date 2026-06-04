@@ -1281,7 +1281,7 @@ function dui_card(containers, loader){
     else if(con.id.includes('back')){ img = con.querySelector('.dui_img'); }
     const img_cntr = con.querySelector('.backdui_container');
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)'; 
-    img.src = 'url(Imágenes/eliminar.png)';
+    img.src = 'Imágenes/eliminar.png';
     containers.forEach(con => con.style.display = 'flex');
 }
 function show_preview(preview, loader){
