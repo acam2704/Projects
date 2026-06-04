@@ -609,7 +609,7 @@ label{
 }
 p.show{ display: block; }
 #contact_information_container{
-    display: flex;
+    display: none;
     flex-direction: row;
     gap: 10px;
     justify-content: center;
