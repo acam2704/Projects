@@ -1245,22 +1245,24 @@ async function validate_dui_info(data, n, msg, containers, loader){
                     usData_ocr[field] = data[field];
                 }
             }
-            if(n === 3){
-                const container_to_hide = [dui_information_container];
-                show_contactInformationWindow_ocr(container_to_hide);
-                return;
-            }
         }
-        let preview;
-        if(loader.id.includes('front')){ preview = document.getElementById('frontdui_preview'); } 
-        else if(loader.id.includes('back')){ preview = document.getElementById('backdui_preview'); }
-        show_preview(preview, loader);
+        if(n === 3){
+            const container_to_hide = [dui_information_container];
+            show_contactInformationWindow_ocr(container_to_hide);
+            return;
+        } else{
+            let preview;
+            if(loader.id.includes('front')){ preview = document.getElementById('frontdui_preview'); } 
+            else if(loader.id.includes('back')){ preview = document.getElementById('backdui_preview'); }
+            show_preview(preview, loader);
+        }
     } catch(e){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
+        console.log('error');
         if(n !== 3){ dui_card(containers, loader); }
-        else{ hideLoader(); enable_inputs([dui_information_container]); }
+        else{ console.log('error de siguiente'); hideLoader(); enable_inputs([dui_information_container]); }
     }
 }
 
