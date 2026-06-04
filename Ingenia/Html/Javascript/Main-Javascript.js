@@ -1279,7 +1279,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
         const alert = document.getElementById('main_alert');
        
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
-        if(n !== 3){ dui_card(containers, loader); for(const key in usData_ocr){ delete usData_ocr[key]; } }
+        if(n !== 3){ dui_card(containers, loader); }
         else{ hideLoader(); enable_inputs([dui_information_container]); }
     }
 }
@@ -1343,6 +1343,9 @@ function show_preview(preview, loader){
     else if(preview.id.includes('back')){ side = 'trasera'; }
     sub.textContent = `Cara ${side} verificada`;
 }
+function speech_to_text(){
+
+}
 
 function manejarCambio(evento) {
     const aside = document.getElementById('aside_background');
@@ -1363,8 +1366,6 @@ function manejarCambio(evento) {
     } else{
         main.style.width = '80%';
         main.style.minWidth = '375px';
-        main.style.margin = '20px 0 20px 0';
-        main.style.padding = '30px 0 30px 0';
         duititle_containers.forEach(con => {
             con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
                 p.classList.remove('show');
