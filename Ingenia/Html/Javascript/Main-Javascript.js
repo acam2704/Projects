@@ -1359,7 +1359,7 @@ function manejarCambio(evento) {
             });
         });
     } else{
-        main.style.width = '80%';
+        main.style.width = '100%';
         main.style.minWidth = '375px';
         duititle_containers.forEach(con => {
             con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
