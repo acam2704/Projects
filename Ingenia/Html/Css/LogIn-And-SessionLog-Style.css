@@ -495,12 +495,6 @@ label{
 .uploadbttn,
 .typebttn, 
 .ocrBttns_container > button{ background-color: white; border: 2px solid var(--border-input-); border-radius: 10px; }
-.photobttn:active,
-.uploadbttn:active,
-.typebttn:active,
-.speechbttn:active,
-.ocrBttns_container > button:active,
-#emailbttn_back:active{ transform: scale(1); }
 .imgbttn{ width: 25px; }
 #bttn_send_container.ocr{ margin-left: calc(40% - 80px); }
 #bttn_back_container.ocr{ margin-right: calc(40% - 80px); }
@@ -659,6 +653,12 @@ p.show{ display: block; }
     background-color: #f3f8ff;
     transform: scale(1.03);
 }
+.photobttn:active,
+.uploadbttn:active,
+.typebttn:active,
+.speechbttn:active,
+.ocrBttns_container > button:active,
+#emailbttn_back:active{ transform: scale(1); }
 #ocrEmail_container{
     position: absolute;
     visibility: hidden;
