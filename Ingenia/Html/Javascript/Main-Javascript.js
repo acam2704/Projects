@@ -357,10 +357,9 @@ if(window_pathname.includes('session-log.html')){
         if(bttn.id.includes('front')){ input_file = document.getElementById('input_frontdui_OCR'); }
         else if(bttn.id.includes('back')){ input_file = document.getElementById('input_backdui_OCR'); }
 
-        if(bttn.classList.contains('photobttn')){ input_file.setAttribute('capture', 'environment'); }
-        else if(bttn.classList.contains('uploadbttn')){ input_file.removeAttribute('capture'); }
         bttn.addEventListener('click', function(){
-            console.log(input_file.capture);
+            if(this.classList.contains('photobttn')){ input_file.setAttribute('capture', 'environment'); }
+            else{ input_file.removeAttribute('capture'); }
             input_file.value = '';
             input_file.click(); 
         });
