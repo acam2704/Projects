@@ -23,12 +23,12 @@ try{
         throw new Exception(curl_error($ch));
     }
     if($response === false){
-        throw new Exception('Ingenia -No se logró la conexión');
+        throw new Exception('Ingenia -Inténtelo más tarde');
     }
 
     $tokenData = json_decode($response, true);
     if(!isset($tokenData['access_token'])){
-        throw new Exception('Ingenia -No se logró la conexión');
+        throw new Exception('Ingenia -Inténtelo más tarde');
     }
 
     $token = $tokenData['access_token'];
@@ -141,7 +141,7 @@ try{
     }
 
     foreach ( $return as $key => $value ) 
-    { if(!$value){ throw new Exception('Ingenia -No se logró captar los campos necesarios. Inténtelo nuevamente'); } }
+    { if(!$value){ throw new Exception('Ingenia -No se logró captar los campos necesarios'); } }
 
     $return['status'] = 'ok'; 
     $return['error'] = null; 
