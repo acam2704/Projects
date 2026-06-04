@@ -502,8 +502,8 @@ label{
     border: 2px solid var(--border-input-);
 }
 .uploadbttn:hover{
-    border-color: #b5b6f8;
-    background-color: #f3f3ff;
+    border-color: #b5cdf8;
+    background-color: #f3f8ff;
     transform: scale(1.03);
 }
 .photobttn:active,
