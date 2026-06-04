@@ -492,7 +492,7 @@ label{
 .speechbttn:hover{ box-shadow: 0 5px 10px 2px rgba(45, 102, 167, 0.3); transform: scale(1.03); }
 .uploadbttn,
 .typebttn, 
-.ocrBttns_container > button{ background-color: white; border: 2px solid var(--border-input-); }
+.ocrBttns_container > button{ background-color: white; border: 2px solid var(--border-input-); border-radius: 10px; }
 .photobttn:active,
 .uploadbttn:active,
 .typebttn:active,
@@ -640,13 +640,14 @@ p.show{ display: block; }
 .dui_img.phonenumber{ width: 35px; }
 .duibttns_container.email{ width: 80%; display: flex; flex-direction: column; }
 .duibttns_container.email > button{ width: 100%; border-radius: 20px; border-color: #e9ebed; transition: all 0.4s ease; }
-#input_phonenumber_OCR{ padding-left: 70px; width: calc(100% - 90px); font-size: 17px; pointer-events: none; }
+#input_phonenumber_OCR{ padding-left: 70px; width: calc(100% - 94px); font-size: 17px; pointer-events: none; }
 .ocrBttns_container{ 
     display: grid;
     grid-template-columns: 60px 60px 60px;
     grid-template-rows: 60px 60px 60px 60px;
     gap: 10px;
 }
+.ocrBttns_container > button{ border-color: #e9ebed; }
 .uploadbttn:hover,
 .typebttn:hover,
 .ocrBttns_container > button:hover{
