@@ -685,6 +685,11 @@ p.show{ display: block; }
 }
 #emailbttn_back img{width: 20px;}
 #emailbttn_back p{ font-size: 13px; }
+#eliminate:hover, 
+#eliminate:active{
+    border-color: #ff9c9c;
+    background-color: #ffeeee;
+}
 
 @keyframes girar{
     from {
