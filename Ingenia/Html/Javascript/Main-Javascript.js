@@ -414,6 +414,17 @@ if(window_pathname.includes('session-log.html')){
         bttns_container.style.display = 'flex';
         email_container.classList.remove('show');
     });
+    const input_phonenumber_OCR = document.getElementById('input_phonenumber_OCR');
+    let counter = 0;
+    Array.from(document.getElementById('ocrBttns_container').querySelectorAll(':scope > button')).forEach(bttn => {
+        counter++;
+        bttn.addEventListener('click', function(){
+            if(counter === 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value.slice(0, -1); }
+            else if(counter === 11){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + '0'; }
+            else{ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${counter}`; }
+        });
+    });
+
 
     const container1 = document.getElementById('primary_bttns_container');
     container1.style.maxWidth = '500px';
