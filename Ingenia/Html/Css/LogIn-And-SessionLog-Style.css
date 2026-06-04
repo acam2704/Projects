@@ -493,13 +493,6 @@ label{
 .uploadbttn,
 .typebttn, 
 .ocrBttns_container > button{ background-color: white; border: 2px solid var(--border-input-); }
-.uploadbttn:hover,
-.typebttn:hover,
-.ocrBttns_container > button:hover{
-    border-color: #b5cdf8;
-    background-color: #f3f8ff;
-    transform: scale(1.03);
-}
 .photobttn:active,
 .uploadbttn:active,
 .typebttn:active,
@@ -631,7 +624,6 @@ p.show{ display: block; }
     display: flex;
     flex-direction: column;
     gap: 10px;
-    justify-content: center;
 }
 .input.ocr{
     border-radius: 20px;
@@ -647,13 +639,20 @@ p.show{ display: block; }
 .dui_img.email{ width: 40px; }
 .dui_img.phonenumber{ width: 35px; }
 .duibttns_container.email{ width: 80%; display: flex; flex-direction: column; }
-.duibttns_container.email > button{ width: 100%; border-radius: 10px; border-color: #e9ebed; transition: all 0.4s ease; }
+.duibttns_container.email > button{ width: 100%; border-radius: 20px; border-color: #e9ebed; transition: all 0.4s ease; }
 #input_phonenumber_OCR{ padding-left: 70px; width: calc(100% - 90px); font-size: 17px; pointer-events: none; }
 .ocrBttns_container{ 
     display: grid;
     grid-template-columns: 60px 60px 60px;
     grid-template-rows: 60px 60px 60px 60px;
     gap: 10px;
+}
+.uploadbttn:hover,
+.typebttn:hover,
+.ocrBttns_container > button:hover{
+    border-color: #b5cdf8;
+    background-color: #f3f8ff;
+    transform: scale(1.03);
 }
 
 @keyframes girar{
