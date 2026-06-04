@@ -1353,6 +1353,7 @@ function manejarCambio(evento) {
         aside.style.width = '40vw';
         main.style.width = '60vw';
         main.style.minWidth = '600px';
+        main.style.boxShadow = 'none';
         duititle_containers.forEach(con => {
             con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
                 p.classList.add('show');
