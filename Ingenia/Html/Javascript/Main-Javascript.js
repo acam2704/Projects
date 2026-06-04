@@ -404,6 +404,12 @@ if(window_pathname.includes('session-log.html')){
             }
         });
     });
+    document.getElementById('typebttn_ocr').addEventListener('click', function(){
+        const email_container = document.getElementById('ocrEmail_container');
+        const bttns_container = document.getElementById('emailBttns_container');
+        bttns_container.style.display = 'none';
+        email_container.style.display = 'flex';
+    });
 
     const container1 = document.getElementById('primary_bttns_container');
     container1.style.maxWidth = '500px';
