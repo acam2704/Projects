@@ -1280,8 +1280,8 @@ function dui_card(containers, loader){
     const con = loader.parentElement;
     const img = con.querySelector('.dui_img');
     const img_cntr = img.parentElement;
-    const title = preview.querySelector('.scan_title');
-    const sub = preview.querySelector('.scan_sub');
+    const title = con.querySelector('.scan_title');
+    const sub = con.querySelector('.scan_sub');
 
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)';
     img.src = 'Imágenes/eliminar.png';
