@@ -1246,6 +1246,8 @@ async function validate_dui_info(data, n, msg, containers, loader){
         const fields = required_fields[n-1];
         for(const field of fields){
             if(!data[field]){ throw new Error(`Ingenia -${msg}`); }
+            console.log(field);
+            console.log(data[field]);
             usData_ocr[field] = data[field];
         }
         if(n === 3){
