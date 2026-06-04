@@ -423,7 +423,7 @@ if(window_pathname.includes('session-log.html')){
         bttns_array[n].addEventListener('click', function(){
             if(input_phonenumber_OCR.value.length < 9){
                 if(n === 9){ input_phonenumber_OCR.value = input_phonenumber_OCR.value.slice(0, -1); }
-                if(n < 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${n+1}`; }
+                else if(n < 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${n+1}`; }
             }
             if(n === 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + '0'; }
         });
