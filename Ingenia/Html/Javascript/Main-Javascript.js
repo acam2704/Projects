@@ -1310,6 +1310,8 @@ function dui_card(containers, loader){
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)';
     img_cntr.style.overflow = 'hidden'; 
     img_cntr.style.margin = '20px';
+    img_cntr.style.width = '60px';
+    img_cntr.style.height = '60px';
     img.src = 'Imágenes/eliminar.png';
     img.style.width = '60px';
     title.textContent = 'Error al escanear.';
