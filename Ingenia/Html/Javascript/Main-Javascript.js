@@ -418,8 +418,6 @@ if(window_pathname.includes('session-log.html')){
     const bttns_array = Array.from(document.getElementById('ocrBttns_container').querySelectorAll(':scope > button'))
     for (let n = 0; n < bttns_array.length; n++) {
         bttns_array[n].addEventListener('click', function(){
-            console.log(n);
-            console.log(this);
             if(input_phonenumber_OCR.value.length < 8){
                 if(n < 9){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${n+1}`; }
                 else if(n === 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + '0'; }
