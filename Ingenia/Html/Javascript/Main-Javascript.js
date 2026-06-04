@@ -1236,7 +1236,7 @@ function animationLoad(n){
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
         console.log(JSON.stringify(usData_ocr));
-        if(!(data.status === 'ok' && n !== 3)){ throw new Error(data.error) }
+        if(!(data.status === 'ok') && n !== 3){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
             ['city', 'state', 'countryregion'], 
