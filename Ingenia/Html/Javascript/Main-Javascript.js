@@ -1290,10 +1290,12 @@ function show_preview(preview, loader){
 
     const con = preview.querySelector('.preview_container');
     const img = preview.querySelector('.dui_img');
+    const img_cntr = img.parentElement;
     const title = preview.querySelector('.scan_title');
     const sub = preview.querySelector('.scan_sub');
     con.classList.add('show');
     img.src = 'Imágenes/comprobar.png';
+    img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(63 167 85 / 54%)'; 
     title.textContent = 'Escaneado exitósamente';
 
     let side;
