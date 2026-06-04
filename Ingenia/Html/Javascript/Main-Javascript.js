@@ -1353,8 +1353,8 @@ function manejarCambio(evento) {
     } else{
         main.style.width = '80%';
         main.style.minWidth = '375px';
-        main.margin = '20px 0 20px 0';
-        main.padding = '30px 0 30px 0';
+        main.style.margin = '20px 0 20px 0';
+        main.style.padding = '30px 0 30px 0';
         inputs_container.style.padding = '0';
         duititle_containers.forEach(con => {
             con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
