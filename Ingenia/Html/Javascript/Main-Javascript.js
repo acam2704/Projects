@@ -301,8 +301,6 @@ if(window_pathname.includes('session-log.html')){
     mediaQuery.addEventListener('change', manejarCambio);
     manejarCambio(mediaQuery);
 
-    
-
     document.addEventListener('DOMContentLoaded', function(){
         dui_information_container.style.display = 'flex';
     });
@@ -329,7 +327,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 1, 'Mejore la foto', containers, loader);
+        validate_dui_info(data, 1, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
         const main_alert = document.getElementById('main_alert');
@@ -356,7 +354,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 2, 'Mejore la foto', containers, loader);
+        validate_dui_info(data, 2, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
         let input_file;
@@ -377,7 +375,7 @@ if(window_pathname.includes('session-log.html')){
 
         // Se validan los datos escaneados/digitados por el usuario
         if(getComputedStyle(dui_information_container).display !== 'none'){
-            validate_dui_info(usData_ocr, 3, 'Faltan escanear datos importantes del DUI.\nAsegurese de haber ingresado ambas caras de su DUI', [dui_information_container], loader);
+            validate_dui_info(usData_ocr, 3, 'Ingenia -Escaneo necesario', [dui_information_container], '');
         }
     });
     const viewer = document.getElementById('img_viewer');
