@@ -1283,8 +1283,8 @@ function dui_card(containers, loader){
     const con = loader.parentElement;
     const img = con.querySelector('.dui_img');
     const img_cntr = img.parentElement;
-    const title = con.querySelector('.scan_title');
-    const sub = con.querySelector('.scan_sub');
+    const title = con.querySelector('.main_duiimg_txt');
+    const sub = con.querySelector('.sub_duiimg_txt');
 
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)';
     img_cntr.style.width = '60px';
@@ -1310,10 +1310,7 @@ function show_preview(preview, loader){
 
     con.classList.add('show');
     img.src = 'Imágenes/comprobar.png';
-    img.style.width = '60px';
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(63 167 85 / 54%)';
-    img_cntr.style.width = '60px';
-    img_cntr.style.height = '60px';
     img_cntr.style.margin = '0';
     title.textContent = 'Escaneado exitósamente';
 
