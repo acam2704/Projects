@@ -617,6 +617,13 @@ label{
     flex-direction: row;
     flex-direction: column;
 }
+#main_alert{
+    font-size: 14px;
+    color: var(--alert-text-);
+    text-align: center;
+    margin-top: 20px;
+    max-width: 500px;
+}
 
 
 @keyframes girar{

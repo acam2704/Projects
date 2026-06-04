@@ -1324,6 +1324,7 @@ function scan_error(preview, loader){
     title.textContent = 'Error al escanear.';
     sub.textContent = 'Intente volver a ingresa la imagen';
     img.src = 'Imágenes/eliminar.png';
+    img.style.width = '60px';
 }
 
 if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
