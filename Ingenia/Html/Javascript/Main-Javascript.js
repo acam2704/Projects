@@ -1264,9 +1264,8 @@ async function validate_dui_info(data, n, msg, containers, loader){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
-        console.log('error');
         if(n !== 3){ dui_card(containers, loader); }
-        else{ console.log('error de siguiente'); hideLoader(); enable_inputs([dui_information_container]); }
+        else{ hideLoader(); enable_inputs([dui_information_container]); }
     }
 }
 
