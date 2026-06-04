@@ -659,13 +659,24 @@ p.show{ display: block; }
     transform: scale(1.03);
 }
 #emailbttn_back{
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
     padding: 0 20px 0 20px;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     gap: 10px;
     border-radius: 10px;
     height: 35px;
+    max-width: 110px;
+    transform: scale(0.9);
+}
+#emailbttn_bacl.show{
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 0.4s ease-out;
 }
 #emailbttn_back img{width: 20px;}
 #emailbttn_back p{ font-size: 13px; }

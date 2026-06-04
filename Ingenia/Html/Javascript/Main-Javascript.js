@@ -408,11 +408,11 @@ if(window_pathname.includes('session-log.html')){
     const bttns_container = document.getElementById('emailBttns_container');
     document.getElementById('typebttn_ocr').addEventListener('click', function(){
         bttns_container.style.display = 'none';
-        email_container.style.display = 'flex';
+        email_container.classList.add('show');
     });
     document.getElementById('emailbttn_back').addEventListener('click', function(){
         bttns_container.style.display = 'flex';
-        email_container.style.display = 'none';
+        email_container.classList.remove('show');
     });
 
     const container1 = document.getElementById('primary_bttns_container');
