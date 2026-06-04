@@ -301,13 +301,26 @@ if(window_pathname.includes('session-log.html')){
     const main = document.getElementsByClassName('content_window')[0];
     const viewer_rbbn = document.getElementById('img_viewer_ribbon');
     const inputs_container = document.getElementById('inputs_container');
+    const duititle_containers = Array.from(document.getElementsByClassName('duititle_container'));
     aside.style.width = '40vw';
     main.style.width = '60vw';
-    main.style.marginTop = '50px';
+    main.style.marginTop = '20px';
     if(window.matchMedia('(min-width: 768px)').matches){
         main.style.minWidth = '600px';
+        duititle_containers.forEach(con => {
+            con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
+                p.classList.add('show');
+            });
+        });
     } else{
+        main.style.width = '80%';
         main.style.minWidth = '375px';
+        inputs_container.style.padding = '0';
+        duititle_containers.forEach(con => {
+            con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
+                p.classList.remove('show');
+            });
+        });
     }
     viewer_rbbn.style.height = '60px';
     viewer_rbbn.style.width = '60px';

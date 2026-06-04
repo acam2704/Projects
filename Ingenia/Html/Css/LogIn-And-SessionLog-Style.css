@@ -437,12 +437,8 @@ label{
     gap: 10px;
 }
 #input_backdui_OCR,
-#input_frontdui_OCR{
-    display: none;
-}
-.icon_bttn{
-    width: 20px;
-}
+#input_frontdui_OCR{ display: none; }
+.icon_bttn{ width: 20px; }
 .bttn_send.dui{
     display: flex;
     justify-content: space-around;
@@ -471,12 +467,9 @@ label{
 }
 .dui_img{ width: 80px; }
 .dui_card > article{ text-align: center; display: flex; flex-direction: column;}
-.main_duiimg_txt{ font-size: 14px;font-weight: bold; text-decoration: underline;}
-.sub_duiimg_txt{ font-size: 14px;color: var(--informative-text-); }
-.duibttns_container{
-    width: 80%;
-    gap: 10px;
-}
+.main_duiimg_txt{ font-size: 14px;font-weight: bold; text-decoration: underline; display: none;}
+.sub_duiimg_txt{ font-size: 14px;color: var(--informative-text-); display: none; }
+.duibttns_container{ width: 80%; gap: 10px; }
 .duibttns_container > button{
     display: flex;
     justify-content: center;
@@ -507,12 +500,8 @@ label{
     transform: scale(1.03);
 }
 .photobttn:active,
-.uploadbttn:active{
-    transform: scale(1);
-}
-.imgbttn{
-    width: 25px;
-}
+.uploadbttn:active{ transform: scale(1); }
+.imgbttn{ width: 25px; }
 #bttn_send_container.ocr{ margin-left: calc(40% - 80px); }
 #bttn_back_container.ocr{ margin-right: calc(40% - 80px); }
 #primary_bttns_container.ocr{ justify-content: space-around; }
@@ -583,15 +572,8 @@ label{
     pointer-events: auto;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
-.scan_title{
-    font-size: 16px;
-    font-weight: bold;
-    color: black;
-}
-.scan_sub{
-    font-size: 14px;
-    color: var(--informative-text-);
-}
+.scan_title{ font-size: 16px; font-weight: bold; color: black; }
+.scan_sub{ font-size: 14px; color: var(--informative-text-); }
 .preview_container{
     width: 200px;
     border-radius: 20px;
@@ -624,6 +606,7 @@ label{
     margin-top: 20px;
     max-width: 500px;
 }
+p.show{ display: block; }
 
 
 @keyframes girar{
