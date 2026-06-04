@@ -304,7 +304,8 @@ if(window_pathname.includes('session-log.html')){
     const duititle_containers = Array.from(document.getElementsByClassName('duititle_container'));
     aside.style.width = '40vw';
     main.style.width = '60vw';
-    main.style.marginTop = '20px';
+    main.margin = '20px 0 20px 0';
+    main.padding = '30px 0 30px 0';
     if(window.matchMedia('(min-width: 768px)').matches){
         main.style.minWidth = '600px';
         duititle_containers.forEach(con => {
