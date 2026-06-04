@@ -297,6 +297,10 @@ if(window_pathname.includes('session-log.html')){
     inputs_container.style.padding = '40px';
 
 } else if(window_pathname.includes('session-log-ocr.html')){
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    mediaQuery.addEventListener('change', manejarCambio);
+    manejarCambio(mediaQuery);
+
     const aside = document.getElementById('aside_background');
     const main = document.getElementsByClassName('content_window')[0];
     const viewer_rbbn = document.getElementById('img_viewer_ribbon');
@@ -1363,6 +1367,10 @@ function show_preview(preview, loader){
     sub.textContent = `Cara ${side} verificada`;
 }
 
-if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
-    
+function manejarCambio(evento) {
+    if (evento.matches) {
+        console.log('Modo escritorio activado');
+    } else {
+        console.log('Modo móvil o tablet activado');
+    }
 }
