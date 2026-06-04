@@ -635,7 +635,7 @@ label{
 }
 
 @media (min-width: 768px){
-    body{overflow-x: hidden; display: flex;}
+    body{overflow-x: hidden; display: flex; justify-content: normal;}
     main.content_window{width: 50%; min-width: 500px;}
     #user_bttn_container {
         flex-direction: row;
