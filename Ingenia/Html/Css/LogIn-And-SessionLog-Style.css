@@ -648,7 +648,12 @@ p.show{ display: block; }
 .duibttns_container.email{ width: 80%; display: flex; flex-direction: column; }
 .duibttns_container.email > button{ width: 100%; }
 #input_phonenumber_OCR{ padding-left: 70px; width: calc(100% - 90px); font-size: 17px; }
-
+.ocrBttns_container{ 
+    display: grid;
+    grid-template-columns: 60px 60px 60px;
+    grid-template-rows: 60px 60px 60px 60px;
+    gap: 10px;
+}
 
 @keyframes girar{
     from {
