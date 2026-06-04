@@ -404,11 +404,15 @@ if(window_pathname.includes('session-log.html')){
             }
         });
     });
+    const email_container = document.getElementById('ocrEmail_container');
+    const bttns_container = document.getElementById('emailBttns_container');
     document.getElementById('typebttn_ocr').addEventListener('click', function(){
-        const email_container = document.getElementById('ocrEmail_container');
-        const bttns_container = document.getElementById('emailBttns_container');
         bttns_container.style.display = 'none';
         email_container.style.display = 'flex';
+    });
+    document.getElementById('emailbttn_back').addEventListener('click', function(){
+        bttns_container.style.display = 'flex';
+        email_container.style.display = 'none';
     });
 
     const container1 = document.getElementById('primary_bttns_container');
