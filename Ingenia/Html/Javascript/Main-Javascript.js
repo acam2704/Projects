@@ -1276,10 +1276,8 @@ function loading_photo(containers, loader){
 function dui_card(containers, loader){
     loader.classList.remove('show');
     const con = loader.parentElement;
-    let img;
-    if(con.id.includes('front')){ img = con.querySelector('.dui_img'); }
-    else if(con.id.includes('back')){ img = con.querySelector('.dui_img'); }
-    const img_cntr = con.querySelector('.backdui_container');
+    const img = con.querySelector('.dui_img');
+    const img_cntr = img.parentElement;
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)'; 
     img.src = 'Imágenes/eliminar.png';
     containers.forEach(con => con.style.display = 'flex');
