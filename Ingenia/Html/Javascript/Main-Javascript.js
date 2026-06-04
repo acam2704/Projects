@@ -419,10 +419,10 @@ if(window_pathname.includes('session-log.html')){
     for (let n = 0; n < bttns_array.length; n++) {
         bttns_array[n].addEventListener('click', function(){
             if(input_phonenumber_OCR.value.length < 8){
-                if(n === 9){ input_phonenumber_OCR.value = input_phonenumber_OCR.value.slice(0, -1); }
-                else if(n < 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${n+1}`; }
+                if(n < 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${n+1}`; }
+                else if(n === 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + '0'; }
             }
-            if(n === 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + '0'; }
+            if(n === 9){ input_phonenumber_OCR.value = input_phonenumber_OCR.value.slice(0, -1); }
         });
     }
     const container1 = document.getElementById('primary_bttns_container');
