@@ -730,6 +730,8 @@ label{
     #file_img_Re{ margin-left: 0; }
     #dui_information_container > section{ flex-direction: row; }
     .file_container{ width: 50%; }
+    .duiimg_container { width: 150px; height: 150px; }
+    .dui_img { width: 100px; }
 }
 
 @media (max-width: 1020px){

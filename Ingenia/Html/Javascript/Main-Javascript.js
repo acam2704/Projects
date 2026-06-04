@@ -297,6 +297,27 @@ if(window_pathname.includes('session-log.html')){
     inputs_container.style.padding = '40px';
 
 } else if(window_pathname.includes('session-log-ocr.html')){
+    const aside = document.getElementById('aside_background');
+    const main = document.getElementsByClassName('content_window')[0];
+    const viewer_rbbn = document.getElementById('img_viewer_ribbon');
+    const inputs_container = document.getElementById('inputs_container');
+    aside.style.width = '40vw';
+    main.style.width = '60vw';
+    main.style.marginTop = '50px';
+    if(window.matchMedia('(min-width: 768px)').matches){
+        main.style.minWidth = '500px';
+    } else{
+        main.style.minWidth = '600px';
+    }
+    viewer_rbbn.style.height = '60px';
+    viewer_rbbn.style.width = '60px';
+    viewer_rbbn.style.gap = '0';
+    viewer_rbbn.style.position = 'absolute';
+    viewer_rbbn.style.borderRadius = '30px';
+    viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
+    viewer_rbbn.style.alignItems = 'center';
+    inputs_container.style.boxShadow = 'none';
+
     document.addEventListener('DOMContentLoaded', function(){
         dui_information_container.style.display = 'flex';
     });
@@ -1290,8 +1311,13 @@ function dui_card(containers, loader){
     const sub = con.querySelector('.sub_duiimg_txt');
 
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)';
-    img_cntr.style.width = '60px';
-    img_cntr.style.height = '60px';
+    if(window.matchMedia('(min-width: 768px)').matches){
+        img_cntr.style.width = '60px';
+        img_cntr.style.height = '60px';
+    } else{
+        img_cntr.style.width = '150px';
+        img_cntr.style.height = '150px';
+    }
     img_cntr.style.overflow = 'hidden'; 
     img_cntr.style.margin = '20px';
     img.src = 'Imágenes/eliminar.png';
@@ -1324,24 +1350,5 @@ function show_preview(preview, loader){
 }
 
 if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
-    const aside = document.getElementById('aside_background');
-    const main = document.getElementsByClassName('content_window')[0];
-    const viewer_rbbn = document.getElementById('img_viewer_ribbon');
-    const inputs_container = document.getElementById('inputs_container');
-    aside.style.width = '40vw';
-    main.style.width = '60vw';
-    main.style.marginTop = '50px';
-    if(window.innerWidth <= 768){
-        main.style.minWidth = '500px';
-    }else{
-        main.style.minWidth = '600px';
-    }
-    viewer_rbbn.style.height = '60px';
-    viewer_rbbn.style.width = '60px';
-    viewer_rbbn.style.gap = '0';
-    viewer_rbbn.style.position = 'absolute';
-    viewer_rbbn.style.borderRadius = '30px';
-    viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
-    viewer_rbbn.style.alignItems = 'center';
-    inputs_container.style.boxShadow = 'none';
+    
 }
