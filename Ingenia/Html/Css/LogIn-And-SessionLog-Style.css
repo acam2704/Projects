@@ -619,7 +619,7 @@ p.show{ display: block; }
 }
 
 @media (min-width: 768px){
-    body{ justify-content: normal; }
+    body{ align-items: normal; }
     main.content_window{width: 50%; min-width: 500px;}
     #user_bttn_container {
         flex-direction: row;
