@@ -481,21 +481,25 @@ label{
     transition: all 0.3s ease;
     gap: 20px;
 }
-.photobttn{
+.photobttn,
+.speechbttn{
     background: linear-gradient(135deg, #6bafff 20%, #3560ff 100%);
     border: none;
     box-shadow: 0px 5px 15px 3px rgba(0,0,0,0.1);
     color: white;
 }
-.photobttn:hover{
+.photobttn:hover,
+.speechbttn:hover{
     box-shadow: 0 5px 10px 2px rgba(45, 102, 167, 0.3);
     transform: scale(1.03);
 }
-.uploadbttn{
+.uploadbttn,
+.typebttn{
     background-color: white;
     border: 2px solid var(--border-input-);
 }
-.uploadbttn:hover{
+.uploadbttn:hover,
+.typebttn:hover{
     border-color: #b5cdf8;
     background-color: #f3f8ff;
     transform: scale(1.03);
@@ -609,11 +613,16 @@ label{
     max-width: 500px;
 }
 p.show{ display: block; }
-#contact_information_container{ flex-direction: row; }
+#contact_information_container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
 #ocrInput_email_container,
 #ocrInput_phonenumber_container{
     height: 400px;
     width: 40%;
+    padding: 20px;
     border-radius: 20px;
     border: 2px solid var(--border-input-);
     background: linear-gradient(135deg, #ffffff 20%, #f6f8ff 100%);
@@ -627,7 +636,13 @@ p.show{ display: block; }
     border-radius: 15px;
     border: 2px solid #e9ebed;
 }
+.input.ocr:hover{
+    border-color: #7aafff;
+}
 .ocrInput_container{ width: 100% }
+.duiimg_container.input_container{ width: 80px; height: 80px; }
+.dui_img.email{ width: 40px; }
+.dui_img.phonenumber{ width: 35px; }
 
 
 @keyframes girar{
