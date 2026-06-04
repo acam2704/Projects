@@ -418,9 +418,11 @@ if(window_pathname.includes('session-log.html')){
     const bttns_array = Array.from(document.getElementById('ocrBttns_container').querySelectorAll(':scope > button'))
     for (let n = 0; n < bttns_array.length; n++) {
         bttns_array[n].addEventListener('click', function(){
-            if(n === 9){ input_phonenumber_OCR.value = input_phonenumber_OCR.value.slice(0, -1); }
-            else if(n === 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + '0'; }
-            else{ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${n+1}`; }
+            if(input_phonenumber_OCR.value.length < 8){
+                if(n === 9){ input_phonenumber_OCR.value = input_phonenumber_OCR.value.slice(0, -1); }
+                else if(n === 10){ input_phonenumber_OCR.value = input_phonenumber_OCR.value + '0'; }
+                else{ input_phonenumber_OCR.value = input_phonenumber_OCR.value + `${n+1}`; }
+            }
         });
     }
     const container1 = document.getElementById('primary_bttns_container');
