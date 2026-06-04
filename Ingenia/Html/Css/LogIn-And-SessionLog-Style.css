@@ -459,8 +459,8 @@ label{
 #file_backdui_OCR{ width: 100%; }
 .duiimg_container{
     display: flex;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50px;
     background: linear-gradient(135deg, #F8FAFC, #e4f0ff);
     justify-content: center;
@@ -622,11 +622,12 @@ p.show{ display: block; }
     flex-direction: column;
     gap: 10px;
 }
-article.input > input{
+.input.ocr{
     height: 40px;
     border-radius: 15px;
     border: 2px solid #e9ebed;
 }
+.ocrInput_container{ width: 100% }
 
 
 @keyframes girar{
@@ -733,7 +734,7 @@ article.input > input{
     #file_img_Re{ margin-left: 0; }
     #dui_information_container > section{ flex-direction: row; }
     .file_container{ width: 50%; }
-    .duiimg_container { width: 150px; height: 150px; }
+    .duiimg_container { width: 100px; height: 100px; }
     .dui_img { width: 80px; }
 }
 
