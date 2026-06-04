@@ -432,7 +432,7 @@ label{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 80%;
     text-align: center;
     gap: 10px;
 }
@@ -729,9 +729,8 @@ label{
     #information_dui_container{ flex-direction: row; }
     #img_cards_container{ max-width: 302px; }
     #file_img_Re{ margin-left: 0; }
-    #dui_information_container > section{
-        flex-direction: row;
-    }
+    #dui_information_container > section{ flex-direction: row; }
+    .file_container{ width: 50%; }
 }
 
 @media (max-width: 1020px){
