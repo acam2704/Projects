@@ -1284,6 +1284,9 @@ function dui_card(containers, loader){
     const sub = con.querySelector('.scan_sub');
 
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)';
+    img_cntr.style.width = '60px';
+    img_cntr.style.height = '60px';
+    img_cntr.style.overflow = 'hidden'; 
     img.src = 'Imágenes/eliminar.png';
     title.textContent = 'Error al escanear.';
     sub.textContent = 'Inténtelo nuevamente';
@@ -1300,7 +1303,9 @@ function show_preview(preview, loader){
 
     con.classList.add('show');
     img.src = 'Imágenes/comprobar.png';
-    img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(63 167 85 / 54%)'; 
+    img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(63 167 85 / 54%)';
+    img_cntr.style.width = '100px';
+    img_cntr.style.height = '100px';
     title.textContent = 'Escaneado exitósamente';
 
     let side;
