@@ -1327,6 +1327,7 @@ if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
     const aside = document.getElementById('aside_background');
     const main = document.getElementsByClassName('content_window')[0];
     const viewer_rbbn = document.getElementById('img_viewer_ribbon');
+    const inputs_container = document.getElementById('inputs_container');
     aside.style.width = '40vw';
     main.style.width = '60vw';
     main.style.marginTop = '50px';
@@ -1342,4 +1343,5 @@ if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
     viewer_rbbn.style.borderRadius = '30px';
     viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
     viewer_rbbn.style.alignItems = 'center';
+    inputs_container.style.boxShadow = 'none';
 }

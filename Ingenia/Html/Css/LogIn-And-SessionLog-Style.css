@@ -30,7 +30,6 @@ main.content_window{width: 60%; min-width: 360px;}
     background-repeat: no-repeat;
     background-size: cover;
     width: 40%;
-    height: 100vh;
 }
 .content_inputs > p.text_title{display: flex; font-size: 20px; justify-content: center;}
 #personal_information_container > p.normal_text{width: 100%; max-width: 302px; text-align: left;}
@@ -127,7 +126,7 @@ body{
     position: relative;
     display: flex;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     align-items: center;
 }
 .content_window{
@@ -455,7 +454,7 @@ label{
     background-color: rgb(0,0,0, 0.5);
     filter: blur(10px);
     width: 100vw;
-    height: 100vh;
+    height: 100%;
 
     display: none;
 }
@@ -656,7 +655,7 @@ label{
     .content_inputs{
         padding: 20px 20px 20px 20px;
         box-shadow: none;
-        height: 100vh;
+        height: 100%;
         border: none;
         display: flex;
         flex-direction: column;
