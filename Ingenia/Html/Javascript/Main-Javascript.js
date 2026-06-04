@@ -1362,6 +1362,7 @@ function manejarCambio(evento) {
             });
         });
     }
+
     viewer_rbbn.style.height = '60px';
     viewer_rbbn.style.width = '60px';
     viewer_rbbn.style.gap = '0';
@@ -1369,5 +1370,4 @@ function manejarCambio(evento) {
     viewer_rbbn.style.borderRadius = '30px';
     viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
     viewer_rbbn.style.alignItems = 'center';
-    inputs_container.style.boxShadow = 'none';
 }
