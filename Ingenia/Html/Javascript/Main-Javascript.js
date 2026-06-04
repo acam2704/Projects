@@ -1308,13 +1308,6 @@ function dui_card(containers, loader){
     const sub = con.querySelector('.sub_duiimg_txt');
 
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)';
-    if(window.matchMedia('(min-width: 768px)').matches){
-        img_cntr.style.width = '60px';
-        img_cntr.style.height = '60px';
-    } else{
-        img_cntr.style.width = '150px';
-        img_cntr.style.height = '150px';
-    }
     img_cntr.style.overflow = 'hidden'; 
     img_cntr.style.margin = '20px';
     img.src = 'Imágenes/eliminar.png';
