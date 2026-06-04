@@ -301,6 +301,8 @@ if(window_pathname.includes('session-log.html')){
         dui_information_container.style.display = 'flex';
     });
     document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
+        const main_alert = document.getElementById('main_alert');
+        hide_and_show([], [main_alert]);
         const loader = document.getElementById('loadfront_dui');
         const containers = Array.from(document.getElementsByClassName('frontdui_container'));
         loading_photo(containers, loader);
@@ -324,6 +326,8 @@ if(window_pathname.includes('session-log.html')){
         validate_dui_info(data, 1, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones', containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
+        const main_alert = document.getElementById('main_alert');
+        hide_and_show([], [main_alert]);
         const loader = document.getElementById('loadback_dui');
         const containers = Array.from(document.getElementsByClassName('backdui_container'));
         loading_photo(containers, loader);
@@ -1306,10 +1310,10 @@ function show_preview(preview, loader){
 
     con.classList.add('show');
     img.src = 'Imágenes/comprobar.png';
-    img.style.width = '80px';
+    img.style.width = '60px';
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(63 167 85 / 54%)';
-    img_cntr.style.width = '100px';
-    img_cntr.style.height = '100px';
+    img_cntr.style.width = '60px';
+    img_cntr.style.height = '60px';
     img_cntr.style.margin = '0';
     title.textContent = 'Escaneado exitósamente';
 
