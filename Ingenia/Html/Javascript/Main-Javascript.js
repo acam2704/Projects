@@ -126,6 +126,7 @@ const map = {
         ]
     }]
 }
+const usData_ocr = {};
 
 const window_pathname = window.location.pathname.toLowerCase();
 if(window_pathname.includes('session-log.html')){
@@ -1232,7 +1233,6 @@ function animationLoad(n){
 }
 
 /* SESSION LOG OCR */
-const usData_ocr = {};
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
         if(!(data.status === 'ok')){ throw new Error(data.error) }
@@ -1245,6 +1245,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
             if(n === (i+1)){
                 const fields = required_fields[i];
                 for(const field of fields){
+                    console.log(data);
                     if(!data[field]){ throw new Error(`Ingenia - ${msg}`); }
                     usData_ocr[field] = data[field];
                 }
