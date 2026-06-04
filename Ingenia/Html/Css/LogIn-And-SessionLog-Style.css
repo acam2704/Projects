@@ -123,6 +123,7 @@ a.bttn_subtitle_text{display: block; margin-top: 15px; transition: all 0.5s ease
 
 /* VENTANA DE REGISTRO DE USUARIO */
 body{
+    overflow-x: hidden;
     position: relative;
     display: flex;
     justify-content: center;
@@ -635,7 +636,7 @@ label{
 }
 
 @media (min-width: 768px){
-    body{overflow-x: hidden; display: flex; justify-content: normal;}
+    body{ justify-content: normal; }
     main.content_window{width: 50%; min-width: 500px;}
     #user_bttn_container {
         flex-direction: row;
