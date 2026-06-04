@@ -1235,7 +1235,7 @@ function animationLoad(n){
 /* SESSION LOG OCR */
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
-        console.log(usData_ocr);
+        console.log(JSON.stringify(usData_ocr));
         if(!(data.status === 'ok' && n !== 3)){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
@@ -1260,9 +1260,9 @@ async function validate_dui_info(data, n, msg, containers, loader){
         }
     } catch(e){
         const alert = document.getElementById('main_alert');
-        for(const key in usData_ocr){ delete usData_ocr[key]; }
+       
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
-        if(n !== 3){ dui_card(containers, loader); }
+        if(n !== 3){ dui_card(containers, loader); for(const key in usData_ocr){ delete usData_ocr[key]; } }
         else{ hideLoader(); enable_inputs([dui_information_container]); }
     }
 }
