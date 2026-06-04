@@ -323,7 +323,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 1, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones', containers, loader);
+        validate_dui_info(data, 1, 'Mejore la foto', containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
         const main_alert = document.getElementById('main_alert');
@@ -350,7 +350,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 2, 'No se logró escanear los campos necesarios. Asegurese de que la foto de su DUI no tenga imperfecciones', containers, loader);
+        validate_dui_info(data, 2, 'Mejore la foto', containers, loader);
     });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
         let input_file;
