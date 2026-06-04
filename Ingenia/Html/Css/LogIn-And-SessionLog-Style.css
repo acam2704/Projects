@@ -623,6 +623,7 @@ p.show{ display: block; }
     border: 2px solid var(--border-input-);
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.07);
     background: linear-gradient(135deg, #ffffff 20%, #f6f8ff 100%);
+    display: flex;
     align-items: center;
     flex-direction: column;
     gap: 10px;
@@ -658,9 +659,17 @@ p.show{ display: block; }
     background-color: #f3f8ff;
     transform: scale(1.03);
 }
-#emailbttn_back{ width: 80px; }
+#emailbttn_back{
+    padding: 0 20px 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    height: 35px;
+}
 #emailbttn_back img{width: 20px;}
-#emailbttn_back p{ font-size: 10px; }
+#emailbttn_back p{ font-size: 13px; }
 
 @keyframes girar{
     from {
