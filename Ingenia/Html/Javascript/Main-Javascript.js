@@ -301,40 +301,7 @@ if(window_pathname.includes('session-log.html')){
     mediaQuery.addEventListener('change', manejarCambio);
     manejarCambio(mediaQuery);
 
-    const aside = document.getElementById('aside_background');
-    const main = document.getElementsByClassName('content_window')[0];
-    const viewer_rbbn = document.getElementById('img_viewer_ribbon');
-    const inputs_container = document.getElementById('inputs_container');
-    const duititle_containers = Array.from(document.getElementsByClassName('duititle_container'));
-    aside.style.width = '40vw';
-    main.style.width = '60vw';
-    main.margin = '20px 0 20px 0';
-    main.padding = '30px 0 30px 0';
-    if(window.matchMedia('(min-width: 768px)').matches){
-        main.style.minWidth = '600px';
-        duititle_containers.forEach(con => {
-            con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
-                p.classList.add('show');
-            });
-        });
-    } else{
-        main.style.width = '80%';
-        main.style.minWidth = '375px';
-        inputs_container.style.padding = '0';
-        duititle_containers.forEach(con => {
-            con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
-                p.classList.remove('show');
-            });
-        });
-    }
-    viewer_rbbn.style.height = '60px';
-    viewer_rbbn.style.width = '60px';
-    viewer_rbbn.style.gap = '0';
-    viewer_rbbn.style.position = 'absolute';
-    viewer_rbbn.style.borderRadius = '30px';
-    viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
-    viewer_rbbn.style.alignItems = 'center';
-    inputs_container.style.boxShadow = 'none';
+    
 
     document.addEventListener('DOMContentLoaded', function(){
         dui_information_container.style.display = 'flex';
@@ -1368,9 +1335,38 @@ function show_preview(preview, loader){
 }
 
 function manejarCambio(evento) {
-    if (evento.matches) {
-        console.log('Modo escritorio activado');
-    } else {
-        console.log('Modo móvil o tablet activado');
+    const aside = document.getElementById('aside_background');
+    const main = document.getElementsByClassName('content_window')[0];
+    const viewer_rbbn = document.getElementById('img_viewer_ribbon');
+    const inputs_container = document.getElementById('inputs_container');
+    const duititle_containers = Array.from(document.getElementsByClassName('duititle_container'));
+    aside.style.width = '40vw';
+    main.style.width = '60vw';
+    main.margin = '20px 0 20px 0';
+    main.padding = '30px 0 30px 0';
+    if(evento.matches){
+        main.style.minWidth = '600px';
+        duititle_containers.forEach(con => {
+            con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
+                p.classList.add('show');
+            });
+        });
+    } else{
+        main.style.width = '80%';
+        main.style.minWidth = '375px';
+        inputs_container.style.padding = '0';
+        duititle_containers.forEach(con => {
+            con.querySelectorAll('.main_duiimg_txt, .sub_duiimg_txt').forEach(p => {
+                p.classList.remove('show');
+            });
+        });
     }
+    viewer_rbbn.style.height = '60px';
+    viewer_rbbn.style.width = '60px';
+    viewer_rbbn.style.gap = '0';
+    viewer_rbbn.style.position = 'absolute';
+    viewer_rbbn.style.borderRadius = '30px';
+    viewer_rbbn.style.backgroundColor = 'rgba(0,0,0,0.3)';
+    viewer_rbbn.style.alignItems = 'center';
+    inputs_container.style.boxShadow = 'none';
 }
