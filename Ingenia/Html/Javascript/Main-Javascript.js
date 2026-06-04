@@ -539,8 +539,8 @@ function enable_inputs(containers){
     // A cada input enviado dentro de la lista 'inputs' se cambia a FALSE la propiedad 'disabled' 
     // Esto permite el ingreso de valores dentro de cada input 
     containers.forEach(container => 
-        container.querySelectorAll(':scope > input').forEach(i => { 
-            i.disabled = false;
+        container.querySelectorAll('input').forEach(i => {
+            if(i.classList.contains('input')){ i.disabled = false; }
         })
     );
 }
@@ -1260,7 +1260,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
         if(n !== 3){ dui_card(containers, loader); }
-        else{ hideLoader() }
+        else{ hideLoader(); enable_inputs(); }
     }
 }
 
