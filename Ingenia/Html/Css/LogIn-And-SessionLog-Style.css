@@ -489,23 +489,22 @@ label{
     color: white;
 }
 .photobttn:hover,
-.speechbttn:hover{
-    box-shadow: 0 5px 10px 2px rgba(45, 102, 167, 0.3);
-    transform: scale(1.03);
-}
+.speechbttn:hover{ box-shadow: 0 5px 10px 2px rgba(45, 102, 167, 0.3); transform: scale(1.03); }
 .uploadbttn,
-.typebttn{
-    background-color: white;
-    border: 2px solid var(--border-input-);
-}
+.typebttn, 
+.ocrBttns_container > button{ background-color: white; border: 2px solid var(--border-input-); }
 .uploadbttn:hover,
-.typebttn:hover{
+.typebttn:hover,
+.ocrBttns_container > button:hover{
     border-color: #b5cdf8;
     background-color: #f3f8ff;
     transform: scale(1.03);
 }
 .photobttn:active,
-.uploadbttn:active{ transform: scale(1); }
+.uploadbttn:active,
+.typebttn:active,
+.speechbttn:active,
+.ocrBttns_container > button:active{ transform: scale(1); }
 .imgbttn{ width: 25px; }
 #bttn_send_container.ocr{ margin-left: calc(40% - 80px); }
 #bttn_back_container.ocr{ margin-right: calc(40% - 80px); }
