@@ -1287,6 +1287,7 @@ function dui_card(containers, loader){
     img_cntr.style.height = '60px';
     img_cntr.style.overflow = 'hidden'; 
     img.src = 'Imágenes/eliminar.png';
+    img.style.with = '60px';
     title.textContent = 'Error al escanear.';
     sub.textContent = 'Inténtelo nuevamente';
 }
@@ -1302,6 +1303,7 @@ function show_preview(preview, loader){
 
     con.classList.add('show');
     img.src = 'Imágenes/comprobar.png';
+    img.style.width = '80px';
     img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(63 167 85 / 54%)';
     img_cntr.style.width = '100px';
     img_cntr.style.height = '100px';
@@ -1311,19 +1313,6 @@ function show_preview(preview, loader){
     if(preview.id.includes('front')){ side = 'frontal'; }
     else if(preview.id.includes('back')){ side = 'trasera'; }
     sub.textContent = `Cara ${side} verificada`;
-}
-function scan_error(preview, loader){
-    const img = preview.querySelector('.check');
-    const title = preview.querySelector('.scan_title');
-    const sub = preview.querySelector('.scan_sub');
-    const con = preview.querySelector('.preview_container');
-
-    preview.classList.add('show');
-    con.classList.remove('show');
-    title.textContent = 'Error al escanear.';
-    sub.textContent = 'Intente volver a ingresa la imagen';
-    img.src = 'Imágenes/eliminar.png';
-    img.style.width = '60px';
 }
 
 if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
