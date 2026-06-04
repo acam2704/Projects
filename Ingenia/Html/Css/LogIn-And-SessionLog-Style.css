@@ -608,6 +608,18 @@ label{
     max-width: 500px;
 }
 p.show{ display: block; }
+#contact_information_container{ flex-direction: row; }
+#ocrInput_email_container{
+    height: 400px;
+    border-radius: 20px;
+    border: 2px solid var(--border-input-);
+    background: linear-gradient(135deg, #ffffff 20%, #f6f8ff 100%);
+}
+article.input > input{
+    height: 40px;
+    border-radius: 15px;
+    border: 2px solid var(--border-input-);
+}
 
 
 @keyframes girar{
