@@ -1226,7 +1226,7 @@ function animationLoad(n){
 
 /* SESSION LOG OCR */
 const usData_ocr = {};
-function validate_dui_info(data, n, msg, containers, loader){
+async function validate_dui_info(data, n, msg, containers, loader){
     try{
         if(!(data.status === 'ok')){ throw new Error(data.error) }
         const required_fields = [
@@ -1234,7 +1234,6 @@ function validate_dui_info(data, n, msg, containers, loader){
             ['city', 'state', 'countryregion'], 
             ['firstname', 'birthdate', 'dui', 'lastname', 'city', 'state', 'countryregion']
         ];
-        console.log(data);
         for (let i = 0; i < 3; i++) {
             if(n === (i+1)){
                 const fields = required_fields[i];
@@ -1246,9 +1245,9 @@ function validate_dui_info(data, n, msg, containers, loader){
             if(n === 3){
                 const container_to_hide = [dui_information_container];
                 show_contactInformationWindow_ocr(container_to_hide);
+                return;
             }
         }
-        console.log(data);
         let preview;
         if(loader.id.includes('loadfront_dui')){ preview = document.getElementById('frontdui_preview'); } 
         else if(loader.id.includes('loadback_dui')){ preview = document.getElementById('backdui_preview'); }
@@ -1257,7 +1256,6 @@ function validate_dui_info(data, n, msg, containers, loader){
         const alert = document.getElementById('main_alert');
         for(const key in usData_ocr){ delete usData_ocr[key]; }
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
-        scan_error(preview, loader);
         dui_card(containers, loader);
     }
 }
@@ -1277,6 +1275,13 @@ function loading_photo(containers, loader){
 }
 function dui_card(containers, loader){
     loader.classList.remove('show');
+    const con = loader.parentElement;
+    let img;
+    if(con.id.includes('front')){ img = con.querySelector('.dui_img'); }
+    else if(con.id.includes('back')){ img = con.querySelector('.dui_img'); }
+    const img_cntr = con.querySelector('.backdui_container');
+    img_cntr.style.boxShadow = '0px 5px 10px 0px rgb(167 63 63 / 54%)'; 
+    img.src = 'url(Imágenes/eliminar.png)';
     containers.forEach(con => con.style.display = 'flex');
 }
 function show_preview(preview, loader){
@@ -1288,7 +1293,7 @@ function show_preview(preview, loader){
     const title = preview.querySelector('.scan_title');
     const sub = preview.querySelector('.scan_sub');
     con.classList.add('show');
-    img.src = 'url(Imágenes/comprobar.png)';
+    img.src = 'Imágenes/comprobar.png';
     title.textContent = 'Escaneado exitósamente';
 
     let side;
@@ -1306,7 +1311,7 @@ function scan_error(preview, loader){
     con.classList.remove('show');
     title.textContent = 'Error al escanear.';
     sub.textContent = 'Intente volver a ingresa la imagen';
-    img.src = 'url(Imágenes/eliminar.png)';
+    img.src = 'Imágenes/eliminar.png';
 }
 
 if(window_pathname.toLowerCase().includes('session-log-ocr.html')){
