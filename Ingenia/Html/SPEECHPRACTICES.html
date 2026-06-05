@@ -13,6 +13,11 @@
     <input type="text" id="input_2">
     <button id="bttn_speech">Hablar</button>
     <script>
+        navigator.mediaDevices.getUserMedia({
+            audio: true
+        })
+        .then(() => console.log('Micrófono OK'))
+        .catch(err => console.log(err));
         const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
         const key = "1YnTlrdYAe9hxElKuQSOw4wKyXwaGSSfT2nMkXaz8T6ntThznofGJQQJ99CEACYeBjFXJ3w3AAAYACOGS6rp";
         const button = document.getElementById('bttn_speech');
@@ -61,14 +66,30 @@
             };
         }
         button.onmousedown = () => {
-            recognizer.startContinuousRecognitionAsync();
-        };
-
-        button.onmouseup = () => {
+            recognizer.recognizing = (s, e) => {
+                console.log('Intermedio:', e.result.text);
+            };
+            recognizer.sessionStarted = () => {
+                console.log('SESSION STARTED');
+            };
             recognizer.stopContinuousRecognitionAsync();
         };
 
-        speechToText()
+        button.onmouseup = () => {
+            recognizer.recognized = (s, e) => {
+                console.log('Final:', e.result.text);
+            };
+            recognizer.sessionStopped = () => {
+                console.log('SESSION STOPPED');
+            };
+            recognizer.stopContinuousRecognitionAsync();
+            recognizer.canceled = (s, e) => {
+                console.log('CANCELLED');
+                console.log(e);
+            };
+        };
+
+        await speechToText()
     </script>
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
 </body>
