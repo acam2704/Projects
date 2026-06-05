@@ -491,7 +491,8 @@ label{
 }
 .photobttn:hover,
 .speechbttn:hover,
-#emailbttn_back:hover{ box-shadow: 0 5px 10px 2px rgba(45, 102, 167, 0.3); transform: scale(1.03); }
+#emailbttn_back:hover,
+#stopRecording:hover{ box-shadow: 0 5px 10px 2px rgba(45, 102, 167, 0.3); transform: scale(1.03); }
 .uploadbttn,
 .typebttn, 
 .ocrBttns_container > button{ background-color: white; border: 2px solid var(--border-input-); border-radius: 10px; }
@@ -660,7 +661,8 @@ p.show{ display: block; }
 .typebttn:active,
 .speechbttn:active,
 .ocrBttns_container > button:active,
-#emailbttn_back:active{ transform: scale(1); }
+#emailbttn_back:active,
+#stopRecording:active{ transform: scale(1); }
 #ocrEmail_container{
     position: absolute;
     visibility: hidden;
