@@ -718,18 +718,19 @@ p.show{ display: block; }
     align-items: center;
 }
 #speechLoading > img{ width: 35px; }
-#opacidad{
-    position: absolute;
-    background: linear-gradient(
-        90deg,
-        rgba(37,99,235,.05) 0%,
-        rgba(37,99,235,.10) 25%,
-        rgba(99,102,241,.35) 50%,
-        rgba(37,99,235,.10) 75%,
-        rgba(37,99,235,.05) 100%
+#opacidad::after{
+    content:'';
+    position:absolute;
+    inset:-50%;
+
+    background:radial-gradient(
+        circle,
+        rgba(99,102,241,.35) 0%,
+        rgba(37,99,235,.15) 40%,
+        transparent 70%
     );
-    background-size: 400% 100%;
-    animation: tide 3s infinite linear;
+
+    animation:wave 4s infinite linear;
 }
 #stopRecording{
     width: 60px;
@@ -738,14 +739,16 @@ p.show{ display: block; }
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
 }
+#stopRecording > img{ width: 25px; }
 
-@keyframes tide{
+@keyframes wave{
     from{
-        background-position: 400% 0;
+        transform:translateX(-70%);
     }
     to{
-        background-position: -400% 0;
+        transform:translateX(70%);
     }
 }
 
