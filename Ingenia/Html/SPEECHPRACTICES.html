@@ -13,11 +13,17 @@
     <input type="text" id="input_2">
     <button id="bttn_speech">Hablar</button>
     <script>
+        function log(msg){
+            document.getElementById('debug').innerHTML += msg + '<br>';
+        }
+
+        log('Micrófono OK');
+
         navigator.mediaDevices.getUserMedia({
             audio: true
         })
-        .then(() => console.log('Micrófono OK'))
-        .catch(err => console.log(err));
+        .then(() => log('Micrófono OK'))
+        .catch(err => log(err));
 
         async function getKey(){
             const response = await fetch('Php/getEnv.php', {
@@ -60,20 +66,20 @@
                 const audio = new Audio(url);
                 audio.play();
             } else {
-                console.log('Ingrese algo en el input');
+                log('Ingrese algo en el input');
             }
         }
 
         recognizer.canceled = (s, e) => {
-            console.log(e);
+            log(e);
         };
 
         recognizer.sessionStarted = () => {
-            console.log('SESSION STARTED');
+            log('SESSION STARTED');
         };
 
         recognizer.sessionStopped = () => {
-            console.log('SESSION STOPPED');
+            log('SESSION STOPPED');
         };
         let recognizer;
         
@@ -81,8 +87,8 @@
             const input_2 = document.getElementById('input_2');
             const token = await fetch("/Php/Speech_to_text.php").then(r => r.text());
 
-            console.log(token.length);
-            console.log(token);
+            log(token.length);
+            log(token);
 
             const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, "eastus");
             speechConfig.speechRecognitionLanguage = "es-ES";
@@ -105,7 +111,7 @@
         }
 
         speechToText().then(() => {
-            console.log('Recognizer listo');
+            log('Recognizer listo');
         });
     </script>
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
