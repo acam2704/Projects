@@ -81,9 +81,11 @@
             recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 
             recognizer.recognized = (s, e) => {
-                log("Texto:" + e.result.text);
+                log(JSON.stringify(e.result));
+                log("Texto: " + e.result.text);
             };
             recognizer.recognizing = (s, e) => {
+                log(JSON.stringify(e.result));
                 log("Intermedio:" + e.result.text);
             };
             button.onclick = () => {
@@ -98,12 +100,7 @@
                     recording = true;
                     log('Grabación iniciada');
                 }else{
-                    navigator.mediaDevices.getUserMedia({
-                        audio: false
-                    })
-                    .then(() => log('Micrófono OK'))
-                    .catch(err => log(err));
-                    
+
                     recognizer.stopContinuousRecognitionAsync();
                     recording = false;
                     log('Grabación detenida');
@@ -114,6 +111,32 @@
         speechToText().then(() => {
             log('Recognizer listo');
         });
+
+        recognizer = new SpeechSDK.SpeechRecognizer(
+            speechConfig,
+            audioConfig
+        );
+
+        recognizer.recognized = (s, e) => {
+            log("Texto: " + e.result.text);
+        };
+
+        recognizer.recognizing = (s, e) => {
+            log("Intermedio: " + e.result.text);
+        };
+
+        recognizer.canceled = (s, e) => {
+            log("CANCELLED");
+            log(JSON.stringify(e));
+        };
+
+        recognizer.sessionStarted = () => {
+            log("SESSION STARTED");
+        };
+
+        recognizer.sessionStopped = () => {
+            log("SESSION STOPPED");
+        };
     </script>
 </body>
 </html>
