@@ -93,10 +93,12 @@
             };
 
             button.onmousedown = () => {
+                log('onmousedown')
                 recognizer.startContinuousRecognitionAsync();
             };
 
             button.onmouseup = () => {
+                log('onmouseup')
                 recognizer.stopContinuousRecognitionAsync();
             };
         }
