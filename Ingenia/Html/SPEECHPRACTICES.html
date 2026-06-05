@@ -88,6 +88,33 @@
                 log(JSON.stringify(e.result));
                 log("Intermedio:" + e.result.text);
             };
+
+            recognizer = new SpeechSDK.SpeechRecognizer(
+                speechConfig,
+                audioConfig
+            );
+
+            recognizer.recognized = (s, e) => {
+                log("Texto: " + e.result.text);
+            };
+
+            recognizer.recognizing = (s, e) => {
+                log("Intermedio: " + e.result.text);
+            };
+
+            recognizer.canceled = (s, e) => {
+                log("CANCELLED");
+                log(JSON.stringify(e));
+            };
+
+            recognizer.sessionStarted = () => {
+                log("SESSION STARTED");
+            };
+
+            recognizer.sessionStopped = () => {
+                log("SESSION STOPPED");
+            };
+
             button.onclick = () => {
                 if(!recording){
                     navigator.mediaDevices.getUserMedia({
@@ -111,32 +138,6 @@
         speechToText().then(() => {
             log('Recognizer listo');
         });
-
-        recognizer = new SpeechSDK.SpeechRecognizer(
-            speechConfig,
-            audioConfig
-        );
-
-        recognizer.recognized = (s, e) => {
-            log("Texto: " + e.result.text);
-        };
-
-        recognizer.recognizing = (s, e) => {
-            log("Intermedio: " + e.result.text);
-        };
-
-        recognizer.canceled = (s, e) => {
-            log("CANCELLED");
-            log(JSON.stringify(e));
-        };
-
-        recognizer.sessionStarted = () => {
-            log("SESSION STARTED");
-        };
-
-        recognizer.sessionStopped = () => {
-            log("SESSION STOPPED");
-        };
     </script>
 </body>
 </html>
