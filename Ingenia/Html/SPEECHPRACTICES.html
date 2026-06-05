@@ -20,19 +20,16 @@
         .then(() => log('Micrófono OK'))
         .catch(err => log(err));
         
-        const stream = navigator.mediaDevices.getUserMedia({
-            audio: true
-        })
-        .then(() => log('Micrófono OK'))
-        .catch(err => log(err));
-        const canvas = document.getElementById('wave');
-        const ctx = canvas.getContext('2d');
+        let stream;
+        async function getStream(){
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const canvas = document.getElementById('wave');
+            const ctx = canvas.getContext('2d');
+        }
 
         canvas.width = 400;
         canvas.height = 100;
-        function log(msg){
-            document.getElementById('debug').innerHTML += msg + '<br>';
-        }
+        function log(msg){ document.getElementById('debug').innerHTML += msg + '<br>'; }
 
         async function getKey(){
             const response = await fetch('Php/getEnv.php', {
