@@ -20,9 +20,11 @@
         .then(() => log('Micrófono OK'))
         .catch(err => log(err));
         
-        const stream = await navigator.mediaDevices.getUserMedia({
+        const stream = navigator.mediaDevices.getUserMedia({
             audio: true
-        });
+        })
+        .then(() => log('Micrófono OK'))
+        .catch(err => log(err));
         const canvas = document.getElementById('wave');
         const ctx = canvas.getContext('2d');
 
