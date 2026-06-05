@@ -19,7 +19,7 @@
         .then(() => console.log('Micrófono OK'))
         .catch(err => console.log(err));
         const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
-        const key = getenv('VoiceFeatures_key1');
+        const key = fetch('Php/getEnv.php', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({env: 'VoiceFeatures_key1'}) });
         const button = document.getElementById('bttn_speech');
 
         async function textToSpeech(texto) {
@@ -89,7 +89,7 @@
             };
         };
 
-        await speechToText()
+        speechToText()
     </script>
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
 </body>

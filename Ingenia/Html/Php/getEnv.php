@@ -10,8 +10,9 @@ try{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $env = $data['env'] ?? null;
         if($env){ echo getenv($env); }
+        else{ throw new Exception('Ingenia -failed'); }
     }
 } catch(Exception $e){
-
+    echo 'failed';
 }
 ?>
