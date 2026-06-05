@@ -694,6 +694,51 @@ p.show{ display: block; }
     border-color: #ff9c9c;
     background-color: #ffeeee;
 }
+#speechWindow_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#speechWindow_container > img{ width: 100px; }
+#speechWindow_container > p{ 
+    font-size: 15px;
+    color: #3baeb5;
+    font-weight: bold; 
+}
+#speechLoading{
+    position: relative;
+    background: linear-gradient(-90deg, #6daaff 30%, #4688ff 100%);
+}
+#speechLoading > img{ width: 35px; }
+#opacidad{
+    position: absolute;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.05) 0%,
+        rgba(255,255,255,0.25) 50%,
+        rgba(255,255,255,0.05) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+}
+#stopRecording{
+    width: 60px;
+    height: 60px;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes shimmer{
+    from{
+        background-position: 200% 0;
+    }
+    to{
+        background-position: -200% 0;
+    }
+}
 
 @keyframes girar{
     from {
