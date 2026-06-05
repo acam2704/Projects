@@ -716,21 +716,16 @@ p.show{ display: block; }
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 #speechLoading > img{ width: 35px; }
 #opacidad::after{
     content: '';
     position: absolute;
     inset: 0;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.15),
-        transparent
-    );
-
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
     animation: tide 2s infinite linear;
+    width: 600px;
 }
 #stopRecording{
     width: 60px;
@@ -744,21 +739,13 @@ p.show{ display: block; }
 #stopRecording > img{ width: 25px; }
 
 @keyframes tide{
-    from{
-        transform: translateX(-100%);
-    }
-    to{
-        transform: translateX(100%);
-    }
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(10%); }
 }
 
 @keyframes girar{
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @media (min-width: 768px){

@@ -12,9 +12,19 @@
     <br>
     <input type="text" id="input_2">
     <button id="bttn_speech">Hablar</button>
+    <canvas id="wave"></canvas>
     <div id="debug"></div>
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
     <script>
+        navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(() => log('Micrófono OK'))
+        .catch(err => log(err));
+                    
+        const canvas = document.getElementById('wave');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = 400;
+        canvas.height = 100;
         function log(msg){
             document.getElementById('debug').innerHTML += msg + '<br>';
         }
@@ -102,10 +112,6 @@
 
             button.onclick = () => {
                 if(!recording){
-                    navigator.mediaDevices.getUserMedia({ audio: true })
-                    .then(() => log('Micrófono OK'))
-                    .catch(err => log(err));
-
                     recognizer.startContinuousRecognitionAsync();
                     recording = true;
                     log('Grabación iniciada');
@@ -120,6 +126,32 @@
         speechToText().then(() => {
             log('Recognizer listo');
         });
+
+        const audioContext = new AudioContext();
+        const source = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
+        source.connect(analyser);
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        function draw(){
+            requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const barWidth = canvas.width / bufferLength;
+            for(let i = 0; i < bufferLength; i++){
+                const height = dataArray[i] / 255 * canvas.height;
+                ctx.fillRect(
+                    i * barWidth,
+                    canvas.height - height,
+                    barWidth - 1,
+                    height
+                );
+            }
+        }
+
+        draw();
     </script>
 </body>
 </html>
