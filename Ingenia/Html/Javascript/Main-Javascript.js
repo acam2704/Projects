@@ -426,6 +426,7 @@ if(window_pathname.includes('session-log.html')){
     }
     const container1 = document.getElementById('primary_bttns_container');
     container1.style.maxWidth = '500px';
+    speechToText().then(() => { console.log('Recognizer listo'); });
 }
 
 // Función que permite simular volver a los campos de ingreso anteriores
@@ -1337,8 +1338,90 @@ function show_preview(preview, loader){
     else if(preview.id.includes('back')){ side = 'trasera'; }
     sub.textContent = `Cara ${side} verificada`;
 }
-function speech_to_text(){
 
+const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
+const button = document.getElementById('bttn_speech');
+async function getKey(){
+    const response = await fetch('Php/getEnv.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            env: 'VoiceFeatures_key1'
+        })
+    });
+
+    return await response.text();
+}
+async function textToSpeech(texto) {
+    const key = await getKey();
+    if (texto.trim().length !== 0 && texto.trim().length > 10){
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Ocp-Apim-Subscription-Key": key,
+                "Content-Type": "application/ssml+xml",
+                "X-Microsoft-OutputFormat": "audio-16khz-32kbitrate-mono-mp3"
+            },
+            body: `
+                <speak version='1.0' xml:lang='es-ES'>
+                    <voice xml:lang='es-ES' name='es-ES-AlvaroNeural'>
+                        ${texto}
+                    </voice>
+                </speak>`
+            });
+
+        const audioBlob = await response.blob();
+        const url = URL.createObjectURL(audioBlob);
+
+        const audio = new Audio(url);
+        audio.play();
+    } else {
+        console.log('Ingrese algo en el input');
+    }
+}
+let recognizer;
+let recording = false;
+async function speechToText() {
+    const input_2 = document.getElementById('input_2');
+    const token = await fetch("Php/Speech_to_text.php").then(r => r.text());
+
+    const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, "eastus");
+    speechConfig.speechRecognitionLanguage = "es-ES";
+
+    const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+    recognizer.recognized = (s, e) => {
+        console.log(JSON.stringify(e.result));
+        console.log("Texto: " + e.result.text);
+    };
+    recognizer.recognizing = (s, e) => {
+        console.log(JSON.stringify(e.result));
+        console.log("Intermedio:" + e.result.text);
+    };
+    recognizer = new SpeechSDK.SpeechRecognizer( speechConfig, audioConfig );
+    recognizer.recognized = (s, e) => { console.log("Texto: " + e.result.text); };
+    recognizer.recognizing = (s, e) => { console.log("Intermedio: " + e.result.text); };
+    recognizer.canceled = (s, e) => { console.log("CANCELLED"); log(JSON.stringify(e)); };
+    recognizer.sessionStarted = () => { console.log("SESSION STARTED"); };
+    recognizer.sessionStopped = () => { console.log("SESSION STOPPED"); };
+
+    button.onclick = () => {
+        if(!recording){
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(() => console.log('Micrófono OK'))
+            .catch(err => console.log(err));
+
+            recognizer.startContinuousRecognitionAsync();
+            recording = true;
+            console.log('Grabación iniciada');
+        }else{
+            recognizer.stopContinuousRecognitionAsync();
+            recording = false;
+            console.log('Grabación detenida');
+        }
+    };
 }
 
 function manejarCambio(evento) {

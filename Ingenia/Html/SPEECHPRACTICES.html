@@ -93,33 +93,16 @@
                 speechConfig,
                 audioConfig
             );
-
-            recognizer.recognized = (s, e) => {
-                log("Texto: " + e.result.text);
-            };
-
-            recognizer.recognizing = (s, e) => {
-                log("Intermedio: " + e.result.text);
-            };
-
-            recognizer.canceled = (s, e) => {
-                log("CANCELLED");
-                log(JSON.stringify(e));
-            };
-
-            recognizer.sessionStarted = () => {
-                log("SESSION STARTED");
-            };
-
-            recognizer.sessionStopped = () => {
-                log("SESSION STOPPED");
-            };
+ 
+            recognizer.recognized = (s, e) => { log("Texto: " + e.result.text); };
+            recognizer.recognizing = (s, e) => { log("Intermedio: " + e.result.text); };
+            recognizer.canceled = (s, e) => { log("CANCELLED"); log(JSON.stringify(e)); };
+            recognizer.sessionStarted = () => { log("SESSION STARTED"); };
+            recognizer.sessionStopped = () => { log("SESSION STOPPED"); };
 
             button.onclick = () => {
                 if(!recording){
-                    navigator.mediaDevices.getUserMedia({
-                        audio: true
-                    })
+                    navigator.mediaDevices.getUserMedia({ audio: true })
                     .then(() => log('Micrófono OK'))
                     .catch(err => log(err));
 
@@ -127,7 +110,6 @@
                     recording = true;
                     log('Grabación iniciada');
                 }else{
-
                     recognizer.stopContinuousRecognitionAsync();
                     recording = false;
                     log('Grabación detenida');
