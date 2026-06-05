@@ -641,9 +641,11 @@ p.show{ display: block; }
 #input_phonenumber_OCR{ padding-left: 70px; width: calc(100% - 94px); font-size: 17px; pointer-events: none; }
 .ocrBttns_container{ 
     display: grid;
-    grid-template-columns: repeat(3, calc( ( 100% - 40px ) / 3 ));
+    grid-template-columns: repeat(3, calc((100% - 40px) / 3));
     gap: 10px;
-    max-width: 250px;
+    width: 100%;
+    max-width: 240px;
+    justify-content: center;
 }
 .ocrBttns_container > button{ border-color: #e9ebed; transition: all 0.3s ease; aspect-ratio: 1 / 1; }
 .uploadbttn:hover,
