@@ -320,7 +320,7 @@ if(window_pathname.includes('session-log.html')){
             }
             reader.readAsDataURL(file); // Lee el archivo como URL de datos
         }
-        const text = document.getElementById('main_alert');
+
         const form = new FormData();
         form.append('file', file);
         const response = await fetch('Php/scan_img.php', {
@@ -328,7 +328,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 1, 'Ingenia -Mejore la foto', containers, loader);
+        validate_dui_info(data, 1, data.error, containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
         const main_alert = document.getElementById('main_alert');
@@ -346,7 +346,6 @@ if(window_pathname.includes('session-log.html')){
             reader.readAsDataURL(file); // Lee el archivo como URL de datos
         }
 
-        const text = document.getElementById('main_alert');
         const form = new FormData();
         form.append('file', file);
 
@@ -355,7 +354,7 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        validate_dui_info(data, 2, 'Ingenia -Mejore la foto', containers, loader);
+        validate_dui_info(data, 2, data.error, containers, loader);
     });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
         let input_file;
