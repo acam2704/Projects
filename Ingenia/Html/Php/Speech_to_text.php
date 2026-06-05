@@ -3,7 +3,7 @@ header('Access-Control-Allow-Methods: OPTIONS, POST, GET');
 header('Access-Control-Allow-Origin: https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net');
 header('Access-Control-Allow-Headers: Content-Type');
     
-$key = getenv("VoiceFeatures_Clave1");
+$key = getenv("VoiceFeatures_key1");
 $region = "eastus";
 $url = "https://$region.api.cognitive.microsoft.com/sts/v1.0/issuetoken";
 $headers = [
