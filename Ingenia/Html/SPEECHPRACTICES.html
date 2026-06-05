@@ -95,9 +95,7 @@
                     .catch(err => log(err));
 
                     recognizer.startContinuousRecognitionAsync();
-
                     recording = true;
-
                     log('Grabación iniciada');
                 }else{
                     navigator.mediaDevices.getUserMedia({
@@ -105,10 +103,9 @@
                     })
                     .then(() => log('Micrófono OK'))
                     .catch(err => log(err));
+                    
                     recognizer.stopContinuousRecognitionAsync();
-
                     recording = false;
-
                     log('Grabación detenida');
                 }
             };
