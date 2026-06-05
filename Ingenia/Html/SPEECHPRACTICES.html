@@ -103,18 +103,6 @@
         speechToText().then(() => {
             log('Recognizer listo');
         });
-
-        recognizer.canceled = (s, e) => {
-            log(e);
-        };
-
-        recognizer.sessionStarted = () => {
-            log('SESSION STARTED');
-        };
-
-        recognizer.sessionStopped = () => {
-            log('SESSION STOPPED');
-        };
     </script>
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
 </body>
