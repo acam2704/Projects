@@ -89,7 +89,10 @@
             recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 
             recognizer.recognized = (s, e) => {
-                input_2.value = "Texto:" + e.result.text;
+                log("Texto:" + e.result.text);
+            };
+            recognizer.recognizing = (s, e) => {
+                log("Intermedio:" + e.result.text);
             };
 
             button.onmousedown = () => {
