@@ -19,14 +19,6 @@
             document.getElementById('debug').innerHTML += msg + '<br>';
         }
 
-        log('Micrófono OK');
-
-        navigator.mediaDevices.getUserMedia({
-            audio: true
-        })
-        .then(() => log('Micrófono OK'))
-        .catch(err => log(err));
-
         async function getKey(){
             const response = await fetch('Php/getEnv.php', {
                 method: 'POST',
@@ -73,7 +65,7 @@
         }
 
         let recognizer;
-        
+        let recording = false;
         async function speechToText() {
             const input_2 = document.getElementById('input_2');
             const token = await fetch("Php/Speech_to_text.php").then(r => r.text());
@@ -94,15 +86,26 @@
             recognizer.recognizing = (s, e) => {
                 log("Intermedio:" + e.result.text);
             };
+            button.onclick = () => {
+                if(!recording){
+                    navigator.mediaDevices.getUserMedia({
+                        audio: true
+                    })
+                    .then(() => log('Micrófono OK'))
+                    .catch(err => log(err));
 
-            button.onmousedown = () => {
-                log('onmousedown')
-                recognizer.startContinuousRecognitionAsync();
-            };
+                    recognizer.startContinuousRecognitionAsync();
 
-            button.onmouseup = () => {
-                log('onmouseup')
-                recognizer.stopContinuousRecognitionAsync();
+                    recording = true;
+
+                    console.log('Grabación iniciada');
+                }else{
+                    recognizer.stopContinuousRecognitionAsync();
+
+                    recording = false;
+
+                    console.log('Grabación detenida');
+                }
             };
         }
 
