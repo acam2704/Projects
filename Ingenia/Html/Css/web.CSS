@@ -38,6 +38,7 @@
       display: flex; align-items: center; gap: 10px;
       font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.25rem;
       color: var(--blue-dark);
+      height: 100%;
     }
     .nav-logo-icon {
       width: 36px; height: 36px; border-radius: 10px;
@@ -440,11 +441,8 @@
       .cta-band { flex-direction: column; text-align: center; padding: 48px 24px; }
     }
 
-    .img1{
-        height: 100%;
-        object-fit: cover;
-        
-       
+    .logocito{
+       height: 100%;
     }
 
   
