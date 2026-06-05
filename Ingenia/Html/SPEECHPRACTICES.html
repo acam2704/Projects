@@ -98,13 +98,18 @@
 
                     recording = true;
 
-                    console.log('Grabación iniciada');
+                    log('Grabación iniciada');
                 }else{
+                    navigator.mediaDevices.getUserMedia({
+                        audio: false
+                    })
+                    .then(() => log('Micrófono OK'))
+                    .catch(err => log(err));
                     recognizer.stopContinuousRecognitionAsync();
 
                     recording = false;
 
-                    console.log('Grabación detenida');
+                    log('Grabación detenida');
                 }
             };
         }
