@@ -719,18 +719,18 @@ p.show{ display: block; }
 }
 #speechLoading > img{ width: 35px; }
 #opacidad::after{
-    content:'';
-    position:absolute;
-    inset:-50%;
+    content: '';
+    position: absolute;
+    inset: 0;
 
-    background:radial-gradient(
-        circle,
-        rgba(99,102,241,.35) 0%,
-        rgba(37,99,235,.15) 40%,
-        transparent 70%
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.15),
+        transparent
     );
 
-    animation:wave 4s infinite linear;
+    animation: tide 2s infinite linear;
 }
 #stopRecording{
     width: 60px;
@@ -743,12 +743,12 @@ p.show{ display: block; }
 }
 #stopRecording > img{ width: 25px; }
 
-@keyframes wave{
+@keyframes tide{
     from{
-        transform:translateX(-70%);
+        transform: translateX(-100%);
     }
     to{
-        transform:translateX(70%);
+        transform: translateX(100%);
     }
 }
 
