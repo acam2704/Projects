@@ -63,6 +63,18 @@
                 console.log('Ingrese algo en el input');
             }
         }
+
+        recognizer.canceled = (s, e) => {
+            console.log(e);
+        };
+
+        recognizer.sessionStarted = () => {
+            console.log('SESSION STARTED');
+        };
+
+        recognizer.sessionStopped = () => {
+            console.log('SESSION STOPPED');
+        };
         let recognizer;
         
         async function speechToText() {
