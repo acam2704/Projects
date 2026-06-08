@@ -424,6 +424,28 @@ if(window_pathname.includes('session-log.html')){
             if(n === 9){ input_phonenumber_OCR.value = input_phonenumber_OCR.value.slice(0, -1); }
         });
     }
+    document.getElementById('speechBttn').addEventListener('click', function(){
+        const speechWindow_container = document.getElementById('speechWindow_container');
+        speechWindow_container.classList.add('show');
+        if(!recording){
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(() => console.log('Micrófono OK'))
+            .catch(err => console.log(err));
+
+            recognizer.startContinuousRecognitionAsync();
+            recording = true;
+            console.log('Grabación iniciada');
+        }
+    });
+    document.getElementById('stopRecording').addEventListener('click', function(){
+        const speechWindow_container = document.getElementById('speechWindow_container');
+        speechWindow_container.classList.remove('show');
+        if(recording){
+            recognizer.stopContinuousRecognitionAsync();
+            recording = false;
+            console.log('Grabación detenida');
+        }
+    });
     const container1 = document.getElementById('primary_bttns_container');
     container1.style.maxWidth = '500px';
     speechToText().then(() => { console.log('Recognizer listo'); });
@@ -1378,27 +1400,11 @@ async function speechToText() {
         console.log("Intermedio:" + e.result.text);
     };
     recognizer = new SpeechSDK.SpeechRecognizer( speechConfig, audioConfig );
-    recognizer.recognized = (s, e) => { transcription.value = e.result.text; };
-    recognizer.recognizing = (s, e) => { transcription.value = e.result.text; };
+    recognizer.recognized = (s, e) => { transcription.textContent = e.result.text; };
+    recognizer.recognizing = (s, e) => { transcription.textContent = e.result.text; };
     recognizer.canceled = (s, e) => { console.log("CANCELLED") };
     recognizer.sessionStarted = () => { console.log("SESSION STARTED"); };
     recognizer.sessionStopped = () => { console.log("SESSION STOPPED"); };
-
-    button.onclick = () => {
-        if(!recording){
-            navigator.mediaDevices.getUserMedia({ audio: true })
-            .then(() => console.log('Micrófono OK'))
-            .catch(err => console.log(err));
-
-            recognizer.startContinuousRecognitionAsync();
-            recording = true;
-            console.log('Grabación iniciada');
-        }else{
-            recognizer.stopContinuousRecognitionAsync();
-            recording = false;
-            console.log('Grabación detenida');
-        }
-    };
 }
 
 speechToText().then(() => {

@@ -737,6 +737,20 @@ p.show{ display: block; }
     border-radius: 20px;
 }
 #stopRecording > img{ width: 25px; }
+#speechWindow_container{ 
+    position: absolute;
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none;
+    transform: scale(0.9);
+}
+#speechWindow_container.show{ 
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
 
 @keyframes tide{
     0% { transform: translateX(-100%); }
