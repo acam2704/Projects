@@ -354,6 +354,8 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
+        const p = document.getElementById('auxilio');
+        p.value = data;
         validate_dui_info(data, 2, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
