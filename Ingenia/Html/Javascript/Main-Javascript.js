@@ -427,7 +427,7 @@ if(window_pathname.includes('session-log.html')){
     document.getElementById('speechBttn').addEventListener('click', function(){
         const speechWindow_container = document.getElementById('speechWindow_container');
         const con = document.getElementById('emailBttns_container');
-        const transcription = document.getElementById('transcription');
+        const transcription = document.getElementById('transcriptedSpeech');
         transcription.style.color = '#374151';
         con.style.display = 'none';
         speechWindow_container.classList.add('show');
