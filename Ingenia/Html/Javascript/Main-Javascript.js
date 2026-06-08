@@ -362,7 +362,7 @@ if(window_pathname.includes('session-log.html')){
         else if(bttn.id.includes('back')){ input_file = document.getElementById('input_backdui_OCR'); }
 
         bttn.addEventListener('click', function(){
-            if(this.classList.contains('photobttn')){ input_file.setAttribute('capture', 'environment'); }
+            if(bttn.classList.contains('photobttn')){ input_file.setAttribute('capture', 'environment'); }
             else{ input_file.removeAttribute('capture'); }
             input_file.value = '';
             input_file.click(); 
@@ -1255,8 +1255,8 @@ function animationLoad(n){
 /* SESSION LOG OCR */
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
-        const p = document.getElementById('auxilio');
-        p.value = JSON.stringify(data);
+        const pa = document.getElementById('auxilio');
+        pa.value = JSON.stringify(data);
         if(!(data.status === 'ok') && n !== 3){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
