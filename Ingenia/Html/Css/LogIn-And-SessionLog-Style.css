@@ -857,6 +857,7 @@ p.show{ display: block; }
     .file_container{ width: 50%; }
     .duiimg_container { width: 100px; height: 100px; }
     .dui_img { width: 80px; }
+    #contact_information_container{ display: flex; }
 }
 
 @media (max-width: 1020px){
@@ -899,4 +900,5 @@ p.show{ display: block; }
         transition: all 0.3s ease;
         margin: 10px 10px 20px 10px;
     }
+    #contact_information_container{ display: block; }
 }
