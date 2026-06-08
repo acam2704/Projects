@@ -153,10 +153,12 @@ try{
     echo json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
-        'ocrData' => $ocrData ?? [],
+        'state' => $state,
+        'countryRegion' => $countryRegion,
+        'city' => $city,
         'curl_error' => curl_error($ch),
         'curl_errno' => curl_errno($ch),
-        'mg' => 'Check "error"',
+        'mg' => 'Check error',
     ]);
     if(isset($ch)){
         curl_close($ch);
