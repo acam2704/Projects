@@ -752,6 +752,7 @@ p.show{ display: block; }
     gap: 10px;
     transition: transform 0.3s ease;
 }
+#transcriptedSpeech{ color: var(--label-text-); font-size: 14px; }
 
 @keyframes tide{
     0% { transform: translateX(-100%); }
