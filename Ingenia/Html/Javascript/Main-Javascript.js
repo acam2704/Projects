@@ -1355,6 +1355,10 @@ async function getKey(){
     return await response.text();
 }
 
+navigator.mediaDevices.getUserMedia({ audio: true })
+.then(() => log('Micrófono OK'))
+.catch(err => log(err));
+
 let recognizer;
 let recording = false;
 async function speechToText() {
@@ -1365,6 +1369,15 @@ async function speechToText() {
     speechConfig.speechRecognitionLanguage = "es-ES";
 
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+    recognizer.recognized = (s, e) => {
+        console.log(JSON.stringify(e.result));
+        console.log("Texto: " + e.result.text);
+    };
+    recognizer.recognizing = (s, e) => {
+        console.log(JSON.stringify(e.result));
+        console.log("Intermedio:" + e.result.text);
+    };
     recognizer = new SpeechSDK.SpeechRecognizer( speechConfig, audioConfig );
     recognizer.recognized = (s, e) => { transcription.value = e.result.text; };
     recognizer.recognizing = (s, e) => { transcription.value = e.result.text; };
@@ -1380,9 +1393,11 @@ async function speechToText() {
 
             recognizer.startContinuousRecognitionAsync();
             recording = true;
+            console.log('Grabación iniciada');
         }else{
             recognizer.stopContinuousRecognitionAsync();
             recording = false;
+            console.log('Grabación detenida');
         }
     };
 }
