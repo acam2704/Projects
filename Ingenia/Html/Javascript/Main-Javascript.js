@@ -1340,7 +1340,7 @@ function show_preview(preview, loader){
 }
 
 const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
-const button = document.getElementById('bttn_speech');
+const button = document.getElementById('speechBttn');
 async function getKey(){
     const response = await fetch('Php/getEnv.php', {
         method: 'POST',
@@ -1354,56 +1354,21 @@ async function getKey(){
 
     return await response.text();
 }
-async function textToSpeech(texto) {
-    const key = await getKey();
-    if (texto.trim().length !== 0 && texto.trim().length > 10){
-        const response = await fetch(endpoint, {
-            method: "POST",
-            headers: {
-                "Ocp-Apim-Subscription-Key": key,
-                "Content-Type": "application/ssml+xml",
-                "X-Microsoft-OutputFormat": "audio-16khz-32kbitrate-mono-mp3"
-            },
-            body: `
-                <speak version='1.0' xml:lang='es-ES'>
-                    <voice xml:lang='es-ES' name='es-ES-AlvaroNeural'>
-                        ${texto}
-                    </voice>
-                </speak>`
-            });
 
-        const audioBlob = await response.blob();
-        const url = URL.createObjectURL(audioBlob);
-
-        const audio = new Audio(url);
-        audio.play();
-    } else {
-        console.log('Ingrese algo en el input');
-    }
-}
 let recognizer;
 let recording = false;
 async function speechToText() {
-    const input_2 = document.getElementById('input_2');
+    const transcription = document.getElementById('transcriptedSpeech');
     const token = await fetch("Php/Speech_to_text.php").then(r => r.text());
 
     const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, "eastus");
     speechConfig.speechRecognitionLanguage = "es-ES";
 
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-    recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-    recognizer.recognized = (s, e) => {
-        console.log(JSON.stringify(e.result));
-        console.log("Texto: " + e.result.text);
-    };
-    recognizer.recognizing = (s, e) => {
-        console.log(JSON.stringify(e.result));
-        console.log("Intermedio:" + e.result.text);
-    };
     recognizer = new SpeechSDK.SpeechRecognizer( speechConfig, audioConfig );
-    recognizer.recognized = (s, e) => { console.log("Texto: " + e.result.text); };
-    recognizer.recognizing = (s, e) => { console.log("Intermedio: " + e.result.text); };
-    recognizer.canceled = (s, e) => { console.log("CANCELLED"); log(JSON.stringify(e)); };
+    recognizer.recognized = (s, e) => { transcription.value = e.result.text; };
+    recognizer.recognizing = (s, e) => { transcription.value = e.result.text; };
+    recognizer.canceled = (s, e) => { console.log("CANCELLED") };
     recognizer.sessionStarted = () => { console.log("SESSION STARTED"); };
     recognizer.sessionStopped = () => { console.log("SESSION STOPPED"); };
 
@@ -1415,14 +1380,16 @@ async function speechToText() {
 
             recognizer.startContinuousRecognitionAsync();
             recording = true;
-            console.log('Grabación iniciada');
         }else{
             recognizer.stopContinuousRecognitionAsync();
             recording = false;
-            console.log('Grabación detenida');
         }
     };
 }
+
+speechToText().then(() => {
+    log('Recognizer listo');
+});
 
 function manejarCambio(evento) {
     const aside = document.getElementById('aside_background');
