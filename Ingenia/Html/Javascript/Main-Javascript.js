@@ -429,6 +429,8 @@ if(window_pathname.includes('session-log.html')){
         const con = document.getElementById('emailBttns_container');
         const transcription = document.getElementById('transcriptedSpeech');
         transcription.style.color = '#374151';
+        transcription.style.fontWeight = 'normal';
+        transcription.textContent = '...';
         con.style.display = 'none';
         speechWindow_container.classList.add('show');
         if(!recording){
@@ -1401,6 +1403,7 @@ async function speechToText() {
         const ocrEmail_container = document.getElementById('ocrEmail_container');
         const input_email = document.getElementById('input_email_OCR');
         transcription.style.color = '#16A34A';
+        transcription.style.fontWeight = 'bold';
         transcription.textContent = e.result.text;
         await(1000);
         speechWindow_container.classList.remove('show');
