@@ -1339,7 +1339,6 @@ function show_preview(preview, loader){
     sub.textContent = `Cara ${side} verificada`;
 }
 
-const endpoint = "https://eastus.tts.speech.microsoft.com/cognitiveservices/v1";
 const button = document.getElementById('speechBttn');
 async function getKey(){
     const response = await fetch('Php/getEnv.php', {
@@ -1356,8 +1355,8 @@ async function getKey(){
 }
 
 navigator.mediaDevices.getUserMedia({ audio: true })
-.then(() => log('Micrófono OK'))
-.catch(err => log(err));
+.then(() => console.log('Micrófono OK'))
+.catch(err => console.log(err));
 
 let recognizer;
 let recording = false;
