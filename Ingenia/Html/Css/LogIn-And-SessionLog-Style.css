@@ -613,7 +613,7 @@ p.show{ display: block; }
 #ocrInput_email_container,
 #ocrInput_phonenumber_container{
     position: relative;
-    height: 500px;
+    height: 700px;
     width: 100%;
     padding: 50px 0 10px 0;
     border-radius: 20px;
@@ -646,7 +646,7 @@ p.show{ display: block; }
     grid-template-columns: repeat(3, calc((100% - 40px) / 3));
     gap: 10px;
     width: 100%;
-    max-width: 240px;
+    max-width: 350px;
     justify-content: center;
 }
 .ocrBttns_container > button{ border-color: #e9ebed; transition: all 0.3s ease; aspect-ratio: 1 / 1; }
@@ -860,6 +860,7 @@ p.show{ display: block; }
     .duiimg_container { width: 100px; height: 100px; }
     .dui_img { width: 80px; }
     #contact_information_container{ flex-direction: row; }
+    .ocrBttns_container{ max-width: 240px; height: 500px; }
 }
 
 @media (max-width: 1020px){
