@@ -427,6 +427,8 @@ if(window_pathname.includes('session-log.html')){
     document.getElementById('speechBttn').addEventListener('click', function(){
         const speechWindow_container = document.getElementById('speechWindow_container');
         const con = document.getElementById('emailBttns_container');
+        const transcription = document.getElementById('transcription');
+        transcription.style.color = '#374151';
         con.style.display = 'none';
         speechWindow_container.classList.add('show');
         if(!recording){
@@ -1397,9 +1399,15 @@ async function speechToText() {
     recognizer.recognized = (s, e) => {
         const speechWindow_container = document.getElementById('speechWindow_container');
         const ocrEmail_container = document.getElementById('ocrEmail_container');
+        const input_email = document.getElementById('input_email_OCR');
+        transcription.style.color = '#16A34A';
+        transcription.textContent = e.result.text;
+        await(1000);
         speechWindow_container.classList.remove('show');
         ocrEmail_container.style.display = 'flex';
-        transcription.textContent = e.result.text; 
+        input_email.value = e.result.text;
+        recognizer.stopContinuousRecognitionAsync();
+        recording = false;
     };
     recognizer.recognizing = (s, e) => { transcription.textContent = e.result.text; };
     recognizer.canceled = (s, e) => { console.log("CANCELLED") };
