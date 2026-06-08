@@ -606,7 +606,7 @@ label{
 p.show{ display: block; }
 #contact_information_container{
     display: none;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
     justify-content: center;
 }
@@ -639,7 +639,7 @@ p.show{ display: block; }
 .dui_img.email{ width: 40px; }
 .dui_img.phonenumber{ width: 35px; }
 .duibttns_container.email{ width: 80%; display: flex; flex-direction: column; }
-.duibttns_container.email > button{ width: 100%; border-radius: 20px; transition: all 0.4s ease; }
+.duibttns_container.email > button{ width: 100%; border-radius: 20px; transition: all 0.4s ease; font-size: 20px; color: var(--label-text-)}
 #input_phonenumber_OCR{ padding-left: 70px; width: calc(100% - 94px); font-size: 17px; pointer-events: none; }
 .ocrBttns_container{ 
     display: grid;
@@ -857,7 +857,7 @@ p.show{ display: block; }
     .file_container{ width: 50%; }
     .duiimg_container { width: 100px; height: 100px; }
     .dui_img { width: 80px; }
-    #contact_information_container{ display: flex; }
+    #contact_information_container{ flex-direction: row; }
 }
 
 @media (max-width: 1020px){
@@ -900,5 +900,4 @@ p.show{ display: block; }
         transition: all 0.3s ease;
         margin: 10px 10px 20px 10px;
     }
-    #contact_information_container{ display: block; }
 }
