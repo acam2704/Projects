@@ -1256,7 +1256,7 @@ function animationLoad(n){
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
         const p = document.getElementById('auxilio');
-        p.value = data;
+        p.value = JSON.stringify(data);
         if(!(data.status === 'ok') && n !== 3){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
