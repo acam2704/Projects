@@ -1402,7 +1402,7 @@ async function speechToText() {
 }
 
 speechToText().then(() => {
-    log('Recognizer listo');
+    console.log('Recognizer listo');
 });
 
 function manejarCambio(evento) {
