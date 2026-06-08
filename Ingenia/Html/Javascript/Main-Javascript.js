@@ -426,6 +426,8 @@ if(window_pathname.includes('session-log.html')){
     }
     document.getElementById('speechBttn').addEventListener('click', function(){
         const speechWindow_container = document.getElementById('speechWindow_container');
+        const con = document.getElementById('emailBttns_container');
+        con.style.display = 'none';
         speechWindow_container.classList.add('show');
         if(!recording){
             navigator.mediaDevices.getUserMedia({ audio: true })
@@ -439,7 +441,9 @@ if(window_pathname.includes('session-log.html')){
     });
     document.getElementById('stopRecording').addEventListener('click', function(){
         const speechWindow_container = document.getElementById('speechWindow_container');
+        const con = document.getElementById('emailBttns_container');
         speechWindow_container.classList.remove('show');
+        con.style.display = 'flex';
         if(recording){
             recognizer.stopContinuousRecognitionAsync();
             recording = false;
