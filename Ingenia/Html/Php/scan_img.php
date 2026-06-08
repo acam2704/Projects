@@ -153,6 +153,7 @@ try{
     echo json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
+        'ocrData' => $ocrData ?? [],
         'state' => $state,
         'countryRegion' => $countryRegion,
         'city' => $city,
