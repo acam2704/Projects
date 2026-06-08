@@ -329,7 +329,7 @@ if(window_pathname.includes('session-log.html')){
         });
         const data = await response.json();
         const p = document.getElementById('auxilio');
-        p.textContent = data;
+        p.textContent = JSON.stringify(data);
         validate_dui_info(data, 1, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
@@ -357,7 +357,7 @@ if(window_pathname.includes('session-log.html')){
         });
         const data = await response.json();
         const p = document.getElementById('auxilio');
-        p.textContent = data;
+        p.textContent = JSON.stringify(data);
         validate_dui_info(data, 2, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
@@ -1259,8 +1259,6 @@ function animationLoad(n){
 /* SESSION LOG OCR */
 async function validate_dui_info(data, n, msg, containers, loader){
     try{
-        const p = document.getElementById('auxilio');
-        p.textContent = data;
         if(!(data.status === 'ok') && n !== 3){ throw new Error(data.error) }
         const required_fields = [
             ['firstname', 'birthdate', 'dui', 'lastname'], 
