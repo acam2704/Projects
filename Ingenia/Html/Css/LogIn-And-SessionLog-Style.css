@@ -749,6 +749,7 @@ p.show{ display: block; }
     visibility: visible;
     pointer-events: all;
     transform: scale(1);
+    gap: 10px;
     transition: transform 0.3s ease;
 }
 
