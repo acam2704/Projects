@@ -436,7 +436,6 @@ if(window_pathname.includes('session-log.html')){
 
             recognizer.startContinuousRecognitionAsync();
             recording = true;
-            console.log('Grabación iniciada');
         }
     });
     document.getElementById('stopRecording').addEventListener('click', function(){
@@ -447,7 +446,6 @@ if(window_pathname.includes('session-log.html')){
         if(recording){
             recognizer.stopContinuousRecognitionAsync();
             recording = false;
-            console.log('Grabación detenida');
         }
     });
     const container1 = document.getElementById('primary_bttns_container');
@@ -1395,16 +1393,14 @@ async function speechToText() {
 
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-    recognizer.recognized = (s, e) => {
-        console.log(JSON.stringify(e.result));
-        console.log("Texto: " + e.result.text);
-    };
-    recognizer.recognizing = (s, e) => {
-        console.log(JSON.stringify(e.result));
-        console.log("Intermedio:" + e.result.text);
-    };
     recognizer = new SpeechSDK.SpeechRecognizer( speechConfig, audioConfig );
-    recognizer.recognized = (s, e) => { transcription.textContent = e.result.text; };
+    recognizer.recognized = (s, e) => {
+        const speechWindow_container = document.getElementById('speechWindow_container');
+        const ocrEmail_container = document.getElementById('ocrEmail_container');
+        speechWindow_container.classList.remove('show');
+        ocrEmail_container.style.display = 'flex';
+        transcription.textContent = e.result.text; 
+    };
     recognizer.recognizing = (s, e) => { transcription.textContent = e.result.text; };
     recognizer.canceled = (s, e) => { console.log("CANCELLED") };
     recognizer.sessionStarted = () => { console.log("SESSION STARTED"); };
