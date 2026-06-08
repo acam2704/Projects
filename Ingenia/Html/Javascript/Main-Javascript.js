@@ -328,8 +328,6 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        const p = document.getElementById('auxilio');
-        p.textContent = JSON.stringify(data);
         validate_dui_info(data, 1, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
@@ -356,9 +354,6 @@ if(window_pathname.includes('session-log.html')){
             body: form
         });
         const data = await response.json();
-        const p = document.getElementById('auxilio');
-        p.textContent = JSON.stringify(data);
-        console.log(data);
         validate_dui_info(data, 2, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.querySelectorAll('.photobttn, .uploadbttn').forEach(bttn => {
