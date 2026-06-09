@@ -1556,11 +1556,6 @@ function manejarCambio(evento) {
     const inputs_container = document.getElementById('inputs_container');
     const duititle_containers = Array.from(document.getElementsByClassName('duititle_container'));
     const primary_bttns_container = document.getElementById('primary_bttns_container');
-    const bttn_send_container = document.getElementById('bttn_send_container');
-    const bttn_back_container = document.getElementById('bttn_back_container');
-
-    bttn_send_container.style.width = '150px';
-    bttn_back_container.style.width = '150px';
 
     primary_bttns_container.style.justifyContent = 'space-between';
     primary_bttns_container.style.width = '100%';

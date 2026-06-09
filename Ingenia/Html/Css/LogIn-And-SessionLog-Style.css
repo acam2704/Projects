@@ -509,7 +509,7 @@ label{
 .imgbttn{ width: 25px; }
 #bttn_send_container.ocr{ margin-left: calc(40% - 80px); }
 #bttn_back_container.ocr{ margin-right: calc(40% - 80px); }
-#primary_bttns_container.ocr{ justify-content: space-around; }
+#primary_bttns_container.ocr{ max-width: none; }
 .dui_card{
     display: flex;
     flex-direction: column;
