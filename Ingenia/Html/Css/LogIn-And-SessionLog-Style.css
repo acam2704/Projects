@@ -330,6 +330,7 @@ label{
     padding: 0;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
 }
 #bttn_send_container{/*float: right; */width: 100px;}
 #bttn_back_container{/*float: left; */width: 100px;}
