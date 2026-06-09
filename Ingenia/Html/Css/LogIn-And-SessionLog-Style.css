@@ -150,17 +150,21 @@ body{
 }
 .signup_section{ transition: all 0.5s ease; display: none; flex-direction: column; }
 .input{
-    display: inline-block;
-    width: calc(100% - 30px);
+    padding: 5px 20px 2px 20px;
     height: 30px;
-    padding: 0px 15px 0px 15px;
-    margin: 0px 0px 20px 0px;
+    border-radius: 15px;
+    border-color: var(--border-input-);
+    width: calc(100% - 40px);
+    max-width: 280px;
+    margin: 0px 0px 10px 0px;
+
+    display: inline-block;
     outline: none;
     background-color: rgba(129, 67, 51, 0);
     border: 1px solid var(--border-input-);
-    border-radius: 15px;
     color: var(--text-into-input-);
     transition: all 0.2s ease;
+    box-shadow: 0px 15px 15px -17px rgba(0, 0, 0, 0.1);
 }
 .input::placeholder{color: var(--placeholder-text-);}
 .input::placeholder.red{color: red;}
@@ -340,8 +344,9 @@ label{
     border-radius: 10px;
     height: 30px;
     width: 100%;
+    background: linear-gradient(135deg, #5490ff, #1850fe);
+    box-shadow: 0px 5px 10px 0px rgb(111 160 228);
     color: var(--button-text-);
-    background-color: var(--background-button-);
     font-size: 15px;
     text-align: center;
     transition: all 0.5s ease;
@@ -350,11 +355,11 @@ label{
     align-items: center;
 }
 .bttn_send:hover{
-    background-color: var(--background-button-hover-);
+    transform: scale(1.05);
     color: var(--button-text-);
     cursor: pointer;
 }
-.bttn_send:active{transform: scale(0.97);}
+.bttn_send:active{transform: scale(1);}
 #bttn_back{background-color: var(--alert-text-);}
 #loader{
     width: 10px;
@@ -833,6 +838,7 @@ p.show{ display: block; }
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 20px;
     }
     .content_window{
         position: relative;
