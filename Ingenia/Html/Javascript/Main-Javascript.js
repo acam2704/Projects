@@ -481,10 +481,10 @@ if(window_pathname.includes('session-log.html')){
 
     input_email.addEventListener('change', async function(){
         if(this.value.slice(-1) === '.'){ this.value = this.value.slice(0,-1); }
-        if(input_phonenumber.value.length !== 8){ allow_passwordWindow_step(this.value, input_phonenumber.value); }
+        if(input_phonenumber.value.length === 8){ allow_passwordWindow_step(this.value, input_phonenumber.value); }
     });
     input_phonenumber.addEventListener('change', function(){
-        if(this.value.length !== 8){ allow_passwordWindow_step(input_email.value, this.value); }
+        if(this.value.length === 8){ allow_passwordWindow_step(input_email.value, this.value); }
     });
 }
 
