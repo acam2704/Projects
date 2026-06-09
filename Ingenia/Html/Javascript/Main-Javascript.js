@@ -479,6 +479,10 @@ if(window_pathname.includes('session-log.html')){
 
     document.getElementById('input_email_OCR').addEventListener('change', async function(){
         if(this.value.slice(-1) === '.'){ this.value = this.value.slice(0,-1); }
+        allow_passwordWindow_step(this, document.getElementById('input_phonenumber_OCR').value);
+    });
+    document.getElementById('input_phonenumber_OCR').addEventListener('click', function(){
+        allow_passwordWindow_step(document.getElementById('input_email_OCR').value, this);
     });
 }
 
@@ -1535,7 +1539,12 @@ async function userOCR_aldRegistered(dataU){
     }
 }
 
-function allow_contactWindow_step(email, phonenumber){
+function allow_contactWindow_step(front, back){
+    const slocr_sendbttn = document.getElementById('slocr_sendbttn');
+    if(front && back){ slocr_sendbttn.classList.add('enable'); }
+}
+
+function allow_passwordWindow_step(email, phonenumber){
     const slocr_sendbttn = document.getElementById('slocr_sendbttn');
     if(email && phonenumber){ slocr_sendbttn.classList.add('enable'); }
 }
