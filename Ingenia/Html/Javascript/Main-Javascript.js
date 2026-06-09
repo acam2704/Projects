@@ -374,6 +374,7 @@ if(window_pathname.includes('session-log.html')){
         });
     });
     document.getElementById('slocr_sendbttn').addEventListener('click', async function(){
+        this.classList.remove('enable');
         disable_all_inputs(); // Se deshabilitan todos los inputs
         animationLoad(1); // Al dar click, se muestra la animación de carga en el botón
         await delay(500); // Se espera medio segundo
@@ -386,6 +387,9 @@ if(window_pathname.includes('session-log.html')){
         }
     });
     document.getElementById('slocr_backbttn').addEventListener('click', function(){
+        const slocr_sendbttn = document.getElementById('slocr_sendbttn');
+        slocr_sendbttn.classList.add('enable');
+
         if(getComputedStyle(dui_information_container).display !== 'none'){
             window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/user.html';
         } else if(getComputedStyle(contact_information_container).display !== 'none'){
