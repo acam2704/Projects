@@ -776,6 +776,7 @@ p.show{ display: block; }
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    width: 150px;
     
     color: #d1d1d1;
     pointer-events: none;
