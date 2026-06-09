@@ -376,6 +376,8 @@ if(window_pathname.includes('session-log.html')){
         // Se validan los datos escaneados/digitados por el usuario
         if(getComputedStyle(dui_information_container).display !== 'none'){
             validate_dui_info(usData_ocr, 3, 'Ingenia -Escaneo necesario', [dui_information_container], '');
+        } else if(getComputedStyle(contact_information_container).display !== 'none'){
+            validate_contact_info();
         }
     });
     const viewer = document.getElementById('img_viewer');
@@ -1421,6 +1423,30 @@ async function speechToText() {
 speechToText().then(() => {
     console.log('Recognizer listo');
 });
+
+function validate_contact_info(){
+    const input_email = document.getElementById('input_email_OCR');
+    const input_phonenumber = document.getElementById('input_phonenumber_OCR');
+    try{
+        if(!input_email.value){ throw new Error('Ingenia -Debe de ingresar su correo electrónico.'); }
+        if(input_email.value.includes(' ')){ throw new Error('Ingenia -El correo electrónico no puede incluir espacios.'); }
+        if(!input_phonenumber.value){ throw new Error('Ingenia -Debe ingresar su número de contacto.'); }
+        if(input_phonenumber.value.includes(' ')){ throw new Error('Ingenia -El número de contacto no debe de contener espacios'); }
+        if(input_phonenumber.value.length != 8){ throw new Error('Ingenia -El número de contacto debe de tener solo 8 dígitos.'); }
+
+        const container_to_hide = [dui_information_container];
+        show_passwordWindow_ocr(container_to_hide);
+    } catch(e){
+        const alert = document.getElementById('main_alert');
+        if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
+        enable_inputs([contact_information_container]);
+        hideLoader();
+    }
+}
+
+function show_passwordWindow_ocr(container_to_hide){
+    hide_and_show([], container_to_hide);
+}
 
 function manejarCambio(evento) {
     const aside = document.getElementById('aside_background');

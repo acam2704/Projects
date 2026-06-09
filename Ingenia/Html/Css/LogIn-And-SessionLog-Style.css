@@ -623,7 +623,7 @@ p.show{ display: block; }
 #ocrInput_email_container,
 #ocrInput_phonenumber_container{
     position: relative;
-    height: 625px;
+    height: 700px;
     width: 100%;
     padding: 50px 0 10px 0;
     border-radius: 20px;
@@ -635,6 +635,7 @@ p.show{ display: block; }
     flex-direction: column;
     gap: 10px;
 }
+#ocrInput_email_container{ height: 250px; }
 .input.ocr{
     border-radius: 20px;
     border: 2px solid #e9ebed;
@@ -871,8 +872,7 @@ p.show{ display: block; }
     .duiimg_container { width: 100px; height: 100px; }
     .dui_img { width: 80px; }
     #contact_information_container{ flex-direction: row; max-width: none; width: 100%; }
-    #ocrInput_email_container{ height: 250px; }
-    #ocrInput_phonenumber_container{ height: 500px; }
+    #ocrInput_phonenumber_container, #ocrInput_email_container{ height: 500px; }
     .ocrBttns_container{ max-width: 240px; height: 300px; width: 100%; }
 }
 
