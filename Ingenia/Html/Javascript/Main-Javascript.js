@@ -307,6 +307,8 @@ if(window_pathname.includes('session-log.html')){
         dui_information_container.style.display = 'flex';
     });
     document.getElementById('input_frontdui_OCR').addEventListener('change', async function(){
+        const slocr_sendbttn = document.getElementById('slocr_sendbttn');
+        slocr_sendbttn.classList.remove('enable');
         const main_alert = document.getElementById('main_alert');
         hide_and_show([], [main_alert]);
         const loader = document.getElementById('loadfront_dui');
@@ -332,6 +334,8 @@ if(window_pathname.includes('session-log.html')){
         validate_dui_info(data, 1, 'Ingenia -Mejore la foto', containers, loader);
     });
     document.getElementById('input_backdui_OCR').addEventListener('change', async function(){
+        const slocr_sendbttn = document.getElementById('slocr_sendbttn');
+        slocr_sendbttn.classList.remove('enable');
         const main_alert = document.getElementById('main_alert');
         hide_and_show([], [main_alert]);
         const loader = document.getElementById('loadback_dui');
@@ -1320,6 +1324,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
             if(loader.id.includes('front')){ preview = document.getElementById('frontdui_preview'); } 
             else if(loader.id.includes('back')){ preview = document.getElementById('backdui_preview'); }
             show_preview(preview, loader);
+            allow_contactWindow_step(document.getElementById('input_email_OCR').value, document.getElementById('input_phonenumber_OCR'));
         }
     } catch(e){
         const alert = document.getElementById('main_alert');
@@ -1511,6 +1516,11 @@ async function userOCR_aldRegistered(dataU){
         hideLoader();
         enable_inputs(contact_information_container);
     }
+}
+
+function allow_contactWindow_step(email, phonenumber){
+    const slocr_sendbttn = document.getElementById('slocr_sendbttn');
+    if(email && phonenumber){ slocr_sendbttn.classList.add('enable'); }
 }
 
 function manejarCambio(evento) {
