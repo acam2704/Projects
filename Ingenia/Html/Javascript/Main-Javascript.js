@@ -1448,7 +1448,8 @@ function validate_contact_info(){
 }
 
 function show_passwordWindow_ocr(container_to_hide){
-    hide_and_show([], container_to_hide);
+    hide_and_show([password_information_container], container_to_hide);
+    hideLoader();
 }
 
 function manejarCambio(evento) {
