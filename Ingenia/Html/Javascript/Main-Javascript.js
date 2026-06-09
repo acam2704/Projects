@@ -385,6 +385,15 @@ if(window_pathname.includes('session-log.html')){
             validate_contact_info();
         }
     });
+    document.getElementById('slocr_backbttn').addEventListener('click', function(){
+        if(getComputedStyle(dui_information_container).display !== 'none'){
+            window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/user.html';
+        } else if(getComputedStyle(contact_information_container).display !== 'none'){
+            hide_and_show([dui_information_container], [contact_information_container]);
+        } else if(getComputedStyle(password_information_container).display !== 'none'){
+            hide_and_show([contact_information_container], [password_information_container]);
+        }
+    });
     const viewer = document.getElementById('img_viewer');
     document.getElementById('imgview_closer').addEventListener('click', () => {
         viewer.style.display = 'none';
