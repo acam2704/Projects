@@ -766,6 +766,34 @@ p.show{ display: block; }
 }
 #transcriptedSpeech{ color: var(--label-text-); font-size: 14px; }
 
+.primaryBttn_ocr{
+    border-radius: 20px;
+    height: 50px;
+    width: 100%;
+    font-size: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    
+    color: #d1d1d1;
+    pointer-events: none;
+    border: 2px solid transparent;
+    background-color: rgb(241 241 241);
+    box-shadow: 0px 15px 15px -7px rgba(0, 0, 0, 0.1);
+}
+.primaryBttn_ocr.enable{
+    color: #ffffff;
+    border-color: transparent;
+    background: linear-gradient(135deg, #5490ff, #1850fe);
+    box-shadow: 0px 5px 10px 0px rgb(111 160 228);
+    border: 1px solid transparent;
+    transition: all 0.5s ease-in-out;
+}
+.primaryBttn_ocr.enable:hover{ transform: scale(1.05); }
+.primaryBttn_ocr.enable:active{ transform: scale(1); }
+
 @keyframes tide{
     0% { transform: translateX(-100%); }
     100% { transform: translateX(10%); }
@@ -876,33 +904,6 @@ p.show{ display: block; }
     .ocrBttns_container{ max-width: 240px; height: 300px; width: 100%; }
     .ocrBttns_container > p{ justify-content: normal; align-items: normal; display: block; }
 }
-.primaryBttn_ocr{
-    border-radius: 20px;
-    height: 50px;
-    width: 100%;
-    font-size: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    
-    color: #d1d1d1;
-    pointer-events: none;
-    border: 2px solid transparent;
-    background-color: rgb(241 241 241);
-    box-shadow: 0px 15px 15px -7px rgba(0, 0, 0, 0.1);
-}
-.primaryBttn_ocr.enable{
-    color: #ffffff;
-    border-color: transparent;
-    background: linear-gradient(135deg, #5490ff, #1850fe);
-    box-shadow: 0px 5px 10px 0px rgb(111 160 228);
-    border: 1px solid transparent;
-    transition: all 0.5s ease-in-out;
-}
-.primaryBttn_ocr.enable:hover{ transform: scale(1.05); }
-.primaryBttn_ocr.enable:active{ transform: scale(1); }
 
 @media (max-width: 1020px){
     .user_bttn_send {
