@@ -458,6 +458,11 @@ if(window_pathname.includes('session-log.html')){
     const container1 = document.getElementById('primary_bttns_container');
     container1.style.maxWidth = '500px';
     speechToText().then(() => { console.log('Recognizer listo'); });
+
+    document.getElementById('input_email_OCR').addEventListener('change', async function(){
+        if(this.slice(-1) === '.'){ this.value = this.value.slice(0,-1); }
+        validate_info();
+    });
 }
 
 // Función que permite simular volver a los campos de ingreso anteriores
@@ -1299,6 +1304,17 @@ async function validate_dui_info(data, n, msg, containers, loader){
         }
         if(n === 3){
             const container_to_hide = [dui_information_container];
+            const dui = usData_ocr['dui'];
+            const response = await fetch('Php/userOCR_alreadyRegistered.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({data: [dui, 'dui']})
+            });
+            const data = await response.json();
+            const status = data.status ?? null;
+            if(!status || status !== 'ok'){ throw new Error(data.error ?? 'Ingenia -Hubo un error. Inténtelo nuevamente.'); }
             show_contactInformationWindow_ocr(container_to_hide);
         } else{
             let preview;
@@ -1310,6 +1326,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
         const alert = document.getElementById('main_alert');
        
         if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
+        else{ show_text_alert([[alert], 'Hubo un error. Recargue la página.']); }
         if(n !== 3){ dui_card(containers, loader); }
         else{ hideLoader(); enable_inputs([dui_information_container]); }
     }
@@ -1450,6 +1467,24 @@ function validate_contact_info(){
 function show_passwordWindow_ocr(container_to_hide){
     hide_and_show([password_information_container], container_to_hide);
     hideLoader();
+}
+
+async function userOCR_aldRegistered(dataU){
+    const alert = document.getElementById('main_alert');
+    try{
+        const json_data = await fetch('Php/user_already_registered.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({data: dataU})
+        });
+        const data = await json_data.json();
+    } catch(e){
+        if(e.message.includes('Ingenia -')){ show_text_alert([[alert], e.message.split('-')[1]]); }
+        hideLoader();
+        enable_inputs(contact_information_container);
+    }
 }
 
 function manejarCambio(evento) {

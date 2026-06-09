@@ -65,7 +65,6 @@ try{
     echo json_encode([
         'status' => 'failed',
         'error' => $e->getMessage(),
-        'msg' => 'check "error"',
     ]);
 }
 ?>
