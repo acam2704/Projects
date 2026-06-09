@@ -1398,14 +1398,14 @@ async function speechToText() {
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
     recognizer = new SpeechSDK.SpeechRecognizer( speechConfig, audioConfig );
-    recognizer.recognized = (s, e) => {
-        const speechWindow_container = document.getElementById('speechWindow_container');
-        const ocrEmail_container = document.getElementById('ocrEmail_container');
-        const input_email = document.getElementById('input_email_OCR');
+    const speechWindow_container = document.getElementById('speechWindow_container');
+    const ocrEmail_container = document.getElementById('ocrEmail_container');
+    const input_email = document.getElementById('input_email_OCR');
+    recognizer.recognized = async (s, e) => {
         transcription.style.color = '#16A34A';
         transcription.style.fontWeight = 'bold';
         transcription.textContent = e.result.text;
-        await(1000);
+        await delay(1000);
         speechWindow_container.classList.remove('show');
         ocrEmail_container.style.display = 'flex';
         input_email.value = e.result.text;
