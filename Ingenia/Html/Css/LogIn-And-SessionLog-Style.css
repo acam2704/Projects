@@ -138,8 +138,17 @@ body{
     margin: 0;
     transition: all 0.5s ease;
 }
-.content_inputs{padding: 40px; border-radius: 10px;box-shadow: 0 10px 25px rgba(0,0,0,0.08); background-color: white; transition: all 0.5s ease;}
-.signup_section{transition: all 0.5s ease; display: none; flex-direction: column;}
+.content_inputs{
+    padding: 40px; 
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+    background-color: white; 
+    transition: all 0.5s ease; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.signup_section{ transition: all 0.5s ease; display: none; flex-direction: column; }
 .input{
     display: inline-block;
     width: calc(100% - 30px);
@@ -609,6 +618,7 @@ p.show{ display: block; }
     flex-direction: column;
     gap: 10px;
     justify-content: center;
+    max-width: 500px;
 }
 #ocrInput_email_container,
 #ocrInput_phonenumber_container{
@@ -859,8 +869,10 @@ p.show{ display: block; }
     .file_container{ width: 50%; }
     .duiimg_container { width: 100px; height: 100px; }
     .dui_img { width: 80px; }
-    #contact_information_container{ flex-direction: row; }
-    .ocrBttns_container{ max-width: 240px; height: 500px; }
+    #contact_information_container{ flex-direction: row; max-width: none; }
+    #ocrInput_phonenumber_container{ height: 500px; }
+    .ocrBttns_container{ max-width: 240px; height: 300px; }
+    .ocrBttns_container > button{ font-size: 25px; }
 }
 
 @media (max-width: 1020px){
