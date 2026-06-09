@@ -901,6 +901,8 @@ p.show{ display: block; }
     border: 1px solid transparent;
     transition: all 0.5s ease-in-out;
 }
+.primaryBttn_ocr.enable:hover{ transform: scale(1.05); }
+.primaryBttn_ocr.enable:active{ transform: scale(1); }
 
 @media (max-width: 1020px){
     .user_bttn_send {
