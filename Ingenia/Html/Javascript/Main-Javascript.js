@@ -20,6 +20,8 @@ const content_check_buttons_with = document.getElementById("content_check_button
 const dui_information_container = document.getElementById('dui_information_container');
 //----- VENTANA DE INFORMACIÓN DE CONTACTO -----//
 const contact_information_container = document.getElementById('contact_information_container');
+//----- VENTANA DE INFORMACIÓN DE CONTRASEÑA -----//
+const password_information_container = document.getElementById('password_information_container');
 
 // Mapeo de los departamentos, municipios y distritos para los select
 const map = {
@@ -127,7 +129,6 @@ const map = {
     }]
 }
 const usData_ocr = {};
-
 const window_pathname = window.location.pathname.toLowerCase();
 if(window_pathname.includes('session-log.html')){
     /* EVENTO DOMCONTENTLOADED --------------------------------------------------------------------------------------------*/
@@ -1435,6 +1436,8 @@ function validate_contact_info(){
         if(input_phonenumber.value.length != 8){ throw new Error('Ingenia -El número de contacto debe de tener solo 8 dígitos.'); }
 
         const container_to_hide = [dui_information_container];
+        usData_ocr['phonenumber'] = input_phonenumber.value;
+        usData_ocr['email'] = input_email.value;
         show_passwordWindow_ocr(container_to_hide);
     } catch(e){
         const alert = document.getElementById('main_alert');
