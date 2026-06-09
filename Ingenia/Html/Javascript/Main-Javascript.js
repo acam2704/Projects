@@ -460,7 +460,7 @@ if(window_pathname.includes('session-log.html')){
     speechToText().then(() => { console.log('Recognizer listo'); });
 
     document.getElementById('input_email_OCR').addEventListener('change', async function(){
-        if(this.slice(-1) === '.'){ this.value = this.value.slice(0,-1); }
+        if(this.value.slice(-1) === '.'){ this.value = this.value.slice(0,-1); }
     });
 }
 
@@ -1491,7 +1491,6 @@ async function validate_contact_info(){
 function show_passwordWindow_ocr(container_to_hide){
     hide_and_show([password_information_container], container_to_hide);
 
-    
     hideLoader();
     enable_inputs([password_information_container]);
 }
