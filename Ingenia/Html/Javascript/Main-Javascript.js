@@ -1407,7 +1407,6 @@ async function speechToText() {
         transcription.textContent = e.result.text;
         await delay(1000);
         speechWindow_container.classList.remove('show');
-        alert(ocrEmail_container.classList);
         ocrEmail_container.classList.add('show');
         input_email.value = e.result.text;
         recognizer.stopContinuousRecognitionAsync();
