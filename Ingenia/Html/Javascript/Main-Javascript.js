@@ -461,7 +461,6 @@ if(window_pathname.includes('session-log.html')){
 
     document.getElementById('input_email_OCR').addEventListener('change', async function(){
         if(this.slice(-1) === '.'){ this.value = this.value.slice(0,-1); }
-        validate_info();
     });
 }
 
@@ -1442,7 +1441,7 @@ speechToText().then(() => {
     console.log('Recognizer listo');
 });
 
-function validate_contact_info(){
+async function validate_contact_info(){
     const input_email = document.getElementById('input_email_OCR');
     const input_phonenumber = document.getElementById('input_phonenumber_OCR');
     try{
@@ -1452,9 +1451,34 @@ function validate_contact_info(){
         if(input_phonenumber.value.includes(' ')){ throw new Error('Ingenia -El número de contacto no debe de contener espacios'); }
         if(input_phonenumber.value.length != 8){ throw new Error('Ingenia -El número de contacto debe de tener solo 8 dígitos.'); }
 
+        const response_ph = await fetch('Php/userOCR_alreadyRegistered.php', {
+            methos: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({data: [ input_phonenumber.value , 'phonenumber']})
+        });
+
+        const data_ph = await response_ph.json();
+        const status_ph = data_ph.status ?? null;
+        if(!status_ph && status_ph !== 'ok'){ throw new Error(`Ingenia -${data_ph.error ?? 'Hubo un error. Inténtelo nuevamente.'}`); }
+
+        const response_email = await fetch('Php/userOCR_alreadyRegistered.php', {
+            methos: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({data: [ input_email.value , 'email']})
+        });
+
+        const data_email = await response_email.json();
+        const status_email = data_email.status ?? null;
+        if(!status_email && status_email !== 'ok'){ throw new Error(`Ingenia -${data_email.error ?? 'Hubo un error. Inténtelo nuevamente.'}`); }
+
         const container_to_hide = [dui_information_container];
         usData_ocr['phonenumber'] = input_phonenumber.value;
         usData_ocr['email'] = input_email.value;
+
         show_passwordWindow_ocr(container_to_hide);
     } catch(e){
         const alert = document.getElementById('main_alert');
@@ -1466,7 +1490,10 @@ function validate_contact_info(){
 
 function show_passwordWindow_ocr(container_to_hide){
     hide_and_show([password_information_container], container_to_hide);
+
+    
     hideLoader();
+    enable_inputs([password_information_container]);
 }
 
 async function userOCR_aldRegistered(dataU){
