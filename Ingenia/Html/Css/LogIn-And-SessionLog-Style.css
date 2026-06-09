@@ -148,7 +148,7 @@ body{
     flex-direction: column;
     align-items: center;
 }
-.signup_section{ transition: all 0.5s ease; display: none; flex-direction: column; }
+.signup_section{ transition: all 0.5s ease; display: none; flex-direction: column; align-items: center; width: 100%; }
 .input{
     padding: 5px 20px 2px 20px;
     height: 30px;
@@ -325,7 +325,9 @@ label{
     height: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;}
+    align-items: center;
+    gap: 10px;
+}
 #primary_bttns_container{
     display: flex;
     width: 100%;
@@ -850,7 +852,6 @@ p.show{ display: block; }
     .signup_section{
         width: 100%;
         margin: 0;
-        align-items: center;
     }
     .user_bttn_send{
         background-size: 200%;
