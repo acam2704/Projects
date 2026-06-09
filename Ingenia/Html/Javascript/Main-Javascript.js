@@ -1549,6 +1549,8 @@ function manejarCambio(evento) {
     const primary_bttns_container = document.getElementById('primary_bttns_container');
 
     primary_bttns_container.style.justifyContent = 'space-between';
+    primary_bttns_container.style.width = '100%';
+    primary_bttns_container.style.maxWidth = 'none';
 
     if(evento.matches){
         aside.style.width = '40vw';
