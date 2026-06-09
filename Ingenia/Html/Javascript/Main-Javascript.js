@@ -1541,6 +1541,9 @@ function manejarCambio(evento) {
     const viewer_rbbn = document.getElementById('img_viewer_ribbon');
     const inputs_container = document.getElementById('inputs_container');
     const duititle_containers = Array.from(document.getElementsByClassName('duititle_container'));
+    const primary_bttns_container = document.getElementById('primary_bttns_container');
+
+    primary_bttns_container.style.justifyContent = 'space-between';
 
     if(evento.matches){
         aside.style.width = '40vw';
