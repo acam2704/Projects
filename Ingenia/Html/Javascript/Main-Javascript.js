@@ -476,13 +476,15 @@ if(window_pathname.includes('session-log.html')){
     const container1 = document.getElementById('primary_bttns_container');
     container1.style.maxWidth = '500px';
     speechToText().then(() => { console.log('Recognizer listo'); });
+    const input_email = document.getElementById('input_email_OCR');
+    const input_phonenumber = document.getElementById('input_phonenumber_OCR');
 
-    document.getElementById('input_email_OCR').addEventListener('change', async function(){
+    input_email.addEventListener('change', async function(){
         if(this.value.slice(-1) === '.'){ this.value = this.value.slice(0,-1); }
-        allow_passwordWindow_step(this, document.getElementById('input_phonenumber_OCR').value);
+        if(input_phonenumber.value.length !== 8){ allow_passwordWindow_step(this.value, input_phonenumber.value); }
     });
-    document.getElementById('input_phonenumber_OCR').addEventListener('click', function(){
-        allow_passwordWindow_step(document.getElementById('input_email_OCR').value, this);
+    input_phonenumber.addEventListener('change', function(){
+        if(this.value.length !== 8){ allow_passwordWindow_step(input_email.value, this.value); }
     });
 }
 
