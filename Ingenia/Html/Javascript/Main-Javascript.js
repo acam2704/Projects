@@ -1335,7 +1335,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
             if(loader.id.includes('front')){ preview = document.getElementById('frontdui_preview'); } 
             else if(loader.id.includes('back')){ preview = document.getElementById('backdui_preview'); }
             show_preview(preview, loader);
-            allow_contactWindow_step(document.getElementById('input_email_OCR').value, document.getElementById('input_phonenumber_OCR'));
+            allow_contactWindow_step(document.getElementById('input_email_OCR').value, document.getElementById('input_phonenumber_OCR').value);
         }
     } catch(e){
         const alert = document.getElementById('main_alert');
