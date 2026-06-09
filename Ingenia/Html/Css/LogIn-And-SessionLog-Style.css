@@ -331,8 +331,8 @@ label{
     align-items: center;
     justify-content: space-between;
 }
-#bttn_send_container{/*float: right; */width: 80px;}
-#bttn_back_container{/*float: left; */width: 80px;}
+#bttn_send_container{/*float: right; */width: 150px;}
+#bttn_back_container{/*float: left; */width: 150px;}
 
 .bttn_send{
     border: 1px solid white;
