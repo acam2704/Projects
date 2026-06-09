@@ -760,6 +760,7 @@ p.show{ display: block; }
     pointer-events: all;
     transform: scale(1);
     gap: 10px;
+    margin-top: 10px;
     transition: transform 0.3s ease;
 }
 #transcriptedSpeech{ color: var(--label-text-); font-size: 14px; }
@@ -869,7 +870,7 @@ p.show{ display: block; }
     .file_container{ width: 50%; }
     .duiimg_container { width: 100px; height: 100px; }
     .dui_img { width: 80px; }
-    #contact_information_container{ flex-direction: row; max-width: none; }
+    #contact_information_container{ flex-direction: row; max-width: none; width: 100%; }
     #ocrInput_phonenumber_container, #ocrInput_email_container{ height: 500px; }
     .ocrBttns_container{ max-width: 240px; height: 300px; }
 }
