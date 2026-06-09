@@ -1302,8 +1302,8 @@ function animationLoad(n){
 
 /* SESSION LOG OCR */
 async function validate_dui_info(data, n, msg, containers, loader){
-    const input =   n === 1 ? document.getElementById('input_frontdui_OCR') : 
-                    n === 2 ? document.getElementById('input_backdui_OCR') : null;
+    const input = n === 1 ? document.getElementById('input_frontdui_OCR') : 
+                  n === 2 ? document.getElementById('input_backdui_OCR') : null;
     try{
         if(!(data.status === 'ok') && n !== 3){ throw new Error(data.error) }
         const required_fields = [
