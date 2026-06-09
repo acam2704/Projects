@@ -655,7 +655,7 @@ p.show{ display: block; }
     display: grid;
     grid-template-columns: repeat(3, calc((100% - 40px) / 3));
     gap: 10px;
-    width: 100%;
+    width: 80%;
     max-width: 350px;
     justify-content: center;
 }
@@ -872,7 +872,7 @@ p.show{ display: block; }
     .dui_img { width: 80px; }
     #contact_information_container{ flex-direction: row; max-width: none; width: 100%; }
     #ocrInput_phonenumber_container, #ocrInput_email_container{ height: 500px; }
-    .ocrBttns_container{ max-width: 240px; height: 300px; }
+    .ocrBttns_container{ max-width: 240px; height: 300px; width: 100%; }
 }
 
 @media (max-width: 1020px){
