@@ -645,7 +645,7 @@ p.show{ display: block; }
 .input.ocr:hover,
 .input.ocr:focus{ border-color: #7aafff; }
 .ocrInput_container{ width: 80%; color: var(--placeholder-text-) }
-.ocrInput_container > p{ position: absolute; margin: 22px; height: 20px; }
+.ocrInput_container > p{ position: absolute; margin: 22px; height: 20px; justify-content: center; align-items: center; display: flex; }
 .duiimg_container.input_container{ width: 80px; height: 80px; }
 .dui_img.email{ width: 40px; }
 .dui_img.phonenumber{ width: 35px; }
@@ -874,6 +874,7 @@ p.show{ display: block; }
     #contact_information_container{ flex-direction: row; max-width: none; width: 100%; }
     #ocrInput_phonenumber_container, #ocrInput_email_container{ height: 500px; }
     .ocrBttns_container{ max-width: 240px; height: 300px; width: 100%; }
+    .ocrBttns_container > p{ justify-content: normal; align-items: normal; display: block; }
 }
 
 @media (max-width: 1020px){
