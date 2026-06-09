@@ -1302,6 +1302,8 @@ function animationLoad(n){
 
 /* SESSION LOG OCR */
 async function validate_dui_info(data, n, msg, containers, loader){
+    const input =   n === 1 ? document.getElementById('input_frontdui_OCR') : 
+                    n === 2 ? document.getElementById('input_backdui_OCR') : null;
     try{
         if(!(data.status === 'ok') && n !== 3){ throw new Error(data.error) }
         const required_fields = [
@@ -1342,6 +1344,7 @@ async function validate_dui_info(data, n, msg, containers, loader){
         else{ show_text_alert([[alert], 'Hubo un error. Recargue la página.']); }
         if(n !== 3){ dui_card(containers, loader); }
         else{ hideLoader(); enable_inputs([dui_information_container]); }
+        if(input){ input.value = ''; }
     }
 }
 
