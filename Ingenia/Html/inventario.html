@@ -3,141 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inventario</title>
+<title>Inventario - Ingenia</title>
 
 <style>
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-  display:flex;
-  background:#f4f6f9;
+    display:flex;
+    background:#f4f6f9;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-  width:250px;
-  background:#0b2c4d;
-  color:white;
-  height:100vh;
-  padding:20px;
-  position:fixed;
+    width:250px;
+    background:#0b2c4d;
+    color:white;
+    height:100vh;
+    padding:20px;
+    position:fixed;
+}
+
+.sidebar h2{
+    margin-bottom:20px;
 }
 
 .menu{
-  list-style:none;
+    list-style:none;
 }
 
 .menu li{
-  padding:12px;
-  margin:10px 0;
-  border-radius:8px;
-  cursor:pointer;
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
 }
 
 .menu li:hover{
-  background:#1e4f7a;
+    background:#1e4f7a;
 }
 
 /* MAIN */
 
 .main{
-  margin-left:250px;
-  padding:20px;
-  width:100%;
+    margin-left:250px;
+    width:100%;
+    padding:25px;
 }
 
-/* FORMULARIO */
+/* BANNER */
+
+.banner{
+    background:linear-gradient(135deg,#0b2c4d,#207bf2);
+    color:white;
+    padding:30px;
+    border-radius:15px;
+    margin-bottom:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.banner h1{
+    margin-bottom:10px;
+}
+
+.banner p{
+    opacity:.9;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.stat-card h2{
+    color:#207bf2;
+    font-size:32px;
+    margin-bottom:5px;
+}
+
+/* SEARCH */
+
+.search{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    outline:none;
+}
+
+/* FORM */
 
 .form-container{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-  margin-top:20px;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    margin-bottom:15px;
+    color:#0b2c4d;
 }
 
 input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
-  outline:none;
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
 }
 
-/* BOTONES */
-
-button{
-  background:#f7894a;
-  color:white;
-  border:none;
-  padding:12px;
-  border-radius:8px;
-  cursor:pointer;
+.add-btn{
+    width:100%;
+    background:#207bf2;
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-button:hover{
-  opacity:0.9;
+.add-btn:hover{
+    background:#1765d1;
 }
 
-/* LISTA INVENTARIO */
+/* INVENTARIO */
 
 .inventory-list{
-  margin-top:20px;
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
 }
 
 .item{
-  background:white;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    border-left:6px solid #207bf2;
+    transition:.3s;
+}
+
+.item:hover{
+    transform:translateY(-5px);
+}
+
+.item-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.item-icon{
+    font-size:30px;
+}
+
+.item h3{
+    color:#0b2c4d;
+}
+
+.item p{
+    color:#666;
+    margin-top:5px;
 }
 
 .delete-btn{
-  background:red;
-  padding:8px 12px;
+    margin-top:15px;
+    width:100%;
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.delete-btn:hover{
+    background:#b82e3a;
 }
 
 /* RESPONSIVE */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
-  .sidebar{
+.sidebar{
     display:none;
-  }
+}
 
-  .main{
+.main{
     margin-left:0;
-  }
+}
 
 }
 
 </style>
 </head>
-
 <body>
 
 <!-- SIDEBAR -->
 
 <div class="sidebar">
 
-  <h2>Ingenia</h2>
+<h2>Ingenia</h2>
 
-  <ul class="menu">
+<ul class="menu">
+<li onclick="window.location.href='inicio mason.html'"> Inicio</li>
+<li> Albañiles</li>
+<li onclick="window.location.href='Mis proyectos mason.html'"> Mis proyectos</li>
+<li onclick="window.location.href='inventario.html'"> Inventario</li>
+<li onclick="window.location.href='ferreterias.html'"> Ferreterías</li>
 
- 
-  </ul>
+</ul>
 
 </div>
 
@@ -145,110 +246,168 @@ button:hover{
 
 <div class="main">
 
-  <h1>Inventario 🧰</h1>
+<div class="banner">
+    <h1>Inventario de Proyecto </h1>
+    <p>Administra materiales y herramientas de forma rápida y organizada.</p>
+</div>
 
-  <!-- BUSCADOR -->
+<div class="stats">
 
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Buscar herramienta o material..."
-  >
+    <div class="stat-card">
+        <h2 id="totalItems">0</h2>
+        <p>Materiales</p>
+    </div>
 
-  <!-- FORMULARIO -->
+    <div class="stat-card">
+        <h2 id="totalCantidad">0</h2>
+        <p>Unidades</p>
+    </div>
 
-  <div class="form-container">
+    <div class="stat-card">
+        <h2>24/7</h2>
+        <p>Control Disponible</p>
+    </div>
 
-    <input
-      type="text"
-      id="nombre"
-      placeholder="Nombre del material o herramienta"
-    >
+</div>
 
-    <input
-      type="number"
-      id="cantidad"
-      placeholder="Cantidad"
-    >
+<input
+type="text"
+id="searchInput"
+class="search"
+placeholder=" Buscar material o herramienta..."
+>
 
-    <button onclick="agregarItem()">
-      Agregar al inventario
-    </button>
+<div class="form-container">
 
-  </div>
+<h2>Agregar nuevo material</h2>
 
-  <!-- LISTA -->
+<input
+type="text"
+id="nombre"
+placeholder="Nombre del material o herramienta"
+>
 
-  <div
-    class="inventory-list"
-    id="inventoryList"
-  ></div>
+<input
+type="number"
+id="cantidad"
+placeholder="Cantidad"
+>
+
+<button class="add-btn" onclick="agregarItem()">
+Agregar al inventario
+</button>
+
+</div>
+
+<div
+class="inventory-list"
+id="inventoryList">
+</div>
 
 </div>
 
 <script>
 
 const inventoryList = document.getElementById("inventoryList");
-const searchInput = document.getElementById("searchInput");
 
-/* AGREGAR ITEMS */
+function actualizarStats(){
 
-function agregarItem(){
+const items=document.querySelectorAll(".item");
 
-  const nombre = document.getElementById("nombre").value.trim();
-  const cantidad = document.getElementById("cantidad").value.trim();
+let totalItems=items.length;
+let totalCantidad=0;
 
-  if(nombre === "" || cantidad === ""){
-    alert("Completa todos los campos");
-    return;
-  }
+items.forEach(item=>{
+totalCantidad += parseInt(item.dataset.cantidad);
+});
 
-  const item = document.createElement("div");
-  item.classList.add("item");
-
-  item.innerHTML = `
-    <div class="info">
-      <h3>${nombre}</h3>
-      <p>Cantidad: ${cantidad}</p>
-    </div>
-
-    <button class="delete-btn">
-      Eliminar
-    </button>
-  `;
-
-  /* BOTON ELIMINAR */
-
-  item.querySelector(".delete-btn").addEventListener("click", () => {
-    item.remove();
-  });
-
-  inventoryList.appendChild(item);
-
-  document.getElementById("nombre").value = "";
-  document.getElementById("cantidad").value = "";
+document.getElementById("totalItems").textContent=totalItems;
+document.getElementById("totalCantidad").textContent=totalCantidad;
 
 }
 
-/* BUSCADOR */
+function obtenerIcono(nombre){
 
-searchInput.addEventListener("input", () => {
+nombre=nombre.toLowerCase();
 
-  const valor = searchInput.value.toLowerCase();
+if(nombre.includes("cemento")) return "";
+if(nombre.includes("martillo")) return "";
+if(nombre.includes("taladro")) return "";
+if(nombre.includes("pintura")) return "";
+if(nombre.includes("cable")) return "";
+if(nombre.includes("tubo")) return "";
 
-  const items = document.querySelectorAll(".item");
+return "";
 
-  items.forEach(item => {
+}
 
-    const texto = item.innerText.toLowerCase();
+function agregarItem(){
 
-    if(texto.includes(valor)){
-      item.style.display = "flex";
-    }else{
-      item.style.display = "none";
-    }
+const nombre=document.getElementById("nombre").value.trim();
+const cantidad=document.getElementById("cantidad").value.trim();
 
-  });
+if(nombre==="" || cantidad===""){
+alert("Completa todos los campos");
+return;
+}
+
+const icono=obtenerIcono(nombre);
+
+const item=document.createElement("div");
+
+item.classList.add("item");
+item.dataset.cantidad=cantidad;
+
+item.innerHTML=`
+
+<div class="item-header">
+<div class="item-icon">${icono}</div>
+<div>
+<h3>${nombre}</h3>
+</div>
+</div>
+
+<p><strong>Cantidad:</strong> ${cantidad}</p>
+
+<button class="delete-btn">
+ Eliminar
+</button>
+
+`;
+
+item.querySelector(".delete-btn").addEventListener("click",()=>{
+
+item.remove();
+actualizarStats();
+
+});
+
+inventoryList.appendChild(item);
+
+document.getElementById("nombre").value="";
+document.getElementById("cantidad").value="";
+
+actualizarStats();
+
+}
+
+document.getElementById("searchInput").addEventListener("input",()=>{
+
+const valor=document.getElementById("searchInput").value.toLowerCase();
+
+const items=document.querySelectorAll(".item");
+
+items.forEach(item=>{
+
+const texto=item.innerText.toLowerCase();
+
+if(texto.includes(valor)){
+item.style.display="block";
+}else{
+item.style.display="none";
+}
+
+});
 
 });
 

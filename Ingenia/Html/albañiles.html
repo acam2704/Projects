@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingenia - Albañiles</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    display:flex;
+    background:#f4f6f9;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:#0b2c4d;
+    color:white;
+    height:100vh;
+    padding:20px;
+    position:fixed;
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+}
+
+.menu{
+    list-style:none;
+}
+
+.menu li{
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu li:hover{
+    background:#1e4f7a;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+    width:100%;
+    padding:20px;
+}
+
+/* BANNER */
+
+.banner{
+    margin-bottom:25px;
+}
+
+.banner img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
+
+/* HEADER */
+
+.header{
+    margin-bottom:20px;
+}
+
+.header h1{
+    color:#0b2c4d;
+}
+
+.header p{
+    color:#666;
+    margin-top:5px;
+}
+
+/* SEARCH */
+
+.search{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    margin-bottom:25px;
+    font-size:16px;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #207bf2;
+    margin-bottom:15px;
+}
+
+.card h3{
+    color:#0b2c4d;
+    margin-bottom:10px;
+}
+
+.card p{
+    margin:6px 0;
+    color:#555;
+}
+
+/* BUTTONS */
+
+.btn{
+    width:100%;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.perfil{
+    background:#207bf2;
+}
+
+.perfil:hover{
+    background:#1767cf;
+}
+
+.contratar{
+    background:#28a745;
+}
+
+.contratar:hover{
+    background:#208537;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:700px){
+
+.sidebar{
+    display:none;
+}
+
+.main{
+    margin-left:0;
+}
+
+.banner img{
+    height:180px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <h2>Ingenia</h2>
+
+    <ul class="menu">
+        <li onclick="window.location.href='inicio mason.html'"> Inicio</li>
+        <li> Albañiles</li>
+        <li onclick="window.location.href='Mis proyectos mason.html'"> Mis proyectos</li>
+        <li onclick="window.location.href='inventario.html'"> Inventario</li>
+        <li onclick="window.location.href='ferreterias.html'"> Ferreterías</li>
+        <li> Mi perfil</li>
+    </ul>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- BANNER -->
+
+    <div class="banner">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600&auto=format&fit=crop" alt="Construcción">
+    </div>
+
+    <!-- TITULO -->
+
+    <div class="header">
+        <h1>Encuentra al albañil ideal 👷</h1>
+        <p>Profesionales verificados para ayudarte en tu proyecto.</p>
+    </div>
+
+    <!-- BUSCADOR -->
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search"
+        placeholder="Buscar albañiles por nombre o especialidad..."
+    >
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg">
+            <h3>José Martínez</h3>
+            <p> 4.8 (125 reseñas)</p>
+            <p> Construcción y acabados</p>
+            <p> 8 años de experiencia</p>
+            <p> San Salvador</p>
+
+            <button class="btn perfil">Ver perfil</button>
+            <button class="btn contratar">Contratar</button>
+        </div>
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/55.jpg">
+            <h3>Luis Ramírez</h3>
+            <p> 4.7 (98 reseñas)</p>
+            <p> Pintura y acabados</p>
+            <p> 6 años de experiencia</p>
+            <p> Santa Tecla</p>
+
+            <button class="btn perfil">Ver perfil</button>
+            <button class="btn contratar">Contratar</button>
+        </div>
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/74.jpg">
+            <h3>Miguel Ángel</h3>
+            <p> 4.9 (203 reseñas)</p>
+            <p> Electricidad y construcción</p>
+            <p> 12 años de experiencia</p>
+            <p> Soyapango</p>
+
+            <button class="btn perfil">Ver perfil</button>
+            <button class="btn contratar">Contratar</button>
+        </div>
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/43.jpg">
+            <h3>Mario López</h3>
+            <p> 4.7 (87 reseñas)</p>
+            <p> Remodelaciones</p>
+            <p> 7 años de experiencia</p>
+            <p> Apopa</p>
+
+            <button class="btn perfil">Ver perfil</button>
+            <button class="btn contratar">Contratar</button>
+        </div>
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/29.jpg">
+            <h3>Juan Pérez</h3>
+            <p> 4.6 (75 reseñas)</p>
+            <p> Bloque y cemento</p>
+            <p> 5 años de experiencia</p>
+            <p> Mejicanos</p>
+
+            <button class="btn perfil">Ver perfil</button>
+            <button class="btn contratar">Contratar</button>
+        </div>
+
+        <div class="card">
+            <img src="https://randomuser.me/api/portraits/men/68.jpg">
+            <h3>Carlos Gómez</h3>
+            <p> 5.0 (250 reseñas)</p>
+            <p> Techos y pisos</p>
+            <p> 15 años de experiencia</p>
+            <p> Santa Ana</p>
+
+            <button class="btn perfil">Ver perfil</button>
+            <button class="btn contratar">Contratar</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const searchInput = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".card");
+
+searchInput.addEventListener("keyup", () => {
+
+    const valor = searchInput.value.toLowerCase();
+
+    cards.forEach(card => {
+
+        const texto = card.innerText.toLowerCase();
+
+        if(texto.includes(valor)){
+            card.style.display = "block";
+        }else{
+            card.style.display = "none";
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
