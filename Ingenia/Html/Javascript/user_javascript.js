@@ -2,7 +2,7 @@ document.getElementById('user_backbttn').addEventListener('click', () => {
     let user_data = localStorage.getItem('user');
     if(!user_data){
         let json = {rol: 'client'};
-        localStorage.setItem('user', JSON.stringify());
+        localStorage.setItem('user', JSON.stringify(json));
     }
     else{user_data['rol'] = 'client';}
     localStorage.setItem('user', JSON.stringify(user_data));
