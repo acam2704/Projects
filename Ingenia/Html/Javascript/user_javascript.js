@@ -15,7 +15,7 @@ document.getElementById('construction_worker_bttn').addEventListener('click', ()
         let json = {rol: 'construction_worker'};
         localStorage.setItem('user', JSON.stringify(json));
     }
-    else{user_data['rol'] = 'client';}
+    else{user_data['rol'] = 'construction_worker';}
     localStorage.setItem('user', JSON.stringify(user_data));
 
     window.location.href = 'https://ingenia-a6dkhcarh6e3b0ak.mexicocentral-01.azurewebsites.net/Ingenia/Html/web.html';
