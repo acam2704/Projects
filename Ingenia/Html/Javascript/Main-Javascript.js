@@ -769,7 +769,7 @@ function email_registered(response, elements_to_hide, param){
     try{
         response[0] = JSON.parse(response[0]);
         if(response[0].status === 'ok'){
-            if(param){ code_already_typed(elements_to_hide); return; }
+            if(param){ show_identity_information_window(elements_to_hide); return; }
             else{ collect_user_data(); return; }
         }
         if(response[0].error){ throw new Error(response[0].error)} 
